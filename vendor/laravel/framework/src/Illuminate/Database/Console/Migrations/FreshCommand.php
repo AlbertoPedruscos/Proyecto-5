@@ -62,18 +62,20 @@ class FreshCommand extends Command
 
         $database = $this->input->getOption('database');
 
-        $this->migrator->usingConnection($database, function () use ($database) {
-            if ($this->migrator->repositoryExists()) {
-                $this->newLine();
+        if (! is_null($database)) {
+            $this->migrator->setConnection($database);
+        }
 
-                $this->components->task('Dropping all tables', fn () => $this->callSilent('db:wipe', array_filter([
-                    '--database' => $database,
-                    '--drop-views' => $this->option('drop-views'),
-                    '--drop-types' => $this->option('drop-types'),
-                    '--force' => true,
-                ])) == 0);
-            }
-        });
+        if ($this->migrator->repositoryExists()) {
+            $this->newLine();
+
+            $this->components->task('Dropping all tables', fn () => $this->callSilent('db:wipe', array_filter([
+                '--database' => $database,
+                '--drop-views' => $this->option('drop-views'),
+                '--drop-types' => $this->option('drop-types'),
+                '--force' => true,
+            ])) == 0);
+        }
 
         $this->newLine();
 
