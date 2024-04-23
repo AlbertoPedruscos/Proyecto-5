@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_empresas', function (Blueprint $table) {
+        Schema::create('tbl_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 45)->nullable();
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('email');
+            $table->enum('rol', ['admin', 'trabajador', 'cliente']);
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_empresas');
+        Schema::dropIfExists('tbl_usuarios');
     }
 };
