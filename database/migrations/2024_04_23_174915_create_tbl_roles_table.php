@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_usuarios', function (Blueprint $table) {
+        Schema::create('tbl_roles', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('email');
-            $table->enum('rol', ['admin', 'trabajador', 'cliente']);
-            $table->string('password');
+            $table->string('nombre', 45)->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_usuarios');
+        Schema::dropIfExists('tbl_toles');
     }
 };
