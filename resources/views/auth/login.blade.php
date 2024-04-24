@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
-    <!-- icono -->
+    <!-- Icono -->
     <link rel="icon" href="{{ asset('img/logo.png') }}">
 </head>
 
@@ -37,27 +37,23 @@
                 <!-- Campo de correo electrónico -->
                 <div class="form-group">
                     <label for="email">Correo electrónico:</label>
-                    <input type="email" name="email" id="email" class="form-control"
-                        placeholder="Ingresa tu email">
-                    {{-- mensaje de error --}}
-                    @error('email')
-                        <p class="invalid-feedback">{{ $message }}</p>
-                    @enderror
+                    <input type="email" name="email" id="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
                 </div>
+
                 <!-- Campo de contraseña -->
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
                     <div class="input-group">
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Ingresa tu contraseña">
+                        <input type="password" name="password" id="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            placeholder="Ingresa tu contraseña" value="{{ old('password') }}">
                         <button type="button" id="password-toggle-btn" class="btn btn-outline-secondary"
                             onclick="togglePasswordVisibility()">
                             <i class="far fa-eye"></i>
                         </button>
                     </div>
-                    @error('password')
-                        <p class="invalid-feedback">{{ $message }}</p>
-                    @enderror
                 </div>
                 <!-- Botón de enviar -->
                 <button id="btn-enviar" class="btn btn-primary w-100">Iniciar sesión</button>
