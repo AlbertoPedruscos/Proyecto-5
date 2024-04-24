@@ -14,10 +14,18 @@ class tbl_parking extends Seeder
     public function run(): void
     {
         DB::table('tbl_parking')->insert([
-            'nombre' => 'A1',
+            'nombre' => 'Canserra',
             'latitud' => '4555',
             'longitud' => '4555',
             'id_empresa' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('tbl_parking')->insert([
+            'nombre' => 'Platos',
+            'latitud' => '4555',
+            'longitud' => '4555',
+            'id_empresa' => 2,
             'created_at' => now(),
             'updated_at' => now()
         ]);

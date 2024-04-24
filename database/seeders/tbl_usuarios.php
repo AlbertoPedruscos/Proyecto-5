@@ -23,5 +23,35 @@ class tbl_usuarios extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        DB::table('tbl_usuarios')->insert([
+            'nombre' => 'Iker',
+            'apellidos' => 'Catala',
+            'email' => 'iker@gmail.com',
+            'contrasena' => 'asdASD123',
+            'id_rol' => 1,
+            'id_empresa' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('tbl_usuarios')->insert([
+            'nombre' => 'Alberto',
+            'apellidos' => 'Bermejo',
+            'email' => 'alberto@gmail.com',
+            'contrasena' => 'asdASD123',
+            'id_rol' => 1,
+            'id_empresa' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('tbl_usuarios')->insert([
+            'nombre' => 'Oscar',
+            'apellidos' => 'Lopez',
+            'email' => 'oscar@gmail.com',
+            'contrasena' => 'asdASD123',
+            'id_rol' => 1,
+            'id_empresa' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

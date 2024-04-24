@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(tbl_usuarios::class);
         $this->call(tbl_parking::class);
         $this->call(tbl_plazas::class);
+        $this->call(tbl_reservas::class);
     }
 }
