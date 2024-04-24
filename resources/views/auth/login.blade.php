@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | MyControlPark</title>
-    {{-- Fontawesome --}}
+    <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/8e6d3dccce.js" crossorigin="anonymous"></script>
-    {{-- Bootstrap --}}
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- CSS --}}
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
-     {{-- icono --}}
+    <!-- icono -->
     <link rel="icon" href="{{ asset('img/logo.png') }}">
 </head>
 
@@ -21,9 +21,9 @@
             <img src="{{ asset('img/logo.png') }}" id="logo" alt="Logo">
         </div>
         <div id="cont-form" class="column-2">
-            <form class="login-form">
+            <form class="login-form" method="POST" action="{{ route('login.post') }}">
                 @csrf
-                
+
                 <!-- Manejo de errores y éxito -->
                 @if (session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
@@ -33,12 +33,16 @@
                 @endif
 
                 <h2 class="mb-4 text-center">Inicio de sesión</h2>
-                
+
                 <!-- Campo de correo electrónico -->
                 <div class="form-group">
                     <label for="email">Correo electrónico:</label>
                     <input type="email" name="email" id="email" class="form-control"
                         placeholder="Ingresa tu email">
+                    {{-- mensaje de error --}}
+                    @error('email')
+                        <p class="invalid-feedback">{{ $message }}</p>
+                    @enderror
                 </div>
                 <!-- Campo de contraseña -->
                 <div class="form-group">
@@ -51,6 +55,9 @@
                             <i class="far fa-eye"></i>
                         </button>
                     </div>
+                    @error('password')
+                        <p class="invalid-feedback">{{ $message }}</p>
+                    @enderror
                 </div>
                 <!-- Botón de enviar -->
                 <button id="btn-enviar" class="btn btn-primary w-100">Iniciar sesión</button>

@@ -9,26 +9,14 @@ class tbl_usuarios extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $table = 'tbl_usuarios';
+
     protected $fillable = [
         'nombre',
-        'apellido',
+        'apellidos',
         'email',
-        'password',
-        'rol',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
+        'contrasena',
+        'id_rol',
+        'id_empresa',
     ];
 }
