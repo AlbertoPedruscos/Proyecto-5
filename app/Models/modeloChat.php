@@ -9,7 +9,7 @@ class Mensaje extends Model
 {
     use HasFactory;
 
-    protected $table = 'CreateMensajeTable';
+    protected $table = 'tbl_chat';
 
     protected $fillable = [
         'emisor',
