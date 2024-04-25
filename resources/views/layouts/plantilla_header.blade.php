@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/plantilla_header.blade.php -->
 @if (session('id') && session('nombre') && session('apellidos') && session('email') && session('rol'))
     <!DOCTYPE html>
     <html lang="es">

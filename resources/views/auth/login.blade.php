@@ -8,13 +8,13 @@
 
 @section('content')
     <div class="row">
-        <div id="cont-logo" class="col-12 col-md-6 text-center">
+        <div id="cont-logo" class="column-2">
             <img src="{{ asset('img/logo.png') }}" id="logo" alt="Logo">
         </div>
-        <div id="cont-form" class="col-12 col-md-6">
-            <form method="POST" action="{{ route('login.post') }}">
+        <div id="cont-form" class="column-2">
+            <form class="login-form" method="POST" action="{{ route('login.post') }}">
                 @csrf
-                
+
                 <!-- Manejo de errores y éxito -->
                 @if (session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
@@ -27,33 +27,32 @@
 
                 <!-- Campo de correo electrónico -->
                 <div class="form-group">
-                    <label para="email">Correo electrónico:</label>
+                    <label for="email">Correo electrónico:</label>
                     <input type="email" name="email" id="email"
                         class="form-control @error('email') is-invalid @enderror"
                         placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
                 </div>
 
                 <!-- Campo de contraseña -->
-                <div classclass="form-group">
-                    <label para="password">Contraseña:</label>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
                     <div class="input-group">
                         <input type="password" name="password" id="password"
-                            class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Ingresa tu contraseña" value="{{ old('password') }}">
+                            class="form-control @error('password') is-invalid @enderror" placeholder="Ingresa tu contraseña"
+                            value="{{ old('password') }}">
                         <button type="button" id="password-toggle-btn" class="btn btn-outline-secondary"
                             onclick="togglePasswordVisibility()">
                             <i class="far fa-eye"></i>
                         </button>
                     </div>
                 </div>
-
-                <!-- Botón para enviar -->
-                <button class="btn btn-primary w-100">Iniciar sesión</button>
+                <!-- Botón de enviar -->
+                <button id="btn-enviar" class="btn btn-primary w-100">Iniciar sesión</button>
             </form>
         </div>
     </div>
 
-    <!-- Script para alternar visibilidad de contraseña -->
+    <!-- Script para alternar la visibilidad de la contraseña -->
     <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById("password");
@@ -61,10 +60,10 @@
 
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                passwordToggleBtn.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambiar a ojo tachado
+                passwordToggleBtn.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambiar ícono a ojo tachado
             } else {
                 passwordInput.type = "password";
-                passwordToggleBtn.innerHTML = '<i class "far fa-eye"></i>'; // Cambiar a ojo abierto
+                passwordToggleBtn.innerHTML = '<i class="far fa-eye"></i>'; // Cambiar ícono a ojo abierto
             }
         }
     </script>
