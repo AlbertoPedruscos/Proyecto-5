@@ -1,29 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
+<!-- resources/views/auth/login.blade.php -->
+@extends('layouts.plantilla_header') <!-- Extiende la plantilla base -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | MyControlPark</title>
-    <!-- Fontawesome -->
-    <script src="https://kit.fontawesome.com/8e6d3dccce.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- CSS -->
+@section('title', 'Login | MyControlPark') <!-- Título personalizado -->
+@section('css') <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
-    <!-- Icono -->
-    <link rel="icon" href="{{ asset('img/logo.png') }}">
-</head>
+@endsection
 
-<body>
+@section('content')
     <div class="row">
-        <div id="cont-logo" class="column-2">
+        <div id="cont-logo" class="col-12 col-md-6 text-center">
             <img src="{{ asset('img/logo.png') }}" id="logo" alt="Logo">
         </div>
-        <div id="cont-form" class="column-2">
-            <form class="login-form" method="POST" action="{{ route('login.post') }}">
+        <div id="cont-form" class="col-12 col-md-6">
+            <form method="POST" action="{{ route('login.post') }}">
                 @csrf
-
+                
                 <!-- Manejo de errores y éxito -->
                 @if (session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
@@ -36,15 +27,15 @@
 
                 <!-- Campo de correo electrónico -->
                 <div class="form-group">
-                    <label for="email">Correo electrónico:</label>
+                    <label para="email">Correo electrónico:</label>
                     <input type="email" name="email" id="email"
                         class="form-control @error('email') is-invalid @enderror"
                         placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
                 </div>
 
                 <!-- Campo de contraseña -->
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
+                <div classclass="form-group">
+                    <label para="password">Contraseña:</label>
                     <div class="input-group">
                         <input type="password" name="password" id="password"
                             class="form-control @error('password') is-invalid @enderror"
@@ -55,13 +46,14 @@
                         </button>
                     </div>
                 </div>
-                <!-- Botón de enviar -->
-                <button id="btn-enviar" class="btn btn-primary w-100">Iniciar sesión</button>
+
+                <!-- Botón para enviar -->
+                <button class="btn btn-primary w-100">Iniciar sesión</button>
             </form>
         </div>
     </div>
 
-    <!-- Script para alternar la visibilidad de la contraseña -->
+    <!-- Script para alternar visibilidad de contraseña -->
     <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById("password");
@@ -69,13 +61,11 @@
 
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                passwordToggleBtn.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambiar ícono a ojo tachado
+                passwordToggleBtn.innerHTML = '<i class="far fa-eye-slash"></i>'; // Cambiar a ojo tachado
             } else {
                 passwordInput.type = "password";
-                passwordToggleBtn.innerHTML = '<i class="far fa-eye"></i>'; // Cambiar ícono a ojo abierto
+                passwordToggleBtn.innerHTML = '<i class "far fa-eye"></i>'; // Cambiar a ojo abierto
             }
         }
     </script>
-</body>
-
-</html>
+@endsection
