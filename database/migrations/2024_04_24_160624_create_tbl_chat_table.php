@@ -21,11 +21,6 @@ return new class extends Migration
             // Establecer las claves foráneas
             $table->foreign('emisor')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('receptor')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
-
-            // Esto asegura que no haya duplicados de pares de usuarios
-            $table->unique(['emisor', 'receptor']);
-
-            // Puedes añadir columnas adicionales si lo necesitas
         });
     }
 
@@ -37,4 +32,3 @@ return new class extends Migration
         Schema::dropIfExists('CreateMensajeTable');
     }
 };
-

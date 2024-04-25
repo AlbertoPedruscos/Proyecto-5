@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_trabajador')->nullable();
             $table->unsignedBigInteger('id_plaza')->nullable();
+            $table->string('nom_cliente', 45)->nullable();
             $table->dateTime('fecha_inicio')->nullable();
             $table->dateTime('fecha_fin')->nullable();
             $table->string('firma', 75)->nullable();

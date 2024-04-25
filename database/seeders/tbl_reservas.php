@@ -15,9 +15,9 @@ class tbl_reservas extends Seeder
     {
         DB::table('tbl_reservas')->insert([
             'id_trabajador' => 1,
-            'id_cliente' => 1,
             'id_plaza' => 1,
-            'firma' => 1,
+            'nom_cliente' => 'Marc',
+            'firma' => 'MARC',
             'created_at' => now(),
             'updated_at' => now()
         ]);
