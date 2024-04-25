@@ -38,7 +38,20 @@ class LoginController extends Controller
             $request->session()->put('email', $user->email);
             $request->session()->put('rol', $user->id_rol);
 
-            return redirect()->route('exito');
+            if ($user->id_rol == 1) {
+                // Redirigir a la página de administrador si el usuario es administrador
+                return redirect()->route('admin');
+            } 
+            
+            else if ($user->id_rol == 2) {
+                // Redirigir a la página de usuario si el usuario es usuario
+                return redirect()->route('empresa');
+            }
+
+            else {
+                # code...
+                return redirect()->route('usuario');
+            }
         } else {
             // Si las credenciales son incorrectas, redirigir con mensaje de error
             return redirect()->route('login')->with('error', 'Credenciales incorrectas')->withInput();

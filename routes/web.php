@@ -16,7 +16,17 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 // Ruta para cerrar sesión
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Ruta para la página de éxito
-Route::get('/exito', function () {
-    return view('vistas.exito');
-})->name('exito');
+// Ruta para la página de admin
+Route::get('/admin', function () {
+    return view('vistas.admin');
+})->name('admin');
+
+// Ruta para la página de usuario
+Route::get('/usuario', function () {
+    return view('vistas.usuario');
+})->name('usuario');
+
+// Ruta para la página de empresa
+Route::get('/empresa', function () {
+    return view('vistas.empresa');
+})->name('empresa');
