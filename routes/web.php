@@ -30,3 +30,8 @@ Route::get('/usuario', function () {
 Route::get('/empresa', function () {
     return view('vistas.empresa');
 })->name('empresa');
+
+// Ruta para la página de mmapa_adminapa
+Route::get('/mapa_admin', function () {
+    return view('vistas.mapa_admin');
+})->name('mapa_admin');

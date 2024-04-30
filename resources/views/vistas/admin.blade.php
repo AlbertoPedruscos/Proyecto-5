@@ -3,12 +3,12 @@
 @extends('layouts.plantilla_header') 
 
 @section('title', 'Admin | MyControlPark') 
-@section('css') 
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-@endsection
+
+@section('css') <link rel="stylesheet" href="{{ asset('css/admin.css') }}">@endsection
 
 @section('content')
 
+<h1>Página de admin</h1>
 
 @endsection
 
