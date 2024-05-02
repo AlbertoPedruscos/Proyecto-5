@@ -14,14 +14,30 @@ class tbl_empresas extends Seeder
     public function run(): void
     {
         DB::table('tbl_empresas')->insert([
-            'nombre' => 'ConPark',
+            'nombre' => 'Nnparkings',
             'created_at' => now(),
             'updated_at' => now()
         ]);
         DB::table('tbl_empresas')->insert([
-            'nombre' => 'centralpark',
+            'nombre' => 'Interparking Hispania',
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        DB::table('tbl_empresas')->insert([
+            'nombre' => 'Saba Sede',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('tbl_empresas')->insert([
+            'nombre' => 'Continental Parking SL',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('tbl_empresas')->insert([
+            'nombre' => 'Pàrking PRATSA Self Storage',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
     }
 }
