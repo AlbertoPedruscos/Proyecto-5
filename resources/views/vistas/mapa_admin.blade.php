@@ -35,8 +35,15 @@
                 <div id="resultado"></div>
             </div>
         </div>
+        
+        <div id="cont-mapa">
+            <form action="">
+                <label for="punto">Punto</label>
+                <input type="text" id="punto" name="punto" placeholder="Busca un punto">
+            </form>
 
-        <div id="map" style="flex: 1; height: 100%;"></div>
+            <div id="map" style="flex: 1; height: 100%;"></div>
+        </div>
     </div>
 
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">

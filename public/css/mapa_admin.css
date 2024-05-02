@@ -35,8 +35,36 @@ nav {
 }
 
 /* MAPA */
+/* Contenedor para el mapa */
+#cont-mapa {
+    flex: 1; /* Permite que el contenedor del mapa ocupe todo el espacio disponible */
+    position: relative; /* Necesario para posicionar elementos absolutos dentro */
+}
+
+/* Estilos para el mapa */
 #map {
-    height: 100vh; /* Ocupa todo el alto de la pantalla */
+    flex: 1; /* Permite que el mapa ocupe todo el espacio disponible */
+    height: 100%; /* Asegura que el mapa ocupe todo el espacio vertical del contenedor */
+    width: 100%; /* Asegura que el mapa ocupe todo el espacio horizontal del contenedor */
+}
+
+/* Posicionamiento del formulario */
+#cont-mapa form {
+    position: absolute; /* Hace que el formulario esté flotando sobre el mapa */
+    top: 10px; /* Posición desde la parte superior */
+    left: 10px; /* Posición desde la parte izquierda */
+    padding: 10px; /* Espacio interno */
+    z-index: 1000; /* Asegura que el formulario esté por encima del mapa */
+    width: 55%;
+}
+
+/* Estilos para los campos del formulario */
+#cont-mapa form input[type="text"] {
+    padding: 8px; /* Espacio interno para campos de texto */
+    border: 1px solid #ccc; /* Borde para campos de texto */
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espaciado entre campos */
+    width: 100%; /* Ancho completo para los campos */
 }
 
 .leaflet-control-zoom {
@@ -237,5 +265,5 @@ select {
 
 .close {
     color: white; /* Color del icono de cierre */
-    font-size: 20px; /* Tamaño del icono de cierre */
+    font-size: 35px; /* Tamaño del icono de cierre */
 }
