@@ -34,6 +34,16 @@
                 <button type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal-crear"
                     id="icono-suma" style="color: green; border: 2px solid green; padding: 5px;"></button>
 
+
+                <!-- Manejo de errores y éxito -->
+                @if (session('error'))
+                    <div class="alert alert-danger" style="padding-top: 10px">{{ session('error') }}</div>
+                @endif
+                
+                @if (session('success'))
+                    <div class="alert alert-success" style="padding-top: 10px">{{ session('success') }}</div>
+                @endif
+
                 <!-- Lista de parkings -->
                 <div id="lista-parkings">
                     @foreach ($parkings as $parking)
@@ -42,7 +52,12 @@
                             <p>Latitud: {{ $parking->latitud }}, <br> Longitud: {{ $parking->longitud }}</p>
                             <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
                                 data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
-                            <button class="btn btn-danger" onclick="eliminarParking({{ $parking->id }})">Eliminar</button>
+
+                            <form action="{{ route('parking.destroy', ['id' => $parking->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE') 
+                                <input type="submit" class="btn btn-danger" value="Eliminar">
+                            </form>
                         </div>
                     @endforeach
                 </div>
@@ -178,8 +193,8 @@
 
         // Añadir el marcador en la ubicación especificada
         L.marker([41.34982299030039, 2.1076393201706303], {
-                icon: userIcon
-            }).addTo(map)
+            icon: userIcon
+        }).addTo(map)
         // Marcar todos los parkings
         var parkingIcon = L.divIcon({
             className: 'custom-parking-icon',
@@ -220,23 +235,21 @@
             });
         }
 
-        // Función para eliminar un parking
         function eliminarParking(id) {
             if (confirm("¿Estás seguro de que deseas eliminar el parking con ID: " + id + "?")) {
                 $.ajax({
                     url: "/parking/" + id,
                     type: 'DELETE',
-                    success: function(data) {
-                        if (data.success) {
-                            // Eliminar el elemento del DOM
-                            $("#parking-" + id).remove();
+                    success: function(response) {
+                        if (response.success) {
+                            $("#parking-" + id).remove(); // Eliminar el elemento del DOM
                             alert("Parking eliminado con éxito.");
                         } else {
-                            alert("Error al eliminar el parking.");
+                            alert("Error al eliminar el parking: " + response.message);
                         }
                     },
-                    error: function() {
-                        alert("Error al eliminar el parking.");
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("Error al eliminar el parking: " + (jqXHR.responseText || errorThrown));
                     }
                 });
             }

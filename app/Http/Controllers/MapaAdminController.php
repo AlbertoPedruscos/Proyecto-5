@@ -57,22 +57,16 @@ class MapaAdminController extends Controller
 
     public function destroy($id)
     {
-        try 
-        {
-            // Encuentra el parking por ID y elimínalo
+        try {
+            // Buscar y eliminar el parking por su ID
             $parking = tbl_parking::findOrFail($id);
             $parking->delete();
-            
-            return response()->json([
-                'success' => true,
-                'message' => 'Parking eliminado con éxito.'
-            ]);
+            return redirect()->route('mapa_admin')->with('success', 'Parking eliminado exitosamente.');
         } 
-        
-        catch (Exception $e) {
+        catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar el parking.'
+                'message' => 'Error al eliminar el parking: ' . $e->getMessage()
             ], 500);
         }
     }

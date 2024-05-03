@@ -9,25 +9,28 @@ class tbl_parking extends Model
 {
     use HasFactory;
 
-    protected $table = "tbl_parking";
+    protected $table = 'tbl_parking'; // Especifica la tabla si no sigue la convención
+    protected $primaryKey = 'id'; // Establece la clave primaria
 
+    // Asignación masiva permitida
     protected $fillable = [
-        'nombre',
-        'latitud',
-        'longitud',
-        'id_empresa',
-        'id_plaza',
-        'created_at',
-        'updated_at',
+        'nombre', 'latitud', 'longitud', 'id_empresa'
     ];
+
+    // Relaciones con otros modelos
+    public function empresa()
+    {
+        return $this->belongsTo(tbl_empresas::class, 'id_empresa');
+    }
 
     public function plazas()
     {
         return $this->hasMany(tbl_plazas::class, 'id_parking');
     }
 
-    public function empresa()
+    // Métodos personalizados, como scopes o transformaciones de datos
+    public function scopeWithEmpresa($query)
     {
-        return $this->belongsTo(tbl_empresas::class, 'id_empresa');
+        return $query->with('empresa');
     }
 }

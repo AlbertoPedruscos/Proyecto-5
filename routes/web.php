@@ -52,7 +52,8 @@ Route::get('/empresa', function () {
 //     return view('vistas.mapa_admin');
 // })->name('mapa_admin');
 
-
-Route::delete('/parking/{id}', 'ParkingController@destroy')->name('parking.destroy');
-
 Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.post');
+
+Route::middleware(['web'])->group(function () {
+    Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
+});
