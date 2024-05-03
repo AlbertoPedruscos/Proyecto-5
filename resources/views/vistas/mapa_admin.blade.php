@@ -35,7 +35,7 @@
                 <div id="resultado"></div>
             </div>
         </div>
-        
+
         <div id="cont-mapa">
             <form action="">
                 <label for="punto">Punto</label>
@@ -99,26 +99,5 @@
     <script src="https://unpkg.com/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <script>
-        var map = L.map('map').setView([41.3497528271445, 2.1080974175773473], 18);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        L.marker([41.34971957556145, 2.1076759794296467]).addTo(map);
-
-        map.on('click', function(e) {
-            var latlng = e.latlng;
-            L.popup()
-                .setLatLng(latlng)
-                .setContent("Latitud: " + latlng.lat + " Longitud: " + latlng.lng)
-                .openOn(map);
-        });
-
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            var contCrud = document.getElementById('cont-crud');
-            contCrud.classList.toggle('expanded'); // Alternar entre colapsado y expandido
-        });
-    </script>
+    <script src="{{ asset('js/mapa_admin.js') }}"></script>
 @endpush

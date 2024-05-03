@@ -85,7 +85,7 @@ nav {
     position: relative; /* Para posicionar elementos */
     transition: width 0.3s ease; /* Transición para expansión/contracción */
     overflow: hidden; /* Oculta el contenido cuando está colapsado */
-    width: 4%; /* Ancho por defecto cuando está colapsado */
+    width: 3%; /* Ancho por defecto cuando está colapsado */
     padding: 15px;
 }
 
