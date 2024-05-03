@@ -16,8 +16,18 @@ class tbl_parking extends Model
         'latitud',
         'longitud',
         'id_empresa',
-        'id_`plaza',
+        'id_plaza',
         'created_at',
         'updated_at',
     ];
+
+    public function plazas()
+    {
+        return $this->hasMany(tbl_plazas::class, 'id_parking');
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(tbl_empresas::class, 'id_empresa');
+    }
 }

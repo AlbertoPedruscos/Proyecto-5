@@ -17,4 +17,14 @@ class tbl_plazas extends Model
         'id_estado',
         'id_parking',
     ];
+
+    public function parking()
+    {
+        return $this->belongsTo(tbl_parking::class, 'id_parking');
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(tbl_estados::class, 'id_estado');
+    }
 }

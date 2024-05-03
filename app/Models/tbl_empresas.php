@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tbl_estados extends Model
+class tbl_empresas extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_estados';
+    protected $table = 'tbl_empresas';
 
     protected $fillable = [
         'nombre',
     ];
 
-    public function plazas()
+    public function parkings()
     {
-        return $this->hasMany(tbl_plazas::class, 'id_estado');
+        return $this->hasMany(tbl_parking::class, 'id_empresa');
     }
 }
