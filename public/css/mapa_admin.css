@@ -268,3 +268,41 @@ select {
     font-size: 35px; /* Tamaño del icono de cierre */
 }
 
+
+/* Estilo para la sección con el listado de parkings */
+.menu-content {
+    padding: 20px;
+    color: white;
+    border-radius: 5px;
+    height: 100%;
+    overflow-y: auto
+}
+
+/* Estilo para el encabezado y botones en la sección de parkings */
+.menu-content h3 {
+    font-size: 18px;
+}
+
+/* Estilo para cada elemento de parking en el listado */
+.parking-item {
+    margin-top: 10px; /* Espacio entre parkings */
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Borde para separar parkings */
+    padding: 10px; /* Espacio interno */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilo para los botones de editar y eliminar */
+.parking-item button {
+    margin-right: 10px; /* Separación entre botones */
+}
+
+.parking-item .btn-warning {
+    color: #fff; /* Color de texto en botones de advertencia */
+    background-color: #f0ad4e; /* Color de fondo para el botón de advertencia */
+}
+
+.parking-item .btn-danger {
+    color: #fff; /* Color de texto para botón de peligro */
+    background-color: #d9534f; /* Color de fondo para el botón de peligro */
+}

@@ -5,6 +5,8 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/mapa_admin.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Para iconos -->
 @endsection
 
 @section('content')
@@ -30,17 +32,17 @@
                 <h1>Listado de los Parkings:</h1>
 
                 <!-- Botón para abrir modal de añadir parking -->
-                <button type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal"
+                <button type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal-crear"
                     id="icono-suma" style="color: green; border: 2px solid green; padding: 5px;"></button>
 
                 <!-- Lista de parkings -->
                 <div id="lista-parkings">
                     @foreach ($parkings as $parking)
-                        <div class="parking-item">
+                        <div class="parking-item" id="parking-{{ $parking->id }}">
                             <h3>{{ $parking->nombre }}</h3>
-                            <p>Latitud: {{ $parking->latitud }}, Longitud: {{ $parking->longitud }}</p>
-                            <button class="btn btn-primary" onclick="mostrarParking({{ $parking->id }})">Mostrar</button>
-                            <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})">Editar</button>
+                            <p>Latitud: {{ $parking->latitud }}, <br> Longitud: {{ $parking->longitud }}</p>
+                            <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
+                                data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
                             <button class="btn btn-danger" onclick="eliminarParking({{ $parking->id }})">Eliminar</button>
                         </div>
                     @endforeach
@@ -60,7 +62,7 @@
     </div>
 
     <!-- Modal para añadir parking -->
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal fade" id="modal-crear" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -72,34 +74,78 @@
                 <div class="modal-body">
                     <form id="formulario-crear-parking">
                         <div>
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" name="nombre" id="nombre" placeholder="Nombre del parking">
+                            <label para="nombre">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre">
                         </div>
 
                         <div>
                             <label para="latitud">Latitud:</label>
-                            <input type="text" name="latitud" id="latitud" placeholder="Latitud del parking">
+                            <input type="text" name="latitud" id="latitud">
                         </div>
 
                         <div>
                             <label para="longitud">Longitud:</label>
-                            <input type="text" name="longitud" id="longitud" placeholder="Longitud del parking">
+                            <input type="text" name="longitud" id="longitud">
                         </div>
 
                         <div>
-                            <label for="empresa">Empresa</label>
-                            <section>
-                                <select name="empresa" id="empresa">
-                                    <option value="" selected disabled>-- Selecciona una empresa --</option>
-                                    @foreach ($empresas as $empresa)
-                                        <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </section>
+                            <label para="empresa">Empresa:</label>
+                            <select name="empresa" id="empresa">
+                                @foreach ($empresas as $empresa)
+                                    <option value="" disabled selected>-- Selecciona una opción --</option>
+                                    <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div>
                             <input type="submit" name="btn-enviar" id="btn-enviar" value="Añadir">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar parking -->
+    <div class="modal fade" id="modal-editar" tabindex="-1" role="dialog" aria-labelledby="modal-editar"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Parking</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formulario-editar-parking">
+                        <div>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" name="nombre" id="editar-nombre">
+                        </div>
+
+                        <div>
+                            <label para="latitud">Latitud:</label>
+                            <input type="text" name="latitud" id="editar-latitud">
+                        </div>
+
+                        <div>
+                            <label para="longitud">Longitud:</label>
+                            <input type="text" name="longitud" id="editar-longitud">
+                        </div>
+
+                        <div>
+                            <label para="empresa">Empresa:</label>
+                            <select name="empresa" id="editar-empresa">
+                                @foreach ($empresas as $empresa)
+                                    <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <input type="submit" name="btn-editar" id="btn-editar" value="Guardar Cambios">
                         </div>
                     </form>
                 </div>
@@ -112,6 +158,7 @@
 @push('scripts')
     <script src="https://unpkg.com/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         // Configurar el mapa
@@ -121,81 +168,79 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Crear un marcador personalizado para parkings
-        var parkingIcon = L.divIcon({
-            className: 'custom-parking-icon',
-            html: '<i class="fas fa-parking" style="font-size: 1.5rem; color: blue;"></i>',
-            iconSize: [30, 42], // Ajusta el tamaño del marcador
-            iconAnchor: [15, 42], // Ajusta el anclaje del marcador
-        });
-
-        // Crear un marcador personalizado para la ubicación del usuario
+        // Definir el icono para la ubicación del usuario
         var userIcon = L.divIcon({
             className: 'custom-user-icon',
             html: '<i class="fa-solid fa-person" style="font-size: 1.5rem; color: red;"></i>',
-            iconSize: [30, 42], // Ajusta el tamaño del marcador
-            iconAnchor: [15, 42], // Ajusta el anclaje del marcador
+            iconSize: [30, 42], // Tamaño del icono
+            iconAnchor: [15, 42], // Punto de anclaje para el icono
         });
 
-        // Añadir marcadores para cada parking
+        // Añadir el marcador en la ubicación especificada
+        L.marker([41.34982299030039, 2.1076393201706303], {
+                icon: userIcon
+            }).addTo(map)
+            .bindPopup("Ubicación del usuario")
+            .openPopup(); // Abre el popup cuando se carga el mapa
+        // Marcar todos los parkings
+        var parkingIcon = L.divIcon({
+            className: 'custom-parking-icon',
+            html: '<i class="fas fa-parking" style="font-size: 1.5rem; color: blue;"></i>',
+            iconSize: [30, 42],
+            iconAnchor: [15, 42],
+        });
+
         @foreach ($parkings as $parking)
             L.marker([{{ $parking->latitud }}, {{ $parking->longitud }}], {
                     icon: parkingIcon
-                }).addTo(map)
+                })
                 .bindPopup(
-                    '<b>{{ $parking->nombre }}</b><br>Lat: {{ $parking->latitud }}, Lon: {{ $parking->longitud }}');
+                    '<b>{{ $parking->nombre }}</b><br>Lat: {{ $parking->latitud }}, Lon: {{ $parking->longitud }}')
+                .addTo(map);
         @endforeach
 
-        // Obtener la ubicación actual del usuario
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-
-                    // Agregar un marcador para la ubicación actual
-                    L.marker([lat, lng], {
-                            icon: userIcon
-                        }).addTo(map)
-                        .bindPopup("Ubicación actual del usuario")
-                        .openPopup(); // Abre un pop-up al cargar
-
-                    // Centrar el mapa en la ubicación del usuario
-                    map.setView([lat, lng], 18);
-                },
-                function(error) {
-                    console.error("Error al obtener la ubicación del usuario: " + error.message);
-                }, {
-                    enableHighAccuracy: true, // Utilizar alta precisión
-                    timeout: 10000, // Tiempo máximo para obtener la ubicación
-                    maximumAge: 0 // No utilizar datos antiguos
-                }
-            );
-        } else {
-            console.warn("La geolocalización no es compatible con este navegador.");
-        }
-
-        // Manejo de eventos del mapa
-        map.on('click', function(e) {
-            var latlng = e.latlng;
-            L.popup()
-                .setLatLng(latlng)
-                .setContent("Latitud: " + latlng.lat + "<br>Longitud: " + latlng.lng)
-                .openOn(map);
-        });
-
-        // Funciones para mostrar, editar y eliminar parkings
-        function mostrarParking(id) {
-            alert("Mostrar información del parking con ID: " + id);
-        }
-
+        // Función para editar parking y abrir el modal
         function editarParking(id) {
-            alert("Editar información del parking con ID: " + id);
+            // Se hace una solicitud AJAX para obtener la información del parking por su ID
+            $.ajax({
+                url: "/parking/" + id,
+                type: 'GET',
+                success: function(parking) {
+                    // Si la solicitud es exitosa, llenamos el formulario con los datos del parking
+                    $("#editar-nombre").val(parking.nombre);
+                    $("#editar-latitud").val(parking.latitud);
+                    $("#editar-longitud").val(parking.longitud);
+                    $("#editar-empresa").val(parking.empresa_id);
+
+                    // Abrir el modal de edición
+                    $("#modal-editar").modal("show");
+                },
+                error: function() {
+                    // Mostrar un mensaje de error si la solicitud falla
+                    alert("Error al obtener los datos del parking. Por favor, intenta nuevamente.");
+                }
+            });
         }
 
+        // Función para eliminar un parking
         function eliminarParking(id) {
             if (confirm("¿Estás seguro de que deseas eliminar el parking con ID: " + id + "?")) {
-                alert("Eliminar parking con ID: " + id);
+                $.ajax({
+                    url: "/parking/" + id,
+                    type: 'DELETE',
+                    success: function(data) {
+                        if (data.success) {
+                            // Eliminar el elemento del DOM
+                            $("#parking-" + id).remove();
+                            alert("Parking eliminado con éxito.");
+                        } else {
+                            alert("Error al eliminar el parking.");
+                        }
+                    },
+                    error: function() {
+                        alert("Error al eliminar el parking.");
+                    }
+                });
             }
         }
 

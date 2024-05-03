@@ -21,4 +21,23 @@ class MapaAdminController extends Controller
 
         return view('vistas.mapa_admin', compact('parkings', 'plazas', 'estados', 'empresas'));
     }
+
+    public function destroy($id)
+    {
+        try {
+            // Encuentra el parking por ID y elimínalo
+            $parking = Parking::findOrFail($id);
+            $parking->delete();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Parking eliminado con éxito.'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el parking.'
+            ], 500);
+        }
+    }
 }
