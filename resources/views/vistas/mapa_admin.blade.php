@@ -50,14 +50,16 @@
                         <div class="parking-item" id="parking-{{ $parking->id }}">
                             <h3>{{ $parking->nombre }}</h3>
                             <p>Latitud: {{ $parking->latitud }}, <br> Longitud: {{ $parking->longitud }}</p>
-                            <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
-                                data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
-
-                            <form action="{{ route('parking.destroy', ['id' => $parking->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE') 
-                                <input type="submit" class="btn btn-danger" value="Eliminar">
-                            </form>
+                            <div id="cont-botones">
+                                <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
+                                    data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
+    
+                                <form action="{{ route('parking.destroy', ['id' => $parking->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE') 
+                                    <input type="submit" class="btn btn-danger" value="Eliminar">
+                                </form>
+                            </div>
                         </div>
                     @endforeach
                 </div>

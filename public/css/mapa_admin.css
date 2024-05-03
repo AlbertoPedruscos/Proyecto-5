@@ -167,6 +167,8 @@ form {
     padding: 20px; 
     border-radius: 10px; 
     background-color: #f9f9f9; 
+    display: flex;
+    flex-direction: column; /* Alineación vertical */
 }
 
 button {
@@ -211,11 +213,6 @@ input[type="text"], input[type="email"], input[type="password"], #empresa {
     padding: 20px; /* Espaciado interno */
 }
 
-/* Estilos para el formulario */
-form {
-    display: flex;
-    flex-direction: column; /* Alineación vertical */
-}
 
 form div {
     margin-bottom: 10px; /* Espaciado entre campos */
@@ -305,5 +302,42 @@ select {
 .parking-item .btn-danger {
     color: #fff; /* Color de texto para botón de peligro */
     background-color: #d9534f; /* Color de fondo para el botón de peligro */
+}
+
+/* Botón de eliminar - color, tamaño y margen */
+.parking-item .btn-danger {
+    color: white; /* Texto blanco para contraste */
+    background-color: #d9534f; /* Rojo para indicar peligro */
+    border: none; /* Eliminar bordes */
+    border-radius: 5px; /* Bordes redondeados para apariencia moderna */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+    cursor: pointer; /* Indicar que es un elemento clicable */
+    height: 40px;
+}
+
+/* Efectos al pasar el mouse */
+.parking-item .btn-danger:hover {
+    background-color: #c9302c; /* Cambio de color para hover (más oscuro) */
+}
+
+/* Efectos al hacer clic */
+.parking-item .btn-danger:active {
+    background-color: #ac2925; /* Cambio de color al hacer clic */
+}
+
+/* Margen entre botones */
+.parking-item button {
+    margin-right: 10px; /* Espaciado entre botones */
+}
+
+/* Estilo para formularios dentro de un item de parking */
+.parking-item form {
+    display: inline-block; /* Permite alinear el formulario y el botón inline */
+    background-color: #003459; /* Fondo del contenedor */
+    padding: 0;
+    margin: 0;
+    border-radius: 5px; /* Bordes redondeados */
+    border: none; /* Eliminar bordes */
+    color: white; /* Color del texto */
 }
 
