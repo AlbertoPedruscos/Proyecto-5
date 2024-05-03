@@ -54,3 +54,5 @@ Route::get('/empresa', function () {
 
 
 Route::delete('/parking/{id}', 'ParkingController@destroy')->name('parking.destroy');
+
+Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.post');

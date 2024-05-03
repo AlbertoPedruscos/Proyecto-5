@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('css/mapa_admin.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Para iconos -->
 @endsection
 
 @section('content')
@@ -72,27 +71,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formulario-crear-parking">
+                    <form id="formulario-crear-parking" action="{{ route('parking.post') }}" method="POST">
+                        @csrf
                         <div>
                             <label para="nombre">Nombre:</label>
-                            <input type="text" name="nombre" id="nombre">
+                            <input type="text" name="nombre" id="nombre" placeholder="Nombre...">
                         </div>
 
                         <div>
                             <label para="latitud">Latitud:</label>
-                            <input type="text" name="latitud" id="latitud">
+                            <input type="text" name="latitud" id="latitud" placeholder="Latitud...">
                         </div>
 
                         <div>
                             <label para="longitud">Longitud:</label>
-                            <input type="text" name="longitud" id="longitud">
+                            <input type="text" name="longitud" id="longitud" placeholder="Longitud...">
                         </div>
 
                         <div>
                             <label para="empresa">Empresa:</label>
                             <select name="empresa" id="empresa">
+                                <option value="" disabled selected>-- Selecciona una opción --</option>
                                 @foreach ($empresas as $empresa)
-                                    <option value="" disabled selected>-- Selecciona una opción --</option>
                                     <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
                                 @endforeach
                             </select>
@@ -171,7 +171,7 @@
         // Definir el icono para la ubicación del usuario
         var userIcon = L.divIcon({
             className: 'custom-user-icon',
-            html: '<i class="fa-solid fa-person" style="font-size: 1.5rem; color: red;"></i>',
+            html: '<i class="fa-solid fa-person" style="font-size: 1.5rem;"></i>',
             iconSize: [30, 42], // Tamaño del icono
             iconAnchor: [15, 42], // Punto de anclaje para el icono
         });
@@ -180,8 +180,6 @@
         L.marker([41.34982299030039, 2.1076393201706303], {
                 icon: userIcon
             }).addTo(map)
-            .bindPopup("Ubicación del usuario")
-            .openPopup(); // Abre el popup cuando se carga el mapa
         // Marcar todos los parkings
         var parkingIcon = L.divIcon({
             className: 'custom-parking-icon',

@@ -22,18 +22,54 @@ class MapaAdminController extends Controller
         return view('vistas.mapa_admin', compact('parkings', 'plazas', 'estados', 'empresas'));
     }
 
+    public function store(Request $request) 
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
+            'empresa' => 'required|exists:tbl_empresas,id',
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'latitud.required' => 'La latitud es obligatoria.',
+            'longitud.required' => 'La longitud es obligatoria.',
+            'empresa.required' => 'La empresa es obligatoria.',
+        ]);
+
+        // Crear una instancia de usuario
+        $parking = new tbl_parking();
+        $parking->nombre = $request->nombre;
+        $parking->latitud = $request->latitud;
+        $parking->longitud = $request->longitud;
+        $parking->id_empresa =  $request->empresa;
+
+        // Verificar si el usuario ya existe
+        $parkingExists = tbl_parking::where('nombre', $request->nombre)->exists();
+        if ($parkingExists) {
+            return redirect()->back()->withInput()->withErrors(['email' => 'El nombre del parking ya está registrado.']);
+        }
+        
+        // Guardar el usuario
+        $parking->save();
+
+        return redirect()->route('mapa_admin')->with('success', 'Parking registrado exitosamente.');
+    }
+
     public function destroy($id)
     {
-        try {
+        try 
+        {
             // Encuentra el parking por ID y elimínalo
-            $parking = Parking::findOrFail($id);
+            $parking = tbl_parking::findOrFail($id);
             $parking->delete();
             
             return response()->json([
                 'success' => true,
                 'message' => 'Parking eliminado con éxito.'
             ]);
-        } catch (Exception $e) {
+        } 
+        
+        catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error al eliminar el parking.'
