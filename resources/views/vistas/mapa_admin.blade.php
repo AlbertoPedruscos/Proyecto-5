@@ -39,7 +39,7 @@
                 @if (session('error'))
                     <div class="alert alert-danger" style="padding-top: 10px">{{ session('error') }}</div>
                 @endif
-                
+
                 @if (session('success'))
                     <div class="alert alert-success" style="padding-top: 10px">{{ session('success') }}</div>
                 @endif
@@ -50,13 +50,13 @@
                         <div class="parking-item" id="parking-{{ $parking->id }}">
                             <h3>{{ $parking->nombre }}</h3>
                             <p>Latitud: {{ $parking->latitud }}, <br> Longitud: {{ $parking->longitud }}</p>
-                            <div id="cont-botones">
+                            <div id="btn-botones">
                                 <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
                                     data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
-    
+
                                 <form action="{{ route('parking.destroy', ['id' => $parking->id]) }}" method="POST">
                                     @csrf
-                                    @method('DELETE') 
+                                    @method('DELETE')
                                     <input type="submit" class="btn btn-danger" value="Eliminar">
                                 </form>
                             </div>
@@ -237,25 +237,30 @@
             });
         }
 
-        function eliminarParking(id) {
-            if (confirm("¿Estás seguro de que deseas eliminar el parking con ID: " + id + "?")) {
-                $.ajax({
-                    url: "/parking/" + id,
-                    type: 'DELETE',
-                    success: function(response) {
-                        if (response.success) {
-                            $("#parking-" + id).remove(); // Eliminar el elemento del DOM
-                            alert("Parking eliminado con éxito.");
-                        } else {
-                            alert("Error al eliminar el parking: " + response.message);
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        alert("Error al eliminar el parking: " + (jqXHR.responseText || errorThrown));
+        // Confirmación para eliminar parking
+        $(document).ready(function() {
+            $("form.eliminar-parking").on("submit", function(event) {
+                var confirmación = confirm("¿Estás seguro de que deseas eliminar este parking?");
+                if (!confirmación) {
+                    event.preventDefault(); // Cancelar el evento si no se confirma
+                }
+            });
+        });
+        
+        // Asegúrate de que los botones de eliminación pidan confirmación
+        $(document).ready(function() {
+            $("form").on("submit", function(event) {
+                var form = $(this);
+
+                // Verificar si el formulario es para eliminar
+                if (form.attr("action").includes("parking/destroy")) {
+                    var result = confirm("¿Estás seguro de que deseas eliminar este parking?");
+                    if (!result) {
+                        event.preventDefault(); // Cancelar la acción si el usuario no confirma
                     }
-                });
-            }
-        }
+                }
+            });
+        });
 
         // Alternar cont-crud expandir/contraer
         document.getElementById('menuToggle').addEventListener('click', function() {

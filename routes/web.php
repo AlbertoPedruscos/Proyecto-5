@@ -29,12 +29,6 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Ruta para la página de admin
-Route::get('/admin', function () {
-    return view('vistas.admin');
-})->name('admin');
-
-// Ruta para la página admin mapa
-Route::get('/mapa_admin', [MapaAdminController::class, 'index'])->name('mapa_admin');
 
 
 // Ruta para la página de usuario
@@ -47,13 +41,13 @@ Route::get('/empresa', function () {
     return view('vistas.empresa');
 })->name('empresa');
 
-// // Ruta para la página de mmapa_adminapa
-// Route::get('/mapa_admin', function () {
-//     return view('vistas.mapa_admin');
-// })->name('mapa_admin');
+
+// Ruta para la página admin mapa
+Route::get('/mapa_admin', [MapaAdminController::class, 'index'])->name('mapa_admin');
 
 Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.post');
 
 Route::middleware(['web'])->group(function () {
     Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
 });
+

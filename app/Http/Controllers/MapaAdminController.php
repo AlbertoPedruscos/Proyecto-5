@@ -70,4 +70,36 @@ class MapaAdminController extends Controller
             ], 500);
         }
     }
+
+    public function edit($id) {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
+            'empresa' => 'required|exists:tbl_empresas,id',
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'latitud.required' => 'La latitud es obligatoria.',
+            'longitud.required' => 'La longitud es obligatoria.',
+            'empresa.required' => 'La empresa es obligatoria.',
+        ]);
+
+        // Crear una instancia de usuario
+        $parking = new tbl_parking();
+        $parking->nombre = $request->nombre;
+        $parking->latitud = $request->latitud;
+        $parking->longitud = $request->longitud;
+        $parking->id_empresa =  $request->empresa;
+
+        // Verificar si el usuario ya existe
+        $parkingExists = tbl_parking::where('nombre', $request->nombre)->exists();
+        if ($parkingExists) {
+            return redirect()->back()->withInput()->withErrors(['email' => 'El nombre del parking ya está registrado.']);
+        }
+        
+        // Guardar el usuario
+        $parking->save();
+
+        return redirect()->route('mapa_admin')->with('success', 'Parking editado exitosamente.');
+    }
 }
