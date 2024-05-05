@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tbls extends Model
+class tbl_chat extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_usuarios';
+    protected $table = 'tbl_chat';
 
     protected $fillable = [
-        'nombre',
-        'apellidos',
-        'email',
-        'contrasena',
-        'id_rol',
-        'id_empresa',
+        'emisor',
+        'receptor',
+        'mensaje',
     ];
 }
