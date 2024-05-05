@@ -341,3 +341,7 @@ select {
     color: white; /* Color del texto */
 }
 
+
+div.alert {
+    margin-top: 15px;
+}

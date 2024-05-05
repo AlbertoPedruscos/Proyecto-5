@@ -3,17 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MapaAdminController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\ParkingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,27 +19,22 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Ruta para la página de admin
+Route::get('/mapa_admin', [MapaAdminController::class, 'index'])->name('mapa_admin');
 
+// Rutas para operaciones CRUD de parkings
+Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.post');
+Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
+Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
+Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
 
-// Ruta para la página de usuario
+// Ruta para filtrar parkings
+Route::get('/filtrar_parkings', [ParkingController::class, 'filtrarParkings'])->name('filtrar_parkings');
+
+// Rutas para otras vistas
 Route::get('/usuario', function () {
     return view('vistas.usuario');
 })->name('usuario');
 
-// Ruta para la página de empresa
 Route::get('/empresa', function () {
     return view('vistas.empresa');
 })->name('empresa');
-
-
-// Ruta para la página admin mapa
-Route::get('/mapa_admin', [MapaAdminController::class, 'index'])->name('mapa_admin');
-
-Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.post');
-
-Route::middleware(['web'])->group(function () {
-    Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
-});
-
-Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
-Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');

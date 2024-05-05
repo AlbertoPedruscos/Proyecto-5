@@ -114,4 +114,25 @@ class MapaAdminController extends Controller
             return redirect()->route('mapa_admin')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
         }
     }
+
+    public function filtrarParkings(Request $request) {
+        $nombre = $request->get("nombre");
+        $empresa = $request->get("empresa");
+    
+        $query = Parking::query();
+    
+        if ($nombre) {
+            $query->where("nombre", "LIKE", "%" + $nombre + "%");
+        }
+    
+        if ($empresa) {
+            $query->where("id_empresa", $empresa);
+        }
+    
+        $parkings = $query->get();
+    
+        return response()->json([
+            "parkings" => $parkings,
+        ]);
+    }
 }
