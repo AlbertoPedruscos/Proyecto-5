@@ -51,3 +51,5 @@ Route::middleware(['web'])->group(function () {
     Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
 });
 
+Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
+Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');

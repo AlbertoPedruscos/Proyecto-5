@@ -71,7 +71,19 @@ class MapaAdminController extends Controller
         }
     }
 
-    public function edit($id) {
+    public function show($id) {
+        try {
+            $parking = tbl_parking::with(['empresa'])->findOrFail($id);  // Ensure it includes related data
+            return response()->json($parking);
+        } 
+        
+        catch (\Exception $e) {
+            return response()->json(['error' => 'Parking not found'], 404);
+        }
+    }    
+
+    public function update(Request $request, $id) {
+        // Validación de campos
         $request->validate([
             'nombre' => 'required|string|max:255',
             'latitud' => 'required|numeric',
@@ -83,23 +95,23 @@ class MapaAdminController extends Controller
             'longitud.required' => 'La longitud es obligatoria.',
             'empresa.required' => 'La empresa es obligatoria.',
         ]);
-
-        // Crear una instancia de usuario
-        $parking = new tbl_parking();
-        $parking->nombre = $request->nombre;
-        $parking->latitud = $request->latitud;
-        $parking->longitud = $request->longitud;
-        $parking->id_empresa =  $request->empresa;
-
-        // Verificar si el usuario ya existe
-        $parkingExists = tbl_parking::where('nombre', $request->nombre)->exists();
-        if ($parkingExists) {
-            return redirect()->back()->withInput()->withErrors(['email' => 'El nombre del parking ya está registrado.']);
-        }
+    
+        try {
+            // Buscar y actualizar el parking
+            $parking = tbl_parking::findOrFail($id);
+            $parking->nombre = $request->nombre;
+            $parking->latitud = $request->latitud;
+            $parking->longitud = $request->longitud;
+            $parking->id_empresa = $request->empresa;
+    
+            // Guardar los cambios
+            $parking->save();
+    
+            return redirect()->route('mapa_admin')->with('success', 'Parking actualizado exitosamente.');
+        } 
         
-        // Guardar el usuario
-        $parking->save();
-
-        return redirect()->route('mapa_admin')->with('success', 'Parking editado exitosamente.');
+        catch (\Exception $e) {
+            return redirect()->route('mapa_admin')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
+        }
     }
 }

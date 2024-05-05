@@ -50,7 +50,7 @@
                         <div class="parking-item" id="parking-{{ $parking->id }}">
                             <h3>{{ $parking->nombre }}</h3>
                             <p>Latitud: {{ $parking->latitud }}, <br> Longitud: {{ $parking->longitud }}</p>
-                            <div id="btn-botones">
+                            <div>
                                 <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
                                     data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
 
@@ -136,9 +136,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formulario-editar-parking">
+                    <!-- Enlace a la ruta de edición con el ID -->
+                    <form id="formulario-editar-parking" method="POST">
+                        @csrf
+                        @method('PUT') <!-- Usar el método PUT para actualizar -->
+
+                        <!-- Campo oculto para el ID del parking -->
+                        <input type="hidden" name="id" id="editar-id">
+
                         <div>
-                            <label for="nombre">Nombre:</label>
+                            <label para="nombre">Nombre:</label>
                             <input type="text" name="nombre" id="editar-nombre">
                         </div>
 
@@ -151,7 +158,7 @@
                             <label para="longitud">Longitud:</label>
                             <input type="text" name="longitud" id="editar-longitud">
                         </div>
-
+                        
                         <div>
                             <label para="empresa">Empresa:</label>
                             <select name="empresa" id="editar-empresa">
@@ -162,7 +169,7 @@
                         </div>
 
                         <div>
-                            <input type="submit" name="btn-editar" id="btn-editar" value="Guardar Cambios">
+                            <input type="submit" name="btn-editar" value="Guardar Cambios">
                         </div>
                     </form>
                 </div>
@@ -214,53 +221,50 @@
                 .addTo(map);
         @endforeach
 
-        // Función para editar parking y abrir el modal
+        // Función para cargar datos y mostrar el modal de edición
         function editarParking(id) {
-            // Se hace una solicitud AJAX para obtener la información del parking por su ID
             $.ajax({
                 url: "/parking/" + id,
                 type: 'GET',
                 success: function(parking) {
-                    // Si la solicitud es exitosa, llenamos el formulario con los datos del parking
+                    // Cargar datos del parking en el formulario
+                    $("#editar-id").val(parking.id); // Guardar el ID del parking
                     $("#editar-nombre").val(parking.nombre);
                     $("#editar-latitud").val(parking.latitud);
                     $("#editar-longitud").val(parking.longitud);
-                    $("#editar-empresa").val(parking.empresa_id);
+                    $("#editar-empresa").val(parking.id_empresa);
 
-                    // Abrir el modal de edición
+                    // Actualizar la acción del formulario para la edición
+                    $("#formulario-editar-parking").attr("action", "/parking/" + parking.id);
+
+                    // Mostrar el modal
                     $("#modal-editar").modal("show");
                 },
                 error: function() {
-                    // Mostrar un mensaje de error si la solicitud falla
                     alert("Error al obtener los datos del parking. Por favor, intenta nuevamente.");
                 }
             });
         }
 
-        // Confirmación para eliminar parking
-        $(document).ready(function() {
-            $("form.eliminar-parking").on("submit", function(event) {
-                var confirmación = confirm("¿Estás seguro de que deseas eliminar este parking?");
-                if (!confirmación) {
-                    event.preventDefault(); // Cancelar el evento si no se confirma
-                }
-            });
-        });
-        
-        // Asegúrate de que los botones de eliminación pidan confirmación
-        $(document).ready(function() {
-            $("form").on("submit", function(event) {
-                var form = $(this);
-
-                // Verificar si el formulario es para eliminar
-                if (form.attr("action").includes("parking/destroy")) {
-                    var result = confirm("¿Estás seguro de que deseas eliminar este parking?");
-                    if (!result) {
-                        event.preventDefault(); // Cancelar la acción si el usuario no confirma
+        function eliminarParking(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar el parking con ID: " + id + "?")) {
+                $.ajax({
+                    url: "/parking/" + id,
+                    type: 'DELETE',
+                    success: function(response) {
+                        if (response.success) {
+                            $("#parking-" + id).remove(); // Eliminar el elemento del DOM
+                            alert("Parking eliminado con éxito.");
+                        } else {
+                            alert("Error al eliminar el parking: " + response.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("Error al eliminar el parking: " + (jqXHR.responseText || errorThrown));
                     }
-                }
-            });
-        });
+                });
+            }
+        }
 
         // Alternar cont-crud expandir/contraer
         document.getElementById('menuToggle').addEventListener('click', function() {
