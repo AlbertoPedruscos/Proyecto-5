@@ -48,8 +48,12 @@
                 <div id="lista-parkings">
                     @foreach ($parkings as $parking)
                         <div class="parking-item" id="parking-{{ $parking->id }}">
-                            <h3>{{ $parking->nombre }}</h3>
-                            <p>Latitud: {{ $parking->latitud }}, <br> Longitud: {{ $parking->longitud }}</p>
+                            <h3>{{ $parking->nombre }}</h3> 
+                            @if ($parking->empresa)
+                                <p>Empresa: {{ $parking->empresa->nombre }}</p> 
+                            @endif
+                            <p>Latitud: {{ $parking->latitud }}</p>
+                            <p>Longitud: {{ $parking->longitud }}</p>
                             <div>
                                 <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
                                     data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
@@ -244,7 +248,7 @@
         function confirmDeletion() {
             return confirm("¿Estás seguro de que quieres eliminar este parking?");
         }
-        
+
         // Función para cargar datos y mostrar el modal de edición
         function editarParking(id) {
             $.ajax({

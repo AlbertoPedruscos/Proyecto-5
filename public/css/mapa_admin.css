@@ -147,6 +147,12 @@ nav {
     padding-top: 45px;
 }
 
+#cont-crud p {
+    color: white; 
+    font-size: 16px; 
+    font-family: Helvetica; 
+}
+
 #icono-suma {
     color: green; 
     border: 2px solid green; 
