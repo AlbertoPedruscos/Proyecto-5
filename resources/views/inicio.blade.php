@@ -29,6 +29,9 @@
             <div class="col">
                 <a href="/cliente" class="btn btn-secondary btn-lg btn-block">Reservar</a>
             </div>
+            <div class="col">
+                <a href="/mapa_admin" class="btn btn-success btn-lg btn-block">Mapa</a>
+            </div>
         </div>
     </div>
     <!-- Bootstrap JS (optional) -->
