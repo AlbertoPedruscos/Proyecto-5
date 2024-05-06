@@ -13,13 +13,20 @@ Route::get('/', function () {
     return view('inicio');
 });
 
+/* Trabajador */
 Route::get('/trabajador', function () {
-    return view('reservas');
+    return view('trabajador');
 });
 
-Route::get('/cliente', function () {
+Route::post('/trabajador', [LoginController::class, 'authenticate'])->name('login.post');
+
+
+/* Cliente */
+Route::get('/reserva', function () {
     return view('reserva');
 });
+
+Route::post('/reserva', [LoginController::class, 'authenticate'])->name('login.post');
 
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 Route::post('/espia', [espiaController::class, 'espia'])->name('espia');
