@@ -10,16 +10,39 @@
     @endsection
 
     @section('content')
-        <header>
-            <nav class="navbar navbar-dark bg-dark fixed-top">
-                <div class="container-fluid">
+    <header>
+        <nav class="navbar navbar-dark bg-dark fixed-top top-nav">
+            <div class="container-fluid d-flex justify-content-between">
+                <!-- Sección izquierda con el logo -->
+                <div class="d-flex align-items-center">
                     <img class="navbar-brand" src="{{ asset('img/logo.png') }}" alt="Logo">
-                    <h4 class="text-white">Mapa (Admin)</h4>
-                    <a href="/login" class="fa-solid fa-arrow-left text-white"></a>
                 </div>
-            </nav>
-        </header>
-
+                
+                <!-- Sección central para centrar el h4 -->
+                <div class="d-flex align-items-center mx-auto"> 
+                    <h4 class="text-white">Mapa (Admin)</h4>
+                </div>
+    
+                <!-- Sección derecha con el dropdown -->
+                <div class="d-flex align-items-center">
+                    <!-- Dropdown para la sesión del usuario -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenu" 
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ session('nombre') }} <!-- Muestra el nombre del usuario de la sesión -->
+                        </button>
+    
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                            <li>
+                                <a href="logout" class="dropdown-item">Cerrar sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
         <div id="cont-principal">
             <div id="cont-crud" class="collapsed">
                 <div class="menu-toggle" id="menuToggle">
