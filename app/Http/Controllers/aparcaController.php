@@ -59,8 +59,10 @@ class AparcaController extends Controller
         $modelo = modeloPlazas::find($request->id_plaza);
         $modelo->update(['id_estado' => 1]);
 
+        $idtrabajador = session('id');
         // Creamos una nueva instancia de TblReserva con los datos del formulario
         $reserva = modeloReserva::where('id', $request->nom_cliente)->first();
+        $reserva->id_trabajador = $idtrabajador;
         $reserva->firma = $firmaPath;
         $reserva->save();
         
