@@ -73,7 +73,8 @@
         </div>
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                <code>.accordion-flush</code> class. This is the first item's accordion body.
+            </div>
         </div>
         <div class="reservas" id="reservas">
 
@@ -110,6 +111,7 @@
                         //     tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
                         // });
                         var contadorVueltas = 0;
+                        // console.log(data);
                         data.reservas.forEach(function(reserva) {
                             contadorVueltas++;
 
@@ -127,7 +129,7 @@
                                     contenidoReserva += '<h5 style="float: left;">' + reserva.hora_salida + '</h5>';
                                 } else {
                                     contenidoReserva +=
-                                    '<h5 style="float: left;">Otra hora</h5>'; // Cambia "Otra hora" según tu necesidad
+                                        '<h5 style="float: left;">Otra hora</h5>'; // Cambia "Otra hora" según tu necesidad
                                 }
                             }
                             var tieneFirma = reserva.firma ?
@@ -137,10 +139,14 @@
                             contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
                             var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
                             var desH = reserva.trabajador ? 'disabled' : '';
+                            var desB = reserva.id_trabajador ? '' : 'href="/cambio"';;
+                            // console.log(desB)
                             // Agregar el botón con el contenido dinámico
                             // Agregar el botón con el contenido dinámico
+
+                            // contenidoReserva += '<p>' + reserva.id_trabajador + '</p>';
                             contenidoReserva +=
-                                '<a href="/cambio" class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
+                                '<a ' + desB + ' class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
                                 nombreTrabajador + '">' + nombreTrabajador + '</a>';
 
                             contenidoReserva += '</div>';
