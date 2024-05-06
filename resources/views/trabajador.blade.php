@@ -114,8 +114,9 @@
                         // console.log(data);
                         data.reservas.forEach(function(reserva) {
                             contadorVueltas++;
-
-                            contenidoReserva += '<div class="reservaCliente">';
+                            var ColorReserva = reserva.id_trabajador ? 'style="background-color: red;"' :
+                                '"';;
+                            contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + '>';
                             contenidoReserva += '<div class="horasReservas">';
                             // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
                             var fechaActual = new Date();
@@ -139,14 +140,15 @@
                             contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
                             var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
                             var desH = reserva.trabajador ? 'disabled' : '';
-                            var desB = reserva.id_trabajador ? '' : 'href="/cambio"';;
+                            var desB = reserva.id_trabajador ? '' : 'href="/cambio"';
                             // console.log(desB)
                             // Agregar el botón con el contenido dinámico
                             // Agregar el botón con el contenido dinámico
 
                             // contenidoReserva += '<p>' + reserva.id_trabajador + '</p>';
                             contenidoReserva +=
-                                '<a ' + desB + ' class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
+                                '<a ' + desB +
+                                ' class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
                                 nombreTrabajador + '">' + nombreTrabajador + '</a>';
 
                             contenidoReserva += '</div>';
