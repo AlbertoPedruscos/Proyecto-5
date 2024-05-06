@@ -22,6 +22,7 @@ Route::get('/reserva', function () {
     return view('reserva');
 });
 
+
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 Route::post('/espia', [espiaController::class, 'espia'])->name('espia');
 Route::post('/reserva', [AparcaController::class, 'reserva'])->name('reserva');
@@ -58,4 +59,3 @@ Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.po
 Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
 Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
 Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
-

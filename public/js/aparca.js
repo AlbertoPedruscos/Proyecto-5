@@ -10,7 +10,7 @@ function generarCuadricula(plazas) {
     gridContainer.style.gridTemplateColumns = `repeat(${lado}, 1fr)`;
 
     // Crear los cuadros y agregarlos a la cuadrícula
-    plazas.forEach(function(plaza) {
+    plazas.forEach(function (plaza) {
         const cuadro = document.createElement("div");
         cuadro.classList.add("cuadro");
 
@@ -38,7 +38,7 @@ function generarCuadricula(plazas) {
         cuadro.appendChild(texto);
 
         // Agregar el evento onclick con la ID correspondiente
-        cuadro.onclick = function() {
+        cuadro.onclick = function () {
             reservar(plaza.id, plaza.id_estado, plaza.nombre);
         };
         gridContainer.appendChild(cuadro);
@@ -71,7 +71,7 @@ function cargarPlazas() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/aparca', true);
 
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) {
             const response = JSON.parse(xhr.responseText);
             const plazas = response.plazas;
@@ -84,7 +84,7 @@ function cargarPlazas() {
         }
     };
 
-    xhr.onerror = function(error) {
+    xhr.onerror = function (error) {
         console.error('Error de red al intentar obtener los datos:', error);
     };
 
@@ -92,7 +92,7 @@ function cargarPlazas() {
 }
 
 // Llamar a cargarPlazas al cargar la página
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     cargarPlazas();
 });
 
@@ -108,15 +108,15 @@ document.addEventListener('DOMContentLoaded', setSquareHeight);
 // También llamamos a la función cuando la resolución cambia
 window.addEventListener('resize', setSquareHeight);
 
-function reservar(id,estado,plaza) {
-    if (estado==2){
+function reservar(id, estado, plaza) {
+    if (estado == 2) {
         document.getElementById('modal').style.display = "block";
         console.log(plaza);
         // Llenar los campos idF y estado con los valores proporcionados
         document.getElementById('id_plaza').value = id;
         document.getElementById('estado').value = estado;
     }
-    else if (estado==1){
+    else if (estado == 1) {
         Swal.fire({
             position: 'top-end', // Posición en la esquina superior derecha
             icon: 'error',
@@ -125,7 +125,7 @@ function reservar(id,estado,plaza) {
             timer: 2000 // Tiempo en milisegundos antes de que se cierre automáticamente
         });
     }
-    else if (estado==3){
+    else if (estado == 3) {
         Swal.fire({
             position: 'top-end', // Posición en la esquina superior derecha
             icon: 'warning',
@@ -174,15 +174,15 @@ function reservar2() {
     xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
 
     // Definir el evento onload para manejar la respuesta del servidor
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.status == 200) {
             document.getElementById('modal').style.display = "none";
-            cargarPlazas();
+            window.location.href = "trabajador";
         }
     };
 
     // Definir el evento onerror para manejar errores de red
-    xhr.onerror = function(error) {
+    xhr.onerror = function (error) {
         console.error('Error de red al intentar realizar la reserva:', error);
     };
 
@@ -211,7 +211,7 @@ function dataURItoBlob(dataURI) {
 
 
 
-function cerrar(){
+function cerrar() {
     document.getElementById('modal').style.display = "none";
 }
 

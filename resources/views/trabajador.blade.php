@@ -30,6 +30,7 @@
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
                 <a class="navbar-brand" href="#">Reservas de hoy</a>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
@@ -79,12 +80,13 @@
         <div class="reservas" id="reservas">
 
         </div>
+
         <script type="text/javascript">
             // Obtener referencia al input de búsqueda
             var inputFiltro = document.getElementById('filtro');
 
             function filtrarReservas() {
-                document.getElementById('reservas').innerHTML = "";
+                // document.getElementById('reservas').innerHTML = "";
                 // Obtener el valor del input de búsqueda
                 var filtro = inputFiltro.value;
                 // Obtener el token CSRF desde una etiqueta meta
@@ -108,7 +110,7 @@
                         var contenidoReserva;
                         // Iterar sobre los datos de las reservas y agregar filas a la tabla
                         // data.reservas.forEach(function(reserva) {
-                        //     tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
+                        // tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
                         // });
                         var contadorVueltas = 0;
                         // console.log(data);
