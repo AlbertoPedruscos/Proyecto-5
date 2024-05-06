@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{csrf_token()}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Reserva de Vehículo</title>
     <style>
-        body{
+        body {
             background-color: #003459;
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+
 <body style="background-color: #003459;">
     <div class="container" style=" background-color: #003459; color:white">
         <div class="form-group">
@@ -63,6 +66,7 @@
         <button type="button" class="btn btn-primary" onclick="reservarNuevo()">Enviar</button>
     </div>
 </body>
+
 </html>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
@@ -104,12 +108,19 @@
         xhr.onload = function() {
             if (xhr.status == 200) {
                 // Aquí puedes manejar la respuesta del servidor si es necesario
-                console.log(xhr.responseText);
-                Swal.fire(
-                    'Reservado!',
-                    '¡El vehiculo ha sido reservado!',
-                    'success'
-                );
+                if (xhr.responseText === "ok") {
+                    Swal.fire(
+                        'Reservado!',
+                        '¡El vehiculo ha sido reservado!',
+                        'success'
+                    );
+                } else {
+                    Swal.fire(
+                        'Error!',
+                        '¡Rellena los campos!',
+                        'error'
+                    );
+                }
             } else {
                 console.log('Error al realizar la reserva:', xhr.responseText);
             }

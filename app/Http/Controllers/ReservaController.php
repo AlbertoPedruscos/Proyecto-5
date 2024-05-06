@@ -67,6 +67,6 @@ class ReservaController extends Controller
                 ->subject($sujeto);
         });
 
-        return "hola";
+        echo "ok";
     }
 }
