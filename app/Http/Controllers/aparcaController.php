@@ -77,6 +77,7 @@ class AparcaController extends Controller
         }
 
         // Retornamos una respuesta adecuada, por ejemplo, un mensaje de éxito
-        return response()->json(['message' => 'Reserva realizada correctamente'], 200);
+        // return response()->json(['message' => 'Reserva realizada correctamente'], 200);
+        echo "Reserva realizada correctamente";
     }
 }

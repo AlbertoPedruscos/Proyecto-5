@@ -19,7 +19,7 @@
 <body style="background-color: #003459;">
     <div class="container" style=" background-color: #003459; color:white">
         <div class="form-group">
-            <label for="nom_cliente" class="form-label">Email:</label>
+            <label for="nom_cliente" class="form-label">Nombre:</label>
             <input type="text" class="form-control" id="nom_cliente" name="nom_cliente">
         </div>
         <div class="form-group">

@@ -176,8 +176,13 @@ function reservar2() {
     // Definir el evento onload para manejar la respuesta del servidor
     xhr.onload = function () {
         if (xhr.status == 200) {
-            document.getElementById('modal').style.display = "none";
-            window.location.href = "trabajador";
+            if (xhr.responseText === "Reserva realizada correctamente") {
+                document.getElementById('modal').style.display = "none";
+                window.location.href = "trabajador";
+            }
+            else{
+                document.getElementById('modal').style.display = "none";
+            }
         }
     };
 
