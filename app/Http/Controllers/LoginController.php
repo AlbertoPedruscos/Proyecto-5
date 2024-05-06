@@ -13,6 +13,10 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function trabajador() {
+        return view('trabajador');
+    }
+
     public function authenticate(Request $request)
     {
         // Validar las credenciales
@@ -43,7 +47,7 @@ class LoginController extends Controller
             } 
             
             else {
-                return redirect()->route('/trabajador');
+                return redirect()->route('trabajador');
             }
 
         } 

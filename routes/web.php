@@ -14,19 +14,13 @@ Route::get('/', function () {
 });
 
 /* Trabajador */
-Route::get('/trabajador', function () {
-    return view('trabajador');
-});
 
-Route::post('/trabajador', [LoginController::class, 'authenticate'])->name('login.post');
-
+Route::get('/trabajador', [LoginController::class, 'trabajador'])->name('trabajador');
 
 /* Cliente */
 Route::get('/reserva', function () {
     return view('reserva');
 });
-
-Route::post('/reserva', [LoginController::class, 'authenticate'])->name('login.post');
 
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 Route::post('/espia', [espiaController::class, 'espia'])->name('espia');
