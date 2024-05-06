@@ -104,7 +104,7 @@
                     if (xhr.status >= 200 && xhr.status < 400) {
                         // La petición fue exitosa, procesar la respuesta
                         var data = JSON.parse(xhr.responseText);
-
+                        // console.log(data)
                         // Construir la tabla con los datos recibidos
                         // var tabla = '<table class="table"><thead><tr><th>ID</th><th>Nombre Cliente</th><th>Teléfono</th><th>Email</th></tr></thead><tbody>';
                         var contenidoReserva;
@@ -112,10 +112,10 @@
                         // data.reservas.forEach(function(reserva) {
                         // tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
                         // });
-                        var contadorVueltas = 0;
+                        // var contadorVueltas = 0;
                         // console.log(data);
                         data.reservas.forEach(function(reserva) {
-                            contadorVueltas++;
+                            // contadorVueltas++;
                             var ColorReserva = reserva.id_trabajador ? 'style="background-color: red;"' :
                                 '"';;
                             contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + '>';
@@ -139,6 +139,10 @@
                                 '<span class="material-symbols-outlined"> done </span>' : '';
                             contenidoReserva += '<p>' + tieneFirma + '</p>';
                             contenidoReserva += '</div>';
+                            // contenidoReserva += '<div class="reservaCliente">';
+                            // contenidoReserva += '<p>' + reserva.ubicacion_entrada + '</p>';
+                            // contenidoReserva += '<p>' + reserva.ubicacion_salida + '</p>';
+                            // contenidoReserva += '</div>';
                             contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
                             var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
                             var desH = reserva.trabajador ? 'disabled' : '';
