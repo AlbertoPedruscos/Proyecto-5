@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tbls extends Model
+class tbl_parking extends Model
 {
     use HasFactory;
-
-    protected $table = 'tbl_usuarios';
+    
+    protected $table = 'tbl_parking';
 
     protected $fillable = [
         'nombre',
-        'apellidos',
-        'email',
-        'contrasena',
-        'id_rol',
+        'latitud',
+        'longitud',
         'id_empresa',
+        'id_plaza',
     ];
 }
