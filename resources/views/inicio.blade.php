@@ -10,13 +10,15 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="/login" class="btn btn-primary btn-lg btn-block">Trabajador</a>
-            </div>
-            <div class="col">
-                <a href="/reserva" class="btn btn-secondary btn-lg btn-block">Cliente</a>
+    <div id="cont-general">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a href="/login" class="btn btn-primary btn-lg btn-block">Trabajador</a>
+                </div>
+                <div class="col">
+                    <a href="/reserva" class="btn btn-secondary btn-lg btn-block">Cliente</a>
+                </div>
             </div>
         </div>
     </div>
