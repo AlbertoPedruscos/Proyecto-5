@@ -10,17 +10,13 @@
 
 @section('content')
 
-
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="/trabajador" class="btn btn-primary btn-lg btn-block">Trabajar</a>
+                <a href="/login" class="btn btn-primary btn-lg btn-block">Trabajar</a>
             </div>
             <div class="col">
                 <a href="/cliente" class="btn btn-secondary btn-lg btn-block">Reservar</a>
-            </div>
-            <div class="col">
-                <a href="/mapa_admin" class="btn btn-success btn-lg btn-block">Mapa</a>
             </div>
         </div>
     </div>
