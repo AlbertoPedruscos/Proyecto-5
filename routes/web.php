@@ -63,3 +63,4 @@ Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.po
 Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
 Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
 Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\modeloReserva; // Asegúrate de importar el modelo adecuado
+use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
 {
@@ -47,8 +48,25 @@ class ReservaController extends Controller
         $reserva->fecha_entrada = $request->fecha_entrada;
         $reserva->fecha_salida = $request->fecha_salida;
         $reserva->save();
-       
-        // Puedes devolver una respuesta adecuada al cliente, por ejemplo, un JSON
+
+        // Envio de correo
+        // $sujeto = $request->get('nombre');
+        $sujeto = "Codigo de Reserva";
+        $nombre_cliente = $request->nom_cliente;
+        // $nombreRemitente = $request->nombre;
+        // $mensaje = $request->mensaje;
+        $correoDestinatario = $request->email;
+
+        Mail::send('correo.vistacorreo', [
+            // 'nombre' => $nombreRemitente,
+            'correo' => $correoDestinatario,
+            'nombre_cliente' => $nombre_cliente,
+            'codigo_reserva' => $id
+        ], function ($message) use ($correoDestinatario, $sujeto) {
+            $message->to($correoDestinatario)
+                ->subject($sujeto);
+        });
+
         return "hola";
     }
 }
