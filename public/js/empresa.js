@@ -84,40 +84,49 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
 
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/listarreservas');
-
     ajax.onload = function () {
-        let tabla = '';
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
             var usuarios = json.usuarios;
             var roles = json.roles;
 
-            // roles
+            // roles alta
+
+            var SelecRoles = document.getElementById('SelecRoles');
+            let tabla2 = '';
+            roles.forEach(function (rol) {
+                if (rol.id !== 1) {
+                    tabla2 += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
+                }
+            });
+            SelecRoles.innerHTML = tabla2;
+
+            // roles filtro
 
             if (filtro === 1) {
                 var filtroRol = document.getElementById('filtroRol');
-                var tabla2 = '';
-                tabla2 += '<option value="">Todo</option>';
+                let tabla3 = '';
+                tabla3 += '<option value="">Todo</option>';
                 roles.forEach(function (rol) {
                     if (rol.id !== 1) {
-                        tabla2 += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
+                        tabla3 += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
                     }
                 });
-                filtroRol.innerHTML = tabla2;
+                filtroRol.innerHTML = tabla3;
             }
 
             // tabla usuarios
-
+            let tabla = '';
             usuarios.forEach(function (usuario) {
                 let str = "<tr>";
-                str += "<form action='' method='post' id='frmeditar'>";
+                // str += "<form action='' method='post' id='frmeditar'>";
                 if (usuario.id_rol == 1) {
                     str += "<td>" + usuario.nombre + " </td>";
                     str += "<td>" + usuario.apellidos + "</td>";
                     str += "<td>" + usuario.email + "</td>";
                     str += "<td>" + usuario.nom_rol + "</td>";
                     str += '<td></td>';
-                    str += '<td></td>';    
+                    str += '<td></td>';
                 } else {
                     str += "<input type='hidden' name='idp' id='idp' value='" + usuario.id + "'>";
                     str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='nombre' id='nombre_" + usuario.id + "' value='" + usuario.nombre + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.nombre + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
@@ -135,15 +144,17 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
                     });
                     str += "</select></td>";
                     str += '<td><input type="checkbox" onclick="guardarEstadosCheckbox()" class="checkbox-usuaiors" name="pedidos" value="' + usuario.id + '"';
+
                     // Restaurar el estado del checkbox
+
                     if (estadosCheckbox[usuario.id]) {
                         str += ' checked';
                     }
                     str += '></td>';
                     str += "<td><input type='button' id='registrar_" + usuario.id + "' class='btn btn-danger' onclick='eliminarUsuario(" + usuario.id + ")' value='Eliminar'></td>";
-                
+
                 }
-                str += "</form></tr>";
+                // str += "</form></tr>";
                 tabla += str;
             });
             resultado.innerHTML = tabla;
@@ -154,9 +165,6 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
     ajax.send(formdata);
 }
 
-
-// La función ListarEmpresas() ya está definida arriba, así que no la vuelvas a definir.
-// La siguiente línea debería ser suficiente para llamar a la función guardarEstadosCheckbox().
 guardarEstadosCheckbox();
 
 // ----------------------
@@ -271,44 +279,80 @@ function selectmuldel() {
     }).then((result) => {
         if (result.isConfirmed) {
 
-    const checkboxes = document.querySelectorAll('.checkbox-usuaiors');
-    const valoresSeleccionados = [];
+            const checkboxes = document.querySelectorAll('.checkbox-usuaiors');
+            const valoresSeleccionados = [];
 
-    // console.log(checkboxes);
-    // console.log(valoresSeleccionados);
+            // console.log(checkboxes);
+            // console.log(valoresSeleccionados);
 
-    // Recorer los checkbox
-    checkboxes.forEach(function (checkbox) {
-        if (checkbox.checked) {
-            // almacenar el value de los checkbox
-            valoresSeleccionados.push(checkbox.value);
+            // Recorer los checkbox
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    // almacenar el value de los checkbox
+                    valoresSeleccionados.push(checkbox.value);
+                }
+            });
+
+            var formdata = new FormData();
+            var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+            formdata.append('_token', csrfToken);
+            valoresSeleccionados.forEach(function (valor) {
+                formdata.append('id[]', valor);
+                // console.log(valor);
+            });
+
+            var ajax = new XMLHttpRequest();
+            ajax.open('POST', '/eliminar');
+            ajax.onload = function () {
+                if (ajax.status === 200) {
+                    if (ajax.responseText == "ok") {
+                        ListarEmpresas('', '', '');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Eliminado',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                }
+            }
+            ajax.send(formdata);
         }
-    });
+    })
+}
 
-    var formdata = new FormData();
+// Registrar usuario
+
+registrar.addEventListener("click", () => {
+
+    var form = document.getElementById('formnewuser');
+    var formdata = new FormData(form);
+
     var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
-    valoresSeleccionados.forEach(function (valor) {
-        formdata.append('id[]', valor);
-        // console.log(valor);
-    });
+
+    // formdata.forEach(function (value, key) {
+    //     console.log(key + ': ' + value);
+    // });
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/eliminar');
+    ajax.open('POST', '/registrar');
+
     ajax.onload = function () {
         if (ajax.status === 200) {
             if (ajax.responseText == "ok") {
-                ListarEmpresas('', '', '');
                 Swal.fire({
                     icon: 'success',
-                    title: 'Eliminado',
+                    title: 'Registrado',
                     showConfirmButton: false,
                     timer: 1500
-                })
+                });
+                // form.reset();
+                ListarEmpresas('', '', '');
             }
+        } else {
+            respuesta_ajax.innerText = 'Error';
         }
     }
-    ajax.send(formdata);   
-}
-})
-}
+    ajax.send(formdata);
+});
