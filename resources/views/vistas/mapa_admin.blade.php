@@ -58,11 +58,6 @@
                 <div class="menu-content">
                     <h1>Listado de los Parkings:</h1>
 
-                    {{-- <!-- Botón para abrir modal de añadir parking -->
-                <button type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal-crear"
-                    id="icono-suma" style="color: green; border: 2px solid green; padding: 5px;"></button> --}}
-
-
                     <!-- Manejo de errores y éxito -->
                     @if (session('error'))
                         <div class="alert alert-danger" style="padding-top: 10px">{{ session('error') }}</div>
@@ -101,17 +96,6 @@
             </div>
 
             <div id="cont-mapa">
-                {{-- <form action="">
-                <label for="punto">Buscar por</label>
-                <input type="text" id="punto" name="punto" placeholder="Nombre">
-                <select name="empresa" id="empresa">
-                    <option value="" disabled selected>Empresa/option>
-                    @foreach ($empresas as $empresa)
-                        <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
-                    @endforeach
-                </select>
-            </form> --}}
-
                 <!-- Mapa con marcadores -->
                 <div id="map" style="flex: 1; height: 100%;"></div>
             </div>
@@ -349,6 +333,8 @@
                     // Actualizar los valores de latitud y longitud en el formulario de edición
                     $("#editar-latitud").val(newLatLng.lat); // Asigna la nueva latitud
                     $("#editar-longitud").val(newLatLng.lng); // Asigna la nueva longitud
+                    $("#latitud").val(newLatLng.lat); // Asigna la nueva latitud
+                    $("#longitud").val(newLatLng.lng); // Asigna la nueva longitud
 
                     // Actualizar el pop-up con la nueva información
                     e.target.getPopup().setContent(
