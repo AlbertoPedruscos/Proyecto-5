@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <img class="navbar-brand" src="{{ asset('img/logo.png') }}" alt="Logo">
                 <h4 class="text-white">Mapa (Admin)</h4>
-                <a href="" class="fa-solid fa-arrow-left text-white"></a>
+                <a href="/" class="fa-solid fa-arrow-left text-white"></a>
             </div>
         </nav>
     </header>
