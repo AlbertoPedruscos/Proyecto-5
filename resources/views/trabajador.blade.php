@@ -30,6 +30,7 @@
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
                 <a class="navbar-brand" href="#">Reservas de hoy</a>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
@@ -79,12 +80,13 @@
         <div class="reservas" id="reservas">
 
         </div>
+
         <script type="text/javascript">
             // Obtener referencia al input de búsqueda
             var inputFiltro = document.getElementById('filtro');
 
             function filtrarReservas() {
-                document.getElementById('reservas').innerHTML = "";
+                // document.getElementById('reservas').innerHTML = "";
                 // Obtener el valor del input de búsqueda
                 var filtro = inputFiltro.value;
                 // Obtener el token CSRF desde una etiqueta meta
@@ -102,20 +104,21 @@
                     if (xhr.status >= 200 && xhr.status < 400) {
                         // La petición fue exitosa, procesar la respuesta
                         var data = JSON.parse(xhr.responseText);
-
+                        // console.log(data)
                         // Construir la tabla con los datos recibidos
                         // var tabla = '<table class="table"><thead><tr><th>ID</th><th>Nombre Cliente</th><th>Teléfono</th><th>Email</th></tr></thead><tbody>';
                         var contenidoReserva;
                         // Iterar sobre los datos de las reservas y agregar filas a la tabla
                         // data.reservas.forEach(function(reserva) {
-                        //     tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
+                        // tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
                         // });
-                        var contadorVueltas = 0;
+                        // var contadorVueltas = 0;
                         // console.log(data);
                         data.reservas.forEach(function(reserva) {
-                            contadorVueltas++;
-
-                            contenidoReserva += '<div class="reservaCliente">';
+                            // contadorVueltas++;
+                            var ColorReserva = reserva.id_trabajador ? 'style="background-color: red;"' :
+                                '"';;
+                            contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + '>';
                             contenidoReserva += '<div class="horasReservas">';
                             // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
                             var fechaActual = new Date();
@@ -136,17 +139,22 @@
                                 '<span class="material-symbols-outlined"> done </span>' : '';
                             contenidoReserva += '<p>' + tieneFirma + '</p>';
                             contenidoReserva += '</div>';
+                            // contenidoReserva += '<div class="reservaCliente">';
+                            // contenidoReserva += '<p>' + reserva.ubicacion_entrada + '</p>';
+                            // contenidoReserva += '<p>' + reserva.ubicacion_salida + '</p>';
+                            // contenidoReserva += '</div>';
                             contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
                             var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
                             var desH = reserva.trabajador ? 'disabled' : '';
-                            var desB = reserva.id_trabajador ? '' : 'href="/cambio"';;
+                            var desB = reserva.id_trabajador ? '' : 'href="/cambio"';
                             // console.log(desB)
                             // Agregar el botón con el contenido dinámico
                             // Agregar el botón con el contenido dinámico
 
                             // contenidoReserva += '<p>' + reserva.id_trabajador + '</p>';
                             contenidoReserva +=
-                                '<a ' + desB + ' class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
+                                '<a ' + desB +
+                                ' class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
                                 nombreTrabajador + '">' + nombreTrabajador + '</a>';
 
                             contenidoReserva += '</div>';

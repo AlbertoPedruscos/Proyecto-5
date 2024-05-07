@@ -11,7 +11,6 @@
 <body>
     <h1>MyControlPark</h1>
     <p>Hola: {{ $nombre_cliente }}, su codigo de reserva es: {{ $codigo_reserva }}.</p>
-    {{-- <p>{{ $correo }}</p> --}}
 </body>
 
 </html>

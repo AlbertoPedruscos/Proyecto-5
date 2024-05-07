@@ -45,7 +45,7 @@ class AparcaController extends Controller
             'id_plaza' => 'required|exists:tbl_plazas,id',
             'nom_cliente' => 'required|exists:tbl_reservas,id|max:45',
             'firma_imagen' => 'required|image', // Aseguramos que se haya enviado una imagen
-        ]);     
+        ]);
 
         // Guardamos la imagen de la firma en la carpeta public/img/firmas
         try {
@@ -63,9 +63,10 @@ class AparcaController extends Controller
         // Creamos una nueva instancia de TblReserva con los datos del formulario
         $reserva = modeloReserva::where('id', $request->nom_cliente)->first();
         $reserva->id_trabajador = $idtrabajador;
+        $reserva->id_plaza = $request->id_plaza;
         $reserva->firma = $firmaPath;
         $reserva->save();
-        
+
         // Guardamos la reserva en la base de datos
         try {
             $reserva->save();
@@ -76,7 +77,7 @@ class AparcaController extends Controller
         }
 
         // Retornamos una respuesta adecuada, por ejemplo, un mensaje de éxito
-        return response()->json(['message' => 'Reserva realizada correctamente'], 200);
+        // return response()->json(['message' => 'Reserva realizada correctamente'], 200);
+        echo "Reserva realizada correctamente";
     }
-
 }

@@ -1,16 +1,16 @@
 <?php
-$id_user = 1;
 use App\Models\modeloPlazas;
 $plazas = modeloPlazas::all();
 use Illuminate\Support\Facades\DB;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="{{csrf_token()}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="./css/aparca.css">
     {{-- FUENTE --}}
@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="modal" id="modal">
         <div class="modal-content">
@@ -28,7 +29,7 @@ use Illuminate\Support\Facades\DB;
                 <select id="id_plaza" name="id_plaza" disabled>
                     <option value="">Selecciona una plaza</option>
                     <?php foreach ($plazas as $plaza): ?>
-                        <option value="<?php echo $plaza->id; ?>"><?php echo $plaza->nombre; ?></option>
+                    <option value="<?php echo $plaza->id; ?>"><?php echo $plaza->nombre; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -51,17 +52,18 @@ use Illuminate\Support\Facades\DB;
     </div>
     <div id="container">
         <br>
-        <button style="background-color: red">Volver</button>
+        <a href="/trabajador"><button style="background-color: red">Volver</button></a>
         <br>
         <div>
             <div id="item">
                 <h1>Parkin de Vladivostok</h1>
                 <br>
                 <h2>Planta: 1</h2>
-            </div>    
+            </div>
             <div id="gridContainer"></div>
         </div>
-    </div>    
+    </div>
 </body>
+
 </html>
 <script src="./js/aparca.js"></script>
