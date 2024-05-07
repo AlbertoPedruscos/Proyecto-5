@@ -27,6 +27,9 @@ Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking
 Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
 Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
 
+// Ruta mover parking
+Route::post('/parking/update/{id}', [ParkingController::class, 'updateLocation']);
+
 // Ruta para filtrar parkings
 Route::get('/filtrar_parkings', [ParkingController::class, 'filtrarParkings'])->name('filtrar_parkings');
 
