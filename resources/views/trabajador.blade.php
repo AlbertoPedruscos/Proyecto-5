@@ -112,7 +112,7 @@
                             // contadorVueltas++;
                             var ColorReserva = reserva.id_trabajador ? 'style="background-color: red;"' :
                                 '"';;
-                            contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + '>';
+                                contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + ' onclick="window.location.href = \'/cambio\'">';
                             contenidoReserva += '<div class="horasReservas">';
                             // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
                             var fechaActual = new Date();
