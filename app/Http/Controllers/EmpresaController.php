@@ -54,9 +54,23 @@ class EmpresaController extends Controller
 
     public function eliminar(Request $request)
     {
-        $id = $request->input('id');
-        $resultado = tbl_usuarios::find($id);
+        $ids = $request->input('id');
+        if (is_array($ids)) {
+            foreach ($ids as $id) {
+                $resultado = tbl_usuarios::find($id);
+                if ($resultado) {
+                    $resultado->delete();
+                }
+            }
+            echo "ok";
+        }else{
+            $resultado = tbl_usuarios::find($ids);
         $resultado->delete();
         echo "ok";
     }
+    }
+
+   
+    
+    
 }

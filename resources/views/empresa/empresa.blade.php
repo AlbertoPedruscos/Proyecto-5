@@ -36,6 +36,9 @@
             <select name="filtroRol" id="filtroRol">
             </select>
         </form>
+        <div>
+            <button onclick="selectmuldel()">Eliminar seleccion</button>
+        </div>
     </div>
 
     <table>

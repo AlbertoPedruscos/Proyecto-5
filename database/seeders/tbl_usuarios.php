@@ -18,8 +18,8 @@ class tbl_usuarios extends Seeder
             'apellidos' => 'Cesar',
             'email' => 'julio@gmail.com',
             'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
-            'id_empresa' => 1,
+            'id_rol' => 2,
+            'id_empresa' => 2,
             'created_at' => now(),
             'updated_at' => now()
         ]);
