@@ -9,18 +9,34 @@
     <script src="https://kit.fontawesome.com/8e6d3dccce.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="{{ asset('img/logo.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/indice.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/empresa.css') }}">
 </head>
 
 <body>
     {{-- <header> --}}
     <div class="contenedor">
-        <p id="menu"><i class="fas fa-grip-lines"></i></p>
+        {{-- <p id="menu"><i class="fas fa-grip-lines"></i></p> --}}
         <h1>MyControlPark</h1>
-        <a href="{{ asset('/login') }}"><i class="fas fa-user-circle"></i></a>
+        {{-- <a href="{{ asset('/login') }}"></a> --}}
+        <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
     </div>
 
     {{-- </header> --}}
+    <div class="col-lg-12 ml-auto" style="border:1px solid">
+        <form action="" method="post" id="frmbusqueda">
+            <div class="form-group">
+                <label for="nombre">nombre:</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
+            </div>
+        </form>
+    </div>
+    <div id="rolfiltros">
+        <form action="" method="post" id="frmfiltroRol">
+            <label for="rol">Rol:</label><br>
+            <select name="filtroRol" id="filtroRol">
+            </select>
+        </form>
+    </div>
 
     <table>
         <thead>

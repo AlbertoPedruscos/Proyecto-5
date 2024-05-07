@@ -50,14 +50,36 @@ function guardarEstadosCheckbox() {
         // console.log(estadosCheckbox);
     });
 }
+// ----------------------
+// ESCUCHAR EVENTO ACTUALIZAR FORMULARIO DEL FILTRO
+// ----------------------
+const inputNombre = document.getElementById('nombre');
+inputNombre.addEventListener("keyup", actualizarFiltro);
 
-ListarEmpresas();
+let filtroRol = '';
 
-function ListarEmpresas() {
+function actualizarFiltro() {
+    const nombre = inputNombre.value;
+    ListarEmpresas(nombre, filtroRol, '2');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('filtroRol').addEventListener('change', function (event) {
+        const valorSeleccionado = event.target.value;
+        filtroRol = valorSeleccionado;
+        actualizarFiltro();
+    });
+});
+
+ListarEmpresas('', '', 1);
+
+function ListarEmpresas(nombre, filtroRol, filtro = 1) {
     var resultado = document.getElementById('resultado');
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
+    formdata.append('nombre', nombre);
+    formdata.append('rol', filtroRol);
 
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/listarreservas');
@@ -68,6 +90,23 @@ function ListarEmpresas() {
             var json = JSON.parse(ajax.responseText);
             var usuarios = json.usuarios;
             var roles = json.roles;
+
+            // roles
+
+            if (filtro === 1) {
+                var filtroRol = document.getElementById('filtroRol');
+                var tabla2 = '';
+                tabla2 += '<option value="">Todo</option>';
+                roles.forEach(function (rol) {
+                    if (rol.id !== 1) {
+                        tabla2 += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
+                    }
+                });
+                filtroRol.innerHTML = tabla2;
+            }
+
+            // tabla usuarios
+
             usuarios.forEach(function (usuario) {
                 let str = "<tr>";
                 str += "<form action='' method='post' id='frmeditar'>";
@@ -107,6 +146,7 @@ function ListarEmpresas() {
     }
     ajax.send(formdata);
 }
+
 
 // La función ListarEmpresas() ya está definida arriba, así que no la vuelvas a definir.
 // La siguiente línea debería ser suficiente para llamar a la función guardarEstadosCheckbox().
