@@ -13,7 +13,8 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function trabajador() {
+    public function trabajador()
+    {
         return view('trabajador');
     }
 
@@ -41,18 +42,21 @@ class LoginController extends Controller
             $request->session()->put('apellidos', $user->apellidos);
             $request->session()->put('email', $user->email);
             $request->session()->put('rol', $user->id_rol);
+            $request->session()->put('id_empresa', $user->id_empresa);
 
-            if ($user->id_rol == 1) {
-                return redirect()->route('mapa_admin');
-            } 
-            
-            else {
-                return redirect()->route('trabajador');
+            switch ($user->id_rol) {
+                case 1:
+                    // Código a ejecutar cuando $user->id_rol es igual a 1
+                    return redirect()->route('mapa_admin');
+                    break;
+                case 2:
+                    return redirect()->route('empresa');
+                    break;
+                case 3:
+                    return redirect()->route('trabajador');
+                    break;
             }
-
-        } 
-        
-        else {
+        } else {
             // Si las credenciales son incorrectas, redirigir con mensaje de error
             return redirect()->route('login')->with('error', 'Credenciales incorrectas')->withInput();
         }

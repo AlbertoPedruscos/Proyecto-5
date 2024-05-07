@@ -59,3 +59,15 @@ Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.po
 Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
 Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
 Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
+
+// Julio 
+
+Route::get('/empresa', function () {
+    return view('empresa.empresa');
+})->name('empresa');
+
+use App\Http\Controllers\EmpresaController;
+
+Route::post('/listarreservas', [EmpresaController::class, 'listarreservas'])->name('listarreservas');
+Route::post('/estado', [EmpresaController::class,  'estado'])->name('estado');
+Route::post('/eliminar', [EmpresaController::class, 'eliminar'])->name('eliminar');

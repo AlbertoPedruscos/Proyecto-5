@@ -11,6 +11,10 @@
         body {
             background-color: #003459;
         }
+
+        .error {
+            border: 1px solid red !important;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -19,7 +23,7 @@
 <body style="background-color: #003459;">
     <div class="container" style=" background-color: #003459; color:white">
         <div class="form-group">
-            <label for="nom_cliente" class="form-label">Nombre:</label>
+            <label for="nom_cliente" class="form-label">Email:</label>
             <input type="text" class="form-control" id="nom_cliente" name="nom_cliente">
         </div>
         <div class="form-group">
@@ -63,13 +67,107 @@
             <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida">
         </div>
         <br>
-        <button type="button" class="btn btn-primary" onclick="reservarNuevo()">Enviar</button>
+        <button type="button" class="btn btn-primary" onclick="validarYReservar()">Enviar</button>
     </div>
 </body>
 
 </html>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+    function validarYReservar() {
+        var valido = true;
+        var nom_cliente = document.getElementById("nom_cliente");
+        if (nom_cliente.value.trim() === '') {
+            nom_cliente.classList.add('error');
+            valido = false;
+        } else {
+            nom_cliente.classList.remove('error');
+        }
+
+        var matricula = document.getElementById("matricula");
+        if (matricula.value.trim() === '') {
+            matricula.classList.add('error');
+            valido = false;
+        } else {
+            matricula.classList.remove('error');
+        }
+
+        var marca = document.getElementById("marca");
+        if (marca.value.trim() === '') {
+            marca.classList.add('error');
+            valido = false;
+        } else {
+            marca.classList.remove('error');
+        }
+
+        var modelo = document.getElementById("modelo");
+        if (modelo.value.trim() === '') {
+            modelo.classList.add('error');
+            valido = false;
+        } else {
+            modelo.classList.remove('error');
+        }
+
+        var color = document.getElementById("color");
+        if (color.value.trim() === '') {
+            color.classList.add('error');
+            valido = false;
+        } else {
+            color.classList.remove('error');
+        }
+
+        var num_telf = document.getElementById("num_telf");
+        if (num_telf.value.trim() === '') {
+            num_telf.classList.add('error');
+            valido = false;
+        } else {
+            num_telf.classList.remove('error');
+        }
+
+        var email = document.getElementById("email");
+        if (email.value.trim() === '') {
+            email.classList.add('error');
+            valido = false;
+        } else {
+            email.classList.remove('error');
+        }
+
+        var ubicacion_entrada = document.getElementById("ubicacion_entrada");
+        if (ubicacion_entrada.value.trim() === '') {
+            ubicacion_entrada.classList.add('error');
+            valido = false;
+        } else {
+            ubicacion_entrada.classList.remove('error');
+        }
+
+        var ubicacion_salida = document.getElementById("ubicacion_salida");
+        if (ubicacion_salida.value.trim() === '') {
+            ubicacion_salida.classList.add('error');
+            valido = false;
+        } else {
+            ubicacion_salida.classList.remove('error');
+        }
+
+        var fecha_entrada = document.getElementById("fecha_entrada");
+        if (fecha_entrada.value.trim() === '') {
+            fecha_entrada.classList.add('error');
+            valido = false;
+        } else {
+            fecha_entrada.classList.remove('error');
+        }
+
+        var fecha_salida = document.getElementById("fecha_salida");
+        if (fecha_salida.value.trim() === '') {
+            fecha_salida.classList.add('error');
+            valido = false;
+        } else {
+            fecha_salida.classList.remove('error');
+        }
+        if (valido == true) {
+            reservarNuevo();
+        }
+    }
+
     function reservarNuevo() {
         var csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
         var nom_cliente = document.getElementById("nom_cliente").value;
@@ -114,6 +212,7 @@
                         '¡El vehiculo ha sido reservado!',
                         'success'
                     );
+                    form.reset();
                 } else {
                     Swal.fire(
                         'Error!',
