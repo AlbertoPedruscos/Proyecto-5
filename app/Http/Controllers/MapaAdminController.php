@@ -114,25 +114,43 @@ class MapaAdminController extends Controller
             return redirect()->route('mapa_admin')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
         }
     }
-
-    public function filtrarParkings(Request $request) {
-        $nombre = $request->get("nombre");
-        $empresa = $request->get("empresa");
-    
-        $query = tbl_parking::query();
-    
-        if ($nombre) {
-            $query->where("nombre", "LIKE", "%" + $nombre + "%");
-        }
-    
-        if ($empresa) {
-            $query->where("id_empresa", $empresa);
-        }
-    
-        $parkings = $query->get();
-    
-        return response()->json([
-            "parkings" => $parkings,
+                                
+    public function updateLocation(Request $request) {
+        // Validación para asegurarse de que se reciben valores correctos
+        $request->validate([
+            'id' => 'required|exists:tbl_parking,id',  // ID debe ser válido
+            'latitud' => 'required|numeric',  // Latitud es obligatoria y debe ser numérica
+            'longitud' => 'required|numeric',  // Longitud es obligatoria y debe ser numérica
+            'nombre' => 'sometimes|required|string|max:255',  // Campo opcional pero si se envía, debe ser válido
+            'id_empresa' => 'sometimes|exists:tbl_empresas,id',  // Campo opcional
+            'id_plaza' => 'sometimes|exists:tbl_plazas,id',  // Campo opcional
         ]);
+
+        try {
+            // Busca el parking por ID
+            $parking = tbl_parking::findOrFail($request->id);
+
+            $parking->nombre;
+            $parking->latitud = $request->latitud;
+            $parking->longitud = $request->longitud;
+            $parking->id_empresa;
+            $parking->id_plaza;
+
+            // Guarda cambios en la base de datos
+            $parking->save();
+
+            // Respuesta exitosa
+            return response()->json([
+                'success' => true,
+                'message' => 'Ubicación actualizada con éxito.',
+            ]);
+        } 
+        
+        catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar la ubicación: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ReservasController;
 use App\Http\Controllers\MapaAdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ParkingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -59,9 +60,13 @@ Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.po
 Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
 Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
 Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
+// Route::put('/parking/update-location', [MapaAdminController::class, 'updateLocation'])->name('parking.updateLocation');
+
+// Ruta para actualizar la ubicación de un parking
+Route::put('/parking/{id}/update-location', [ParkingController::class, 'updateLocation']);
+
 
 // Julio 
-
 Route::get('/empresa', function () {
     return view('empresa.empresa');
 })->name('empresa');

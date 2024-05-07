@@ -14,39 +14,39 @@
     @endsection
 
     @section('content')
-    <header>
-        <nav class="navbar navbar-dark bg-dark fixed-top top-nav">
-            <div class="container-fluid d-flex justify-content-between">
-                <!-- Sección izquierda con el logo -->
-                <div class="d-flex align-items-center">
-                    <img class="navbar-brand" src="{{ asset('img/logo.png') }}" alt="Logo">
-                </div>
-                
-                <!-- Sección central para centrar el h4 -->
-                <div class="d-flex align-items-center mx-auto"> 
-                    <h4 class="text-white">Mapa (Admin)</h4>
-                </div>
-    
-                <!-- Sección derecha con el dropdown -->
-                <div class="d-flex align-items-center">
-                    <!-- Dropdown para la sesión del usuario -->
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenu" 
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ session('nombre') }} <!-- Muestra el nombre del usuario de la sesión -->
-                        </button>
-    
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                            <li>
-                                <a href="logout" class="dropdown-item">Cerrar sesión</a>
-                            </li>
-                        </ul>
+        <header>
+            <nav class="navbar navbar-dark bg-dark fixed-top top-nav">
+                <div class="container-fluid d-flex justify-content-between">
+                    <!-- Sección izquierda con el logo -->
+                    <div class="d-flex align-items-center">
+                        <img class="navbar-brand" src="{{ asset('img/logo.png') }}" alt="Logo">
+                    </div>
+
+                    <!-- Sección central para centrar el h4 -->
+                    <div class="d-flex align-items-center mx-auto">
+                        <h4 class="text-white">Mapa (Admin)</h4>
+                    </div>
+
+                    <!-- Sección derecha con el dropdown -->
+                    <div class="d-flex align-items-center">
+                        <!-- Dropdown para la sesión del usuario -->
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenu"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ session('nombre') }} <!-- Muestra el nombre del usuario de la sesión -->
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li>
+                                    <a href="logout" class="dropdown-item">Cerrar sesión</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    
+            </nav>
+        </header>
+
         <div id="cont-principal">
             <div id="cont-crud" class="collapsed">
                 <div class="menu-toggle" id="menuToggle">
@@ -57,11 +57,6 @@
 
                 <div class="menu-content">
                     <h1>Listado de los Parkings:</h1>
-
-                    {{-- <!-- Botón para abrir modal de añadir parking -->
-                <button type="button" class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#modal-crear"
-                    id="icono-suma" style="color: green; border: 2px solid green; padding: 5px;"></button> --}}
-
 
                     <!-- Manejo de errores y éxito -->
                     @if (session('error'))
@@ -80,8 +75,8 @@
                                 @if ($parking->empresa)
                                     <p>Empresa: {{ $parking->empresa->nombre }}</p>
                                 @endif
-                                <p>Latitud: {{ $parking->latitud }}</p>
-                                <p>Longitud: {{ $parking->longitud }}</p>
+                                <p id="latitud">Latitud: {{ $parking->latitud }}</p>
+                                <p id="longitud">Longitud: {{ $parking->longitud }}</p>
                                 <div>
                                     <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
                                         data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
@@ -101,17 +96,6 @@
             </div>
 
             <div id="cont-mapa">
-                {{-- <form action="">
-                <label for="punto">Buscar por</label>
-                <input type="text" id="punto" name="punto" placeholder="Nombre">
-                <select name="empresa" id="empresa">
-                    <option value="" disabled selected>Empresa/option>
-                    @foreach ($empresas as $empresa)
-                        <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
-                    @endforeach
-                </select>
-            </form> --}}
-
                 <!-- Mapa con marcadores -->
                 <div id="map" style="flex: 1; height: 100%;"></div>
             </div>
@@ -263,16 +247,6 @@
                 iconAnchor: [15, 42], // Punto de anclaje para el icono
             });
 
-            @foreach ($parkings as $parking)
-                L.marker([{{ $parking->latitud }}, {{ $parking->longitud }}], {
-                        icon: parkingIcon
-                    })
-                    .bindPopup(
-                        '<b>{{ $parking->nombre }}</b><br>Lat: {{ $parking->latitud }}, \nLon: {{ $parking->longitud }}'
-                    )
-                    .addTo(map);
-            @endforeach
-
             function confirmDeletion() {
                 return confirm("¿Estás seguro de que quieres eliminar este parking?");
             }
@@ -301,6 +275,78 @@
                     }
                 });
             }
+
+            // Función para actualizar la ubicación de un parking en la base de datos
+            function updateParkingLocation(parkingId, newLat, newLng) {
+                var csrfToken = "{{ csrf_token() }}"; // Token CSRF para seguridad
+
+                if (!parkingId || !newLat || !newLng) {
+                    console.error("Datos insuficientes para la actualización de la ubicación.");
+                    alert("Error: Datos insuficientes para actualizar la ubicación.");
+                    return; // Si no hay datos suficientes, no continúes
+                }
+
+                var data = {
+                    _token: csrfToken, // Token para prevenir ataques CSRF
+                    latitud: newLat, // Nueva latitud
+                    longitud: newLng, // Nueva longitud
+                };
+
+                $.ajax({
+                    url: `/parking/${parkingId}/update-location`, // Asegúrate de que esta ruta exista
+                    type: 'PUT', // Método HTTP para actualización
+                    data: data, // Datos a enviar
+                    success: function(response) {
+                        if (response.success) {
+                            console.log("Ubicación actualizada con éxito.");
+                            alert("Ubicación actualizada con éxito.");
+                        } else {
+                            console.error("Error al actualizar ubicación:", response.message);
+                            alert("Error: " + response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error en la solicitud AJAX:", xhr
+                            .responseText); // Muestra el error detallado
+                        alert("Error al actualizar la ubicación: " + xhr.responseJSON.message);
+                    }
+                });
+            }
+
+            @foreach ($parkings as $parking)
+                var marker = L.marker([{{ $parking->latitud }}, {{ $parking->longitud }}], {
+                        icon: parkingIcon,
+                        draggable: true // Hacer que el marcador sea arrastrable
+                    })
+                    .bindPopup(
+                        '<b>{{ $parking->nombre }}</b><br>Lat: {{ $parking->latitud }}, Lon: {{ $parking->longitud }}'
+                    )
+                    .addTo(map);
+
+                // Evento cuando el marcador se deja de arrastrar
+                marker.on('dragend', function(e) {
+                    let newLatLng = e.target.getLatLng(); // Nuevas coordenadas
+
+                    // Actualizar la ubicación de un parking en la base de datos
+                    updateParkingLocation({{ $parking->id }}, newLatLng.lat, newLatLng.lng);
+
+                    // Actualizar los valores de latitud y longitud en el formulario de edición
+                    $("#editar-latitud").val(newLatLng.lat); // Asigna la nueva latitud
+                    $("#editar-longitud").val(newLatLng.lng); // Asigna la nueva longitud
+                    $("#latitud").val(newLatLng.lat); // Asigna la nueva latitud
+                    $("#longitud").val(newLatLng.lng); // Asigna la nueva longitud
+
+                    // Actualizar el pop-up con la nueva información
+                    e.target.getPopup().setContent(
+                        `<b>{{ $parking->nombre }}</b><br>Lat: ${newLatLng.lat}, Lon: ${newLatLng.lng}`
+                    ).update(); // Actualiza el contenido del pop-up
+
+                    // Actualizar latitud y longitud en cont-crud
+                    document.getElementById('latitud').val(newLatLng.lat); // Asigna la nueva latitud
+                    document.getElementById('longitud').val(newLatLng.lng); // Asigna la nueva longitud
+                    
+                });
+            @endforeach
 
             // Alternar entre expandir y contraer el panel lateral
             document.getElementById('menuToggle').addEventListener('click', function() {
