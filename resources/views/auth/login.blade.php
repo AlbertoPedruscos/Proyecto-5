@@ -4,6 +4,10 @@
 @section('title', 'Login | MyControlPark') <!-- Título personalizado -->
 @section('css') <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
+    {{-- FUENTE --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 @endsection
 
 @section('content')

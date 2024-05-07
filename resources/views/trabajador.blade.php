@@ -30,7 +30,6 @@
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
                 <a class="navbar-brand" href="#">Reservas de hoy</a>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
@@ -41,12 +40,7 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
+                            <a class="navbar-brand" href="logout" class="dropdown-item" style="color: black;">Cerrar sesión</a>
                         </ul>
                     </div>
                 </div>
@@ -73,8 +67,8 @@
             </div>
         </div>
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                <code>.accordion-flush</code> class. This is the first item's accordion body.
+            <div class="accordion-body">
+                <p>Filtro</p>
             </div>
         </div>
         <div class="reservas" id="reservas">
@@ -118,7 +112,7 @@
                             // contadorVueltas++;
                             var ColorReserva = reserva.id_trabajador ? 'style="background-color: red;"' :
                                 '"';;
-                            contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + '>';
+                                contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + ' onclick="window.location.href = \'/cambio\'">';
                             contenidoReserva += '<div class="horasReservas">';
                             // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
                             var fechaActual = new Date();
