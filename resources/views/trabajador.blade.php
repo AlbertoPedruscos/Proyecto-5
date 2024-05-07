@@ -30,7 +30,6 @@
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
                 <a class="navbar-brand" href="#">Reservas de hoy</a>
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
@@ -41,12 +40,7 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
+                            <a class="navbar-brand" href="logout" class="dropdown-item" style="color: black;">Cerrar sesión</a>
                         </ul>
                     </div>
                 </div>
@@ -73,8 +67,8 @@
             </div>
         </div>
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
-                <code>.accordion-flush</code> class. This is the first item's accordion body.
+            <div class="accordion-body">
+                <p>Filtro</p>
             </div>
         </div>
         <div class="reservas" id="reservas">
@@ -101,73 +95,47 @@
 
                 // Configurar el callback cuando la petición haya sido completada
                 xhr.onload = function() {
-                    if (xhr.status >= 200 && xhr.status < 400) {
-                        // La petición fue exitosa, procesar la respuesta
-                        var data = JSON.parse(xhr.responseText);
-                        // console.log(data)
-                        // Construir la tabla con los datos recibidos
-                        // var tabla = '<table class="table"><thead><tr><th>ID</th><th>Nombre Cliente</th><th>Teléfono</th><th>Email</th></tr></thead><tbody>';
-                        var contenidoReserva;
-                        // Iterar sobre los datos de las reservas y agregar filas a la tabla
-                        // data.reservas.forEach(function(reserva) {
-                        // tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
-                        // });
-                        // var contadorVueltas = 0;
-                        // console.log(data);
-                        data.reservas.forEach(function(reserva) {
-                            // contadorVueltas++;
-                            var ColorReserva = reserva.id_trabajador ? 'style="background-color: red;"' :
-                                '"';;
-                            contenidoReserva += '<div class="reservaCliente" ' + ColorReserva + '>';
-                            contenidoReserva += '<div class="horasReservas">';
-                            // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
-                            var fechaActual = new Date();
-                            var fechaEntrada = new Date(reserva.fecha_entrada);
-                            if (fechaEntrada.toDateString() === fechaActual.toDateString()) {
-                                contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
-                            } else {
-                                // Verificar si la fecha de salida coincide con el día actual
-                                var fechaSalida = new Date(reserva.fecha_salida);
-                                if (fechaSalida.toDateString() === fechaActual.toDateString()) {
-                                    contenidoReserva += '<h5 style="float: left;">' + reserva.hora_salida + '</h5>';
-                                } else {
-                                    contenidoReserva +=
-                                        '<h5 style="float: left;">Otra hora</h5>'; // Cambia "Otra hora" según tu necesidad
-                                }
-                            }
-                            var tieneFirma = reserva.firma ?
-                                '<span class="material-symbols-outlined"> done </span>' : '';
-                            contenidoReserva += '<p>' + tieneFirma + '</p>';
-                            contenidoReserva += '</div>';
-                            // contenidoReserva += '<div class="reservaCliente">';
-                            // contenidoReserva += '<p>' + reserva.ubicacion_entrada + '</p>';
-                            // contenidoReserva += '<p>' + reserva.ubicacion_salida + '</p>';
-                            // contenidoReserva += '</div>';
-                            contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
-                            var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
-                            var desH = reserva.trabajador ? 'disabled' : '';
-                            var desB = reserva.id_trabajador ? '' : 'href="/cambio"';
-                            // console.log(desB)
-                            // Agregar el botón con el contenido dinámico
-                            // Agregar el botón con el contenido dinámico
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    // La petición fue exitosa, procesar la respuesta
+                    var data = JSON.parse(xhr.responseText);
 
-                            // contenidoReserva += '<p>' + reserva.id_trabajador + '</p>';
-                            contenidoReserva +=
-                                '<a ' + desB +
-                                ' class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' +
-                                nombreTrabajador + '">' + nombreTrabajador + '</a>';
+                    // Construir la tabla con los datos recibidos
+                    // var tabla = '<table class="table"><thead><tr><th>ID</th><th>Nombre Cliente</th><th>Teléfono</th><th>Email</th></tr></thead><tbody>';
+                      var contenidoReserva;
+                    // Iterar sobre los datos de las reservas y agregar filas a la tabla
+                    // data.reservas.forEach(function(reserva) {
+                    //     tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
+                    // });
+                    var contadorVueltas = 0;
+                    data.reservas.forEach(function(reserva) {
+                      contadorVueltas++;
 
-                            contenidoReserva += '</div>';
-                        });
-                        // Cerrar la tabla
+                      contenidoReserva += '<div class="reservaCliente">';
+                      contenidoReserva += '<div class="horasReservas">';
+                      // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
+                      var fechaActual = new Date();
+                      var fechaEntrada = new Date(reserva.fecha_entrada);
+                        contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
+                      var tieneFirma = reserva.firma ? '<span class="material-symbols-outlined"> done </span>' : '';
+                      contenidoReserva += '<p>' + tieneFirma + '</p>';
+                      contenidoReserva += '</div>';
+                      contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
+                      var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
+                      var desH = reserva.trabajador ? 'disabled' : '';
+                      contenidoReserva += '<button type="button" class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' + nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
+                      contenidoReserva += '</div>';
+                    });
+                    console.log('Total de vueltas: ' + contadorVueltas);
 
-                        // Actualizar el contenido de la sección de reservas con la tabla construida
-                        document.getElementById('reservas').innerHTML = contenidoReserva;
-                    } else {
-                        // Ocurrió un error al hacer la petición
-                        console.error('Error al realizar la petición:', xhr.responseText);
-                    }
-                };
+                    // Cerrar la tabla
+
+                    // Actualizar el contenido de la sección de reservas con la tabla construida
+                    document.getElementById('reservas').innerHTML = contenidoReserva;
+                } else {
+                    // Ocurrió un error al hacer la petición
+                    console.error('Error al realizar la petición:', xhr.status);
+                }
+            };
 
                 // Configurar el callback para manejar errores de red
                 xhr.onerror = function() {
