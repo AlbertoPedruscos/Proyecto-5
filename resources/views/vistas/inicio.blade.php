@@ -17,7 +17,7 @@
         <ul class="nav-right">
             <li><a href="">Sobre nosotros</a></li>
             <li><a href="">Contáctanos</a></li>
-            <li><a href="">Iniciar sesión</a></li>
+            <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
         </ul>
     </nav>
 

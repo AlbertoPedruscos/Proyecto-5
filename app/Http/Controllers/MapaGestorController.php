@@ -9,19 +9,26 @@ use App\Models\tbl_empresas;
 
 use Illuminate\Http\Request;
 
-class MapaAdminController extends Controller
+class MapaGestorController extends Controller
 {
     /* Función para mostrar los parkings en el mapa */
-    public function index()
+    public function index(Request $request)
     {
-        $parkings = tbl_parking::with(['plazas', 'empresa'])->get();
+        // Obtén la empresa del usuario actual
+        $idEmpresa = $request->session()->get('empresa'); // o $request->session()->get('id_empresa')
+        
+        // Obtén los parkings que pertenecen a esta empresa
+        $parkings = tbl_parking::with(['plazas', 'empresa'])
+            ->where('id_empresa', $idEmpresa)
+            ->get();
+            
         $plazas = tbl_plazas::all();
         $estados = tbl_estados::all();
         $empresas = tbl_empresas::all();
-
-        return view('vistas.mapa_admin', compact('parkings', 'plazas', 'estados', 'empresas'));
+    
+        return view('vistas.mapa_gestor', compact('parkings', 'plazas', 'estados', 'empresas'));
     }
-
+    
     public function store(Request $request) 
     {
         $request->validate([
@@ -41,7 +48,7 @@ class MapaAdminController extends Controller
         $parking->nombre = $request->nombre;
         $parking->latitud = $request->latitud;
         $parking->longitud = $request->longitud;
-        $parking->id_empresa =  $request->empresa;
+        $parking->id_empresa;
 
         // Verificar si el usuario ya existe
         $parkingExists = tbl_parking::where('nombre', $request->nombre)->exists();
@@ -52,7 +59,7 @@ class MapaAdminController extends Controller
         // Guardar el usuario
         $parking->save();
 
-        return redirect()->route('mapa_admin')->with('success', 'Parking registrado exitosamente.');
+        return redirect()->route('mapa_gestor')->with('success', 'Parking registrado exitosamente.');
     }
 
     public function destroy($id)
@@ -61,7 +68,7 @@ class MapaAdminController extends Controller
             // Buscar y eliminar el parking por su ID
             $parking = tbl_parking::findOrFail($id);
             $parking->delete();
-            return redirect()->route('mapa_admin')->with('success', 'Parking eliminado exitosamente.');
+            return redirect()->route('mapa_gestor')->with('success', 'Parking eliminado exitosamente.');
         } 
         catch (\Exception $e) {
             return response()->json([
@@ -107,11 +114,11 @@ class MapaAdminController extends Controller
             // Guardar los cambios
             $parking->save();
     
-            return redirect()->route('mapa_admin')->with('success', 'Parking actualizado exitosamente.');
+            return redirect()->route('mapa_gestor')->with('success', 'Parking actualizado exitosamente.');
         } 
         
         catch (\Exception $e) {
-            return redirect()->route('mapa_admin')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
+            return redirect()->route('mapa_gestor')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
         }
     }
 

@@ -6,9 +6,9 @@
 
 /* Estilos del body */
 body {
-    background-image: url('../img/fondo.jpeg');
+    background-image: url('../img/fondo2.jpeg');
     background-size: cover; /* Hace que la imagen de fondo cubra todo el cuerpo */
-    background-position: center bottom; /* Alinea la imagen en el centro */
+    background-position: center; /* Alinea la imagen en el centro */
     color: #fff;
     overflow: hidden; /* Evita barras de desplazamiento no deseadas */
     height: 100vh;
