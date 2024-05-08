@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 19:11:08
+-- Tiempo de generación: 08-05-2024 a las 19:43:47
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -50,10 +50,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tbl_chat`
+-- Estructura de tabla para la tabla `tbl_chats`
 --
 
-CREATE TABLE `tbl_chat` (
+CREATE TABLE `tbl_chats` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `mensaje` longtext DEFAULT NULL,
   `emisor` bigint(20) UNSIGNED DEFAULT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE `tbl_chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `tbl_chat`
+-- Volcado de datos para la tabla `tbl_chats`
 --
 
-INSERT INTO `tbl_chat` (`id`, `mensaje`, `emisor`, `receptor`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_chats` (`id`, `mensaje`, `emisor`, `receptor`, `created_at`, `updated_at`) VALUES
 (1, '¡Hola! ¿Cómo estás?', 1, 2, '2024-04-30 11:43:02', '2024-04-30 11:43:02'),
 (2, '¡Bien, gracias! ¿Y tú?', 2, 1, '2024-04-30 11:43:02', '2024-04-30 11:43:02');
 
@@ -92,7 +92,12 @@ INSERT INTO `tbl_empresas` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 (2, 'Interparking Hispania', '2024-05-07 13:38:09', '2024-05-07 13:38:09'),
 (3, 'Saba Sede', '2024-05-07 13:38:09', '2024-05-07 13:38:09'),
 (4, 'Continental Parking SL', '2024-05-07 13:38:09', '2024-05-07 13:38:09'),
-(5, 'Pàrking PRATSA Self Storage', '2024-05-07 13:38:09', '2024-05-07 13:38:09');
+(5, 'Pàrking PRATSA Self Storage', '2024-05-07 13:38:09', '2024-05-07 13:38:09'),
+(6, 'Nnparkings', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(7, 'Interparking Hispania', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(8, 'Saba Sede', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(9, 'Continental Parking SL', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(10, 'Pàrking PRATSA Self Storage', '2024-05-08 15:38:35', '2024-05-08 15:38:35');
 
 -- --------------------------------------------------------
 
@@ -114,15 +119,18 @@ CREATE TABLE `tbl_estados` (
 INSERT INTO `tbl_estados` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Ocupado', '2024-04-30 11:42:57', '2024-04-30 11:42:57'),
 (2, 'Libre', '2024-04-30 11:42:57', '2024-04-30 11:42:57'),
-(3, 'Reservado', '2024-04-30 11:42:57', '2024-04-30 11:42:57');
+(3, 'Reservado', '2024-04-30 11:42:57', '2024-04-30 11:42:57'),
+(4, 'Ocupado', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(5, 'Libre', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(6, 'Reservado', '2024-05-08 15:38:35', '2024-05-08 15:38:35');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tbl_parking`
+-- Estructura de tabla para la tabla `tbl_parkings`
 --
 
-CREATE TABLE `tbl_parking` (
+CREATE TABLE `tbl_parkings` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `latitud` longtext DEFAULT NULL,
@@ -133,15 +141,20 @@ CREATE TABLE `tbl_parking` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `tbl_parking`
+-- Volcado de datos para la tabla `tbl_parkings`
 --
 
-INSERT INTO `tbl_parking` (`id`, `nombre`, `latitud`, `longitud`, `id_empresa`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_parkings` (`id`, `nombre`, `latitud`, `longitud`, `id_empresa`, `created_at`, `updated_at`) VALUES
 (1, 'Parking 1', '41.349536354143744', '2.106697003108879', 1, '2024-05-07 13:38:10', '2024-05-07 13:38:10'),
 (2, 'Parking 2', '41.35010355977579', '2.106182758240472', 2, '2024-05-07 13:38:10', '2024-05-07 13:38:10'),
 (3, 'Parking 3', '41.34915063858738', '2.105719090230854', 1, '2024-05-07 13:38:10', '2024-05-07 13:38:10'),
 (4, 'Parking 4', '41.34780760150584', '2.1074169285400246', 2, '2024-05-07 13:38:10', '2024-05-07 13:38:10'),
-(5, 'Parking 5', '41.34659114964164', '2.1098135735856767', 2, '2024-05-07 13:38:10', '2024-05-07 13:38:10');
+(5, 'Parking 5', '41.34659114964164', '2.1098135735856767', 3, '2024-05-07 13:38:10', '2024-05-07 13:38:10'),
+(6, 'Parking 1', '41.349536354143744', '2.106697003108879', 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(7, 'Parking 2', '41.35010355977579', '2.106182758240472', 3, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(8, 'Parking 3', '41.34915063858738', '2.105719090230854', 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(9, 'Parking 4', '41.34780760150584', '2.1074169285400246', 4, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(10, 'Parking 5', '41.34659114964164', '2.1098135735856767', 2, '2024-05-08 15:38:36', '2024-05-08 15:38:36');
 
 -- --------------------------------------------------------
 
@@ -167,7 +180,11 @@ INSERT INTO `tbl_plazas` (`id`, `nombre`, `planta`, `id_estado`, `id_parking`, `
 (1, 'A1', '1.00', 1, 1, '2024-04-30 11:43:00', '2024-04-30 11:43:00'),
 (2, 'A2', '1.00', 2, 1, '2024-04-30 11:43:00', '2024-04-30 11:43:00'),
 (3, 'A3', '1.00', 1, 2, '2024-04-30 11:43:00', '2024-04-30 11:43:00'),
-(4, 'A4', '1.00', 2, 2, '2024-04-30 11:43:00', '2024-04-30 11:43:00');
+(4, 'A4', '1.00', 2, 2, '2024-04-30 11:43:00', '2024-04-30 11:43:00'),
+(5, 'A1', '1.00', 1, 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(6, 'A2', '1.00', 2, 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(7, 'A3', '1.00', 1, 2, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(8, 'A4', '1.00', 2, 2, '2024-05-08 15:38:36', '2024-05-08 15:38:36');
 
 -- --------------------------------------------------------
 
@@ -218,8 +235,8 @@ CREATE TABLE `tbl_reservas` (
 --
 
 INSERT INTO `tbl_reservas` (`id`, `id_trabajador`, `id_plaza`, `nom_cliente`, `matricula`, `marca`, `modelo`, `color`, `num_telf`, `email`, `ubicacion_entrada`, `ubicacion_salida`, `fecha_entrada`, `fecha_salida`, `firma_entrada`, `firma_salida`, `created_at`, `updated_at`) VALUES
-(1, NULL, 1, 'Alberto', '1234 ABC', 'Volkswagen', 'Golf', 'Azul', '654321987', 'alberto@gmail.com', '1', '1', '2024-04-30 11:43:01', '2024-04-30 11:43:01', NULL, NULL, '2024-04-30 11:43:01', '2024-04-30 11:43:01'),
-(2, NULL, 2, 'Julio', '5678 DEF', 'Audi', 'A3', 'Rojo', '654321987', 'julio@gmail.com', '1', '1', '2024-04-30 11:43:01', '2024-04-30 11:43:01', NULL, NULL, '2024-04-30 11:43:01', '2024-04-30 11:43:01');
+(1, NULL, 1, 'Alberto', '1234 ABC', 'Volkswagen', 'Golf', 'Azul', '654321987', 'alberto@gmail.com', '1', '1', '2024-05-08 07:07:00', '2024-04-30 11:43:01', NULL, NULL, '2024-05-08 11:43:01', '2024-04-30 11:43:01'),
+(2, NULL, 2, 'Julio', '5678 DEF', 'Audi', 'A3', 'Rojo', '654321987', 'julio@gmail.com', '1', '1', '2024-04-30 11:43:01', '2024-04-30 11:43:01', 'JULIO', NULL, '2024-04-30 11:43:01', '2024-04-30 11:43:01');
 
 -- --------------------------------------------------------
 
@@ -241,7 +258,10 @@ CREATE TABLE `tbl_roles` (
 INSERT INTO `tbl_roles` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', '2024-04-30 11:42:57', '2024-04-30 11:42:57'),
 (2, 'Empresa', '2024-04-30 11:42:57', '2024-04-30 11:42:57'),
-(3, 'Usuario', '2024-04-30 11:42:57', '2024-04-30 11:42:57');
+(3, 'Usuario', '2024-04-30 11:42:57', '2024-04-30 11:42:57'),
+(4, 'Admin', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(5, 'Empresa', '2024-05-08 15:38:35', '2024-05-08 15:38:35'),
+(6, 'Usuario', '2024-05-08 15:38:35', '2024-05-08 15:38:35');
 
 -- --------------------------------------------------------
 
@@ -269,7 +289,11 @@ INSERT INTO `tbl_usuarios` (`id`, `nombre`, `apellidos`, `email`, `contrasena`, 
 (1, 'Julio', 'Cesar', 'julio@gmail.com', '$2y$12$uYlfYYnIRobpSI8IpS9jgufs8/qDXfC/rvcdL6jiyxwA4nmM07HCW', 1, 1, '2024-04-30 11:42:58', '2024-04-30 11:42:58'),
 (2, 'Iker', 'Catala', 'iker@gmail.com', '$2y$12$0kf7KrSEuVN68P6dOtCw3OjxIHlH6kY04Wu.lz6xkFnUT/HBoTrpa', 1, 1, '2024-04-30 11:42:58', '2024-04-30 11:42:58'),
 (3, 'Alberto', 'Bermejo', 'alberto@gmail.com', '$2y$12$sXIwDK42q9L/UPQPaguuzeDUrJ4wnIvWnWuazMXZTnU6mRn7XTsbK', 1, 1, '2024-04-30 11:42:59', '2024-04-30 11:42:59'),
-(4, 'Oscar', 'Lopez', 'oscar@gmail.com', '$2y$12$ohJ5ocG5kltX2jQmrJCWYe.IRcPF.vckoL/9/TlYY3Q/F9ETfSD9C', 3, 1, '2024-04-30 11:43:00', '2024-04-30 11:43:00');
+(4, 'Oscar', 'Lopez', 'oscar@gmail.com', '$2y$12$ohJ5ocG5kltX2jQmrJCWYe.IRcPF.vckoL/9/TlYY3Q/F9ETfSD9C', 3, 1, '2024-04-30 11:43:00', '2024-04-30 11:43:00'),
+(5, 'Julio', 'Cesar', 'julio@gmail.com', '$2y$12$pR6TuOtd.hNNZuLHKDP9ieSBvH.mbWjfj4m10LIj8HeCEL74yPnR6', 2, 2, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(6, 'Iker', 'Catala', 'iker@gmail.com', '$2y$12$KPOsd26KC8gBF36zXP3Zleh9SAngJzY4Y8uG7kMOEGlygJMJD0HVi', 1, 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(7, 'Alberto', 'Bermejo', 'alberto@gmail.com', '$2y$12$66UU03csP.Pt2B3yOnlVz.6qDsmtZ5uYxVSYDttChvNDfQQMS7U72', 1, 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36'),
+(8, 'Oscar', 'Lopez', 'oscar@gmail.com', '$2y$12$xcaLgdA4nhK/n7tO3fhtfeS31hydix9iPWQ/KXmm0oBsVlwcMgOau', 1, 1, '2024-05-08 15:38:36', '2024-05-08 15:38:36');
 
 --
 -- Índices para tablas volcadas
@@ -282,9 +306,9 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `tbl_chat`
+-- Indices de la tabla `tbl_chats`
 --
-ALTER TABLE `tbl_chat`
+ALTER TABLE `tbl_chats`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_chat_emisor` (`emisor`),
   ADD KEY `fk_chat_receptor` (`receptor`);
@@ -302,9 +326,9 @@ ALTER TABLE `tbl_estados`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `tbl_parking`
+-- Indices de la tabla `tbl_parkings`
 --
-ALTER TABLE `tbl_parking`
+ALTER TABLE `tbl_parkings`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_parking_empresa` (`id_empresa`);
 
@@ -357,34 +381,34 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `tbl_chat`
+-- AUTO_INCREMENT de la tabla `tbl_chats`
 --
-ALTER TABLE `tbl_chat`
+ALTER TABLE `tbl_chats`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_empresas`
 --
 ALTER TABLE `tbl_empresas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_estados`
 --
 ALTER TABLE `tbl_estados`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `tbl_parking`
+-- AUTO_INCREMENT de la tabla `tbl_parkings`
 --
-ALTER TABLE `tbl_parking`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `tbl_parkings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_plazas`
 --
 ALTER TABLE `tbl_plazas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_registros`
@@ -402,29 +426,29 @@ ALTER TABLE `tbl_reservas`
 -- AUTO_INCREMENT de la tabla `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `tbl_chat`
+-- Filtros para la tabla `tbl_chats`
 --
-ALTER TABLE `tbl_chat`
+ALTER TABLE `tbl_chats`
   ADD CONSTRAINT `fk_chat_emisor` FOREIGN KEY (`emisor`) REFERENCES `tbl_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_chat_receptor` FOREIGN KEY (`receptor`) REFERENCES `tbl_usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `tbl_parking`
+-- Filtros para la tabla `tbl_parkings`
 --
-ALTER TABLE `tbl_parking`
+ALTER TABLE `tbl_parkings`
   ADD CONSTRAINT `fk_parking_empresa` FOREIGN KEY (`id_empresa`) REFERENCES `tbl_empresas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -432,7 +456,7 @@ ALTER TABLE `tbl_parking`
 --
 ALTER TABLE `tbl_plazas`
   ADD CONSTRAINT `fk_plazas_estado` FOREIGN KEY (`id_estado`) REFERENCES `tbl_estados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_plazas_parking` FOREIGN KEY (`id_parking`) REFERENCES `tbl_parking` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_plazas_parking` FOREIGN KEY (`id_parking`) REFERENCES `tbl_parkings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tbl_registros`
