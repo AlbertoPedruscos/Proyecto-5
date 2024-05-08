@@ -42,6 +42,8 @@ Route::get('/cambio', function () {
     return view('aparcacoches');
 });
 
+Route::get('/info_res', [ReservasController::class, 'info']);
+
 
 
 

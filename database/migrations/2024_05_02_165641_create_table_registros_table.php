@@ -9,24 +9,31 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('tbl_registros', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_usuario'); // Cambiamos 'user_id' a 'id_usuario'
-            $table->decimal('latitud', 10, 8);
-            $table->decimal('longitud', 11, 8);
-            $table->foreign('id_usuario')->references('id')->on('tbl_usuarios')->onUpdate('cascade'); // Establecemos la relación con 'tbl_usuarios'
+            $table->bigIncrements('id');
+            $table->string('accion', 255);
+            $table->string('tipo', 50);
+            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->decimal('latitud', 10, 6)->nullable();
+            $table->decimal('longitud', 10, 6)->nullable();
+            $table->unsignedBigInteger('id_reserva')->nullable();
+            $table->timestamp('fecha_creacion')->useCurrent();
             $table->timestamps();
-       
+
+            $table->foreign('id_usuario')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_reserva')->references('id')->on('tbl_reservas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('table_registros');
+        Schema::dropIfExists('tbl_registros');
     }
 };
