@@ -17,14 +17,21 @@ class ChatController extends Controller
             'id' => 'required',
             // Añade más reglas de validación según tus necesidades
         ]);
-        $id_user = 1;
-        $mensajes = tbl_chat::where('id', '>', $request->id)->get();
+        $id_user = session('id');
+        $usuario = tbl_usuarios::where('id', $id_user)->first();
+        $id_empresa = $usuario->id_empresa;
+
+        $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chat.emisor')
+                // ->where('tbl_usuarios.id_empresa', $id_empresa)
+                ->where('tbl_chat.id', '>', $request->id)
+                ->select('tbl_chat.*', 'tbl_chat.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
+                ->get();
         $htmlMensajes = '';
         foreach ($mensajes as $mensaje) {
             // Condición para determinar la clase CSS del mensaje según el emisor
             if ($mensaje->emisor == $id_user) {
                 $htmlMensajes .= '<div class="chatEmi">';
-                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->id . '">';
+                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->chat_id . '">';
                 $htmlMensajes .= '<p>' . $mensaje->mensaje . '</p>';
                 $htmlMensajes .= '</div>';
                 $htmlMensajes .= '<br>';
@@ -33,7 +40,7 @@ class ChatController extends Controller
                 foreach ($usus as $usu) {}
                 $htmlMensajes .= '<div class="chatRec">';
                 $htmlMensajes .= '<h2>' . $usu->nombre . '</h2>';
-                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->id . '">';
+                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->chat_id . '">';
                 $htmlMensajes .= '<p>' . $mensaje->mensaje . '</p>';
                 $htmlMensajes .= '</div>';
                 $htmlMensajes .= '<br>';
@@ -46,14 +53,19 @@ class ChatController extends Controller
 
     public function chat2()
     {
-        $id_user = 1;
+        $id_user = session('id');
         $mensajes = tbl_chat::all();
+
+        $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chat.emisor')
+                ->where('tbl_usuarios.id_empresa', $id_user)
+                ->get();
+
         $htmlMensajes = '';
         foreach ($mensajes as $mensaje) {
             // Condición para determinar la clase CSS del mensaje según el emisor
             if ($mensaje->emisor == $id_user) {
                 $htmlMensajes .= '<div class="chatEmi">';
-                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->id . '">';
+                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->chat_id . '">';
                 $htmlMensajes .= '<p>' . $mensaje->mensaje . '</p>';
                 $htmlMensajes .= '</div>';
                 $htmlMensajes .= '<br>';
@@ -62,7 +74,7 @@ class ChatController extends Controller
                 foreach ($usus as $usu) {}
                 $htmlMensajes .= '<div class="chatRec">';
                 $htmlMensajes .= '<h2>' . $usu->nombre . '</h2>';
-                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->id . '">';
+                $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->chat_id . '">';
                 $htmlMensajes .= '<p>' . $mensaje->mensaje . '</p>';
                 $htmlMensajes .= '</div>';
                 $htmlMensajes .= '<br>';
@@ -75,16 +87,13 @@ class ChatController extends Controller
 
     public function enviarMen(Request $request){
         // Obtener el ID del emisor de la sesión
-        $emisor = /* Session::get('id_user') */ 1;
+        $emisor = session('id');
         // Obtener el ID del receptor del formulario (supongo que está llegando a través de una solicitud)
-        $receptor = 2 /* $request->input('receptor') */;
-        // Suponiendo que los datos del formulario llegan mediante un Request
         $mensaje = $request->input('mensaje');
     
         // Crear un nuevo mensaje en el modelo TblChat
         $mensajeNuevo = new tbl_chat();
         $mensajeNuevo->emisor = $emisor;
-        $mensajeNuevo->receptor = $receptor;
         $mensajeNuevo->mensaje = $mensaje;
         $mensajeNuevo->save();
     }

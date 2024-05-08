@@ -23,9 +23,11 @@
         <h1>MyControlPark</h1>
         {{-- <a href="{{ asset('/login') }}"></a> --}}
         <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
+        <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
     </div>
-
     {{-- </header> --}}
+
+
     <div class="col-lg-12 ml-auto" style="border:1px solid">
         <form action="" method="post" id="frmbusqueda">
             <div class="form-group">
@@ -61,15 +63,17 @@
 
     <div class="sub-menu1-container" id="submenu" style="display: none;">
         <form action="" method="post" id="formnewuser">
-            <input type="hidden" name="idp" id="idp">
             <p>Nombre</p>
-            <input type="text" name="nombre" id="nombre">
+            <input type="text" name="nombreuser" id="nombreuser">
             <p>Apellido</p>
             <input type="text" name="apellido" id="apellido">
             <p>Email</p>
             <input type="text" name="email" id="email">
+            <p>pwd</p>
+            <input type="password" name="pwd" id="pwd">
             <p>Rol</p>
-            <input type="text" name="rol" id="rol">
+            <p><select name="SelecRoles" id="SelecRoles">
+                </select></p>
             <p><input type="button" value="registrar" id="registrar"></p>
         </form>
     </div>

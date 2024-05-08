@@ -63,14 +63,34 @@ class EmpresaController extends Controller
                 }
             }
             echo "ok";
-        }else{
+        } else {
             $resultado = tbl_usuarios::find($ids);
-        $resultado->delete();
-        echo "ok";
-    }
+            $resultado->delete();
+            echo "ok";
+        }
     }
 
-   
-    
-    
+    public function registrar(Request $request)
+    {
+        $empresa = session('id_empresa');
+
+        $nombre = $request->input('nombreuser');
+        $apellidos = $request->input('apellido');
+        $email = $request->input('email');
+        $pwdencrip = bcrypt($request->input('email'));
+        // $pwd = $request->input('pwd');
+        $SelecRoles = $request->input('SelecRoles');
+
+
+
+        $resultado = new tbl_usuarios();
+        $resultado->nombre = $nombre;
+        $resultado->apellidos = $apellidos;
+        $resultado->email = $email;
+        $resultado->contrasena = $pwdencrip;
+        $resultado->id_rol = $SelecRoles;
+        $resultado->id_empresa = $empresa;
+        $resultado->save();
+        echo "ok";
+    }
 }
