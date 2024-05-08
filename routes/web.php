@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MapaAdminController;
 use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\InicioController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,14 +31,5 @@ Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('p
 // Ruta mover parking
 Route::post('/parking/update/{id}', [ParkingController::class, 'updateLocation']);
 
-// Ruta para filtrar parkings
-Route::get('/filtrar_parkings', [ParkingController::class, 'filtrarParkings'])->name('filtrar_parkings');
-
-// Rutas para otras vistas
-Route::get('/usuario', function () {
-    return view('vistas.usuario');
-})->name('usuario');
-
-Route::get('/empresa', function () {
-    return view('vistas.empresa');
-})->name('empresa');
+// Ruta página de inicio
+Route::get('/', [InicioController::class, 'index'])->name('inicio');

@@ -43,17 +43,17 @@
                 <div id="lista-parkings">
                     @foreach ($parkings as $parking)
                         <div class="parking-item" id="parking-{{ $parking->id }}">
-                            <h3>{{ $parking->nombre }}</h3> 
+                            <h3>{{ $parking->nombre }}</h3>
                             @if ($parking->empresa)
-                                <p>Empresa: {{ $parking->empresa->nombre }}</p> 
+                                <p>Empresa: {{ $parking->empresa->nombre }}</p>
                             @endif
                             <p>Latitud: {{ $parking->latitud }}</p>
                             <p>Longitud: {{ $parking->longitud }}</p>
                             <div>
+                                <button class="btn btn-primary" onclick="verParking({{ $parking->id }})">Ver</button>
                                 <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
                                     data-bs-toggle="modal" data-bs-target="#modal-editar">Editar</button>
 
-                                <!-- Agregar confirmación antes de eliminar -->
                                 <form action="{{ route('parking.destroy', ['id' => $parking->id]) }}" method="POST"
                                     onsubmit="return confirmDeletion()">
                                     @csrf
@@ -181,11 +181,11 @@
     <script>
         // Configurar el mapa
         var map = L.map('map').setView([41.3497528271445, 2.1080974175773473], 18);
-    
+
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
-    
+
         // Definir el icono para el parking
         var parkingIcon = L.divIcon({
             className: 'custom-parking-icon',
@@ -193,7 +193,7 @@
             iconSize: [30, 42], // Tamaño del icono
             iconAnchor: [15, 42], // Punto de anclaje para el icono
         });
-    
+
         // Función para actualizar la ubicación del parking en la base de datos
         function actualizarUbicacion(parkingId, lat, lon) {
             $.ajax({
@@ -212,7 +212,7 @@
                 }
             });
         }
-    
+
         // Crear los marcadores para los parkings y hacerlos arrastrables
         @foreach ($parkings as $parking)
             var marker = L.marker([{{ $parking->latitud }}, {{ $parking->longitud }}], {
@@ -223,46 +223,49 @@
                     '<b>{{ $parking->nombre }}</b><br>Lat: {{ $parking->latitud }}<br>Lon: {{ $parking->longitud }}'
                 )
                 .addTo(map);
-    
+
             // Evento de arrastre finalizado para actualizar la ubicación
             marker.on('dragend', function(e) {
                 var newLatLng = e.target.getLatLng(); // Obtiene las nuevas coordenadas
-                actualizarUbicacion({{ $parking->id }}, newLatLng.lat, newLatLng.lng); // Actualiza en la base de datos
-    
+                actualizarUbicacion({{ $parking->id }}, newLatLng.lat, newLatLng
+                    .lng); // Actualiza en la base de datos
+
                 // Actualizar el pop-up del marcador
                 marker.setPopupContent(
                     `<b>{{ $parking->nombre }}</b><br>Lat: ${newLatLng.lat}<br>Lon: ${newLatLng.lng}`
                 );
-    
+
                 // Actualizar la información del parking en el cont-crud
-                document.querySelector(`#parking-{{ $parking->id }} p:nth-child(3)`).textContent = `Latitud: ${newLatLng.lat}`;
-                document.querySelector(`#parking-{{ $parking->id }} p:nth-child(4)`). textContent = `Longitud: ${newLatLng.lng}`;
+                document.querySelector(`#parking-{{ $parking->id }} p:nth-child(3)`).textContent =
+                    `Latitud: ${newLatLng.lat}`;
+                document.querySelector(`#parking-{{ $parking->id }} p:nth-child(4)`).textContent =
+                    `Longitud: ${newLatLng.lng}`;
             });
         @endforeach
-    
+
         // Evento de clic en el mapa para abrir el modal de añadir parking
         map.on('click', function(e) {
             var latlng = e.latlng; // Obtiene las coordenadas del punto clicado
-    
+
             // Cargar las coordenadas en el formulario del modal para añadir parking
             $("#latitud").val(latlng.lat); // Asigna la latitud al campo correspondiente
             $("#longitud").val(latlng.lng); // Asigna la longitud al campo correspondiente
-    
+
             // Mostrar el modal para añadir un nuevo parking
             $("#modal-crear").modal("show");
         });
-    
+
         // Alternar entre expandir y contraer el panel lateral
         document.getElementById('menuToggle').addEventListener('click', function() {
             var contCrud = document.getElementById('cont-crud');
             contCrud.classList.toggle('expanded');
         });
-    
+
         // Función para confirmación de eliminación
         function confirmDeletion() {
             return confirm("¿Estás seguro de que quieres eliminar este parking?");
         }
-    
+
         // Función para cargar datos y mostrar el modal de edición
         function editarParking(id) {
             $.ajax({
@@ -275,10 +278,10 @@
                     $("#editar-latitud").val(parking.latitud);
                     $("#editar-longitud").val(parking.longitud);
                     $("#editar-empresa").val(parking.id_empresa);
-    
+
                     // Actualizar la acción del formulario para la edición
                     $("#formulario-editar-parking").attr("action", "/parking/" + parking.id);
-    
+
                     // Mostrar el modal de edición
                     $("#modal-editar").modal("show");
                 },
@@ -286,6 +289,18 @@
                     alert("Error al obtener los datos del parking.");
                 }
             });
+        }
+
+        // Función para acercarse a un parking específico por ID
+        function verParking(parkingId) {
+            if (parkingMarkers[parkingId]) { // Verificar si el marcador existe
+                var marker = parkingMarkers[parkingId];
+                var latLng = marker.getLatLng(); // Obtener las coordenadas del marcador
+
+                map.setView(latLng, 20); // Centrar el mapa en el marcador y hacer zoom
+            } else {
+                alert("No se encontró el parking con ID " + parkingId);
+            }
         }
     </script>
 @endpush
