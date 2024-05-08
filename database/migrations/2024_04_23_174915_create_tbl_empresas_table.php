@@ -17,9 +17,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('tbl_usuarios', function (Blueprint $table) {
-            $table->foreign('id_empresa')->references('id')->on('tbl_empresas')->onDelete('cascade')->onUpdate('cascade');
-        });
     }
 
     /**
