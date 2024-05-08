@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+}
+
+#cont-general {
+    height: 100vh;
+    background-color: #003459;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

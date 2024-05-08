@@ -1,0 +1,456 @@
+/* Estilos generales para todo el sitio */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+.column-2 {
+    width: 100%;
+    display: flex;
+}
+
+.login-form {
+    width: 100%;
+}
+
+#cont-logo {
+    background-color: #007EA7;
+    border-bottom-left-radius: 35% 15%;
+    border-bottom-right-radius: 35% 15%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#logo {
+    width: 25%;
+    height: auto;
+    margin: 0 auto;
+}
+
+#cont-form {
+    width: 35%;
+    margin: -15px auto;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: white;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 16px;
+}
+
+#cont-form h2 {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#cont-form label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#btn-enviar {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #007EA7;
+    font-size: 16px;
+    color: white;
+}
+
+#btn-enviar:hover {
+    background-color: #3f869e;
+}
+
+/* Estilos para vista móvil (hasta 1160px) */
+@media only screen and (max-width: 1160px) {
+    .column-2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    #cont-logo {
+        background-color: #007EA7;
+        border-bottom-left-radius: 35% 15%;
+        border-bottom-right-radius: 35% 15%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    #logo {
+        width: 40%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    #cont-form {
+        width: 75%;
+        margin: -30px auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    #cont-form h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #cont-form label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    #btn-enviar {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: #007EA7;
+        font-size: 16px;
+        color: white;
+    }
+
+    #btn-enviar:hover {
+        background-color: #3f869e;
+    }
+}
+
+/* Estilos para vista móvil (hasta 760px) */
+@media only screen and (max-width: 760px) {
+    .column-2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    #cont-logo {
+        background-color: #007EA7;
+        border-bottom-left-radius: 35% 15%;
+        border-bottom-right-radius: 35% 15%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    #logo {
+        width: 65%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    #cont-form {
+        width: 75%;
+        margin: -30px auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    #cont-form h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #cont-form label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    #btn-enviar {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: #007EA7;
+        font-size: 16px;
+        color: white;
+    }
+
+    #btn-enviar:hover {
+        background-color: #3f869e;
+    }
+}
+
+/* Estilos para vista móvil (hasta 660px) */
+@media only screen and (max-width: 660px) {
+    .column-2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    #cont-logo {
+        background-color: #007EA7;
+        border-bottom-left-radius: 35% 15%;
+        border-bottom-right-radius: 35% 15%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    #logo {
+        width: 70%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    #cont-form {
+        width: 75%;
+        margin: -30px auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    #cont-form h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #cont-form label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    #btn-enviar {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: #007EA7;
+        font-size: 16px;
+        color: white;
+    }
+
+    #btn-enviar:hover {
+        background-color: #3f869e;
+    }
+}
+
+/* Estilos para vista móvil (hasta 560px) */
+@media only screen and (max-width: 560px) {
+    .column-2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        /* Evita scroll horizontal */
+    }
+
+    #cont-logo {
+        background-color: #007EA7;
+        border-bottom-left-radius: 35% 15%;
+        border-bottom-right-radius: 35% 15%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    #logo {
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    #cont-form {
+        width: 75%;
+        margin: -30px auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    #cont-form h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #cont-form label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    #btn-enviar {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: #007EA7;
+        font-size: 16px;
+        color: white;
+    }
+
+    #btn-enviar:hover {
+        background-color: #3f869e;
+    }
+}
+
+/* Estilos para vista móvil (hasta 460px) */
+@media only screen and (max-width: 460px) {
+    .column-2 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        /* Evita scroll horizontal */
+    }
+
+    #cont-logo {
+        background-color: #007EA7;
+        border-bottom-left-radius: 35% 15%;
+        border-bottom-right-radius: 35% 15%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        height: 55vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    #logo {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    #cont-form {
+        width: 75%;
+        margin: -30px auto;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+    }
+
+    #cont-form h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    #cont-form label {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    #btn-enviar {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: #007EA7;
+        font-size: 16px;
+        color: white;
+    }
+
+    #btn-enviar:hover {
+        background-color: #3f869e;
+    }
+}

@@ -13,10 +13,6 @@ Route::get('/', function () {
     return view('inicio');
 });
 
-Route::get('/chatG', function () {
-    return view('chat');
-});
-
 /* Trabajador */
 
 Route::get('/trabajador', [LoginController::class, 'trabajador'])->name('trabajador');
@@ -26,6 +22,7 @@ Route::get('/reserva', function () {
     return view('reserva');
 });
 
+
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 Route::post('/espia', [espiaController::class, 'espia'])->name('espia');
 Route::post('/reserva', [AparcaController::class, 'reserva'])->name('reserva');
@@ -33,9 +30,6 @@ Route::get('/aparca', [AparcaController::class, 'aparca'])->name('aparca');
 Route::post('/chat', [chatController::class, 'chat'])->name('chat');
 Route::get('/chat2', [chatController::class, 'chat2'])->name('chat2');
 Route::post('/enviarMen', [chatController::class, 'enviarMen'])->name('enviarMen');
-Route::get('/volverA', function () {
-    return view('trabajador');
-});
 
 // Route::get('/', function () {return view('reservas');});
 
@@ -65,4 +59,3 @@ Route::post('/parking', [MapaAdminController::class, 'store'])->name('parking.po
 Route::get('/parking/{id}', [MapaAdminController::class, 'show'])->name('parking.show');
 Route::put('/parking/{id}', [MapaAdminController::class, 'update'])->name('parking.update');
 Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('parking.destroy');
-
