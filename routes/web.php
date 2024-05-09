@@ -46,3 +46,13 @@ Route::post('/Listarempleados', [EmpresaController::class, 'Listarempleados'])->
 Route::post('/registrar', [EmpresaController::class,  'registrar'])->name('registrar');
 Route::post('/estado', [EmpresaController::class,  'estado'])->name('estado');
 Route::post('/eliminar', [EmpresaController::class, 'eliminar'])->name('eliminar');
+
+
+// Gestionreservas
+Route::get('/gestionreservas', function () {
+    return view('gestion.gestionreservas');
+})->name('gestionreservas');
+
+use App\Http\Controllers\ReservasGrudController;
+
+Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
