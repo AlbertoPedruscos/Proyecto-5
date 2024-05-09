@@ -45,6 +45,9 @@ class ReservasController extends Controller
     
     }
     public function info(Request $request) {
-        $id_res = $request->input('id');
+        $id_res = $request->input('id_r');
+        $reserva_cliente = modeloReserva::findOrFail($id_res); // Usamos findOrFail para obtener la reserva o lanzar una excepción si no se encuentra
+        return view('reserva_cliente', compact('reserva_cliente')); // Pasamos los datos a la vista
     }
+    
 }

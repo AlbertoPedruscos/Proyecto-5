@@ -110,7 +110,7 @@
                     data.reservas.forEach(function(reserva) {
                       contadorVueltas++;
 
-                      contenidoReserva += '<div class="reservaCliente" onclick="window.location.href = \'/info_res?parametro1=valor1&parametro2=valor2\'">';
+                      contenidoReserva += '<div class="reservaCliente" onclick="window.location.href = \'/info_res?id_r=' + reserva.id + '\'">';
                       contenidoReserva += '<div class="horasReservas">';
                       // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
                       var fechaActual = new Date();
@@ -122,7 +122,7 @@
                       contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
                       var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
                       var desH = reserva.trabajador ? 'disabled' : '';
-                      contenidoReserva += '<button type="button" class="btn btn-dark" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="' + nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
+                      contenidoReserva += '<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' + nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
                       contenidoReserva += '</div>';
                     });
                     console.log('Total de vueltas: ' + contadorVueltas);
