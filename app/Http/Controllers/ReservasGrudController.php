@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tbl_usuarios;
-use App\Models\tbl_empresas;
 use App\Models\tbl_roles;
 use App\Models\tbl_reservas;
 
 class ReservasGrudController extends Controller
 {
-    public function listarreservas(Request $request)
+    public function listarreservas()
     {
         $roles = tbl_roles::all();
         $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
