@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class tbl_reservas extends Seeder
 {
@@ -13,14 +13,35 @@ class tbl_reservas extends Seeder
      *
      * @return void
      */
-    public function run(): void
+    public function run()
     {
-        DB::table('tbl_reservas')->insert([
-            ['id_trabajador' => null, 'id_plaza' => 1, 'nom_cliente' => 'Carlos', 'matricula' => '1234ABC', 'marca' => 'Ford', 'modelo' => 'Fiesta', 'color' => 'Azul', 'num_telf' => '123456789', 'email' => 'carlos@example.com', 'ubicacion_entrada' => 'Aeropuerto T1', 'ubicacion_salida' => 'Aeropuerto T2', 'fecha_entrada' => '2024-05-08 10:00:00', 'fecha_salida' => '2024-05-08 18:00:00'],
-            ['id_trabajador' => null, 'id_plaza' => 2, 'nom_cliente' => 'Laura', 'matricula' => '5678DEF', 'marca' => 'Renault', 'modelo' => 'Clio', 'color' => 'Rojo', 'num_telf' => '987654321', 'email' => 'laura@example.com', 'ubicacion_entrada' => 'Aeropuerto T2', 'ubicacion_salida' => 'Aeropuerto T2', 'fecha_entrada' => '2024-05-09 11:00:00', 'fecha_salida' => '2024-05-09 19:00:00'],
-            ['id_trabajador' => null, 'id_plaza' => 3, 'nom_cliente' => 'Ana', 'matricula' => '1357GHI', 'marca' => 'Seat', 'modelo' => 'Ibiza', 'color' => 'Blanco', 'num_telf' => '987123456', 'email' => 'ana@example.com', 'ubicacion_entrada' => 'Puerto', 'ubicacion_salida' => 'Puerto', 'fecha_entrada' => '2024-05-10 09:00:00', 'fecha_salida' => '2024-05-10 17:00:00'],
-            ['id_trabajador' => null, 'id_plaza' => 4, 'nom_cliente' => 'David', 'matricula' => '2468JKL', 'marca' => 'Volkswagen', 'modelo' => 'Polo', 'color' => 'Verde', 'num_telf' => '654987321', 'email' => 'david@example.com', 'ubicacion_entrada' => 'Aeropuerto T1', 'ubicacion_salida' => 'Aeropuerto T1', 'fecha_entrada' => '2024-05-11 08:00:00', 'fecha_salida' => '2024-05-11 16:00:00'],
-            ['id_trabajador' => null, 'id_plaza' => 5, 'nom_cliente' => 'Eva', 'matricula' => '3690MNO', 'marca' => 'Peugeot', 'modelo' => '208', 'color' => 'Gris', 'num_telf' => '321456987', 'email' => 'eva@example.com', 'ubicacion_entrada' => 'Aeropuerto T2', 'ubicacion_salida' => 'Aeropuerto T1', 'fecha_entrada' => '2024-05-12 10:00:00', 'fecha_salida' => '2024-05-12 18:00:00'],
-        ]);
+        $faker = \Faker\Factory::create();
+        $startDate = Carbon::now()->addWeek()->startOfWeek();
+
+        for ($i = 0; $i < 150; $i++) {
+            $startDate->addMinutes(rand(30, 720)); // Añadir un intervalo de tiempo aleatorio entre 30 minutos y 12 horas
+
+            $fechaSalida = $startDate->copy()->addHours(rand(24, 24*7)); // Añadir una duración de reserva aleatoria entre 24 horas y 7 semanas
+
+            DB::table('tbl_reservas')->insert([
+                'id_trabajador' => null,
+                'id_plaza' => $faker->numberBetween(1, 250), // Suponiendo que hay 250 plazas en total
+                'nom_cliente' => $faker->name,
+                'matricula' => $faker->regexify('[0-9]{4}[A-Z]{3}'),
+                'marca' => $faker->randomElement(['Ford', 'Renault', 'Seat', 'Volkswagen', 'Peugeot']),
+                'modelo' => $faker->randomElement(['Fiesta', 'Clio', 'Ibiza', 'Polo', '208']),
+                'color' => $faker->safeColorName,
+                'num_telf' => $faker->numerify('#########'),
+                'email' => $faker->email,
+                'ubicacion_entrada' => $faker->randomElement(['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']),
+                'ubicacion_salida' => $faker->randomElement(['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']),
+                'fecha_entrada' => $startDate->toDateTimeString(),
+                'fecha_salida' => $fechaSalida->toDateTimeString(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            $startDate = $fechaSalida->copy();
+        }
     }
 }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tbl_chats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText('mensaje')->nullable();
-            $table->unsignedBigInteger('emisor')->nullable();
-            $table->unsignedBigInteger('receptor')->nullable();
+            $table->longText('mensaje');
+            $table->unsignedBigInteger('emisor');
+            $table->unsignedBigInteger('receptor');
             $table->timestamps();
 
             $table->foreign('emisor')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');

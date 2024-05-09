@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbl_usuarios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre', 45)->nullable();
-            $table->string('apellidos', 45)->nullable();
-            $table->string('email', 45)->nullable();
-            $table->string('contrasena', 255)->nullable();
-            $table->unsignedBigInteger('id_rol')->nullable();
-            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->string('nombre', 45);
+            $table->string('apellidos', 45);
+            $table->string('email', 45);
+            $table->string('contrasena', 255);
+            $table->unsignedBigInteger('id_rol');
+            $table->unsignedBigInteger('id_empresa');
             $table->timestamps();
 
             $table->foreign('id_rol')->references('id')->on('tbl_roles')->onDelete('cascade')->onUpdate('cascade');

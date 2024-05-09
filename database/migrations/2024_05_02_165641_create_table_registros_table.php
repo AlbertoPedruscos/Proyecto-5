@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('accion', 255);
             $table->string('tipo', 50);
-            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->unsignedBigInteger('id_usuario');
             $table->decimal('latitud', 10, 6)->nullable();
             $table->decimal('longitud', 10, 6)->nullable();
             $table->unsignedBigInteger('id_reserva')->nullable();

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tbl_plazas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre', 45)->nullable();
-            $table->decimal('planta', 8, 2)->nullable();
-            $table->unsignedBigInteger('id_estado')->nullable();
-            $table->unsignedBigInteger('id_parking')->nullable();
+            $table->string('nombre', 45);
+            $table->decimal('planta', 8, 2);
+            $table->unsignedBigInteger('id_estado');
+            $table->unsignedBigInteger('id_parking');
             $table->timestamps();
 
             $table->foreign('id_estado')->references('id')->on('tbl_estados')->onDelete('cascade')->onUpdate('cascade');

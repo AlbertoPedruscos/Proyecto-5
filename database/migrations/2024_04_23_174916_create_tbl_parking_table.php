@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tbl_parkings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre', 45)->nullable();
-            $table->longText('latitud')->nullable();
-            $table->longText('longitud')->nullable();
-            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->string('nombre', 45);
+            $table->longText('latitud');
+            $table->longText('longitud');
+            $table->unsignedBigInteger('id_empresa');
             $table->timestamps();
 
             $table->foreign('id_empresa')->references('id')->on('tbl_empresas')->onDelete('cascade')->onUpdate('cascade');
