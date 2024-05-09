@@ -2,9 +2,34 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MapaGestorController;
+use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\InicioController;
 
-Route::get('/', function () {return view('welcome');});
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/login', function () {return view('auth.login');})->name('login');
+// Ruta para mostrar la página de inicio de sesión
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
+// Ruta para autenticar al usuario
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
 
+// Ruta para cerrar sesión
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Ruta para la página de admin
+Route::get('/mapa_gestor', [MapaGestorController::class, 'index'])->name('mapa_gestor');
+
+// Rutas para operaciones CRUD de parkings
+Route::post('/parking', [MapaGestorController::class, 'store'])->name('parking.post');
+Route::get('/parking/{id}', [MapaGestorController::class, 'show'])->name('parking.show');
+Route::put('/parking/{id}', [MapaGestorController::class, 'update'])->name('parking.update');
+Route::delete('/parking/{id}', [MapaGestorController::class, 'destroy'])->name('parking.destroy');
+
+// Ruta mover parking
+Route::post('/parking/update/{id}', [ParkingController::class, 'updateLocation']);
+
+// Ruta página de inicio
+Route::get('/', [InicioController::class, 'index'])->name('inicio');
