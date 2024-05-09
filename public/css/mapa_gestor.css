@@ -61,6 +61,7 @@ nav .nav-right {
 #cont-mapa {
     flex: 1; /* Permite que el contenedor del mapa ocupe todo el espacio disponible */
     position: relative; /* Necesario para posicionar elementos absolutos dentro */
+    overflow: hidden;
     
 }
 
@@ -69,7 +70,7 @@ nav .nav-right {
     flex: 1; /* Permite que el mapa ocupe todo el espacio disponible */
     height: 100%; /* Asegura que el mapa ocupe todo el espacio vertical del contenedor */
     width: 100%; /* Asegura que el mapa ocupe todo el espacio horizontal del contenedor */
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 /* Posicionamiento del formulario */

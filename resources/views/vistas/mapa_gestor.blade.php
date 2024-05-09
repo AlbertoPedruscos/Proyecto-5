@@ -107,14 +107,18 @@
 
                             <div>
                                 <label para="empresa">Empresa:</label>
-                                <select name="empresa" id="empresa">
-                                    <option value="" disabled selected>-- Selecciona una opción --</option>
-                                    @foreach ($empresas as $empresa)
-                                        <option value="{{ $empresa->id }}">{{ $empresa->nombre }}</option>
-                                    @endforeach
-                                </select>
+                                @php
+                                    $empresa_id_sesion = session('empresa'); // Obtener el ID de la empresa desde la sesión
+                                @endphp
+                            
+                                @foreach ($empresas as $empresa)
+                                    @if ($empresa->id == $empresa_id_sesion) <!-- Compara el ID de la empresa con el de la sesión -->
+                                        <input type="text" value="{{ $empresa->nombre }}" readonly> <!-- Marca el input como de solo lectura -->
+                                        <input type="hidden" name="empresa_id" value="{{ $empresa->id }}"> <!-- Oculta el input del ID de la empresa -->
+                                    @endif
+                                @endforeach
                             </div>
-
+                            
                             <div>
                                 <input type="submit" name="btn-enviar" id="btn-enviar" value="Añadir">
                             </div>
@@ -211,10 +215,10 @@
                         longitud: lng,
                     },
                     success: function() {
-                        console.log("Ubicación actualizada con éxito para el parking con ID: " + parkingId);
+                        alert("Ubicación actualizada con éxito para el parking con ID: " + parkingId);
                     },
                     error: function() {
-                        console.error("Error al actualizar la ubicación del parking con ID: " + parkingId);
+                        alert("Error al actualizar la ubicación del parking con ID: " + parkingId);
                     }
                 });
             }
@@ -315,7 +319,7 @@
                     var latLng = marker.getLatLng();
 
                     // Centrar la vista en el marcador y hacer zoom
-                    map.setView(latLng, 20); // Ajusta el nivel de zoom según tus necesidades
+                    map.setView(latLng, 35); // Ajusta el nivel de zoom según tus necesidades
 
                     // Asegurar que el marcador está en el centro de la pantalla
                     map.panTo(latLng);

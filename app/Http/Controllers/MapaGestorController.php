@@ -31,38 +31,49 @@ class MapaGestorController extends Controller
     
     public function store(Request $request) 
     {
-        $request->validate([
+        // Validación de entrada
+        $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'latitud' => 'required|numeric',
             'longitud' => 'required|numeric',
-            'empresa' => 'required|exists:tbl_empresas,id',
+            'empresa_id' => 'required|exists:tbl_empresas,id',
         ], [
             'nombre.required' => 'El nombre es obligatorio.',
             'latitud.required' => 'La latitud es obligatoria.',
             'longitud.required' => 'La longitud es obligatoria.',
-            'empresa.required' => 'La empresa es obligatoria.',
+            'empresa_id.required' => 'La empresa es obligatoria.',
+            'empresa_id.exists' => 'La empresa no existe en la base de datos.',
         ]);
-
-        // Crear una instancia de usuario
-        $parking = new tbl_parking();
-        $parking->nombre = $request->nombre;
-        $parking->latitud = $request->latitud;
-        $parking->longitud = $request->longitud;
-        $parking->id_empresa;
-
-        // Verificar si el usuario ya existe
-        $parkingExists = tbl_parking::where('nombre', $request->nombre)->exists();
-        if ($parkingExists) {
-            return redirect()->back()->withInput()->withErrors(['email' => 'El nombre del parking ya está registrado.']);
-        }
+    
+        // Verificar duplicados basados en el nombre y la empresa
+        $nombre = $validatedData['nombre'];
+        $empresa_id = $validatedData['empresa_id'];
         
-        // Guardar el usuario
+        // Verificar si el parking con el mismo nombre ya existe en la misma empresa
+        $parkingExists = tbl_parking::where('nombre', $nombre)
+            ->where('id_empresa', $empresa_id)
+            ->exists();
+        
+        if ($parkingExists) {
+            // Devuelve un error si ya existe un parking con ese nombre en esa empresa
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El nombre del parking ya está registrado para esta empresa.');
+        }
+    
+        // Crear el nuevo parking
+        $parking = new tbl_parking();
+        $parking->nombre = $nombre;
+        $parking->latitud = $validatedData['latitud'];
+        $parking->longitud = $validatedData['longitud'];
+        $parking->id_empresa = $empresa_id;
+    
+        // Guardar el nuevo parking
         $parking->save();
-
+    
         return redirect()->route('mapa_gestor')->with('success', 'Parking registrado exitosamente.');
     }
-
-    public function destroy($id)
+        public function destroy($id)
     {
         try {
             // Buscar y eliminar el parking por su ID

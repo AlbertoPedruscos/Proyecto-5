@@ -23,7 +23,7 @@
 
     <div id="formulario">
         <div id="cont-form">
-            <h1>Haga su reserva:</h1>
+            <h1>Haga su reserva</h1>
 
             <!-- Datos personales -->
             <div class="form-group">

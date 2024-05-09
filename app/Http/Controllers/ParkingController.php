@@ -13,12 +13,12 @@ class ParkingController extends Controller
         if ($parking) {
             $parking->latitud = $request->input('latitud');
             $parking->longitud = $request->input('longitud');
-            $parking->save(); // Guardar los cambios
-            return redirect()->route('mapa_admin')->with('success', 'Ubicación cambiada correctamente.');
+            $parking->save();
+            return response()->json(['status' => 'success', 'message' => 'Ubicación cambiada correctamente.']);
         } 
         
         else {
-            return response()->json(['status' => 'error'], 404);
+            return response()->json(['status' => 'error', 'message' => 'Parking no encontrado.'], 404);
         }
     }
 }
