@@ -110,13 +110,13 @@
                     data.reservas.forEach(function(reserva) {
                       contadorVueltas++;
 
-                      contenidoReserva += '<div class="reservaCliente">';
+                      contenidoReserva += '<div class="reservaCliente" onclick="window.location.href = \'/info_res?parametro1=valor1&parametro2=valor2\'">';
                       contenidoReserva += '<div class="horasReservas">';
                       // contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
                       var fechaActual = new Date();
                       var fechaEntrada = new Date(reserva.fecha_entrada);
                         contenidoReserva += '<h5 style="float: left;">' + reserva.hora_entrada + '</h5>';
-                      var tieneFirma = reserva.firma ? '<span class="material-symbols-outlined"> done </span>' : '';
+                      var tieneFirma = reserva.firma_entrada ? '<span class="material-symbols-outlined"> done </span>' : '';
                       contenidoReserva += '<p>' + tieneFirma + '</p>';
                       contenidoReserva += '</div>';
                       contenidoReserva += '<h3>' + reserva.matricula + '</h3>';

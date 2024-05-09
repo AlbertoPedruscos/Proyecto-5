@@ -9,16 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('tbl_chat', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('emisor');
-            $table->unsignedBigInteger('receptor');
-            $table->text('mensaje')->nullable();
+        Schema::create('tbl_chats', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->longText('mensaje')->nullable();
+            $table->unsignedBigInteger('emisor')->nullable();
+            $table->unsignedBigInteger('receptor')->nullable();
             $table->timestamps();
 
-            // Establecer las claves foráneas
             $table->foreign('emisor')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('receptor')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -26,9 +25,11 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('CreateMensajeTable');
+        Schema::dropIfExists('tbl_chats');
     }
 };

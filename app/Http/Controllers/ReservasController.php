@@ -44,4 +44,7 @@ class ReservasController extends Controller
         return response()->json(['reservas' => $reservas]);
     
     }
+    public function info(Request $request) {
+        $id_res = $request->input('id');
+    }
 }

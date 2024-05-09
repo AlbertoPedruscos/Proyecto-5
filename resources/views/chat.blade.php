@@ -17,20 +17,28 @@ use App\Models\tbl_usuarios;
 </head>
 <body>
     <div class="arriba">
-        <button class="botonNo"><img src="./img/volver.svg" width="40px"></button>
+        <a href="/trabajador" class="botonNo"><img src="./img/volver.svg" width="40px"></a>
     </div>
     <div class="">
         <div class="solicitudesTabla" id="ta">
             <@php
-                    $id_user = 1;
+                    $id_user =  session('id');
                     // Obtener todos los mensajes
-                    $mensajes = tbl_chat::all();
+                    $usuario = tbl_usuarios::where('id', $id_user)->first();
+                    $id_empresa = $usuario->id_empresa;
+
+
+                    $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chat.emisor')
+                            ->where('tbl_usuarios.id_empresa', $id_empresa)
+                            ->select('tbl_chat.*', 'tbl_chat.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
+                            ->get();
+
                     $htmlMensajes = '';
                     foreach ($mensajes as $mensaje) {
                         // Condición para determinar la clase CSS del mensaje según el emisor
                         if ($mensaje->emisor == $id_user) {
                             $htmlMensajes .= '<div class="chatEmi">';
-                            $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->id . '">';
+                            $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->chat_id . '">';
                             $htmlMensajes .= '<p>' . $mensaje->mensaje . '</p>';
                             $htmlMensajes .= '</div>';
                             $htmlMensajes .= '<br>';
@@ -39,7 +47,7 @@ use App\Models\tbl_usuarios;
                             foreach ($usus as $usu) {}
                             $htmlMensajes .= '<div class="chatRec">';
                             $htmlMensajes .= '<h2>' . $usu->nombre . '</h2>';
-                            $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->id . '">';
+                            $htmlMensajes .= '<input type="hidden" name="mensaje_id" value="' . $mensaje->chat_id . '">';
                             $htmlMensajes .= '<p>' . $mensaje->mensaje . '</p>';
                             $htmlMensajes .= '</div>';
                             $htmlMensajes .= '<br>';

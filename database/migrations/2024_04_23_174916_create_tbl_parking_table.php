@@ -9,24 +9,29 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('tbl_parking', function (Blueprint $table) {
-            $table->id();
+        Schema::create('tbl_parkings', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('nombre', 45)->nullable();
             $table->longText('latitud')->nullable();
             $table->longText('longitud')->nullable();
             $table->unsignedBigInteger('id_empresa')->nullable();
             $table->timestamps();
+
+            $table->index('id_empresa');
+
             $table->foreign('id_empresa')->references('id')->on('tbl_empresas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('tbl_parking');
+        Schema::dropIfExists('tbl_parkings');
     }
 };

@@ -9,20 +9,27 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('tbl_empresas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nombre', 45)->nullable();
             $table->timestamps();
         });
+
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
+        Schema::table('tbl_usuarios', function (Blueprint $table) {
+            $table->dropForeign(['id_empresa']);
+        });
+
         Schema::dropIfExists('tbl_empresas');
     }
 };

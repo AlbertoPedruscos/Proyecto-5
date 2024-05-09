@@ -8,15 +8,16 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void {
+    public function up()
+    {
         Schema::create('tbl_reservas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('id_trabajador')->nullable();
             $table->unsignedBigInteger('id_plaza')->nullable();
-            $table->string('nom_cliente', 45)->nullable();
-            $table->string('matricula', 10)->nullable();
-            $table->string('marca', 15)->nullable();
-            $table->string('modelo', 20)->nullable();
+            $table->string('nom_cliente', 45);
+            $table->string('matricula', 10);
+            $table->string('marca', 15);
+            $table->string('modelo', 20);
             $table->string('color', 15)->nullable();
             $table->string('num_telf', 9)->nullable();
             $table->string('email', 45)->nullable();
@@ -34,8 +35,11 @@ return new class extends Migration {
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void {
+    public function down()
+    {
         Schema::dropIfExists('tbl_reservas');
     }
 };
