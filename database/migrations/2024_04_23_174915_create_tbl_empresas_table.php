@@ -26,10 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tbl_usuarios', function (Blueprint $table) {
-            $table->dropForeign(['id_empresa']);
-        });
-
         Schema::dropIfExists('tbl_empresas');
     }
 };

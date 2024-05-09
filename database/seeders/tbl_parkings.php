@@ -11,47 +11,42 @@ class tbl_parkings extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run() : void
     {
-        DB::table('tbl_parkings')->insert([
-            'nombre' => 'Parking 1',
-            'latitud' => '41.349536354143744',
-            'longitud' => '2.106697003108879',
-            'id_empresa' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_parkings')->insert([
-            'nombre' => 'Parking 2',
-            'latitud' => '41.35010355977579',
-            'longitud' => '2.106182758240472',
-            'id_empresa' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_parkings')->insert([
-            'nombre' => 'Parking 3',
-            'latitud' => '41.34915063858738',
-            'longitud' => '2.105719090230854',
-            'id_empresa' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_parkings')->insert([
-            'nombre' => 'Parking 4',
-            'latitud' => '41.34780760150584', 
-            'longitud' => '2.1074169285400246',
-            'id_empresa' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_parkings')->insert([
-            'nombre' => 'Parking 5',
-            'latitud' => '41.34659114964164',  
-            'longitud' => '2.1098135735856767',
-            'id_empresa' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        // Coordenadas aproximadas de diferentes ciudades de España
+        $coordinates = [
+            // Madrid
+            ['lat' => 40.4168, 'lng' => -3.7038],
+            // Barcelona
+            ['lat' => 41.3851, 'lng' => 2.1734],
+            // Valencia
+            ['lat' => 39.4699, 'lng' => -0.3763],
+            // Sevilla
+            ['lat' => 37.3886, 'lng' => -5.9823],
+            // Bilbao
+            ['lat' => 43.263, 'lng' => -2.934],
+        ];
+
+        // Parkings para cada empresa
+        for ($i = 0; $i < count($coordinates); $i++) {
+            $lat = $coordinates[$i]['lat'];
+            $lng = $coordinates[$i]['lng'];
+            $companyId = $i + 1; // ID de empresa
+            
+            for ($j = 1; $j <= 5; $j++) {
+                // Generar coordenadas cercanas
+                $parkingLat = $lat + ($j * 0.0004); // Aproximadamente 50 metros de diferencia
+                $parkingLng = $lng + ($j * 0.0004); // Aproximadamente 50 metros de diferencia
+                
+                DB::table('tbl_parkings')->insert([
+                    'nombre' => 'Parking ' . $j,
+                    'latitud' => $parkingLat,
+                    'longitud' => $parkingLng,
+                    'id_empresa' => $companyId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
     }
 }

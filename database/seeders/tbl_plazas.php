@@ -13,37 +13,22 @@ class tbl_plazas extends Seeder
      */
     public function run(): void
     {
-        DB::table('tbl_plazas')->insert([
-            'nombre' => 'A1',
-            'planta' => 1,
-            'id_estado' => 1,
-            'id_parking' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_plazas')->insert([
-            'nombre' => 'A2',
-            'planta' => 1,
-            'id_estado' => 2,
-            'id_parking' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_plazas')->insert([
-            'nombre' => 'A3',
-            'planta' => 1,
-            'id_estado' => 1,
-            'id_parking' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_plazas')->insert([
-            'nombre' => 'A4',
-            'planta' => 1,
-            'id_estado' => 2,
-            'id_parking' => 2,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        // Obtener todos los parkings
+        $parkings = DB::table('tbl_parkings')->get();
+                
+        foreach ($parkings as $parking) {
+            $parkingId = $parking->id;
+            
+            for ($i = 1; $i <= 10; $i++) {
+                DB::table('tbl_plazas')->insert([
+                    'nombre' => 'Plaza ' . $i,
+                    'planta' => 1.00,
+                    'id_estado' => 2, // Estado por defecto: Libre
+                    'id_parking' => $parkingId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
     }
 }

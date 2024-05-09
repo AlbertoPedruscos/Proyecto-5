@@ -9,7 +9,7 @@ class tbl_chat extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_chat';
+    protected $table = 'tbl_chats';
 
     protected $fillable = [
         'emisor',

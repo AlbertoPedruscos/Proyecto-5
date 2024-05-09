@@ -19,12 +19,21 @@ return new class extends Migration {
             $table->string('marca', 15);
             $table->string('modelo', 20);
             $table->string('color', 15)->nullable();
+<<<<<<< Updated upstream
             $table->string('num_telf', 9)->nullable();
             $table->string('email', 45)->nullable();
             $table->string('ubicacion_entrada', 20)->nullable();
             $table->string('ubicacion_salida', 20)->nullable();
             $table->dateTime('fecha_entrada')->nullable();
             $table->dateTime('fecha_salida')->nullable();
+=======
+            $table->string('num_telf', 9);
+            $table->string('email', 45);
+            $table->enum('ubicacion_entrada', ['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']);
+            $table->enum('ubicacion_salida', ['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']);
+            $table->dateTime('fecha_entrada');
+            $table->dateTime('fecha_salida');
+>>>>>>> Stashed changes
             $table->string('firma_entrada', 75)->nullable();
             $table->string('firma_salida', 75)->nullable();
             $table->timestamps();

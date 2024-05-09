@@ -24,7 +24,7 @@ class tbl_roles extends Seeder
             'updated_at' => now()
         ]);
         DB::table('tbl_roles')->insert([
-            'nombre' => 'Usuario',
+            'nombre' => 'Aparcacoches',
             'created_at' => now(),
             'updated_at' => now()
         ]);
