@@ -16,6 +16,10 @@ class tbl_usuarios extends Seeder
         DB::table('tbl_usuarios')->insert([
             ['nombre' => 'Admin', 'apellidos' => 'admin', 'email' => 'admin@mycontrolpark.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 1, 'id_empresa' => 1],
             ['nombre' => 'Julio Cesar', 'apellidos' => 'Carrillo', 'email' => 'julio@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 2, 'id_empresa' => 2],
+            ['nombre' => 'marc', 'apellidos' => 'marc', 'email' => 'marc@mycontrolpark.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 2],
+            ['nombre' => 'pablo', 'apellidos' => 'pablo', 'email' => 'pablo@mycontrolpark.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 2],
+            ['nombre' => 'pau', 'apellidos' => 'pau', 'email' => 'pau@mycontrolpark.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 2],
+
             ['nombre' => 'Alberto', 'apellidos' => 'Bermejo', 'email' => 'alberto@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 3],
             ['nombre' => 'Iker', 'apellidos' => 'Gomez', 'email' => 'iker@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 2, 'id_empresa' => 4],
             ['nombre' => 'Óscar', 'apellidos' => 'López', 'email' => 'oscar@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 5],

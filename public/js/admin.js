@@ -138,11 +138,13 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
                 str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.email + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.email + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
                 str += "<td><select name='rol' id='rol_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
                 roles.forEach(function (rol) {
-                    str += "<option value='" + rol.id + "'";
-                    if (rol.id === usuario.id_rol) {
-                        str += " selected";
+                    if (rol.id !== 3) {
+                        str += "<option value='" + rol.id + "'";
+                        if (rol.id === usuario.id_rol) {
+                            str += " selected";
+                        }
+                        str += ">" + rol.nombre + "</option>";
                     }
-                    str += ">" + rol.nombre + "</option>";
                 });
                 str += "</select></td>";
                 str += "<td><select name='rol' id='empresa_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
@@ -164,7 +166,8 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
                 str += '></td>';
                 str += "<td><input type='button' id='registrar_" + usuario.id + "' class='btn btn-danger' onclick='eliminarUsuario(" + usuario.id + ")' value='Eliminar'></td>";
 
-                // str += "</form></tr>";
+                // str += "</form>";
+                str += "</tr>";
                 tabla += str;
             });
             resultado.innerHTML = tabla;

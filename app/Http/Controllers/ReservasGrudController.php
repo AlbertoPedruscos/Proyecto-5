@@ -11,17 +11,19 @@ class ReservasGrudController extends Controller
 {
     public function listarreservas()
     {
-        $roles = tbl_roles::all();
+        // $roles = tbl_roles::all();
+        // $reservas = tbl_reservas::all();
         $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
             ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
-            ->leftJoin('tbl_parking as pakg', 'p.id_parking', '=', 'pakg.id')
+            ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
             ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
-            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'e.nombre as empresa');
-        $reservas = $reservas->get();
+            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'e.nombre as empresa')
+            ->get();
 
         // $empresa = session('id_empresa');
 
-        return response()->json(['reservas' => $reservas, 'roles' => $roles]);
+        // return response()->json(['reservas' => $reservas, 'roles' => $roles]);
+        return response()->json($reservas);
     }
 
 
