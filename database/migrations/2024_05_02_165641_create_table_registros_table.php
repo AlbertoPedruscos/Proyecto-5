@@ -12,17 +12,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_registros', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('accion', 255);
             $table->string('tipo', 50);
-            $table->unsignedBigInteger('id_usuario');
+            $table->unsignedBigInteger('id_usuario')->nullable();
             $table->decimal('latitud', 10, 6)->nullable();
             $table->decimal('longitud', 10, 6)->nullable();
-            $table->unsignedBigInteger('id_reserva');
+            $table->unsignedBigInteger('id_reserva')->nullable();
             $table->timestamp('fecha_creacion')->useCurrent();
             $table->timestamps();
-            $table->foreign('id_usuario')->references('id')->on('tbl_usuarios');
-            $table->foreign('id_reserva')->references('id')->on('tbl_reservas');
+
+            $table->foreign('id_usuario')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_reserva')->references('id')->on('tbl_reservas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

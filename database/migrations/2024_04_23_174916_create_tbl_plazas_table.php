@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_estado')->nullable();
             $table->unsignedBigInteger('id_parking')->nullable();
             $table->timestamps();
+
             $table->foreign('id_estado')->references('id')->on('tbl_estados')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_parking')->references('id')->on('tbl_parkings')->onDelete('cascade')->onUpdate('cascade');
         });
