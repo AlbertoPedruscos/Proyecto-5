@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->longText('mensaje');
             $table->unsignedBigInteger('emisor');
-            $table->unsignedBigInteger('receptor');
+            $table->unsignedBigInteger('receptor')->nullable();
             $table->timestamps();
 
             $table->foreign('emisor')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
