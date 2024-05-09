@@ -17,16 +17,23 @@
 </head>
 
 <body>
-    {{-- <header> --}}
-    <div class="contenedor">
-        {{-- <p id="menu"><i class="fas fa-grip-lines"></i></p> --}}
-        <h1>MyControlPark</h1>
-        {{-- <a href="{{ asset('/login') }}"></a> --}}
-        <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
-        <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
-    </div>
-    {{-- </header> --}}
+    <header>
+        <nav>
+            <ul class="nav-left">
+                <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
+                <li>Empleados</li>
+                <li><a href="">Reservas</a></li>
+                <li><a href="">Mapa</a></li>
+            </ul>
 
+            <ul class="nav-right">
+                <li>{{ session('nombre') }}</li>
+                <li><a href="{{ route('login') }}">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
 
     <div class="col-lg-12 ml-auto" style="border:1px solid">
         <form action="" method="post" id="frmbusqueda">
