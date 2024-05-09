@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-field">
                     <label for="color" class="form-label">Color:</label>
-                    <input type="text" class="form-control" id="color" name="color" placeholder="color">
+                    <input type="text" class="form-control" id="color" name="color" placeholder="Color">
                 </div>
             </div>
 

@@ -2,13 +2,14 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Quicksand", sans-serif;
 }
 
 /* Estilos del body */
 body {
-    background-image: url('../img/fondo2.jpeg');
+    background-image: url('../img/OIG1.jpeg');
     background-size: cover; /* Hace que la imagen de fondo cubra todo el cuerpo */
-    background-position: center; /* Alinea la imagen en el centro */
+    background-position: center bottom; /* Alinea la imagen en el centro */
     color: #fff;
     overflow: hidden; /* Evita barras de desplazamiento no deseadas */
     height: 100vh;
@@ -46,7 +47,7 @@ nav li a:hover {
 
 /* Asegura que el logo tenga tamaño adecuado */
 nav img {
-    max-height: 50px; 
+    max-height: 70px; 
     object-fit: contain;
 }
 
@@ -67,19 +68,37 @@ nav .nav-right {
     padding: 15px; 
     background: rgba(255, 255, 255, 0.8); 
     border-radius: 8px;
-    border: 1px solid #ddd; /* Borde sutil */
+    border: 1px solid #e0cbbd; /* Borde sutil */    
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); 
-    width: 30%; 
+    width: 35%; 
     margin-left: 35px; 
     margin-top: 20px; 
     height: auto; 
 }
 
-/* Estilos para el título del formulario */
+/* Estilos para el título del formulario con línea divisoria usando pseudo-element */
 #cont-form h1 {
     color: #333;
     text-align: center;
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
+    position: relative; /* Necesario para usar pseudo-elements */
+}
+
+#cont-form h1::after {
+    content: ''; /* Pseudo-element vacío para crear la línea */
+    position: absolute;
+    left: 0; /* Inicia la línea desde la izquierda */
+    right: 0; /* Extiende la línea hasta la derecha */
+    bottom: -10px; /* Ubicación de la línea */
+    height: 2px; /* Grosor de la línea */
+    background-color: black; /* Color de la línea */
+}
+
+/* Estilos para el contenido del formulario */
+#cont-form p {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 /* Estilos para el formulario */
@@ -113,22 +132,25 @@ nav .nav-right {
     width: 100%; 
 }
 
-/* Estilo para el botón en el formulario */
+/* Contenedor para el botón, debe usar display: flex para la alineación */
 #cont-form .button-group {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px; 
+    display: flex; /* Asegura el uso de flexbox */
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    margin-top: 20px; /* Espaciado superior */
 }
 
+/* Estilos para el botón en el formulario */
 #cont-form button {
-    padding: 8px 16px; 
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 10px 20px; /* Añade espaciado */
+    background-color: rgb(225, 157, 30); /* Color de fondo */
+    color: white; /* Color de texto */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano al pasar */
+    transition: background-color 0.3s; /* Transición para el hover */
 }
 
+/* Estilo de hover para el botón */
 #cont-form button:hover {
-    background-color: #0056b3; 
+    background-color: rgb(209, 149, 37); /* Cambia de color al pasar el ratón */
 }

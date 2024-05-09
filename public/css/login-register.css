@@ -1,456 +1,150 @@
-/* Estilos generales para todo el sitio */
+/* Reinicio básico */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
 }
 
+/* Estilos del body */
 body {
-    overflow: hidden;
+    background-image: url('../img/OIG1.jpeg');
+    background-size: cover; /* Hace que la imagen de fondo cubra todo el cuerpo */
+    background-position: center bottom; /* Alinea la imagen en el centro */
+    color: #fff;
+    overflow: hidden; /* Evita barras de desplazamiento no deseadas */
+    height: 100vh;
 }
 
-.column-2 {
-    width: 100%;
+/* Estilo para el nav y su contenido */
+nav {
     display: flex;
-}
-
-.login-form {
-    width: 100%;
-}
-
-#cont-logo {
-    background-color: #007EA7;
-    border-bottom-left-radius: 35% 15%;
-    border-bottom-right-radius: 35% 15%;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    overflow: hidden;
-}
-
-#logo {
-    width: 25%;
-    height: auto;
-    margin: 0 auto;
-}
-
-#cont-form {
-    width: 35%;
-    margin: -15px auto;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    background-color: white;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    font-size: 16px;
-}
-
-#cont-form h2 {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#cont-form label {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-#btn-enviar {
+    padding: 8px 20px; 
+    background: rgba(0, 0, 0, 0.5); 
     width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: #007EA7;
-    font-size: 16px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para el logo y el resto de elementos */
+nav li {
+    list-style: none;
+    padding: 0 15px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+nav li a {
+    text-decoration: none;
     color: white;
 }
 
+nav li a:hover {
+    color: gold;
+}
+
+/* Asegura que el logo tenga tamaño adecuado */
+nav img {
+    max-height: 70px; 
+    object-fit: contain;
+}
+
+/* Estilo para alinear el logo y los elementos */
+nav .nav-left {
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Estilos para el contenedor del formulario */
+#cont-form {
+    padding: 15px; 
+    background: rgba(255, 255, 255, 0.8); 
+    border-radius: 8px;
+    border: 1px solid #e0cbbd;    
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); 
+    width: 40%; 
+    margin-left: 35px; 
+    margin-top: 20px; 
+    height: auto; 
+}
+
+/* Estilos para el título del formulario con línea divisoria usando pseudo-element */
+#cont-form h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative; /* Necesario para usar pseudo-elements */
+}
+
+#cont-form h1::after {
+    content: ''; /* Pseudo-element vacío para crear la línea */
+    position: absolute;
+    left: 0; /* Inicia la línea desde la izquierda */
+    right: 0; /* Extiende la línea hasta la derecha */
+    bottom: -10px; /* Ubicación de la línea */
+    height: 2px; /* Grosor de la línea */
+    background-color: black; /* Color de la línea */
+}
+
+/* Estilos para el contenido del formulario */
+#cont-form p {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos para el formulario */
+#cont-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+}
+
+/* Estilos para grupos de campos */
+.form-group {
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 10px; 
+}
+
+/* Estilos para cada campo individual */
+.form-field {
+    flex: 1; 
+}
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%; 
+}
+
+
+/* Estilos para el botón en el formulario */
+#btn-enviar {
+    padding: 10px 20px; /* Añade espaciado */
+    background-color: rgb(225, 157, 30); /* Color de fondo */
+    color: white; /* Color de texto */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano al pasar */
+    transition: background-color 0.3s; /* Transición para el hover */
+}
+
+/* Estilo de hover para el botón */
 #btn-enviar:hover {
-    background-color: #3f869e;
-}
-
-/* Estilos para vista móvil (hasta 1160px) */
-@media only screen and (max-width: 1160px) {
-    .column-2 {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-    }
-
-    #cont-logo {
-        background-color: #007EA7;
-        border-bottom-left-radius: 35% 15%;
-        border-bottom-right-radius: 35% 15%;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        height: 55vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    #logo {
-        width: 40%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    #cont-form {
-        width: 75%;
-        margin: -30px auto;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        background-color: white;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-size: 16px;
-    }
-
-    #cont-form h2 {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    #cont-form label {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    #btn-enviar {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #007EA7;
-        font-size: 16px;
-        color: white;
-    }
-
-    #btn-enviar:hover {
-        background-color: #3f869e;
-    }
-}
-
-/* Estilos para vista móvil (hasta 760px) */
-@media only screen and (max-width: 760px) {
-    .column-2 {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-    }
-
-    #cont-logo {
-        background-color: #007EA7;
-        border-bottom-left-radius: 35% 15%;
-        border-bottom-right-radius: 35% 15%;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        height: 55vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    #logo {
-        width: 65%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    #cont-form {
-        width: 75%;
-        margin: -30px auto;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        background-color: white;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-size: 16px;
-    }
-
-    #cont-form h2 {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    #cont-form label {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    #btn-enviar {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #007EA7;
-        font-size: 16px;
-        color: white;
-    }
-
-    #btn-enviar:hover {
-        background-color: #3f869e;
-    }
-}
-
-/* Estilos para vista móvil (hasta 660px) */
-@media only screen and (max-width: 660px) {
-    .column-2 {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-    }
-
-    #cont-logo {
-        background-color: #007EA7;
-        border-bottom-left-radius: 35% 15%;
-        border-bottom-right-radius: 35% 15%;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        height: 55vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    #logo {
-        width: 70%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    #cont-form {
-        width: 75%;
-        margin: -30px auto;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        background-color: white;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-size: 16px;
-    }
-
-    #cont-form h2 {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    #cont-form label {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    #btn-enviar {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #007EA7;
-        font-size: 16px;
-        color: white;
-    }
-
-    #btn-enviar:hover {
-        background-color: #3f869e;
-    }
-}
-
-/* Estilos para vista móvil (hasta 560px) */
-@media only screen and (max-width: 560px) {
-    .column-2 {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        /* Evita scroll horizontal */
-    }
-
-    #cont-logo {
-        background-color: #007EA7;
-        border-bottom-left-radius: 35% 15%;
-        border-bottom-right-radius: 35% 15%;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        height: 55vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    #logo {
-        width: 90%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    #cont-form {
-        width: 75%;
-        margin: -30px auto;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        background-color: white;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-size: 16px;
-    }
-
-    #cont-form h2 {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    #cont-form label {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    #btn-enviar {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #007EA7;
-        font-size: 16px;
-        color: white;
-    }
-
-    #btn-enviar:hover {
-        background-color: #3f869e;
-    }
-}
-
-/* Estilos para vista móvil (hasta 460px) */
-@media only screen and (max-width: 460px) {
-    .column-2 {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        /* Evita scroll horizontal */
-    }
-
-    #cont-logo {
-        background-color: #007EA7;
-        border-bottom-left-radius: 35% 15%;
-        border-bottom-right-radius: 35% 15%;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        height: 55vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    #logo {
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    #cont-form {
-        width: 75%;
-        margin: -30px auto;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        background-color: white;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-size: 16px;
-    }
-
-    #cont-form h2 {
-        text-align: center;
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    #cont-form label {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    #btn-enviar {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #007EA7;
-        font-size: 16px;
-        color: white;
-    }
-
-    #btn-enviar:hover {
-        background-color: #3f869e;
-    }
+    background-color: rgb(209, 149, 37); /* Cambia de color al pasar el ratón */
 }

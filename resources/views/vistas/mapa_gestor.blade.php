@@ -314,7 +314,11 @@
                     var marker = parkingMarkers[parkingId];
                     var latLng = marker.getLatLng();
 
-                    map.setView(latLng, 20);
+                    // Centrar la vista en el marcador y hacer zoom
+                    map.setView(latLng, 20); // Ajusta el nivel de zoom según tus necesidades
+
+                    // Asegurar que el marcador está en el centro de la pantalla
+                    map.panTo(latLng);
                 } else {
                     console.error("No se encontró el parking con ID " + parkingId);
                 }
