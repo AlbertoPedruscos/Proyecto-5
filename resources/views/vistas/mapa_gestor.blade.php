@@ -14,6 +14,9 @@
             <nav>
                 <ul class="nav-left">
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
+                    <li><a href="">Empleados</a></li>
+                    <li><a href="">Reservas</a></li>
+                    <li>Mapa</li>
                 </ul>
 
                 <ul class="nav-right">
@@ -110,15 +113,18 @@
                                 @php
                                     $empresa_id_sesion = session('empresa'); // Obtener el ID de la empresa desde la sesión
                                 @endphp
-                            
+
                                 @foreach ($empresas as $empresa)
-                                    @if ($empresa->id == $empresa_id_sesion) <!-- Compara el ID de la empresa con el de la sesión -->
-                                        <input type="text" value="{{ $empresa->nombre }}" readonly> <!-- Marca el input como de solo lectura -->
-                                        <input type="hidden" name="empresa_id" value="{{ $empresa->id }}"> <!-- Oculta el input del ID de la empresa -->
+                                    @if ($empresa->id == $empresa_id_sesion)
+                                        <!-- Compara el ID de la empresa con el de la sesión -->
+                                        <input type="text" value="{{ $empresa->nombre }}" readonly>
+                                        <!-- Marca el input como de solo lectura -->
+                                        <input type="hidden" name="empresa_id" value="{{ $empresa->id }}">
+                                        <!-- Oculta el input del ID de la empresa -->
                                     @endif
                                 @endforeach
                             </div>
-                            
+
                             <div>
                                 <input type="submit" name="btn-enviar" id="btn-enviar" value="Añadir">
                             </div>
@@ -188,8 +194,11 @@
 
         <script>
             // Configuración del mapa con un nivel de zoom adecuado
-            var map = L.map('map').setView([41.3497528271445, 2.1080974175773473], 18);
-
+            var map = L.map('map', {
+                center: [41.3497528271445, 2.1080974175773473], // Coordenadas iniciales
+                zoom: 18, // Nivel de zoom inicial
+                zoomControl: false, // Deshabilitar los controles de zoom
+            });
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);

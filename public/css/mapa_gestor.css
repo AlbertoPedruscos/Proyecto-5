@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    overflow: hidden; /* Eliminar scroll general para la página */
+}
+
 /* HEADER */
 header {
     background-color: #001A2C; /* Color de fondo */
@@ -14,12 +18,10 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* background: rgba(255, 255, 255, 0.8);  */
     width: 100%;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Sombras sutiles */
 }
 
-/* Estilo para el logo y el resto de elementos */
 nav li {
     list-style: none;
     padding: 0 15px;
@@ -38,13 +40,11 @@ nav li a:hover {
     color: gold;
 }
 
-/* Asegura que el logo tenga tamaño adecuado */
 nav img {
     max-height: 70px; 
-    object-fit: contain;
+    object-fit: contain; /* Asegura que el logo tenga un tamaño adecuado */
 }
 
-/* Estilo para alinear el logo y los elementos */
 nav .nav-left {
     display: flex;
     align-items: center;
@@ -57,67 +57,32 @@ nav .nav-right {
 }
 
 /* MAPA */
-/* Contenedor para el mapa */
 #cont-mapa {
     flex: 1; /* Permite que el contenedor del mapa ocupe todo el espacio disponible */
-    position: relative; /* Necesario para posicionar elementos absolutos dentro */
-    overflow: hidden;
-    
+    position: relative; /* Necesario para posicionar elementos */
+    overflow: hidden; /* Asegura que no haya scroll general en el mapa */
 }
 
-/* Estilos para el mapa */
 #map {
-    flex: 1; /* Permite que el mapa ocupe todo el espacio disponible */
-    height: 100%; /* Asegura que el mapa ocupe todo el espacio vertical del contenedor */
-    width: 100%; /* Asegura que el mapa ocupe todo el espacio horizontal del contenedor */
-    overflow: hidden;
-}
-
-/* Posicionamiento del formulario */
-#cont-mapa form {
-    position: absolute; /* Hace que el formulario esté flotando sobre el mapa */
-    top: 10px; /* Posición desde la parte superior */
-    left: 10px; /* Posición desde la parte izquierda */
-    padding: 10px; /* Espacio interno */
-    z-index: 1000; /* Asegura que el formulario esté por encima del mapa */
-    width: 55%;
-}
-
-/* Estilos para los campos del formulario */
-#cont-mapa form input[type="text"] {
-    padding: 8px; /* Espacio interno para campos de texto */
-    border: 1px solid #ccc; /* Borde para campos de texto */
-    border-radius: 5px; /* Bordes redondeados */
-    margin-bottom: 10px; /* Espaciado entre campos */
-    width: 100%; /* Ancho completo para los campos */
-}
-
-.leaflet-control-zoom {
-    display: none; 
+    flex: 1;
+    height: 100%; /* Asegura que el mapa ocupe todo el espacio vertical */
+    width: 100%; /* Asegura que el mapa ocupe todo el espacio horizontal */
 }
 
 /* CONTENEDORES */
 #cont-principal {
     display: flex; /* Layout flex */
-    width: 100%;
-    height: 100vh;
-    overflow: hidden; /* Evita que se desborde el contenedor */
+    width: 100%; /* Ancho completo */
+    height: 100vh; /* Altura completa */
+    overflow: hidden; /* Evitar scroll general */
 }
 
-/* Estilos para el contenedor de la lista de elementos */
-#cont-lista {
-    background-color: #001A2C; /* Color de fondo */
-    width: 30%; /* Ancho del contenedor */
-    padding: 15px;
-    overflow-y: auto; /* Hace que el contenido se ajuste verticalmente */
-}
-
-/* Menú hamburguesa */
+/* Contenedor lateral para CRUD */
 #cont-crud {
     background-color: #001A2C; /* Color de fondo */
     position: relative; /* Para posicionar elementos */
     transition: width 0.3s ease; /* Transición para expansión/contracción */
-    overflow: hidden; /* Oculta el contenido cuando está colapsado */
+    overflow: hidden; /* Ocultar barras de desplazamiento */
     width: 3%; /* Ancho por defecto cuando está colapsado */
     padding: 15px;
 }
@@ -127,11 +92,11 @@ nav .nav-right {
     width: 30%; /* Ancho cuando está expandido */
 }
 
-/* Menú toggle */
+/* Toggle para el menú hamburguesa */
 .menu-toggle {
     position: absolute; /* Para posicionarlo en el lugar correcto */
-    top: 15px; /* Desde la parte superior */
-    left: 10px; /* Desde la parte izquierda */
+    top: 15px;
+    left: 10px;
     cursor: pointer; /* Indica que se puede hacer clic */
     z-index: 2; /* Asegura visibilidad */
 }
@@ -145,9 +110,9 @@ nav .nav-right {
     margin: 4px 0; /* Espaciado entre barras */
 }
 
-/* Cambiar a "X" cuando está expandido */
+/* Transformaciones para el menú toggle cuando está expandido */
 #cont-crud.expanded .menu-toggle .hamburger:first-child {
-    transform: rotate(45deg) translate(5px, 5px); /* Parte superior */
+    transform: rotate(45deg) translate(5px, 5px);
 }
 
 #cont-crud.expanded .menu-toggle .hamburger:nth-child(2) {
@@ -155,47 +120,47 @@ nav .nav-right {
 }
 
 #cont-crud.expanded .menu-toggle .hamburger:last-child {
-    transform: rotate(-45deg) translate(5px, -5px); /* Parte inferior */
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Contenido del menú */
+/* Estilo para el contenido del menú y scroll sin mostrar barra */
 .menu-content {
     display: none; /* Oculto por defecto */
-    flex-direction: column; /* Organización vertical */
-    justify-content: flex-start; /* Espacio al inicio */
-    transition: opacity 0.3s ease; /* Transición para mostrar/ocultar */
+    flex-direction: column;
+    overflow-y: auto; /* Permitir scroll vertical */
+    padding-right: 20px; /* Espacio para evitar barra de desplazamiento */
+    margin-right: -20px; /* Margen negativo para ocultar la barra */
+    justify-content: flex-start;
+    transition: opacity 0.3s ease;
 }
 
 #cont-crud.expanded .menu-content {
     display: flex; /* Mostrar cuando está expandido */
 }
 
-/* Otros estilos para el contenido */
-
+/* Otros estilos para el contenido del CRUD */
 #cont-crud h1 {
-    color: white; 
-    font-size: 20px; 
-    font-family: Helvetica; 
+    color: white;
+    font-size: 20px;
+    font-family: Helvetica;
     font-weight: bold;
-    padding-top: 45px;
+    padding-top: 45px; /* Espacio desde la parte superior */
 }
 
 #cont-crud p {
-    color: white; 
-    font-size: 16px; 
-    font-family: Helvetica; 
+    color: white;
+    font-size: 16px;
 }
 
+/* Estilo para el icono de suma */
 #icono-suma {
     color: green; 
     border: 2px solid green; 
     padding: 5px; 
     border-radius: 5px; 
     background-color: white; 
-    cursor: pointer; 
+    cursor: pointer;
     height: 30px;
-    /* margin-left: 8px; /* Evitar superposiciones con el ícono */
-    /* margin-top: 10px; Espacio para evitar superposiciones */
     width: 10%;
 }
 
@@ -207,7 +172,7 @@ form {
     border-radius: 10px; 
     background-color: #f9f9f9; 
     display: flex;
-    flex-direction: column; /* Alineación vertical */
+    flex-direction: column;
 }
 
 button {
@@ -231,12 +196,11 @@ input[type="text"], input[type="email"], input[type="password"], #empresa {
     transition: border-color 0.3s; 
 }
 
-/* MODAL */
-/* Estilos para el modal */
+/* Estilo para modales */
 .modal-content {
-    background-color: #003459; /* Fondo azul oscuro */
-    color: white; /* Texto en blanco */
-    border-radius: 10px; /* Bordes redondeados */
+    background-color: #003459; 
+    color: white; 
+    border-radius: 10px; 
 }
 
 .modal-header {
@@ -245,16 +209,15 @@ input[type="text"], input[type="email"], input[type="password"], #empresa {
 
 .modal-title {
     font-size: 20px; /* Tamaño de la fuente */
-    font-weight: bold; /* Negrita */
+    font-weight: bold;
 }
 
 .modal-body {
     padding: 20px; /* Espaciado interno */
 }
 
-
 form div {
-    margin-bottom: 10px; /* Espaciado entre campos */
+    margin-bottom: 10px;
 }
 
 label {
@@ -262,36 +225,35 @@ label {
     color: black;
 }
 
-input[type="text"],
+input[type="text"], 
 select {
-    width: 100%; /* Ancho total */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #cccccc; /* Borde suave */
-    background-color: #ffffff; /* Fondo blanco */
-    color: #333333; /* Texto gris oscuro */
+    width: 100%; 
+    padding: 10px; 
+    border-radius: 5px; 
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    color: #333333;
 }
 
 input[type="submit"] {
-    background-color: #003459; /* Color de fondo (azul oscuro) */
-    color: white; /* Texto en blanco */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 10px; /* Espaciado interno */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    transition: background-color 0.3s ease; /* Transición suave */
+    background-color: #003459; 
+    color: white; 
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
 }
 
 input[type="submit"]:hover {
-    background-color: #005092; /* Color de fondo al pasar por encima */
+    background-color: #005092; 
 }
 
 input[type="submit"]:active {
-    background-color: #001d40; /* Color de fondo al hacer clic */
+    background-color: #001d40; 
 }
 
-select {
-    border-radius: 5px; /* Bordes redondeados */
+.select {
+    border-radius: 5px; 
 }
 
 /* Ajustes adicionales para mejor experiencia */
@@ -300,18 +262,19 @@ select {
 }
 
 .close {
-    color: white; /* Color del icono de cierre */
-    font-size: 35px; /* Tamaño del icono de cierre */
+    color: white; 
+    font-size: 35px; 
 }
-
 
 /* Estilo para la sección con el listado de parkings */
 .menu-content {
     padding: 20px;
     color: white;
     border-radius: 5px;
-    height: 100%;
-    overflow-y: auto
+    height: 100%; 
+    overflow-y: auto; /* Permitir scroll vertical */
+    padding-right: 20px; 
+    margin-right: -20px;
 }
 
 /* Estilo para el encabezado y botones en la sección de parkings */
@@ -321,66 +284,53 @@ select {
 
 /* Estilo para cada elemento de parking en el listado */
 .parking-item {
-    margin-top: 10px; /* Espacio entre parkings */
-    margin-bottom: 10px;
-    border: 1px solid #ccc; /* Borde para separar parkings */
-    padding: 10px; /* Espacio interno */
-    border-radius: 5px; /* Bordes redondeados */
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    border-radius: 5px;
 }
 
-/* Estilo para los botones de editar y eliminar */
 .parking-item button {
-    margin-right: 10px; /* Separación entre botones */
+    margin-right: 10px; 
 }
 
 .parking-item .btn-warning {
-    color: #fff; /* Color de texto en botones de advertencia */
-    background-color: #f0ad4e; /* Color de fondo para el botón de advertencia */
+    color: #fff; 
+    background-color: #f0ad4e; 
 }
 
 .parking-item .btn-danger {
-    color: #fff; /* Color de texto para botón de peligro */
-    background-color: #d9534f; /* Color de fondo para el botón de peligro */
+    color: #fff; 
+    background-color: #d9534f; 
 }
 
-/* Botón de eliminar - color, tamaño y margen */
 .parking-item .btn-danger {
-    color: white; /* Texto blanco para contraste */
-    background-color: #d9534f; /* Rojo para indicar peligro */
-    border: none; /* Eliminar bordes */
-    border-radius: 5px; /* Bordes redondeados para apariencia moderna */
-    transition: background-color 0.3s ease; /* Transición suave para el hover */
-    cursor: pointer; /* Indicar que es un elemento clicable */
-    height: 40px;
+    color: white; 
+    background-color: #d9534f; 
+    border: none; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease;
+    cursor: pointer; 
 }
 
-/* Efectos al pasar el mouse */
 .parking-item .btn-danger:hover {
-    background-color: #c9302c; /* Cambio de color para hover (más oscuro) */
+    background-color: #c9302c; 
 }
 
-/* Efectos al hacer clic */
 .parking-item .btn-danger:active {
-    background-color: #ac2925; /* Cambio de color al hacer clic */
+    background-color: #ac2925; 
 }
 
-/* Margen entre botones */
-.parking-item button {
-    margin-right: 10px; /* Espaciado entre botones */
-}
-
-/* Estilo para formularios dentro de un item de parking */
 .parking-item form {
-    display: inline-block; /* Permite alinear el formulario y el botón inline */
-    background-color: #003459; /* Fondo del contenedor */
+    display: inline-block; 
+    background-color: #003459; 
     padding: 0;
-    margin: 0;
-    border-radius: 5px; /* Bordes redondeados */
-    border: none; /* Eliminar bordes */
-    color: white; /* Color del texto */
+    border-radius: 5px; 
+    border: none; 
+    color: white; 
 }
-
 
 div.alert {
-    margin-top: 15px;
+    margin-top: 15px; 
 }
