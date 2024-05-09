@@ -39,7 +39,7 @@ class LoginController extends Controller
             $request->session()->put('rol', $user->id_rol);
             $request->session()->put('empresa',$user->id_empresa);
 
-            return redirect()->route('mapa_gestor');
+            return redirect()->route('mapa');
 
         } else {
             // Si las credenciales son incorrectas, redirigir con mensaje de error

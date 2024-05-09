@@ -20,7 +20,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Ruta para la página de admin
-Route::get('/mapa_gestor', [MapaGestorController::class, 'index'])->name('mapa_gestor');
+Route::get('/mapa', [MapaGestorController::class, 'index'])->name('mapa');
 
 // Rutas para operaciones CRUD de parkings
 Route::post('/parking', [MapaGestorController::class, 'store'])->name('parking.post');
@@ -33,3 +33,16 @@ Route::post('/parking/update/{id}', [ParkingController::class, 'updateLocation']
 
 // Ruta página de inicio
 Route::get('/', [InicioController::class, 'index'])->name('inicio');
+
+
+// Rutas Julio
+Route::get('/empleados', function () {
+    return view('gestion.empleados');
+})->name('empleados');
+
+use App\Http\Controllers\EmpresaController;
+
+Route::post('/Listarempleados', [EmpresaController::class, 'Listarempleados'])->name('Listarempleados');
+Route::post('/registrar', [EmpresaController::class,  'registrar'])->name('registrar');
+Route::post('/estado', [EmpresaController::class,  'estado'])->name('estado');
+Route::post('/eliminar', [EmpresaController::class, 'eliminar'])->name('eliminar');

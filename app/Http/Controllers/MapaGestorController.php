@@ -26,7 +26,7 @@ class MapaGestorController extends Controller
         $estados = tbl_estados::all();
         $empresas = tbl_empresas::all();
     
-        return view('vistas.mapa_gestor', compact('parkings', 'plazas', 'estados', 'empresas'));
+        return view('gestion.mapa', compact('parkings', 'plazas', 'estados', 'empresas'));
     }
     
     public function store(Request $request) 
@@ -71,7 +71,7 @@ class MapaGestorController extends Controller
         // Guardar el nuevo parking
         $parking->save();
     
-        return redirect()->route('mapa_gestor')->with('success', 'Parking registrado exitosamente.');
+        return redirect()->route('mapa')->with('success', 'Parking registrado exitosamente.');
     }
         public function destroy($id)
     {
@@ -79,7 +79,7 @@ class MapaGestorController extends Controller
             // Buscar y eliminar el parking por su ID
             $parking = tbl_parking::findOrFail($id);
             $parking->delete();
-            return redirect()->route('mapa_gestor')->with('success', 'Parking eliminado exitosamente.');
+            return redirect()->route('mapa')->with('success', 'Parking eliminado exitosamente.');
         } 
         catch (\Exception $e) {
             return response()->json([
@@ -125,11 +125,11 @@ class MapaGestorController extends Controller
             // Guardar los cambios
             $parking->save();
     
-            return redirect()->route('mapa_gestor')->with('success', 'Parking actualizado exitosamente.');
+            return redirect()->route('mapa')->with('success', 'Parking actualizado exitosamente.');
         } 
         
         catch (\Exception $e) {
-            return redirect()->route('mapa_gestor')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
+            return redirect()->route('mapa')->with('error', 'Error al actualizar el parking: ' . $e->getMessage());
         }
     }
 

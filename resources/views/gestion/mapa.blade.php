@@ -14,7 +14,7 @@
             <nav>
                 <ul class="nav-left">
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
-                    <li><a href="">Empleados</a></li>
+                    <li><a href="{{ route('empleados') }}">Empleados</a></li>
                     <li><a href="">Reservas</a></li>
                     <li>Mapa</li>
                 </ul>
