@@ -93,6 +93,9 @@ html, body {
     color: white;
     height: 100%;
 }
+.entrada p, .salida p {
+    margin: 0;
+}
 
 .imagenes {
     height: 30vh;

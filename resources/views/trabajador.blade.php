@@ -41,6 +41,7 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <a class="navbar-brand" href="logout" class="dropdown-item" style="color: black;">Cerrar sesión</a>
+                            <a class="navbar-brand" href="/chatG" class="dropdown-item" style="color: black;">Chat</a>
                         </ul>
                     </div>
                 </div>

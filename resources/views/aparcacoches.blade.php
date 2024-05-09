@@ -1,6 +1,12 @@
 <?php
 use App\Models\modeloPlazas;
-$plazas = modeloPlazas::all();
+use App\Models\tbl_usuarios;
+$id_user =  session('id');
+// Obtener todos los mensajes
+$usuario = tbl_usuarios::where('id', $id_user)->first();
+$id_empresa = $usuario->id_empresa;
+$plazas = modeloPlazas::join('tbl_parkings', 'tbl_parkings.id', '=', 'tbl_plazas.id_parking')
+->where('tbl_parkings.id_empresa', $id_empresa);
 use Illuminate\Support\Facades\DB;
 ?>
 <!DOCTYPE html>

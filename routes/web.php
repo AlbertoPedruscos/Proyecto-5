@@ -106,3 +106,7 @@ Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas']
 // Route::post('/adminregistrar', [AdminGrudController::class,  'adminregistrar'])->name('adminregistrar');
 // Route::post('/admineditar', [AdminGrudController::class,  'admineditar'])->name('adminadmineditar');
 // Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->name('admineliminar');
+
+Route::get('/chatG', function () {
+    return view('chat');
+});

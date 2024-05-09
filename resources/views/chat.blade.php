@@ -1,6 +1,14 @@
 <?php
 use App\Models\tbl_chat;
 use App\Models\tbl_usuarios;
+use Illuminate\Support\Facades\Session;
+
+$id = session('id');
+
+if (!isset($id)) {
+    header("Location: /");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -28,9 +36,9 @@ use App\Models\tbl_usuarios;
                     $id_empresa = $usuario->id_empresa;
 
 
-                    $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chat.emisor')
+                    $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chats.emisor')
                             ->where('tbl_usuarios.id_empresa', $id_empresa)
-                            ->select('tbl_chat.*', 'tbl_chat.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
+                            ->select('tbl_chats.*', 'tbl_chats.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
                             ->get();
 
                     $htmlMensajes = '';
@@ -64,4 +72,3 @@ use App\Models\tbl_usuarios;
 </body>
 </html>
 <script src="./js/chat.js"></script>
-

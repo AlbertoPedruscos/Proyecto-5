@@ -64,8 +64,10 @@
             <div class="entrada">
                 <div class="reg_entr">
                     <p>Registro de entrada</p>
+                    <p>{{ $reserva_cliente->fecha_entrada }}</p>
+                    <p>{{ $reserva_cliente->ubicacion_entrada }}</p>
                 </div>
-                <div class="check_entr">
+                <div class="check_entr" onclick="window.location.href = '/cambio'">
                     @if($reserva_cliente->firma_entrada === null)
                         <span class="material-symbols-outlined"> 
                         check_circle
@@ -80,6 +82,8 @@
             <div class="salida">
                 <div class="reg_sal">
                     <p>Registro de salida</p>
+                    <p>{{ $reserva_cliente->fecha_salida }}</p>
+                    <p>{{ $reserva_cliente->ubicacion_salida }}</p>
                 </div>
                 <div class="check_sal">
                     @if($reserva_cliente->firma_salida === null)

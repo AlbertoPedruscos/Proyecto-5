@@ -19,7 +19,7 @@ class tbl_plazas extends Seeder
         foreach ($parkings as $parking) {
             $parkingId = $parking->id;
             
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 50; $i++) {
                 DB::table('tbl_plazas')->insert([
                     'nombre' => 'Plaza ' . $i,
                     'planta' => 1.00,

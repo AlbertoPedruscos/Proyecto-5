@@ -21,10 +21,10 @@ class ChatController extends Controller
         $usuario = tbl_usuarios::where('id', $id_user)->first();
         $id_empresa = $usuario->id_empresa;
 
-        $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chat.emisor')
+        $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chats.emisor')
                 // ->where('tbl_usuarios.id_empresa', $id_empresa)
-                ->where('tbl_chat.id', '>', $request->id)
-                ->select('tbl_chat.*', 'tbl_chat.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
+                ->where('tbl_chats.id', '>', $request->id)
+                ->select('tbl_chats.*', 'tbl_chats.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
                 ->get();
         $htmlMensajes = '';
         foreach ($mensajes as $mensaje) {
@@ -56,8 +56,9 @@ class ChatController extends Controller
         $id_user = session('id');
         $mensajes = tbl_chat::all();
 
-        $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chat.emisor')
+        $mensajes = tbl_chat::join('tbl_usuarios', 'tbl_usuarios.id', '=', 'tbl_chats.emisor')
                 ->where('tbl_usuarios.id_empresa', $id_user)
+                ->select('tbl_chats.*', 'tbl_chats.id as chat_id') // Renombrando el campo "id" de tbl_chat como "chat_id"
                 ->get();
 
         $htmlMensajes = '';
