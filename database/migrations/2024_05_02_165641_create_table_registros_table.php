@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('tbl_registros', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_usuario'); // Cambiamos 'user_id' a 'id_usuario'
-            $table->decimal('latitud', 10, 8);
-            $table->decimal('longitud', 11, 8);
-            $table->foreign('id_usuario')->references('id')->on('tbl_usuarios')->onUpdate('cascade'); // Establecemos la relación con 'tbl_usuarios'
+            $table->string('accion', 255);
+            $table->string('tipo', 50);
+            $table->unsignedBigInteger('id_usuario');
+            $table->decimal('latitud', 10, 6)->nullable();
+            $table->decimal('longitud', 10, 6)->nullable();
+            $table->unsignedBigInteger('id_reserva');
+            $table->timestamp('fecha_creacion')->useCurrent();
             $table->timestamps();
-       
+            $table->foreign('id_usuario')->references('id')->on('tbl_usuarios');
+            $table->foreign('id_reserva')->references('id')->on('tbl_reservas');
         });
     }
 

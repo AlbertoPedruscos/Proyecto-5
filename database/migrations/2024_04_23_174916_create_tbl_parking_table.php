@@ -17,11 +17,7 @@ return new class extends Migration
             $table->longText('latitud')->nullable();
             $table->longText('longitud')->nullable();
             $table->unsignedBigInteger('id_empresa')->nullable();
-            $table->unsignedBigInteger('id_plaza')->nullable();
             $table->timestamps();
-
-            $table->index('id_empresa');
-
             $table->foreign('id_empresa')->references('id')->on('tbl_empresas')->onDelete('cascade')->onUpdate('cascade');
         });
     }

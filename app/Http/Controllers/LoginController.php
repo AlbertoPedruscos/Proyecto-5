@@ -47,7 +47,7 @@ class LoginController extends Controller
             switch ($user->id_rol) {
                 case 1:
                     // Código a ejecutar cuando $user->id_rol es igual a 1
-                    return redirect()->route('mapa_admin');
+                    return redirect()->route('admin');
                     break;
                 case 2:
                     return redirect()->route('empresa');

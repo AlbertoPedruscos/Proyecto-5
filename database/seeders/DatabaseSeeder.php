@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(tbl_parking::class);
         $this->call(tbl_plazas::class);
         $this->call(tbl_reservas::class);
+        $this->call(tbl_chat::class);
     }
 }

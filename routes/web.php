@@ -66,14 +66,41 @@ Route::delete('/parking/{id}', [MapaAdminController::class, 'destroy'])->name('p
 Route::put('/parking/{id}/update-location', [ParkingController::class, 'updateLocation']);
 
 
-// Julio 
+// Empresa 
 Route::get('/empresa', function () {
     return view('empresa.empresa');
 })->name('empresa');
 
 use App\Http\Controllers\EmpresaController;
 
-Route::post('/listarreservas', [EmpresaController::class, 'listarreservas'])->name('listarreservas');
+Route::post('/Listarempleados', [EmpresaController::class, 'Listarempleados'])->name('Listarempleados');
 Route::post('/registrar', [EmpresaController::class,  'registrar'])->name('registrar');
 Route::post('/estado', [EmpresaController::class,  'estado'])->name('estado');
 Route::post('/eliminar', [EmpresaController::class, 'eliminar'])->name('eliminar');
+
+
+// Admin
+Route::get('/admin', function () {
+    return view('admin.admin');
+})->name('admin');
+
+use App\Http\Controllers\AdminGrudController;
+
+Route::post('/listarempresarios', [AdminGrudController::class, 'listarempresarios'])->name('listarempresarios');
+Route::post('/adminregistrar', [AdminGrudController::class,  'adminregistrar'])->name('adminregistrar');
+Route::post('/admineditar', [AdminGrudController::class,  'admineditar'])->name('adminadmineditar');
+Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->name('admineliminar');
+
+
+
+// Reservas
+Route::get('/gestionreservas', function () {
+    return view('empresa.gestionreservas');
+})->name('gestionreservas');
+
+use App\Http\Controllers\ReservasGrudController;
+
+Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+// Route::post('/adminregistrar', [AdminGrudController::class,  'adminregistrar'])->name('adminregistrar');
+// Route::post('/admineditar', [AdminGrudController::class,  'admineditar'])->name('adminadmineditar');
+// Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->name('admineliminar');

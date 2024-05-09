@@ -6,31 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\tbl_usuarios;
 use App\Models\tbl_empresas;
 use App\Models\tbl_roles;
+use App\Models\tbl_reservas;
 
-class EmpresaController extends Controller
+class ReservasGrudController extends Controller
 {
-    public function Listarempleados(Request $request)
+    public function listarreservas(Request $request)
     {
         $roles = tbl_roles::all();
-        $empresas = tbl_empresas::all();
-        $empresa = session('id_empresa');
-        $usuarios = tbl_usuarios::join('tbl_empresas as e', 'tbl_usuarios.id_empresa', '=', 'e.id')
-            ->join('tbl_roles as r', 'tbl_usuarios.id_rol', '=', 'r.id')
-            ->select('tbl_usuarios.*', 'e.nombre as nom_empresa', 'r.nombre as nom_rol')
-            ->where('tbl_usuarios.id_empresa', $empresa);
-        if ($request->input('nombre')) {
-            $nombre = $request->input('nombre');
-            $usuarios->where('tbl_usuarios.nombre', 'like', "%$nombre%");
-        }
+        $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
+            ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
+            ->leftJoin('tbl_parking as pakg', 'p.id_parking', '=', 'pakg.id')
+            ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
+            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'e.nombre as empresa');
+        $reservas = $reservas->get();
 
-        if ($request->input('rol')) {
-            if ($request->input('rol') != "[object KeyboardEvent]") {
-                $rol = $request->input('rol');
-                $usuarios->where('tbl_usuarios.id_rol', $rol);
-            }
-        }
-        $usuarios = $usuarios->get();
-        return response()->json(['usuarios' => $usuarios, 'empresas' => $empresas, 'roles' => $roles]);
+        // $empresa = session('id_empresa');
+
+        return response()->json(['reservas' => $reservas, 'roles' => $roles]);
     }
 
 
@@ -80,8 +72,6 @@ class EmpresaController extends Controller
         $pwdencrip = bcrypt($request->input('email'));
         // $pwd = $request->input('pwd');
         $SelecRoles = $request->input('SelecRoles');
-
-
 
         $resultado = new tbl_usuarios();
         $resultado->nombre = $nombre;
