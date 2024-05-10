@@ -9,10 +9,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-}
-
 /* HEADER */
 header {
     background-color: #001A2C; /* Color de fondo */
@@ -50,7 +46,7 @@ nav li a:hover {
 
 nav img {
     max-height: 70px; 
-    object-fit: contain; /* Asegura que el logo tenga un tamaño adecuado */
+    object-fit: contain; 
 }
 
 nav .nav-left {
@@ -64,141 +60,86 @@ nav .nav-right {
     align-items: center;
 }
 
-.contenedor {
-    background-color: #00171F;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#cont-general {
+    margin: 20px; /* Espacio alrededor del contenedor */
+    padding: 15px; /* Espacio interno para el contenedor */
+    border: 1px solid #ccc; /* Bordes del contenedor */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Color de fondo */
 }
 
-.contenedor h1 {
-    margin: 1%;
+#usuarios {
+    display: flex; /* Flex para alinear elementos */
+    flex-direction: column; /* Alinéa elementos verticalmente */
+    align-items: flex-start; /* Alinea a la izquierda */
+    margin-bottom: 10px; /* Espacio entre botones y filtros */
 }
 
-.contenedor i {
-    color: white;
-    font-size: 24px;
+#menu {
+    margin-bottom: 10px; /* Espacio entre el menú y otros elementos */
+    padding: 10px; /* Espacio interno para el botón */
+    background-color: #4CAF50; /* Color de fondo del botón de agregar */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+}
+
+#eliminar {
+    padding: 10px; /* Espacio interno para el botón */
+    background-color: #FF0000; /* Color rojo para el botón de eliminar */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+}
+
+#filtro {
+    display: flex; /* Uso de flex para alinear elementos */
+    flex-direction: row; /* Elementos alineados horizontalmente */
+    gap: 10px; /* Espacio entre elementos */
+    align-items: center; /* Alineación vertical */
+}
+
+#rolfiltros {
+    flex: 1; /* Permite que los filtros ocupen el espacio necesario */
+}
+
+table {
+    width: 100%; /* Tabla ocupa todo el ancho */
+    border-collapse: collapse; /* Para colapsar bordes */
+}
+
+table th, table td {
+    padding: 10px; /* Espacio interno en las celdas */
+    border: 1px solid #ccc; /* Bordes de la tabla */
+    text-align: left; /* Alinear texto a la izquierda */
 }
 
 .sub-menu1-container {
-    background: #00171F;
-    height: 90.2%;
-    color: white;
-    width: 15%;
-    padding: 1%;
-    position: absolute;
-    display: none;
+    display: none; /* Inicialmente oculto */
+    border: 1px solid #ccc; /* Bordes para el submenú */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 15px; /* Espacio interno para el submenú */
+    background-color: white; /* Fondo blanco para el submenú */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para efecto 3D */
 }
 
-.sub-menu1-container ul {
-    list-style-type: none;
-    padding: 0;
+input[type="text"], input[type="password"], select {
+    border: 1px solid #ccc; /* Bordes para los campos de texto y select */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px; /* Espacio interno */
 }
 
-.sub-menu1-container ul li {
-    padding: 10px 0;
+input[type="button"] {
+    background-color: #4CAF50; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espacio interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
 }
 
-.sub-menu1-container ul li:hover {
-    background-color: #003459;
-    cursor: pointer;
-}
-
-.contenedor1 {
-    padding-top: 100%;
-    margin: 0%;
-    height: 40%;
-    background-color: #003459;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-}
-
-.contenedor1 button {
-    background-color: #007EA7;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20%;
-    color: white;
-    /* cursor: pointer; */
-}
-
-.contenedor1 button:hover {
-    background-color: #00A8E8;
-}
-
-.contenedor2 {
-    height: 50%;
-    background-color: #FFFFFF;
-    padding: 20px;
-}
-
-/* estilos Tabla */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: center;
-}
-
-th {
-    background-color: #003459;
-    color: white;
-    text-align: center;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #007EA7;
-}
-
-/* Boton registrar */
-.btnregister {
-    background-color: #00171F;
-    color: #ffffff;
-    border: none;
-    padding: 10px 40px;
-    /* border-radius: 5px; */
-}
-
-/* Estilos activos para los input cuando readonly está presente */
-.input-normal {
-    border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-
-
-@media (max-width: 1250px) {
-    * {
-        padding: 0%;
-        margin: 0%;
-    }
-
-    .sub-menu1-container {
-        background: #00171F;
-        height: 93.1%;
-        color: white;
-        width: 50%;
-        padding: 5%;
-        position: absolute;
-        display: none;
-    }
-
-    .contenedor1 {
-        padding: 13%;
-    }
-
-
+input[type="button"]:hover {
+    background-color: #45a049; /* Color del botón al pasar el ratón */
 }

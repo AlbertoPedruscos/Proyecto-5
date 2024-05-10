@@ -41,12 +41,16 @@
         </header>
 
         <div id="cont-general">
-            <button id="menu"><i class="fas fa-user"></i> Registrar usuario</i></button>
+            <div id="usuarios">
+                <button id="menu"><i class="fas fa-user"></i> Registrar usuario</i></button>
+            
+                <button id="elimiar" onclick="selectmuldel()"><i class="fa-solid fa-trash-can"></i>  Eliminar selección</button>
+            </div>
 
             <div id="filtro">
-                <div class="col-lg-12 ml-auto" style="border:1px solid">
+                <div>
                     <form action="" method="post" id="frmbusqueda">
-                        <div class="form-group">
+                        <div>
                             <label for="nombre">Búsqueda por nombre:</label>
                             <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
                         </div>
@@ -62,9 +66,6 @@
                 </div>
             </div>
 
-            <div id="eliminar">
-                <button onclick="selectmuldel()"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
         </div>
 
 
