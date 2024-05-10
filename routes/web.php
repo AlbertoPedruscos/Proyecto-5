@@ -10,9 +10,9 @@ use App\Http\Controllers\ReservasGrudController;
 use App\Http\Controllers\ReservaController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('inicio');
+// });
 
 // Ruta para mostrar la página de inicio de sesión
 Route::get('/login', [LoginController::class, 'index'])->name('login');
