@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/8e6d3dccce.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="{{ asset('img/logo.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/empresa.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/empresa.css') }}"> --}}
     {{-- FUENTE --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,6 @@
                 <li><a href="{{ 'mapa' }}">Mapa</a></li>
             </ul>
 
-<<<<<<< HEAD
             <ul class="nav-right">
                 <!-- Mostrar el nombre del usuario -->
                 <li>{{ session('nombre') }}</li>
@@ -60,8 +59,6 @@
 
     <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
 
-=======
->>>>>>> fe767671c01bc6b5688d0e58c6d76d1471f51dd3
     <div class="col-lg-12 ml-auto" style="border:1px solid">
         <form action="" method="post" id="frmbusqueda">
             <div class="form-group">

@@ -56,4 +56,16 @@ Route::get('/gestionreservas', function () {
 })->name('gestionreservas');
 
 
+<<<<<<< HEAD
 // Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+=======
+Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+
+
+
+// Formulario reserva
+
+use App\Http\Controllers\ReservaController;
+
+Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
+>>>>>>> 07ebad4930ee06f9ce5eab87387915ea06cb80e8
