@@ -9,10 +9,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-}
-
 /* HEADER */
 header {
     background-color: #001A2C; /* Color de fondo */
@@ -50,7 +46,7 @@ nav li a:hover {
 
 nav img {
     max-height: 70px; 
-    object-fit: contain; /* Asegura que el logo tenga un tamaño adecuado */
+    object-fit: contain; 
 }
 
 nav .nav-left {
@@ -64,141 +60,73 @@ nav .nav-right {
     align-items: center;
 }
 
-.contenedor {
-    background-color: #00171F;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#cont-general {
+    margin: 20px; /* Espacio alrededor del contenedor */
+    padding: 10px; /* Espacio interior para mejor estética */
+    border: 1px solid #ccc; /* Bordes de color gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Color de fondo */
+    display: flex; /* Uso de flex para alinear elementos */
+    justify-content: space-between; /* Distribuye elementos a lo largo del eje principal */
+    align-items: center; /* Alineación vertical de elementos */
 }
 
-.contenedor h1 {
-    margin: 1%;
+#menu {
+    margin-right: 10px; /* Espacio entre el menú y otros elementos */
+    padding: 5px 10px; /* Espacio interno para botones */
+    border: none; /* Sin borde */
+    background-color: #4CAF50; /* Color de fondo para el botón de menú */
+    color: white; /* Color de texto blanco */
+    border-radius: 5px; /* Bordes redondeados para el botón */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
 }
 
-.contenedor i {
-    color: white;
-    font-size: 24px;
+#filtro {
+    flex: 1; /* Permite que el filtro ocupe el espacio necesario */
+    display: flex; /* Uso de flex para alinear elementos */
+    justify-content: flex-start; /* Alinear a la izquierda */
+    gap: 10px; /* Espacio entre elementos del filtro */
 }
 
-.sub-menu1-container {
-    background: #00171F;
-    height: 90.2%;
-    color: white;
-    width: 15%;
-    padding: 1%;
-    position: absolute;
-    display: none;
+#eliminar {
+    margin-left: 10px; /* Espacio entre eliminar y otros elementos */
 }
-
-.sub-menu1-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sub-menu1-container ul li {
-    padding: 10px 0;
-}
-
-.sub-menu1-container ul li:hover {
-    background-color: #003459;
-    cursor: pointer;
-}
-
-.contenedor1 {
-    padding-top: 100%;
-    margin: 0%;
-    height: 40%;
-    background-color: #003459;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-}
-
-.contenedor1 button {
-    background-color: #007EA7;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20%;
-    color: white;
-    /* cursor: pointer; */
-}
-
-.contenedor1 button:hover {
-    background-color: #00A8E8;
-}
-
-.contenedor2 {
-    height: 50%;
-    background-color: #FFFFFF;
-    padding: 20px;
-}
-
-/* estilos Tabla */
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* Tabla ocupando todo el ancho */
+    border-collapse: collapse; /* Bordes colapsados para la tabla */
 }
 
-th,
-td {
-    border: 1px solid #dddddd;
-    padding: 8px;
-    text-align: center;
+table th, table td {
+    border: 1px solid #ccc; /* Bordes de la tabla */
+    padding: 10px; /* Espacio interno en las celdas */
+    text-align: left; /* Alinear texto a la izquierda */
 }
 
-th {
-    background-color: #003459;
-    color: white;
-    text-align: center;
+#submenu {
+    border: 1px solid #ccc; /* Bordes del submenú */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px; /* Espacio interno del submenú */
+    background-color: white; /* Fondo blanco para el submenú */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para efecto 3D */
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+input[type="text"], input[type="password"], select {
+    border: 1px solid #ccc; /* Bordes para los campos de texto y select */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px; /* Espacio interno */
+    margin: 5px 0; /* Espacio entre campos */
 }
 
-tr:hover {
-    background-color: #007EA7;
+input[type="button"] {
+    background-color: #4CAF50; /* Color de fondo para botones */
+    color: white; /* Color de texto blanco */
+    padding: 10px 20px; /* Espacio interno para botones */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
 }
 
-/* Boton registrar */
-.btnregister {
-    background-color: #00171F;
-    color: #ffffff;
-    border: none;
-    padding: 10px 40px;
-    /* border-radius: 5px; */
-}
-
-/* Estilos activos para los input cuando readonly está presente */
-.input-normal {
-    border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-
-
-@media (max-width: 1250px) {
-    * {
-        padding: 0%;
-        margin: 0%;
-    }
-
-    .sub-menu1-container {
-        background: #00171F;
-        height: 93.1%;
-        color: white;
-        width: 50%;
-        padding: 5%;
-        position: absolute;
-        display: none;
-    }
-
-    .contenedor1 {
-        padding: 13%;
-    }
-
-
+input[type="button"]:hover {
+    background-color: #45a049; /* Color al pasar el ratón sobre el botón */
 }
