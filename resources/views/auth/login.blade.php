@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
+<!-- resources/views/auth/login.blade.php -->
+@extends('layouts.plantilla_header') <!-- Extiende la plantilla base -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | MyControlPark</title>
-    {{-- Fontawesome --}}
-    <script src="https://kit.fontawesome.com/8e6d3dccce.js" crossorigin="anonymous"></script>
-    {{-- Bootstrap --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- CSS --}}
+@section('title', 'Login | MyControlPark') <!-- Título personalizado -->
+@section('css') <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
-     {{-- icono --}}
-    <link rel="icon" href="{{ asset('img/logo.png') }}">
-</head>
+    {{-- FUENTE --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+@endsection
 
-<body>
+@section('content')
     <div class="row">
         <div id="cont-logo" class="column-2">
             <img src="{{ asset('img/logo.png') }}" id="logo" alt="Logo">
         </div>
         <div id="cont-form" class="column-2">
-            <form class="login-form">
+            <form class="login-form" method="POST" action="{{ route('login.post') }}">
                 @csrf
-                
+
+                <h2 class="mb-4 text-center">Inicio de sesión</h2>
+
                 <!-- Manejo de errores y éxito -->
                 @if (session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
@@ -32,20 +29,22 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
-                <h2 class="mb-4 text-center">Inicio de sesión</h2>
-                
+
                 <!-- Campo de correo electrónico -->
                 <div class="form-group">
                     <label for="email">Correo electrónico:</label>
-                    <input type="email" name="email" id="email" class="form-control"
-                        placeholder="Ingresa tu email">
+                    <input type="email" name="email" id="email"
+                        class="form-control @error('email') is-invalid @enderror"
+                        placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
                 </div>
+
                 <!-- Campo de contraseña -->
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
                     <div class="input-group">
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Ingresa tu contraseña">
+                        <input type="password" name="password" id="password"
+                            class="form-control @error('password') is-invalid @enderror" placeholder="Ingresa tu contraseña"
+                            value="{{ old('password') }}">
                         <button type="button" id="password-toggle-btn" class="btn btn-outline-secondary"
                             onclick="togglePasswordVisibility()">
                             <i class="far fa-eye"></i>
@@ -73,6 +72,4 @@
             }
         }
     </script>
-</body>
-
-</html>
+@endsection
