@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MapaGestorController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\ReservasGrudController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +19,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
 
 // Ruta para cerrar sesión
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Ruta para la página de admin
@@ -40,7 +43,6 @@ Route::get('/empleados', function () {
     return view('gestion.empleados');
 })->name('empleados');
 
-use App\Http\Controllers\EmpresaController;
 
 Route::post('/Listarempleados', [EmpresaController::class, 'Listarempleados'])->name('Listarempleados');
 Route::post('/registrar', [EmpresaController::class,  'registrar'])->name('registrar');
@@ -53,7 +55,6 @@ Route::get('/gestionreservas', function () {
     return view('gestion.gestionreservas');
 })->name('gestionreservas');
 
-use App\Http\Controllers\ReservasGrudController;
 
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
 Route::post('/CancelarReserva', [ReservasGrudController::class, 'CancelarReserva'])->name('CancelarReserva');
