@@ -40,26 +40,33 @@
             </nav>
         </header>
 
-        <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
+        <div id="cont-general">
+            <button id="menu"><i class="fas fa-user"></i> Registrar usuario</i></button>
 
-        <div class="col-lg-12 ml-auto" style="border:1px solid">
-            <form action="" method="post" id="frmbusqueda">
-                <div class="form-group">
-                    <label for="nombre">nombre:</label>
-                    <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
+            <div id="filtro">
+                <div class="col-lg-12 ml-auto" style="border:1px solid">
+                    <form action="" method="post" id="frmbusqueda">
+                        <div class="form-group">
+                            <label for="nombre">Búsqueda por nombre:</label>
+                            <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-        <div id="rolfiltros">
-            <form action="" method="post" id="frmfiltroRol">
-                <label for="rol">Rol:</label><br>
-                <select name="filtroRol" id="filtroRol">
-                </select>
-            </form>
-            <div>
-                <button onclick="selectmuldel()">Eliminar seleccion</button>
+
+                <div id="rolfiltros">
+                    <form action="" method="post" id="frmfiltroRol">
+                        <label for="rol">Rol:</label><br>
+                        <select name="filtroRol" id="filtroRol">
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <div id="eliminar">
+                <button onclick="selectmuldel()"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         </div>
+
 
         <table>
             <thead>
