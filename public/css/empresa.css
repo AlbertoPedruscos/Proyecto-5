@@ -13,19 +13,23 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* HEADER */
+header {
+    background-color: #001A2C; /* Color de fondo */
+}
+
+
 /* navbar */
+
 /* Estilo para el nav y su contenido */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 20px; 
-    background: rgba(0, 0, 0, 0.5); 
     width: 100%;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Sombras sutiles */
 }
 
-/* Estilo para el logo y el resto de elementos */
 nav li {
     list-style: none;
     padding: 0 15px;
@@ -44,13 +48,11 @@ nav li a:hover {
     color: gold;
 }
 
-/* Asegura que el logo tenga tamaño adecuado */
 nav img {
     max-height: 70px; 
-    object-fit: contain;
+    object-fit: contain; /* Asegura que el logo tenga un tamaño adecuado */
 }
 
-/* Estilo para alinear el logo y los elementos */
 nav .nav-left {
     display: flex;
     align-items: center;
@@ -61,7 +63,6 @@ nav .nav-right {
     justify-content: flex-end;
     align-items: center;
 }
-
 
 .contenedor {
     background-color: #00171F;

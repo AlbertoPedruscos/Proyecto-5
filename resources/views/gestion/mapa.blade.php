@@ -16,12 +16,22 @@
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
                     <li><a href="{{ route('empleados') }}">Empleados</a></li>
                     <li><a href="">Reservas</a></li>
-                    <li>Mapa</li>
+                    <li class="active">Mapa</li>
                 </ul>
 
                 <ul class="nav-right">
+                    <!-- Mostrar el nombre del usuario -->
                     <li>{{ session('nombre') }}</li>
-                    <li><a href="{{ route('login') }}">Cerrar sesión</a></li>
+
+                    <!-- Mostrar el nombre de la empresa, si está disponible -->
+                    @if (session('nombre_empresa'))
+                        <li>{{ session('nombre_empresa') }}</li>
+                    @else
+                        <li>Empresa no asignada</li> <!-- Mensaje alternativo si no hay empresa -->
+                    @endif
+
+                    <!-- Enlace para cerrar sesión -->
+                    <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </header>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\tbl_usuarios;
+use App\Models\tbl_empresas; // Asegúrate de tener este modelo
 
 class LoginController extends Controller
 {
@@ -31,13 +32,17 @@ class LoginController extends Controller
         $user = tbl_usuarios::where('email', $credentials['email'])->first();
 
         if ($user && password_verify($credentials['password'], $user->contrasena)) {
+            // Obtener el nombre de la empresa
+            $empresa = tbl_empresas::find($user->id_empresa);
+
             // Iniciar sesión con variables de sesión
             $request->session()->put('id', $user->id);
             $request->session()->put('nombre', $user->nombre);
             $request->session()->put('apellidos', $user->apellidos);
             $request->session()->put('email', $user->email);
             $request->session()->put('rol', $user->id_rol);
-            $request->session()->put('empresa',$user->id_empresa);
+            $request->session()->put('empresa', $user->id_empresa);
+            $request->session()->put('nombre_empresa', $empresa->nombre); 
 
             return redirect()->route('mapa');
 
