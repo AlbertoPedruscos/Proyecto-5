@@ -15,6 +15,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
+<style>
+    .column-container {
+        display: flex;
+        /* Establece el contenedor como un flexbox */
+    }
+
+    .column-container>div {
+        flex: 1;
+        /* Hace que cada div dentro del contenedor tenga la misma anchura */
+        margin: 1%;
+        padding: 1%;
+        /* Añade un borde para mayor claridad */
+    }
+</style>
 
 <body>
     {{-- <header> --}}
@@ -26,7 +40,6 @@
         <a class="navbar-brand" href="logout" class="dropdown-item">Cerrar sesión</a>
     </div>
     {{-- </header> --}}
-
 
     <div class="col-lg-12 ml-auto" style="border:1px solid">
         <form action="" method="post" id="frmbusqueda">
@@ -40,10 +53,22 @@
         <button onclick="selectmuldel()">Eliminar seleccion</button>
     </div>
 
-    <div>
-        <div id="expirados" style="border:solid 2px; margin: 10px; padding:10px; float:right; "></div>
-        <div id="activos" style="border:solid 2px; margin: 10px; padding:10px; float:right; "></div>
-        <div id="nuevos" style="border:solid 2px; margin: 10px; padding:10px; float:right; "></div>
+    <div class="column-container">
+        <div>
+            <p>Pasadas</p>
+            <div id="expirados">
+            </div>
+        </div>
+        <div>
+            <p>Hoy</p>
+            <div id="activos">
+            </div>
+        </div>
+        <div>
+            <p>Posteriores</p>
+            <div id="nuevos">
+            </div>
+        </div>
     </div>
 
 </body>

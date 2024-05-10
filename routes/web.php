@@ -56,3 +56,4 @@ Route::get('/gestionreservas', function () {
 use App\Http\Controllers\ReservasGrudController;
 
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+Route::post('/CancelarReserva', [ReservasGrudController::class, 'CancelarReserva'])->name('CancelarReserva');
