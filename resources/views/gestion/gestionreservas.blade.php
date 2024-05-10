@@ -36,18 +36,16 @@
                 @endif
 >>>>>>> parent of 6e1c7be (gestion reservas)
 
-            <ul class="nav-right">
-                <!-- Mostrar el nombre del usuario -->
-                <li>{{ session('nombre') }}</li>
-                <select name="" id="">
-                    <option value=""></option>
-                </select>
-                <!-- Mostrar el nombre de la empresa, si está disponible -->
-                @if (session('nombre_empresa'))
-                    <li>{{ session('nombre_empresa') }}</li>
-                @else
-                    <li>Empresa no asignada</li> <!-- Mensaje alternativo si no hay empresa -->
-                @endif
+                <ul class="nav-right">
+                    <!-- Mostrar el nombre del usuario -->
+                    <li>{{ session('nombre') }}</li>
+
+                    <!-- Mostrar el nombre de la empresa, si está disponible -->
+                    @if (session('nombre_empresa'))
+                        <li>{{ session('nombre_empresa') }}</li>
+                    @else
+                        <li>Empresa no asignada</li> <!-- Mensaje alternativo si no hay empresa -->
+                    @endif
 
                     <!-- Enlace para cerrar sesión -->
                     <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
