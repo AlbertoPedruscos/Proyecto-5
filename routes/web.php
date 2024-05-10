@@ -56,4 +56,4 @@ Route::get('/gestionreservas', function () {
 })->name('gestionreservas');
 
 
-Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+// Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
