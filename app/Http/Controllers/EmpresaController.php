@@ -13,7 +13,7 @@ class EmpresaController extends Controller
     {
         $roles = tbl_roles::all();
         $empresas = tbl_empresas::all();
-        $empresa = session('id_empresa');
+        $empresa = session('empresa');
         $usuarios = tbl_usuarios::join('tbl_empresas as e', 'tbl_usuarios.id_empresa', '=', 'e.id')
             ->join('tbl_roles as r', 'tbl_usuarios.id_rol', '=', 'r.id')
             ->select('tbl_usuarios.*', 'e.nombre as nom_empresa', 'r.nombre as nom_rol')
@@ -72,7 +72,7 @@ class EmpresaController extends Controller
 
     public function registrar(Request $request)
     {
-        $empresa = session('id_empresa');
+        $empresa = session('empresa');
 
         $nombre = $request->input('nombreuser');
         $apellidos = $request->input('apellido');

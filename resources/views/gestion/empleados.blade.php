@@ -3,6 +3,10 @@
 
     @section('title', 'Empleados | MyControlPark')
 
+    @section('token')
+        <meta name="csrf_token" content="{{ csrf_token() }}">
+    @endsection
+
     @section('css')
         <link rel="stylesheet" href="{{ asset('css/empleados.css') }}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
