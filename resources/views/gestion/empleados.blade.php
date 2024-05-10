@@ -44,7 +44,10 @@
             <div id="usuarios">
                 <button id="menu"><i class="fas fa-user"></i> Registrar usuario</i></button>
             
-                <button id="elimiar" onclick="selectmuldel()"><i class="fa-solid fa-trash-can"></i>  Eliminar selección</button>
+                <div id="eliminar">
+                    <button onclick="selectmuldel()"><i class="fa-solid fa-trash-can"></i>  Eliminar selección</button>
+                </div>    
+
             </div>
 
             <div id="filtro">
