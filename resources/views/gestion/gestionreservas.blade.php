@@ -43,7 +43,9 @@
             <ul class="nav-right">
                 <!-- Mostrar el nombre del usuario -->
                 <li>{{ session('nombre') }}</li>
-
+                <select name="" id="">
+                    <option value=""></option>
+                </select>
                 <!-- Mostrar el nombre de la empresa, si está disponible -->
                 @if (session('nombre_empresa'))
                     <li>{{ session('nombre_empresa') }}</li>
