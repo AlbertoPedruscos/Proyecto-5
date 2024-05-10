@@ -62,51 +62,65 @@ nav .nav-right {
 
 #cont-general {
     margin: 20px; /* Espacio alrededor del contenedor */
-    padding: 10px; /* Espacio interior para mejor estética */
-    border: 1px solid #ccc; /* Bordes de color gris claro */
+    padding: 15px; /* Espacio interno para el contenedor */
+    border: 1px solid #ccc; /* Bordes del contenedor */
     border-radius: 5px; /* Bordes redondeados */
     background-color: #f9f9f9; /* Color de fondo */
-    display: flex; /* Uso de flex para alinear elementos */
-    justify-content: space-between; /* Distribuye elementos a lo largo del eje principal */
-    align-items: center; /* Alineación vertical de elementos */
+}
+
+#usuarios {
+    display: flex; /* Flex para alinear elementos */
+    flex-direction: column; /* Alinéa elementos verticalmente */
+    align-items: flex-start; /* Alinea a la izquierda */
+    margin-bottom: 10px; /* Espacio entre botones y filtros */
 }
 
 #menu {
-    margin-right: 10px; /* Espacio entre el menú y otros elementos */
-    padding: 5px 10px; /* Espacio interno para botones */
+    margin-bottom: 10px; /* Espacio entre el menú y otros elementos */
+    padding: 10px; /* Espacio interno para el botón */
+    background-color: #4CAF50; /* Color de fondo del botón de agregar */
+    color: white; /* Color del texto */
     border: none; /* Sin borde */
-    background-color: #4CAF50; /* Color de fondo para el botón de menú */
-    color: white; /* Color de texto blanco */
-    border-radius: 5px; /* Bordes redondeados para el botón */
-    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
-}
-
-#filtro {
-    flex: 1; /* Permite que el filtro ocupe el espacio necesario */
-    display: flex; /* Uso de flex para alinear elementos */
-    justify-content: flex-start; /* Alinear a la izquierda */
-    gap: 10px; /* Espacio entre elementos del filtro */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
 }
 
 #eliminar {
-    margin-left: 10px; /* Espacio entre eliminar y otros elementos */
+    padding: 10px; /* Espacio interno para el botón */
+    background-color: #FF0000; /* Color rojo para el botón de eliminar */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+}
+
+#filtro {
+    display: flex; /* Uso de flex para alinear elementos */
+    flex-direction: row; /* Elementos alineados horizontalmente */
+    gap: 10px; /* Espacio entre elementos */
+    align-items: center; /* Alineación vertical */
+}
+
+#rolfiltros {
+    flex: 1; /* Permite que los filtros ocupen el espacio necesario */
 }
 
 table {
-    width: 100%; /* Tabla ocupando todo el ancho */
-    border-collapse: collapse; /* Bordes colapsados para la tabla */
+    width: 100%; /* Tabla ocupa todo el ancho */
+    border-collapse: collapse; /* Para colapsar bordes */
 }
 
 table th, table td {
-    border: 1px solid #ccc; /* Bordes de la tabla */
     padding: 10px; /* Espacio interno en las celdas */
+    border: 1px solid #ccc; /* Bordes de la tabla */
     text-align: left; /* Alinear texto a la izquierda */
 }
 
-#submenu {
-    border: 1px solid #ccc; /* Bordes del submenú */
+.sub-menu1-container {
+    display: none; /* Inicialmente oculto */
+    border: 1px solid #ccc; /* Bordes para el submenú */
     border-radius: 5px; /* Bordes redondeados */
-    padding: 10px; /* Espacio interno del submenú */
+    padding: 15px; /* Espacio interno para el submenú */
     background-color: white; /* Fondo blanco para el submenú */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para efecto 3D */
 }
@@ -115,18 +129,17 @@ input[type="text"], input[type="password"], select {
     border: 1px solid #ccc; /* Bordes para los campos de texto y select */
     border-radius: 5px; /* Bordes redondeados */
     padding: 5px; /* Espacio interno */
-    margin: 5px 0; /* Espacio entre campos */
 }
 
 input[type="button"] {
-    background-color: #4CAF50; /* Color de fondo para botones */
-    color: white; /* Color de texto blanco */
-    padding: 10px 20px; /* Espacio interno para botones */
+    background-color: #4CAF50; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espacio interno */
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+    cursor: pointer; /* Cursor de mano */
 }
 
 input[type="button"]:hover {
-    background-color: #45a049; /* Color al pasar el ratón sobre el botón */
+    background-color: #45a049; /* Color del botón al pasar el ratón */
 }
