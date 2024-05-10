@@ -68,6 +68,7 @@ use Illuminate\Support\Facades\DB;
                 <h1>Parkin de Vladivostok</h1>
                 <br>
                 <h2>Planta: 1</h2>
+                <div id="pagination" class="pagination"></div> <!-- Aquí se agregará la paginación -->
             </div>
             <div id="gridContainer"></div>
         </div>
