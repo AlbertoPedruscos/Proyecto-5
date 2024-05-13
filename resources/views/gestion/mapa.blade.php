@@ -60,8 +60,8 @@
                     @foreach ($parkings as $parking)
                         <div class="parking-item" id="parking-{{ $parking->id }}">
                             <h3>{{ $parking->nombre }}</h3>
-                            <p>{{ $parking->direccion }}</p>
                             <p>Empresa: {{ $parking->empresa->nombre }}</p>
+                            <p>{{ $parking->direccion }}</p>
                             <p>Latitud: {{ $parking->latitud }}</p>
                             <p>Longitud: {{ $parking->longitud }}</p>
                             <div>
@@ -164,10 +164,10 @@
                             <input type="text" name="nombre" id="editar-nombre">
                         </div>
 
-                        <div>
+                        {{-- <div>
                             <label for="direccion">Dirección:</label>
                             <input type="text" name="direccion" id="editar-direccion" readonly>
-                        </div>
+                        </div> --}}
 
                         <div>
                             <label for="empresa">Empresa:</label>
@@ -230,10 +230,10 @@
                     longitud: lng,
                 },
                 success: function() {
-                    alert("Ubicación actualizada con éxito para el parking con ID: " + parkingId);
+                    alert("Ubicación actualizada con éxito");
                 },
                 error: function() {
-                    alert("Error al actualizar la ubicación del parking con ID: " + parkingId);
+                    alert("Error al actualizar la ubicación.");
                 }
             });
         }
@@ -326,7 +326,7 @@
                     // Rellenar el formulario de edición
                     $("#editar-id").val(parking.id);
                     $("#editar-nombre").val(parking.nombre);
-                    $("#editar-direccion").val(parking.direccion);
+                    // $("#editar-direccion").val(parking.direccion);
 
                     // Campo oculto para el ID de la empresa
                     $("#editar-empresa-id").val(parking.empresa.id);
