@@ -350,14 +350,27 @@
             });
         }
 
-        // Función para centrarse en un parking específico por ID
+        // Función para centrarse en un parking específico por ID y resaltar su marcador
         function verParking(parkingId) {
             if (parkingMarkers[parkingId]) {
+                // Desactivar cualquier marcador resaltado previamente
+                for (var id in parkingMarkers) {
+                    parkingMarkers[id].setIcon(parkingIcon);
+                }
+
                 var marker = parkingMarkers[parkingId];
                 var latLng = marker.getLatLng();
 
                 // Centrar la vista en el marcador y hacer zoom
                 map.setView(latLng, 35); // Ajusta el nivel de zoom según tus necesidades
+
+                // Resaltar el marcador seleccionado cambiando su icono
+                marker.setIcon(L.divIcon({
+                    className: 'custom-parking-icon selected-marker', // Agrega la clase CSS adicional
+                    html: '<i class="fas fa-parking" style="font-size: 1.5rem; color: orange;"></i>',
+                    iconSize: [30, 42],
+                    iconAnchor: [15, 42],
+                }));
 
                 // Asegurar que el marcador está en el centro de la pantalla
                 map.panTo(latLng);

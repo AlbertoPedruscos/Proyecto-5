@@ -334,3 +334,7 @@ input[type="submit"]:active {
 div.alert {
     margin-top: 15px; 
 }
+
+.selected-marker {
+    color: #c9302c;
+}
