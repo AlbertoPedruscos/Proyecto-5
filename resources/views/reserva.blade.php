@@ -1,198 +1,321 @@
 @extends('layouts.plantilla_header')
 
-@section('title', 'Reserva Cliente | MyControlPark')
+@section('title', 'Inicio | MyControlPark')
+@section('token')
+    <meta name="csrf_token" content="{{ csrf_token() }}">
+@endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/cliente.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 @endsection
 
-
 @section('content')
-    <!-- Header -->
-    <header id="header">
-        <h2>Bienvenido a <br> MyControlPark</h2>
-    </header>
+    <nav>
+        <ul class="nav-left">
+            <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
+        </ul>
 
-    <nav class="navbar navbar-dark bg-dark fixed-top top-nav" id="navbar">
-        <div class="container-fluid d-flex justify-content-between">
-            <div class="d-flex align-items-center">
-                <img class="navbar-brand" src="{{ asset('img/logo.png') }}" alt="Logo">
-            </div>
-
-            <a href="/"><i class="fa-solid fa-arrow-left"></i></a>
-        </div>
+        <ul class="nav-right">
+            <li><a href="">Sobre nosotros</a></li>
+            <li><a href="">Contáctanos</a></li>
+            <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
+        </ul>
     </nav>
 
-    <div id="cont-principal" class="row">
-        <div class="column-2">
-            <img src="{{ asset('img/logo.png') }}" alt="">
-        </div>
+    <div id="formulario">
+        <div id="cont-form">
+            <h1>Haga su reserva</h1>
+            <form action="/gi" method="post" id="FrmReserva">
+                <!-- Datos personales -->
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="nom_cliente" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nom_cliente" name="nom_cliente" placeholder="Introduce tu nombre">
+                    </div>
+                    <div class="form-field">
+                        <label for="num_telf" class="form-label">Teléfono:</label>
 
-        <div id="formulario" class="column-2">
-            <div id="cont-form">
-                <h1>Haga su reserva:</h1>
-                <div>
-                    <label for="nom_cliente" class="form-label">Nombre del cliente:</label>
-                    <input type="text" class="form-control" id="nom_cliente" name="nom_cliente">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="num_telf" name="num_telf" placeholder="Introduce tu teléfono">
+                            <p id="mensajeError" style="color: red;"></p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="matricula" class="form-label">Matrícula:</label>
-                    <input type="text" class="form-control" id="matricula" name="matricula">
+
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Introduce tu email">
+                        <p id="mensajeErroremail" style="color: red;"></p>
+                    </div>
                 </div>
-                <div>
-                    <label for="marca" class="form-label">Marca:</label>
-                    <input type="text" class="form-control" id="marca" name="marca">
+
+                <!-- Datos del coche -->
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="matricula" class="form-label">Matrícula:</label>
+                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Matrícula">
+                        <p id="mensajeError" style="color: red;"></p>
+                    </div>
+                    <div class="form-field">
+                        <label for="marca" class="form-label">Marca:</label>
+                        <select id="cochesSelect" class="form-select" aria-label="Default select example">
+                            <option value="0" selected disabled>Selecciona un coche...</option>
+                          </select>
+                    </div>
                 </div>
-                <div>
-                    <label for="modelo" class="form-label">Modelo:</label>
-                    <input type="text" class="form-control" id="modelo" name="modelo">
+
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="modelo" class="form-label">Modelo:</label>
+                        <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo">
+                    </div>
+                    <div class="form-field">
+                        <label for="color" class="form-label">Color:</label>
+                        <input type="text" class="form-control" id="color" name="color" placeholder="Color">
+                    </div>
                 </div>
-                <div>
-                    <label for="color" class="form-label">Color:</label>
-                    <input type="text" class="form-control" id="color" name="color">
+
+                <!-- Detalles de la reserva -->
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="ubicacion_entrada" class="form-label">Punto de recogida:</label>
+                        <select class="form-select" aria-label="Default select example" name="ubicacion_entrada" id="ubicacion_entrada">
+                            <option value="Aeropuerto T1">Aeropuerto T1</option>
+                            <option value="Aeropuerto T2">Aeropuerto T2</option>
+                            <option value="Puerto">Puerto</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="ubicacion_salida" class="form-label">Punto de entrega:</label>
+                        <select class="form-select" aria-label="Default select example" name="ubicacion_salida" id="ubicacion_salida">
+                            <option value="Aeropuerto T1">Aeropuerto T1</option>
+                            <option value="Aeropuerto T2">Aeropuerto T2</option>
+                            <option value="Puerto">Puerto</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label for="num_telf" class="form-label">Teléfono:</label>
-                    <input type="text" class="form-control" id="num_telf" name="num_telf">
-                </div>
-                <div>
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email">
-                </div>
-                <div>
-                    <label for="ubicacion_entrada" class="form-label">Ubicación de Entrada:</label>
-                    <input type="text" class="form-control" id="ubicacion_entrada" name="ubicacion_entrada">
-                </div>
-                <div>
-                    <label for="ubicacion_salida" class="form-label">Ubicación de Salida:</label>
-                    <input type="text" class="form-control" id="ubicacion_salida" name="ubicacion_salida">
-                </div>
-                <div>
-                    <label for="fecha_entrada" class="form-label">Fecha de Entrada:</label>
-                    <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada">
-                </div>
-                <div>
-                    <label for="fecha_salida" class="form-label">Fecha de Salida:</label>
-                    <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida">
-                </div>
-                <div>
-                    <button type="button" onclick="reservarNuevo()">Enviar</button>
+
+                <div class="form-group">
+                    <div class="form-field">
+                        <label for="fecha_entrada" class="form-label">Fecha de Entrada:</label>
+                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada">
+                    </div>
+                    <div class="form-field">
+                        <label for="fecha_salida" class="form-label">Fecha de Salida:</label>
+                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida">
+                    </div>
                 </div>
             </div>
-        </div>
+                <div>
+                    <button type="button" class="btn btn-dark" onclick="reservarNuevo()">Enviar</button>
+                </div>
+            </form>
+
     </div>
-    <!-- Footer -->
-    <footer class="custom-footer">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h4>Contacto</h4>
-                <p><i class="bi bi-person-fill"></i> +123456789</p>
-                <p><i class="bi bi-envelope-fill"></i> info@mycontrolpark.com</p>
-            </div>
-            <div class="footer-column">
-                <h4>Síguenos</h4>
-                <p><i class="bi bi-facebook"></i> <i class="bi bi-whatsapp"></i> <i class="bi bi-instagram"></i></p>
-            </div>
-            <div class="footer-column">
-                <h4>Encuentranos En</h4>
-                <p><i class="bi bi-geo-alt"></i>Jesuitas Bellvitge - Joan XXIII</p>
-            </div>
-        </div>
-    </footer>
-
 @endsection
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         function reservarNuevo() {
-            var csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-            var nom_cliente = document.getElementById("nom_cliente").value;
-            var matricula = document.getElementById("matricula").value;
-            var marca = document.getElementById("marca").value;
-            var modelo = document.getElementById("modelo").value;
-            var color = document.getElementById("color").value;
-            var num_telf = document.getElementById("num_telf").value;
-            var email = document.getElementById("email").value;
-            var ubicacion_entrada = document.getElementById("ubicacion_entrada").value;
-            var ubicacion_salida = document.getElementById("ubicacion_salida").value;
-            var fecha_entrada = document.getElementById("fecha_entrada").value;
-            var fecha_salida = document.getElementById("fecha_salida").value;
+            var form = document.getElementById('FrmReserva');
+            var formdata = new FormData(form);
 
-        // Definir el evento onload para manejar la respuesta del servidor
-        xhr.onload = function() {
-            if (xhr.status == 200) {
-                // Aquí puedes manejar la respuesta del servidor si es necesario
-                if (xhr.responseText === "ok") {
-                    Swal.fire(
-                        'Reservado!',
-                        '¡El vehiculo ha sido reservado!',
-                        'success'
-                    );
-                    form.reset();
+            var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+            formdata.append('_token', csrfToken);
+            var ajax = new XMLHttpRequest();
+            ajax.open('POST', '/reservaO');
+
+            ajax.onload = function() {
+                if (ajax.status === 200) {
+                    if (ajax.responseText === "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡El vehiculo ha sido reservado!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        form.reset();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡Hubo un problema al reservar el vehículo!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 } else {
-                    Swal.fire(
-                        'Error!',
-                        '¡Rellena los campos!',
-                        'error'
-                    );
-                }
-            } else {
-                console.log('Error al realizar la reserva:', xhr.responseText);
-            }
-        };
-
-            // Crear una nueva solicitud XMLHttpRequest
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/reservaO', true);
-            xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-
-            // Definir el evento onload para manejar la respuesta del servidor
-            xhr.onload = function() {
-                if (xhr.status == 200) {
-                    // Aquí puedes manejar la respuesta del servidor si es necesario
-                    console.log(xhr.responseText);
-                    Swal.fire(
-                        'Reservado!',
-                        '¡El vehiculo ha sido reservado!',
-                        'success'
-                    );
-                } else {
-                    console.log('Error al realizar la reserva:', xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'asd',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
             };
 
-            // Definir el evento onerror para manejar errores de red
-            xhr.onerror = function(error) {
-                console.error('Error de red al intentar realizar la reserva:', error);
-            };
-
-            // Enviar la solicitud con el FormData que contiene los datos del formulario y la imagen de la firma
-            xhr.send(formData);
+            ajax.send(formdata);
         }
-    </script>
+        // VALIDACIONES
 
-    <!-- JS NAVBAR -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Referencias al navbar y al header
-            var navbar = document.getElementById('navbar');
-            var header = document.getElementById('header');
+        document.addEventListener("DOMContentLoaded", function() {
+            var matriculaInput = document.getElementById("matricula");
+            var mensajeError = document.getElementById("mensajeError");
 
-            // Función para controlar el evento de desplazamiento
-            window.addEventListener('scroll', function() {
-                var headerHeight = header.offsetHeight; // Altura del header
-                var scrollPos = window.scrollY; // Posición de desplazamiento
+            matriculaInput.addEventListener("input", function() {
+                var matricula = matriculaInput.value.trim();
 
-                // Fijar el navbar si se ha desplazado más allá de la altura del header
-                if (scrollPos >= headerHeight) {
-                    navbar.classList.add('navbar-fixed');
+                if (validarMatricula(matricula)) {
+                    mensajeError.textContent = "";
+                    mensajeError.style.margin = "0";
+                }else if (validarMatriculaF(matricula)){
+                    mensajeError.textContent = "";
+                    mensajeError.style.margin = "0";
+                }else if (validarMatriculaA(matricula)){
+                    mensajeError.textContent = "";
+                    mensajeError.style.margin = "0";
+                }else if (validarMatriculaU(matricula)){
+                    mensajeError.textContent = "";
+                    mensajeError.style.margin = "0";
+                } else if (validarMatriculaH(matricula)){
+                    mensajeError.textContent = "";
+                    mensajeError.style.margin = "0";
                 } else {
-                    navbar.classList.remove('navbar-fixed');
+                    mensajeError.textContent = "Formato de matrícula no válido";
                 }
             });
+            
+
+            function validarMatricula(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^\d{4}[A-Za-z]{3}$/;
+                return regex.test(matricula);
+            }
+            function validarMatriculaF(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^[A-Za-z]{2}\d{3}[A-Za-z]{2}$/;
+                return regex.test(matricula);
+            }
+            function validarMatriculaU(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^[A-Za-z]{2}\d{4}[A-Za-z]{2}$/;
+                return regex.test(matricula);
+            }
+            function validarMatriculaA(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^[A-Za-z]{1}\d{4}$/;
+                return regex.test(matricula);
+            }
+            function validarMatriculaH(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^[A-Za-z]{2}\d{3}[A-Za-z]{1}$/;
+                return regex.test(matricula);
+            }
+            // NOMBRE
+            var inputNombre = document.getElementById("nom_cliente");
+
+            inputNombre.addEventListener("input", function() {
+            var texto = inputNombre.value.toLowerCase(); // Convertir todo el texto a minúsculas
+            texto = texto.replace(/\b\w/g, function(l) { // Reemplazar cada letra que sigue un límite de palabra
+                return l.toUpperCase(); // con su versión en mayúscula
+            });
+            inputNombre.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+            });
+
+
+            // EMAIL
+
+
+            var email = document.getElementById("email");
+
+            email.addEventListener("input", function() {
+                var texto = email.value.toLowerCase(); // Convertir todo el texto a minúsculas
+                email.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+            });
+            email.addEventListener("blur", function() {
+            if (!validarDominio(email.value)) {
+                // alert("Por favor, introduce un correo electrónico con un dominio válido.");
+                mensajeErroremail.textContent = "Por favor, introduce un correo electrónico con un dominio válido.";
+                email.value = ""; // Limpiar el campo si el dominio no es válido
+            } else {
+                mensajeErroremail.textContent = "";
+                mensajeErroremail.style.margin = "0";
+            }
+            });
+            function validarDominio(email) {
+                var dominioValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                return dominioValido;
+            }
+
+            // TELEFONO
+
+            num_telf.addEventListener("input", function() {
+      var numero = num_telf.value.trim();
+
+      // Reemplazar espacios y letras por una cadena vacía
+      num_telf.value = num_telf.value.replace(/\s/g, '').replace(/[a-zA-Z]/g, '');
+
+      // Si el número no empieza por 6, limpiar el campo y mostrar un mensaje de error
+      if (numero.charAt(0) !== '6' && numero.charAt(0) !== '9') {
+        num_telf.value = "";
+        mensajeError.textContent = "El número de teléfono debe empezar por 6 o 9.";
+        // mensajeError.style.marginTop = "10px"; // Añadir un margen superior al mensaje de error
+        return;
+      }
+
+      // Limitar la longitud a 9 caracteres
+      if (numero.length > 9) {
+        num_telf.value = numero.slice(0, 9); // Truncar el número a 9 caracteres
+      }
+
+      if (validarNumero(num_telf.value)) {
+        mensajeError.textContent = ""; // Limpiar el mensaje de error
+        mensajeError.style.marginTop = "0"; // Establecer el margen superior a 0
+      } else {
+        mensajeError.textContent = "El número de teléfono debe contener exactamente 9 dígitos.";
+        // mensajeError.style.marginTop = "10px"; // Añadir un margen superior al mensaje de error
+      }
+    });
+
+    function validarNumero(numero) {
+      var regex = /^\d{9}$/; // El número debe tener exactamente 9 dígitos
+      return regex.test(numero);
+    }
+
+            var cochesSelect = document.getElementById("cochesSelect");
+    // Crear una nueva solicitud XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // Parsear la respuesta JSON
+        var data = JSON.parse(this.responseText);
+        // Iterar sobre los datos y agregar opciones al select
+        data.forEach(coche => {
+          var option = document.createElement("option");
+          option.value = coche.id;
+          option.textContent = coche.marca;
+          cochesSelect.appendChild(option);
         });
+      }
+    };
+    
+    // Abrir y enviar la solicitud
+    xhr.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/coches", true);
+    xhr.send();
+        });
+
     </script>
 @endpush
