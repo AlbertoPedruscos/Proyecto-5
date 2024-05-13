@@ -21,3 +21,7 @@
     <h3>Objetivo</h3>
     <p>Una mayor organizacion, optimización y facilidad a la hora de organizar la distribucion del alojamiento de vehiculos en sus respectivas plazas</p>
 </div>
+<div>
+    <h3>Archivos Adjuntos</h3>
+    <li><a href="https://fje-my.sharepoint.com/:b:/g/personal/100006620_joan23_fje_edu1/ETgzvTdIQqZOiHgsr-06q_IBCbwr2FY7xqJCR5Uy1tQj1g?e=OgQZ7P">Diagrama de flujo</a></li>
+</div>
