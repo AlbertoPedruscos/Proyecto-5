@@ -44,7 +44,7 @@
             </div>
 
             <div class="menu-content">
-                <h1>Listado de los Parkings:</h1>
+                <h1>Listado de los Parkings: ({{ count($parkings) }})</h1>
 
                 <!-- Manejo de errores y éxito -->
                 @if (session('error'))
