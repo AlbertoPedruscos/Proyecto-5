@@ -18,6 +18,8 @@
     {{-- TOKEN --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -43,6 +45,7 @@
         </div>
     </nav>
     <div class="reserva">
+      <div style="height: 10vh; width: 100%;">
         <div class="info">
             <p class="d-inline-flex gap-1">
                 <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -60,6 +63,24 @@
                 </div>
             </div>
         </div>
+        <div class="imagenes">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop3" onclick="iniciar()">
+                <span class="material-symbols-outlined">
+                    add_notes
+                    </span>
+              </button>
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="iniciar()">
+                <span class="material-symbols-outlined">
+                    local_parking
+                    </span>
+              </button>
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="iniciar()">
+            <span class="material-symbols-outlined">
+              add_a_photo
+              </span>
+          </button>
+        </div>
+      </div>
         <div class="registros">
             <div class="entrada">
                 <div class="reg_entr">
@@ -98,130 +119,101 @@
                 </div>
             </div>
         </div>
-        <div class="imagenes">
-            <div class="display-cover">
-                <video autoplay></video>
-                <canvas class="d-none"></canvas>
-            
-                <div class="video-options">
-                    <select name="" id="" class="custom-select">
-                        <option value="">Select camera</option>
-                    </select>
-                </div>
-            
-                <img class="screenshot-image d-none" alt="">
-            
-                <div class="controls">
-                    <button class="btn btn-danger play" title="Play"><i data-feather="play-circle"></i></button>
-                    <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
-                    <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
-                </div>
-            </div>
-        </div>
         <div class="desplazamientos">
+            <button type="button" class="btn btn-outline-dark">
+                <div style="width: 20%; float: left;">
+                    <span class="material-symbols-outlined"> directions_car </span>
+                </div>
+                <div style="width: 80%; float: left;">
+                    <a>Iniciar desplazamiento</a>
+                </div>
+            </button>
 
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Camara</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="parar()"></button>
+          </div>
+          <div class="modal-body">
+            <video id="webcam" autoplay playsinline width="640" height="280"></video>
+            <canvas id="canvas" class="d-none"></canvas>
+            <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Guardar</button>
+            <button type="button" class="btn btn-primary" onclick="foto()">Foto</button>
+          </div>
+          </div>
+          <div class="modal-footer">
+            {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Guardar</button>
+            <button type="button" class="btn btn-primary" onclick="foto()">Foto</button> --}}
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel3" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel3">Notas</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="parar()"></button>
+            </div>
+            <div class="modal-body">
+              <form action="modificar" method="post" style="padding: 2px;">
+                <textarea name="notas" id="notas" cols="40" rows="10">{{ $reserva_cliente->notas }}</textarea>
+                <button type="submit" class="btn btn-outline-dark">Modificar</button>
+              </form>
+            </div>
+            </div>
+            <div class="modal-footer">
+              {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Guardar</button>
+              <button type="button" class="btn btn-primary" onclick="foto()">Foto</button> --}}
+            </div>
+          </div>
         </div>
     </div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js'></script>
     <script type="text/javascript">
-    feather.replace();
-
-const controls = document.querySelector('.controls');
-const cameraOptions = document.querySelector('.video-options>select');
-const video = document.querySelector('video');
-const canvas = document.querySelector('canvas');
-const screenshotImage = document.querySelector('img');
-const buttons = [...controls.querySelectorAll('button')];
-let streamStarted = false;
-
-const [play, pause, screenshot] = buttons;
-
-const constraints = {
-  video: {
-    width: {
-      min: 1280,
-      ideal: 1920,
-      max: 2560,
-    },
-    height: {
-      min: 720,
-      ideal: 1080,
-      max: 1440
-    },
-  }
-};
-
-cameraOptions.onchange = () => {
-  const updatedConstraints = {
-    ...constraints,
-    deviceId: {
-      exact: cameraOptions.value
+    const webcamElement = document.getElementById('webcam');
+    const canvasElement = document.getElementById('canvas');
+    const snapSoundElement = document.getElementById('snapSound');
+    const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+    function iniciar() {
+      webcam.start()
+        .then(result =>{
+            console.log("webcam started");
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
-  };
-
-  startStream(updatedConstraints);
-};
-
-play.onclick = () => {
-  if (streamStarted) {
-    video.play();
-    play.classList.add('d-none');
-    pause.classList.remove('d-none');
-    return;
-  }
-  if ('mediaDevices' in navigator && navigator.mediaDevices.getUserMedia) {
-    const updatedConstraints = {
-      ...constraints,
-      deviceId: {
-        exact: cameraOptions.value
-      }
-    };
-    startStream(updatedConstraints);
-  }
-};
-
-const pauseStream = () => {
-  video.pause();
-  play.classList.remove('d-none');
-  pause.classList.add('d-none');
-};
-
-const doScreenshot = () => {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext('2d').drawImage(video, 0, 0);
-  screenshotImage.src = canvas.toDataURL('image/webp');
-  screenshotImage.classList.remove('d-none');
-};
-
-pause.onclick = pauseStream;
-screenshot.onclick = doScreenshot;
-
-const startStream = async (constraints) => {
-  const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  handleStream(stream);
-};
-
-
-const handleStream = (stream) => {
-  video.srcObject = stream;
-  play.classList.add('d-none');
-  pause.classList.remove('d-none');
-  screenshot.classList.remove('d-none');
-
-};
-
-
-const getCameraSelection = async () => {
-  const devices = await navigator.mediaDevices.enumerateDevices();
-  const videoDevices = devices.filter(device => device.kind === 'videoinput');
-  const options = videoDevices.map(videoDevice => {
-    return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
+    function parar() {
+      webcam.stop();
+    }
+    function foto() {
+      let picture = webcam.snap();
+      document.querySelector('#download-photo').href = picture;
+    }
+  $('#cameraFlip').click(function() {
+    webcam.flip();
+    webcam.start();  
+});
+navigator.mediaDevices.getUserMedia(this.getMediaConstraints())
+  .then(stream => {
+      this._webcamElement.srcObject = stream;
+      this._webcamElement.play();
+  })
+  .catch(error => {
+     //...
   });
-  cameraOptions.innerHTML = options.join('');
-};
-
-getCameraSelection();
+//     $('#cameraFlip').click(function() {
+//     webcam.flip();
+//     webcam.start();  
+// });
+if(this._facingMode == 'user'){
+    this._webcamElement.style.transform = "scale(-1,1)";
+}
 </script>
 </body>
 </html>

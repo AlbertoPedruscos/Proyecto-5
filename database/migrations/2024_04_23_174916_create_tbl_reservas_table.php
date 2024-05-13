@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->dateTime('fecha_salida');
             $table->string('firma_entrada', 75)->nullable();
             $table->string('firma_salida', 75)->nullable();
+            $table->string('notas', 254)->nullable();
             $table->timestamps();
 
             $table->foreign('id_trabajador')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');

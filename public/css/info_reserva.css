@@ -5,12 +5,12 @@
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
-html, body {
+body {
     margin: 0;
     width: 100%;
-    height: 100vh;
+    height: 85vh;
     /* background-color: #003459; */
 }
 .navbar {
@@ -18,13 +18,15 @@ html, body {
     /* background-color: #00171F; */
 }
 .reserva {
-    margin: 12vh 1vh;
+    margin: 12vh 1vh 0;
     height: 88vh;
     z-index: 0 !important;
     position: relative !important;
 }
 .info {
     height: 10vh;
+    width: 50%;
+    float: left;
 }
 .info a {
     text-decoration: none;
@@ -86,109 +88,30 @@ html, body {
 } */
 
 .imagenes {
-    height: 30vh;
+    height: 10vh;
+    width: 50%;
+    float: right;
+    font-size: 4vh;
+    text-align: right;
+}
+.imagenes button {
+    height: 5vh;
+    /* width: 15%; */
 }
 .desplazamientos {
     height: 15vh;
-}
+    margin-top: 10vh;
 
-/* CAMARA */
-.screenshot-image {
-    width: 150px;
-    height: 90px;
-    border-radius: 4px;
-    border: 2px solid whitesmoke;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 5px;
-    left: 10px;
-    background: white;
-  }
-  
-  .display-cover {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    margin: 5% auto;
-    position: relative;
-  }
-  
-  video {
+}
+.desplazamientos button {
     width: 100%;
-    background: rgba(0, 0, 0, 0.2);
-  }
-  
-  .video-options {
-    position: absolute;
-    left: 20px;
-    top: 30px;
-  }
-  
-  .controls {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    display: flex;
-  }
-  
-  .controls > button {
-    width: 45px;
-    height: 45px;
-    text-align: center;
-    border-radius: 100%;
-    margin: 0 6px;
-    background: transparent;
-  }
-  .controls > button:hover svg {
-    color: white !important;
-  }
-  
-  @media (min-width: 300px) and (max-width: 400px) {
-    .controls {
-      flex-direction: column;
-    }
-    .controls button {
-      margin: 5px 0 !important;
-    }
-  }
-  .controls > button > svg {
-    height: 20px;
-    width: 18px;
-    text-align: center;
-    margin: 0 auto;
-    padding: 0;
-  }
-  
-  .controls button:nth-child(1) {
-    border: 2px solid #D2002E;
-  }
-  .controls button:nth-child(1) svg {
-    color: #D2002E;
-  }
-  
-  .controls button:nth-child(2) {
-    border: 2px solid #008496;
-  }
-  .controls button:nth-child(2) svg {
-    color: #008496;
-  }
-  
-  .controls button:nth-child(3) {
-    border: 2px solid #00B541;
-  }
-  .controls button:nth-child(3) svg {
-    color: #00B541;
-  }
-  
-  .controls > button {
-    width: 45px;
-    height: 45px;
-    text-align: center;
-    border-radius: 100%;
-    margin: 0 6px;
-    background: transparent;
-  }
-  .controls > button:hover svg {
-    color: white;
-  }
+    padding: 2.5vh 0;
+    height: 10vh;
+}
+.desplazamientos span {
+    /* margin-top: 1vh; */
+    font-size: 5vh;
+}
+.desplazamientos a {
+    font-size: 3vh;
+}
