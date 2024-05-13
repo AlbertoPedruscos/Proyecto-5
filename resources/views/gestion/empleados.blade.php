@@ -19,7 +19,7 @@
                 <ul class="nav-left">
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
                     <li class="active">Empleados</li>
-                    <li><a href="{{ 'gestionreservas' }}">Reservas</a></li>
+                    <li><a href="{{ 'reservas' }}">Reservas</a></li>
                     <li><a href="{{ 'mapa' }}">Mapa</a></li>
                 </ul>
 
