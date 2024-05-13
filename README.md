@@ -24,4 +24,5 @@
 <div>
     <h3>Archivos Adjuntos</h3>
     <li><a href="https://fje-my.sharepoint.com/:b:/g/personal/100006620_joan23_fje_edu1/ETgzvTdIQqZOiHgsr-06q_IBCbwr2FY7xqJCR5Uy1tQj1g?e=OgQZ7P">Diagrama de flujo</a></li>
+    <li><a href"https://fje-my.sharepoint.com/:x:/g/personal/100006620_joan23_fje_edu1/EWtvKgsapxRPh6nO94-r3i4BM0to-zOQw42wHO64mejbUw?e=v4Lnhh">Diagrama de Gantt</a></li>
 </div>
