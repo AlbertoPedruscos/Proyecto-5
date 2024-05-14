@@ -1,17 +1,25 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
     box-sizing: border-box;
 }
 
 body {
-    overflow: hidden; /* Eliminar scroll general para la página */
+    font-family: Arial, sans-serif;
+    overflow-y: hidden;
 }
 
 /* HEADER */
 header {
     background-color: #001A2C; /* Color de fondo */
 }
+
+
+/* navbar */
 
 /* Estilo para el nav y su contenido */
 nav {

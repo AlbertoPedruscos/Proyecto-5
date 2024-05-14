@@ -40,34 +40,47 @@
             </nav>
         </header>
 
-        <div id="cont-general">
-            <button id="menu"><i class="fas fa-user"></i> Registrar usuario</i></button>
-
-            <div id="filtro">
-                <div class="col-lg-12 ml-auto" style="border:1px solid">
-                    <form action="" method="post" id="frmbusqueda">
-                        <div class="form-group">
-                            <label for="nombre">Búsqueda por nombre:</label>
-                            <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
-                        </div>
-                    </form>
+        <div class="container">
+            <div id="herramientas">
+                <div class="row">
+                    <div class="column">
+                        <button id="add-user"><i class="fas fa-user"></i> Registrar usuario</button>
+                    </div>
+                    <div class="column">
+                        <button onclick="selectmuldel()" id="del-user"><i class="fa-solid fa-trash-can"></i>Eliminar selección</button>
+                    </div>
                 </div>
-
-                <div id="rolfiltros">
-                    <form action="" method="post" id="frmfiltroRol">
-                        <label for="rol">Rol:</label><br>
-                        <select name="filtroRol" id="filtroRol">
-                        </select>
-                    </form>
+                <div class="row">
+                    <div class="column">
+                        <form action="" method="post" id="frmbusqueda">
+                            <div class="form-group">
+                                <label for="nombre">Búsqueda por nombre:</label>
+                                <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="column">
+                        <form action="" method="post" id="frmfiltroRol">
+                            <div class="form-group">
+                                <label for="rol">Rol:</label><br>
+                                <select name="filtroRol" id="filtroRol"></select>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-
-            <div id="eliminar">
-                <button onclick="selectmuldel()"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         </div>
 
-
+        <div>Total de usuarios: <span id="totalUsuarios"></span></div>
+        <div>
+            Mostrar por página:
+            <select id="selectPaginacion">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        
         <table>
             <thead>
                 <tr>
@@ -81,7 +94,9 @@
             </thead>
             <tbody id="resultado"></tbody>
         </table>
-
+        
+        <div id="paginacion"></div>
+        
         <div class="sub-menu1-container" id="submenu" style="display: none;">
             <form action="" method="post" id="formnewuser">
                 <p>Nombre</p>

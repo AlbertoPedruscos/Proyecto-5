@@ -62,8 +62,8 @@
                             <h3>{{ $parking->nombre }}</h3>
                             <p>Empresa: {{ $parking->empresa->nombre }}</p>
                             <p>{{ $parking->direccion }}</p>
-                            <p>Latitud: {{ $parking->latitud }}</p>
-                            <p>Longitud: {{ $parking->longitud }}</p>
+                            {{-- <p>Latitud: {{ $parking->latitud }}</p>
+                            <p>Longitud: {{ $parking->longitud }}</p> --}}
                             <div>
                                 <button class="btn btn-primary" onclick="verParking({{ $parking->id }})">Ver</button>
                                 <button class="btn btn-warning" onclick="editarParking({{ $parking->id }})"
