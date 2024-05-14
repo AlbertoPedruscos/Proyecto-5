@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\tbl_reservas; // Asegúrate de importar el modelo adecuado
+use App\Models\modeloReserva; // Asegúrate de importar el modelo adecuado
 use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
@@ -31,10 +31,10 @@ class ReservaController extends Controller
             for ($i = 0; $i < 16; $i++) {
                 $id .= rand(0, 9);
             }
-        } while (tbl_reservas::where('id', $id)->exists());
+        } while (modeloReserva::where('id', $id)->exists());
 
         // Crear una nueva reserva utilizando el modelo
-        $reserva = new tbl_reservas();
+        $reserva = new modeloReserva();
         $reserva->id = $id;
         $reserva->nom_cliente = $request->nom_cliente;
         $reserva->matricula = $request->matricula;

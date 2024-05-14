@@ -1,64 +1,71 @@
-* {
+*{
     margin: 0;
     padding: 0;
     font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    box-sizing: border-box;
 }
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-/* HEADER */
-header {
-    background-color: #001A2C; /* Color de fondo */
-}
-
-
-/* navbar */
-
-/* Estilo para el nav y su contenido */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+html, body {
+    margin: 0;
     width: 100%;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Sombras sutiles */
+    height: 90vh;
+    background-color: #003459;
+}
+.navbar {
+    height: 10vh;
+    background-color: #00171F;
 }
 
-nav li {
-    list-style: none;
-    padding: 0 15px;
+.filtro {
+    width: 95%;
+    margin: 10vh 2.5% 0;
+    height: 10vh;
+    overflow: hidden !important;
+    display: block;
+}
+.iconoFiltro {
+    width: 15%;
+    float: left;
+}
+.inputFiltro {
+    float: left;
+    width: 70%;
+}
+.inputFiltro input {
+    width: 80%;
+}
+.inputFiltro span {
+    width: 20%;
+    height: 10vh;
+}
+.reservaCliente {
+    background-color: green;
     color: white;
-    font-size: 18px;
-    cursor: pointer;
-    font-weight: bold;
+    height: 10vh;
+    margin-top: 5%;
 }
-
-nav li a {
-    text-decoration: none;
-    color: white;
+.reservaCliente h3 {
+    margin-left: 10%;
+    width: 35%;
+    float: left;
+    padding-top: 4vh;
 }
-
-nav li a:hover {
-    color: gold;
+.reservaCliente a {
+    /* margin-left: 30%; */
+    width: 20%;
+    margin-top: 3.2vh;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: right;
 }
-
-nav img {
-    max-height: 70px; 
-    object-fit: contain; 
+.horasReservas {
+    width: 20%;
+    float: left;
+    margin-top: 4vh;
 }
-
-nav .nav-left {
-    display: flex;
-    align-items: center;
-}
-
-nav .nav-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+.reservas {
+    height: 75vh;
+    overflow: scroll;
 }
