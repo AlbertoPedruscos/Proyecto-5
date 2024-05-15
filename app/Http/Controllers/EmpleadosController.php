@@ -55,8 +55,14 @@ class EmpleadosController extends Controller
             'apellidos' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:tbl_usuarios,email,'.$empleado->id,
         ]);
-    
-        $empleado->update($request->all());
+        
+        $empleado->nombre = $request->input('nombre');
+        $empleado->apellidos = $request->input('apellido');
+        $empleado->email = $request->input('email');
+        $empleado->contrasena;
+        $empleado->id_rol = 3;
+        $empleado->id_empresa = $idEmpresa;
+        $empleado->update();
     
         return response()->json(['success' => 'Empleado actualizado correctamente.']);
     }

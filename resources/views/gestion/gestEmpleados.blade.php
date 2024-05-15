@@ -125,40 +125,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- MODAL EDITAR USUARIO --}}
-        <!-- Agrega esto al final de tu vista -->
-        <div id="editarEmpleadoModal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Editar Empleado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editarEmpleadoForm">
-                            @csrf
-                            <input type="hidden" id="editEmpleadoId" name="editEmpleadoId">
-                            <div class="form-group">
-                                <label for="editNombre">Nombre:</label>
-                                <input type="text" class="form-control" id="editNombre" name="editNombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="editApellido">Apellido:</label>
-                                <input type="text" class="form-control" id="editApellido" name="editApellido">
-                            </div>
-                            <div class="form-group">
-                                <label for="editEmail">Email:</label>
-                                <input type="email" class="form-control" id="editEmail" name="editEmail">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     @endsection
 
     @push('scripts')

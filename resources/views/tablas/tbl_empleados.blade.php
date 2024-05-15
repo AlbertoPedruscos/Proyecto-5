@@ -49,8 +49,8 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('empleado.show', ['id' => $empleado->id]) }}" class="btn btn-info btn-sm"><i
-                                class="fas fa-eye"></i> Mostrar</a>
+                        {{-- <a href="{{ route('empleado.show', ['id' => $empleado->id]) }}" class="btn btn-info btn-sm"><i
+                                class="fas fa-eye"></i> Mostrar</a> --}}
 
                         <a href="#" class="btn btn-primary btn-sm btn-edit"
                             data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i> Editar</a>
@@ -66,7 +66,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" style="text-align: center">No hay resultados</td>
+                    <td colspan="5" style="text-align: center">No hay resultados</td>
                 </tr>
             @endforelse
         </tbody>
