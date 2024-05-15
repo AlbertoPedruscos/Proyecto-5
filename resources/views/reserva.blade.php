@@ -27,99 +27,179 @@
     <div id="formulario">
         <div id="cont-form">
             <h1>Haga su reserva</h1>
-            <form action="/gi" method="post" id="FrmReserva">
-                <!-- Datos personales -->
-                <div class="form-group">
-                    <div class="form-field">
-                        <label for="nom_cliente" class="form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="nom_cliente" name="nom_cliente" placeholder="Introduce tu nombre">
-                    </div>
-                    <div class="form-field">
-                        <label for="num_telf" class="form-label">Teléfono:</label>
-
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="num_telf" name="num_telf" placeholder="Introduce tu teléfono">
-                            <p id="mensajeError" style="color: red;"></p>
+            <form action="/gi" method="post" id="FrmReserva" class="form-floating">
+                <div class="form-floating inputs">
+                    <div class="row g-2">
+                        <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="nom_cliente" placeholder="Enter your name...">
+                            <label for="floatingInputValue">Nombre</label>
+                        </div>
+                        <div class="invalid-feedback" id="error-nombre" style="display: none;">
+                            El nombre no puede estar vacio.
+                        </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="matricula" placeholder="Enter your plate...">
+                                <label for="floatingInputValue">Matrícula</label>
+                            </div>
+                            <div class="invalid-feedback" id="error-matricula" style="display: none;">
+                                Formato de matrícula incorrecto.
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-field">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Introduce tu email">
-                        <p id="mensajeErroremail" style="color: red;"></p>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                            <label for="floatingInputGrid">Email</label>
+                        </div>
+                        <div class="invalid-feedback" id="error-email" style="display: none;">
+                            Formato de email incorrecto.
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md-5">
+                            <div class="form-floating">
+                                <select class="form-select" id="prefijo" aria-label="Floating label select example">
+                                    <option selected disabled>Seleccione su prefijo</option>
+                                </select>
+                                <label for="floatingSelect">Prefijo</label>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-floating">
+                            <input type="text" class="form-control" id="num_telf" placeholder="Enter your phone number...">
+                            <label for="floatingInputValue">Teléfono</label>
+                            </div>
+                            <div class="invalid-feedback" id="error-telf" style="display: none;">
+                                Formato de teléfono incorrecto.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select class="form-select" id="cochesSelect" aria-label="Floating label select example">
+                                    <option selected disabled>Seleccione su vehículo...</option>
+                                </select>
+                                <label for="floatingSelect">Vehículo</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="modelo" placeholder="Enter your phone number...">
+                            <label for="floatingInputValue">Modelo</label>
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                            <input type="text" class="form-control" id="color" placeholder="Enter your phone number...">
+                            <label for="floatingInputValue">Color</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="ubicacion_entrada" aria-label="Floating label select example">
+                                    <option selected disabled>Seleccione su vehículo...</option>
+                                    <option value="Aeropuerto T1">Aeropuerto T1</option>
+                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
+                                    <option value="Puerto">Puerto</option>
+                                </select>
+                                <label for="floatingSelect">Punto de entrega</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="ubicacion_salida" aria-label="Floating label select example">
+                                    <option selected disabled>Seleccione su vehículo...</option>
+                                    <option value="Aeropuerto T1">Aeropuerto T1</option>
+                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
+                                    <option value="Puerto">Puerto</option>
+                                </select>
+                                <label for="floatingSelect">Punto de recogida</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Entrega</span>
+                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada" placeholder="date">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Recogida</span>
+                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida" placeholder="date">
                     </div>
                 </div>
-
-                <!-- Datos del coche -->
-                <div class="form-group">
-                    <div class="form-field">
-                        <label for="matricula" class="form-label">Matrícula:</label>
-                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Matrícula">
-                        <p id="mensajeError" style="color: red;"></p>
-                    </div>
-                    <div class="form-field">
-                        <label for="marca" class="form-label">Marca:</label>
-                        <select id="cochesSelect" class="form-select" aria-label="Default select example">
-                            <option value="0" selected disabled>Selecciona un coche...</option>
-                          </select>
+                <div class="col-12">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">
+                        He leído y acepto los <a style="color: blue;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">términos y condiciones de uso</a>.
+                    </label>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="form-field">
-                        <label for="modelo" class="form-label">Modelo:</label>
-                        <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo">
-                    </div>
-                    <div class="form-field">
-                        <label for="color" class="form-label">Color:</label>
-                        <input type="text" class="form-control" id="color" name="color" placeholder="Color">
-                    </div>
-                </div>
-
-                <!-- Detalles de la reserva -->
-                <div class="form-group">
-                    <div class="form-field">
-                        <label for="ubicacion_entrada" class="form-label">Punto de recogida:</label>
-                        <select class="form-select" aria-label="Default select example" name="ubicacion_entrada" id="ubicacion_entrada">
-                            <option value="Aeropuerto T1">Aeropuerto T1</option>
-                            <option value="Aeropuerto T2">Aeropuerto T2</option>
-                            <option value="Puerto">Puerto</option>
-                        </select>
-                    </div>
-                    <div class="form-field">
-                        <label for="ubicacion_salida" class="form-label">Punto de entrega:</label>
-                        <select class="form-select" aria-label="Default select example" name="ubicacion_salida" id="ubicacion_salida">
-                            <option value="Aeropuerto T1">Aeropuerto T1</option>
-                            <option value="Aeropuerto T2">Aeropuerto T2</option>
-                            <option value="Puerto">Puerto</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-field">
-                        <label for="fecha_entrada" class="form-label">Fecha de Entrada:</label>
-                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada">
-                    </div>
-                    <div class="form-field">
-                        <label for="fecha_salida" class="form-label">Fecha de Salida:</label>
-                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida">
-                    </div>
-                </div>
-            </div>
-                <div>
-                    <button type="button" class="btn btn-dark" onclick="reservarNuevo()">Enviar</button>
+                <div class="col-12">
+                    <button type="button" id="form-btn" class="btn btn-dark" onclick="reservarNuevo()">Enviar</button>
                 </div>
             </form>
 
     </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content" style="height: 90vh;">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Términos y Condiciones de Uso - Servicios de Aparcacoches</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll;">
+                <p>Por favor, lee atentamente los siguientes términos y condiciones antes de utilizar los servicios de aparcacoches proporcionados por la empresa a la que contrata el servicio. Al utilizar nuestros servicios, aceptas estar legalmente vinculado por estos términos y condiciones.</p>
+                
+                <h4>1. Servicio de Aparcacoches</h4>
+                <p>Al utilizar nuestro servicio de aparcacoches, aceptas que la empresa a la que contrata el servicio proporcionará un espacio seguro para estacionar tu vehículo durante el tiempo acordado. El servicio incluye la recepción y custodia de tu vehículo, así como su devolución en el lugar designado por la empresa.</p>
+                
+                <h4>2. Entrega del Vehículo</h4>
+                <p>Para utilizar nuestro servicio de aparcacoches, deberás entregar tu vehículo junto con la llave correspondiente a los empleados designados por la empresa a la que contrata el servicio. Entiendes y aceptas que la entrega de la llave es necesaria para facilitar el estacionamiento y la movilidad de los vehículos dentro de nuestras instalaciones.</p>
+                
+                <h4>3. Responsabilidades de la Empresa</h4>
+                <p>Nos comprometemos a tomar todas las precauciones razonables para garantizar la seguridad de tu vehículo mientras esté bajo nuestra custodia. Sin embargo, no nos hacemos responsables de daños, pérdidas o robos que pudieran ocurrir, salvo en caso de negligencia comprobada por nuestra parte.</p>
+                
+                <h4>4. Responsabilidades del Usuario</h4>
+                <p>Como usuario de nuestro servicio, aceptas ser responsable de cualquier daño causado a tu vehículo como resultado de tu propio manejo o negligencia. Además, reconoces que eres responsable de cualquier objeto personal dejado dentro del vehículo y eximes a la empresa a la que contrata el servicio de cualquier responsabilidad al respecto.</p>
+                
+                <h4>5. Tarifas y Pagos</h4>
+                <p>Las tarifas por el servicio de aparcacoches serán establecidas por la empresa a la que contrata el servicio y comunicadas al usuario antes de la prestación del servicio. Al utilizar nuestro servicio, aceptas pagar las tarifas correspondientes según lo acordado.</p>
+                
+                <h4>6. Duración y Terminación</h4>
+                <p>Este acuerdo entrará en vigor al utilizar nuestros servicios y permanecerá vigente hasta la devolución de tu vehículo. Nos reservamos el derecho de rescindir este acuerdo en cualquier momento si consideramos que tu conducta o acciones ponen en riesgo la seguridad o integridad de nuestro servicio.</p>
+                
+                <h4>7. Legislación Aplicable y Jurisdicción</h4>
+                <p>Este acuerdo se regirá e interpretará de acuerdo con las leyes del [país/estado/provincia]. Cualquier disputa relacionada con estos términos y condiciones estará sujeta a la jurisdicción exclusiva de los tribunales de [ciudad/país/estado/provincia].</p>
+                
+                <h4>8. Modificaciones y Actualizaciones</h4>
+                <p>Nos reservamos el derecho de modificar o actualizar estos términos y condiciones en cualquier momento. Cualquier cambio será efectivo inmediatamente después de su publicación en nuestro sitio web o mediante notificación directa a los usuarios. Es tu responsabilidad revisar periódicamente estos términos y condiciones para estar al tanto de cualquier cambio.</p>
+                
+                <p>Al utilizar nuestros servicios, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguno de los términos establecidos aquí, te rogamos que no utilices nuestro servicio de aparcacoches.</p>
+                
+                <h4>9. Modificaciones</h4>
+                <p>La Empresa se reserva el derecho de modificar o enmendar estos Términos en cualquier momento y sin previo aviso. Se alienta al Cliente a revisar periódicamente estos Términos para estar al tanto de cualquier cambio.</p>
+                
+                <h4>10. Aceptación de los Términos</h4>
+                <p>Al utilizar el servicio de aparcacoches de la Empresa, el Cliente acepta cumplir con estos Términos en su totalidad.</p>
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
+        var formbtn = document.getElementById('form-btn');
         function reservarNuevo() {
             var form = document.getElementById('FrmReserva');
             var formdata = new FormData(form);
@@ -163,28 +243,65 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             var matriculaInput = document.getElementById("matricula");
-            var mensajeError = document.getElementById("mensajeError");
-
-            matriculaInput.addEventListener("input", function() {
+            var errormatricula = document.getElementById('error-matricula');
+            
+            matriculaInput.addEventListener("blur", function() {
                 var matricula = matriculaInput.value.trim();
 
+                var valor = matriculaInput.value.toUpperCase(); // Convertir a mayúsculas
+                var regex = /^[A-Z0-9]*$/;
+                matriculaInput.value = valor; // Establecer el valor del campo de entrada con el texto formateado
+
+                if (!regex.test(valor)) {
+                    // Si se ingresa un carácter especial que no sea letra o número, eliminarlo del valor del input
+                    matriculaInput.value = valor.replace(/[^A-Z0-9]/g, '');
+                }
+
                 if (validarMatricula(matricula)) {
-                    mensajeError.textContent = "";
-                    mensajeError.style.margin = "0";
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
                 }else if (validarMatriculaF(matricula)){
-                    mensajeError.textContent = "";
-                    mensajeError.style.margin = "0";
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
                 }else if (validarMatriculaA(matricula)){
-                    mensajeError.textContent = "";
-                    mensajeError.style.margin = "0";
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
                 }else if (validarMatriculaU(matricula)){
-                    mensajeError.textContent = "";
-                    mensajeError.style.margin = "0";
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
                 } else if (validarMatriculaH(matricula)){
-                    mensajeError.textContent = "";
-                    mensajeError.style.margin = "0";
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
+                } else if (validarMatriculaRU(matricula)){
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
+                } else if (validarMatriculaSU(matricula)){
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
+                } else if (validarMatriculaH2(matricula)){
+                    formbtn.disabled = false;
+                    errormatricula.style.display = 'none';
+                    document.getElementById("matricula").classList.remove("is-invalid");
+                    document.getElementById("matricula").classList.add("is-valid");
                 } else {
-                    mensajeError.textContent = "Formato de matrícula no válido";
+                    formbtn.disabled = true;
+                    errormatricula.style.display = 'block';
+                    document.getElementById("matricula").classList.remove("is-valid");
+                    document.getElementById("matricula").classList.add("is-invalid");
                 }
             });
             
@@ -224,35 +341,70 @@
                 var regex = /^[A-Za-z]{2}\d{3}[A-Za-z]{1}$/;
                 return regex.test(matricula);
             }
-            // NOMBRE
+            function validarMatriculaRU(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^[A-Za-z]{2}\d{2}[A-Za-z]{3}$/;
+                return regex.test(matricula);
+            }
+            function validarMatriculaSU(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^[A-Za-z]{2}\d{6}$/;
+                return regex.test(matricula);
+            }
+            function validarMatriculaH2(matricula) {
+                // Aquí puedes escribir tu lógica de validación para la matrícula
+                // Por ejemplo, si la matrícula debe tener un formato específico
+                // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                var regex = /^\d{1}[A-Za-z]{3}\d{2}$/;
+                return regex.test(matricula);
+            }
             var inputNombre = document.getElementById("nom_cliente");
+            var errornombre = document.getElementById("error-nombre");
 
             inputNombre.addEventListener("input", function() {
-            var texto = inputNombre.value.toLowerCase(); // Convertir todo el texto a minúsculas
-            texto = texto.replace(/\b\w/g, function(l) { // Reemplazar cada letra que sigue un límite de palabra
-                return l.toUpperCase(); // con su versión en mayúscula
+                var texto = this.value.replace(/\d/g, ''); // Eliminar números del texto ingresado
+                texto = texto.toLowerCase().replace(/\b\w/g, function(l) { // Convertir todo el texto a minúsculas y capitalizar la primera letra de cada palabra
+                    return l.toUpperCase();
+                });
+                this.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+                
+                if (texto.trim() === '') { // Verificar si el campo está vacío
+                    document.getElementById("nom_cliente").classList.remove("is-valid");
+                    document.getElementById("nom_cliente").classList.add("is-invalid");
+                    errornombre.style.display = 'block';
+                } else {
+                    document.getElementById("nom_cliente").classList.remove("is-invalid");
+                    document.getElementById("nom_cliente").classList.add("is-valid");
+                    errornombre.style.display = 'none';
+                }
             });
-            inputNombre.value = texto; // Establecer el valor del campo de entrada con el texto formateado
-            });
+
+
 
 
             // EMAIL
 
 
             var email = document.getElementById("email");
-
+            var erroremail = document.getElementById('error-email');
             email.addEventListener("input", function() {
                 var texto = email.value.toLowerCase(); // Convertir todo el texto a minúsculas
                 email.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+                erroremail.style.display = "none";
             });
             email.addEventListener("blur", function() {
+                document.getElementById("email").classList.remove("is-invalid");
+                document.getElementById("email").classList.add("is-valid");
             if (!validarDominio(email.value)) {
                 // alert("Por favor, introduce un correo electrónico con un dominio válido.");
-                mensajeErroremail.textContent = "Por favor, introduce un correo electrónico con un dominio válido.";
-                email.value = ""; // Limpiar el campo si el dominio no es válido
-            } else {
-                mensajeErroremail.textContent = "";
-                mensajeErroremail.style.margin = "0";
+                erroremail.style.display = "block";
+                document.getElementById("email").classList.add("is-invalid");
+                document.getElementById("email").classList.remove("is-valid");
+                // email.value = ""; // Limpiar el campo si el dominio no es válido
             }
             });
             function validarDominio(email) {
@@ -261,17 +413,18 @@
             }
 
             // TELEFONO
-
+            var num_telf = document.getElementById("num_telf");
             num_telf.addEventListener("input", function() {
       var numero = num_telf.value.trim();
+
 
       // Reemplazar espacios y letras por una cadena vacía
       num_telf.value = num_telf.value.replace(/\s/g, '').replace(/[a-zA-Z]/g, '');
 
       // Si el número no empieza por 6, limpiar el campo y mostrar un mensaje de error
-      if (numero.charAt(0) !== '6' && numero.charAt(0) !== '9') {
+      if (numero.charAt(0) !== '6' && numero.charAt(0) !== '9' && numero.charAt(0) !== '7') {
         num_telf.value = "";
-        mensajeError.textContent = "El número de teléfono debe empezar por 6 o 9.";
+        formbtn.disabled = true;
         // mensajeError.style.marginTop = "10px"; // Añadir un margen superior al mensaje de error
         return;
       }
@@ -281,12 +434,20 @@
         num_telf.value = numero.slice(0, 9); // Truncar el número a 9 caracteres
       }
 
-      if (validarNumero(num_telf.value)) {
-        mensajeError.textContent = ""; // Limpiar el mensaje de error
-        mensajeError.style.marginTop = "0"; // Establecer el margen superior a 0
-      } else {
-        mensajeError.textContent = "El número de teléfono debe contener exactamente 9 dígitos.";
-        // mensajeError.style.marginTop = "10px"; // Añadir un margen superior al mensaje de error
+    });
+    var errortelf = document.getElementById('error-telf');
+    num_telf.addEventListener("blur", function() {
+        if (!validarNumero(num_telf.value)) {
+        formbtn.disabled = true;
+        document.getElementById("num_telf").classList.add("is-invalid");
+        document.getElementById("num_telf").classList.remove("is-valid");
+        errortelf.style.display = "block";
+        
+      }else {
+        formbtn.disabled = false;
+        document.getElementById("num_telf").classList.remove("is-invalid");
+        document.getElementById("num_telf").classList.add("is-valid");
+        errortelf.style.display = "none";
       }
     });
 
@@ -295,7 +456,124 @@
       return regex.test(numero);
     }
 
-            var cochesSelect = document.getElementById("cochesSelect");
+    function validarColor(input) {
+    // Expresión regular para validar colores con las especificaciones dadas
+    var regex = /^[A-Z][a-z]*\s[A-Z][a-z]*$/;
+    
+    // Comprobar si el valor del input coincide con la expresión regular
+    if (regex.test(input.value)) {
+        input.style.borderColor = ""; // Establecer borde a su estado original si es válido
+        return true;
+    } else {
+        // Convertir todo el texto a minúsculas
+        var texto = input.value.toLowerCase();
+        // Dividir el texto en palabras
+        var palabras = texto.split(" ");
+        // Limitar la cantidad de palabras a dos
+        palabras = palabras.slice(0, 2);
+        // Capitalizar la primera letra de cada palabra
+        for (var i = 0; i < palabras.length; i++) {
+            palabras[i] = palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1);
+        }
+        // Unir las palabras nuevamente en una cadena con un solo espacio entre ellas
+        var textoFormateado = palabras.join(" ");
+        input.value = textoFormateado; // Establecer el valor del campo de entrada con el texto formateado
+        // input.style.borderColor = "red"; // Establecer borde rojo ya que la entrada no es válida
+        return false;
+    }
+}
+
+// Ejemplo de uso:
+var inputColor = document.getElementById("color");
+
+inputColor.addEventListener("input", function() {
+    validarColor(this);
+});
+
+
+
+// FECHA ENTRADA
+
+function validarFecha(input) {
+    var fechaIngresada = new Date(input.value);
+    var fechaActual = new Date();
+    
+    // Obtener la fecha actual en milisegundos
+    var fechaActualMS = fechaActual.getTime();
+    // Agregar 10 minutos (10 * 60 * 1000 milisegundos) a la fecha actual
+    var fechaMinimaPermitidaMS = fechaActualMS + (10 * 60 * 1000);
+
+    // Comprobar si la fecha ingresada es válida
+    if (!isNaN(fechaIngresada.getTime())) {
+        // Comprobar si la fecha ingresada es mayor o igual que la fecha actual y si es mayor o igual que la fecha actual + 10 minutos
+        if (fechaIngresada >= fechaActual && fechaIngresada >= new Date(fechaMinimaPermitidaMS)) {
+            input.setCustomValidity(""); // La fecha es válida
+            var inputSalida = document.getElementById("fecha_salida");
+            inputSalida.disabled = false; // Habilitar el campo de fecha de salida
+            formbtn.disabled = true;
+            return true;
+        } else {
+            fechaIngresada.value = ""; // Vaciar el campo de fecha si la fecha ingresada no es válida
+            var inputSalida = document.getElementById("fecha_salida");
+            inputSalida.disabled = true; // Deshabilitar el campo de fecha de salida
+            formbtn.disabled = true;
+            return false;
+        }
+    } else {
+        input.value = ""; // Vaciar el campo de fecha si la fecha ingresada no es válida
+        input.setCustomValidity("Formato de fecha inválido."); // Mensaje de error personalizado
+        input.style.borderColor = "red"; // Establecer borde rojo si no es válida
+        var inputSalida = document.getElementById("fecha_salida");
+        inputSalida.disabled = true; // Deshabilitar el campo de fecha de salida
+        formbtn.disabled = true;
+        return false;
+    }
+}
+
+
+// Ejemplo de uso:
+var inputFecha = document.getElementById("fecha_entrada");
+
+inputFecha.addEventListener("input", function() {
+    validarFecha(this);
+});
+
+// FECHA SALIDA
+
+
+function validarFechaSalida(inputSalida, inputEntrada) {
+    var fechaSalida = new Date(inputSalida.value);
+    var fechaEntrada = new Date(inputEntrada.value);
+    
+    // Agregar 5 horas (5 * 60 * 60 * 1000 milisegundos) a la fecha de entrada
+    var fechaMinimaPermitidaMS = fechaEntrada.getTime() + (5 * 60 * 60 * 1000);
+
+    // Comprobar si la fecha de salida es válida y si es al menos 5 horas después de la fecha de entrada
+    if (!isNaN(fechaSalida.getTime()) && fechaSalida >= new Date(fechaMinimaPermitidaMS)) {
+        inputSalida.setCustomValidity(""); // La fecha es válida
+        formbtn.disabled = false;
+        return true;
+    } else {
+        formbtn.disabled = true;
+        return false;
+    }
+}
+
+// Ejemplo de uso:
+var inputSalida = document.getElementById("fecha_salida");
+var inputEntrada = document.getElementById("fecha_entrada");
+
+inputSalida.addEventListener("input", function() {
+    validarFechaSalida(this, inputEntrada);
+});
+
+
+
+
+
+
+
+    var cochesSelect = document.getElementById("cochesSelect");
     // Crear una nueva solicitud XMLHttpRequest
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -316,6 +594,26 @@
     xhr.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/coches", true);
     xhr.send();
         });
+        var prefijo = document.getElementById("prefijo");
+    // Crear una nueva solicitud XMLHttpRequest
+    var xhr2 = new XMLHttpRequest();
+    xhr2.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // Parsear la respuesta JSON
+        var data = JSON.parse(this.responseText);
+        // Iterar sobre los datos y agregar opciones al select
+        data.forEach(coche => {
+          var option = document.createElement("option");
+          option.value = coche.prefijo;
+          option.textContent = coche.pais + " (" + coche.prefijo +")";
+          prefijo.appendChild(option);
+        });
+      }
+    };
+    
+    // Abrir y enviar la solicitud
+    xhr2.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/prefijo", true);
+    xhr2.send();
 
     </script>
 @endpush
