@@ -42,19 +42,37 @@ class EmpleadosController extends Controller
         //
     }
 
-    public function update(Request $request, $id) {
-        //
+    public function edit($id) {
+        $empleado = tbl_usuarios::findOrFail($id);
+        return response()->json($empleado);
     }
-
+    
+    public function update(Request $request, $id) {
+        $empleado = tbl_usuarios::findOrFail($id);
+    
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:tbl_usuarios,email,'.$empleado->id,
+        ]);
+    
+        $empleado->update($request->all());
+    
+        return response()->json(['success' => 'Empleado actualizado correctamente.']);
+    }
+        
     public function destroy($id)
     {
         $empleado = tbl_usuarios::findOrFail($id);
-        $empleado->delete();
-    
-        return redirect()->route('gestEmpleados')->with('success', 'Usuario eliminado correctamente.');
+        if($empleado->id_rol == 2) { // Corregir el operador de comparación
+            return redirect()->route('gestEmpleados')->with('error', 'No puedes eliminar al gestor.');
+        }
+        else {
+            $empleado->delete();
+            return redirect()->route('gestEmpleados')->with('success', 'Usuario eliminado correctamente.');
+        }
     }
-        
-
+            
     public function buscarEmpleado(Request $request)
     {
         $idEmpresa = $request->session()->get('empresa');

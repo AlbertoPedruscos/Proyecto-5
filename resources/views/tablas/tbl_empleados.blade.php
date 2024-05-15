@@ -28,9 +28,8 @@
         <thead>
             <tr>
                 <th style="width: 5%;">#</th>
-                <th style="width: 15%;">Nombre</th>
-                <th style="width: 15%;">Apellido</th>
-                <th style="width: 20%;">Email</th>
+                <th style="width: 15%;">Nombre completo</th>
+                <th style="width: 20%;">Email</th> <!-- Corregido el carácter ¡ -->
                 <th style="width: 10%;">Rol</th>
                 <th style="width: 50%;">Acciones</th>
             </tr>
@@ -40,8 +39,7 @@
             @forelse ($empleados as $empleado)
                 <tr>
                     <td>{{ $empleado->id }}</td>
-                    <td>{{ $empleado->nombre }}</td>
-                    <td>{{ $empleado->apellidos }}</td>
+                    <td>{{ $empleado->nombre }} {{ $empleado->apellidos }}</td>
                     <td>{{ $empleado->email }}</td>
                     <td>
                         @if ($empleado->id_rol)
@@ -57,12 +55,12 @@
                         <a href="#" class="btn btn-primary btn-sm btn-edit"
                             data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i> Editar</a>
 
-                        <form id="frmEliminar{{ $empleado->id }}"
-                            action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}" method="POST">
+                        <!-- Formulario para eliminar el usuario -->
+                        <form id="frmEliminar{{ $empleado->id }}" action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" onclick="eliminarUsuario({{ $empleado->id }})"
-                                class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                            <button type="button" onclick="eliminarUsuario({{ $empleado->id }})" class="btn btn-danger btn-sm"><i
+                                    class="fas fa-trash-alt"></i> Eliminar</button>
                         </form>
                     </td>
                 </tr>

@@ -71,10 +71,11 @@ Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO
 
 
 /* Gestión empleados prueba Iker */
-Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados');
-Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('empleado.store');
-Route::get('/empleado/show/{id}', [EmpleadosController::class, 'show'])->name('empleado.show');
-Route::post('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
-Route::post('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy');
-Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar');
-Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy');
+Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar
+Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('empleado.store'); // Registrar
+Route::get('/empleado/show/{id}', [EmpleadosController::class, 'show'])->name('empleado.show'); // Ir a una página externa para ver los datos del usuario
+Route::get('/empleado/{id}/edit', [EmpleadosController::class, 'edit'])->name('empleado.edit'); // Editar
+Route::post('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update'); // Actualizar
+Route::post('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar
+Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar'); // Buscar
+Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar (método DELETE)
