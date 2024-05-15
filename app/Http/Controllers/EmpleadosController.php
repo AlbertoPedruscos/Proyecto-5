@@ -46,9 +46,14 @@ class EmpleadosController extends Controller
         //
     }
 
-    public function destroy($id) {
-        //
+    public function destroy($id)
+    {
+        $empleado = tbl_usuarios::findOrFail($id);
+        $empleado->delete();
+    
+        return redirect()->route('gestEmpleados')->with('success', 'Usuario eliminado correctamente.');
     }
+        
 
     public function buscarEmpleado(Request $request)
     {

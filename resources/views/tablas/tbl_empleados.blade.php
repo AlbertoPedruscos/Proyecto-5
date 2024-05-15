@@ -50,15 +50,20 @@
                             Sin rol asignado
                         @endif
                     </td>
-                                        <td>
+                    <td>
                         <a href="{{ route('empleado.show', ['id' => $empleado->id]) }}" class="btn btn-info btn-sm"><i
                                 class="fas fa-eye"></i> Mostrar</a>
 
                         <a href="#" class="btn btn-primary btn-sm btn-edit"
                             data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i> Editar</a>
 
-                        <button onclick="eliminarUsuario({{ $empleado->id }})" class="btn btn-danger btn-sm"><i
-                                class="fas fa-trash-alt"></i> Eliminar</button>
+                        <form id="frmEliminar{{ $empleado->id }}"
+                            action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" onclick="eliminarUsuario({{ $empleado->id }})"
+                                class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                        </form>
                     </td>
                 </tr>
             @empty

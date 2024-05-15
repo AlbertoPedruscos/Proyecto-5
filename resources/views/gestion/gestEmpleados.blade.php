@@ -56,15 +56,14 @@
             <div class="form-group">
                 <label for="search">Buscar por nombre:</label>
                 <input type="text" name="search" id="search" class="form-control"
-                    value="{{ request()->input('search') }}" onkeyup="buscarEmpleado()"
-                    placeholder="Busca por nombre de empleado">
+                    value="{{ request()->input('search') }}" onkeyup="buscarEmpleado()" placeholder="Busca por nombre de empleado">
             </div>
         </form>
 
         {{-- FILTRO POR ROL --}}
         <form action="">
             <select name="rol" id="rol" onchange="buscarEmpleado()">
-                <option value="" selected>-- Mostrar todos --</option>
+                <option value="" selected disabled>-- Selecciona un rol --</option>
                 @foreach ($roles as $rol)
                     @if ($rol->id != 1)
                         <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
@@ -72,9 +71,6 @@
                 @endforeach
             </select>
         </form>
-
-        {{-- BOTÓN PARA QUITAR FILTROS --}}
-        <button type="button" class="btn btn-secondary" id="eliminarFiltros">Eliminar filtros</button>
 
         {{-- REGISTRAR USUARIO --}}
         <button type="button" class="btn btn-primary" id="abrirModal">Registrar usuario</button>
@@ -150,19 +146,16 @@
                 });
             });
         </script>
-        {{-- BUSCAR EMPLEADO POR NOMBRE Y ROL CON UN FILTRO SUMATIVO --}}
+
+        {{-- FILTRO POR NOMBRE Y ROL SUMATICVO --}}
         <script>
-            // Función para realizar la búsqueda cuando se cambia el valor del campo de búsqueda o del filtro por rol
             $('#search, #rol').on('change keyup', function() {
                 buscarEmpleado();
             });
 
             function buscarEmpleado() {
                 var searchKeyword = $('#search').val();
-                var rolFilter = $('#rol').val(); // Si está vacío, enviar null en lugar de ''
-                if (rolFilter === '') {
-                    rolFilter = null;
-                }
+                var rolFilter = $('#rol').val();
                 $.ajax({
                     url: '{{ route('empleado.buscar') }}',
                     type: 'GET',
@@ -179,15 +172,7 @@
                     }
                 });
             }
-        </script>
-        {{-- LóGICA --}}
-        <script>
-            $('#eliminarFiltros').on('click', function() {
-                $('#search').val(''); // Limpiar campo de búsqueda
-                $('#rol').val(''); // Limpiar filtro por rol
-                buscarEmpleado(); // Realizar la búsqueda sin filtros
-            });
-        </script>
+        </script>        
     @endpush
 @else
     @php

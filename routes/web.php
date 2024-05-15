@@ -76,5 +76,5 @@ Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('emp
 Route::get('/empleado/show/{id}', [EmpleadosController::class, 'show'])->name('empleado.show');
 Route::post('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
 Route::post('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy');
-// Route::get('/empleado/buscarEmpleado', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscarEmpleado');
 Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar');
+Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy');
