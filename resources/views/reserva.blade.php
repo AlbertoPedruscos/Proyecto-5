@@ -81,21 +81,25 @@
                         <div class="col-md-4">
                             <div class="form-floating">
                                 <select class="form-select" id="cochesSelect" aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione su vehículo...</option>
+                                    <option value="0" selected disabled>Seleccione su vehículo...</option>
                                 </select>
                                 <label for="floatingSelect">Vehículo</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="modelo" placeholder="Enter your phone number...">
+                            <input type="text" class="form-control" id="modelo" placeholder="Enter your car type...">
                             <label for="floatingInputValue">Modelo</label>
+                        </div>
+                        <div class="invalid-feedback" id="error-modelo" style="display: none;">
+                            El campo "modelo" no puede estar vacío.
                         </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
                             <input type="text" class="form-control" id="color" placeholder="Enter your phone number...">
                             <label for="floatingInputValue">Color</label>
+                            {{-- ESTE NO ES  OBLIGATORIO --}}
                             </div>
                         </div>
                     </div>
@@ -103,7 +107,7 @@
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="ubicacion_entrada" aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione su vehículo...</option>
+                                    <option selected disabled>Seleccione el punto de entrega...</option>
                                     <option value="Aeropuerto T1">Aeropuerto T1</option>
                                     <option value="Aeropuerto T2">Aeropuerto T2</option>
                                     <option value="Puerto">Puerto</option>
@@ -114,7 +118,7 @@
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" id="ubicacion_salida" aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione su vehículo...</option>
+                                    <option selected disabled>Seleccione el punto de recogida...</option>
                                     <option value="Aeropuerto T1">Aeropuerto T1</option>
                                     <option value="Aeropuerto T2">Aeropuerto T2</option>
                                     <option value="Puerto">Puerto</option>
@@ -129,7 +133,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Recogida</span>
-                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida" placeholder="date">
+                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida" placeholder="date" disabled>
                     </div>
                 </div>
                 <div class="col-12">
@@ -154,39 +158,45 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="overflow-y: scroll;">
-                <p>Por favor, lee atentamente los siguientes términos y condiciones antes de utilizar los servicios de aparcacoches proporcionados por la empresa a la que contrata el servicio. Al utilizar nuestros servicios, aceptas estar legalmente vinculado por estos términos y condiciones.</p>
-                
-                <h4>1. Servicio de Aparcacoches</h4>
-                <p>Al utilizar nuestro servicio de aparcacoches, aceptas que la empresa a la que contrata el servicio proporcionará un espacio seguro para estacionar tu vehículo durante el tiempo acordado. El servicio incluye la recepción y custodia de tu vehículo, así como su devolución en el lugar designado por la empresa.</p>
-                
-                <h4>2. Entrega del Vehículo</h4>
-                <p>Para utilizar nuestro servicio de aparcacoches, deberás entregar tu vehículo junto con la llave correspondiente a los empleados designados por la empresa a la que contrata el servicio. Entiendes y aceptas que la entrega de la llave es necesaria para facilitar el estacionamiento y la movilidad de los vehículos dentro de nuestras instalaciones.</p>
-                
-                <h4>3. Responsabilidades de la Empresa</h4>
-                <p>Nos comprometemos a tomar todas las precauciones razonables para garantizar la seguridad de tu vehículo mientras esté bajo nuestra custodia. Sin embargo, no nos hacemos responsables de daños, pérdidas o robos que pudieran ocurrir, salvo en caso de negligencia comprobada por nuestra parte.</p>
-                
-                <h4>4. Responsabilidades del Usuario</h4>
-                <p>Como usuario de nuestro servicio, aceptas ser responsable de cualquier daño causado a tu vehículo como resultado de tu propio manejo o negligencia. Además, reconoces que eres responsable de cualquier objeto personal dejado dentro del vehículo y eximes a la empresa a la que contrata el servicio de cualquier responsabilidad al respecto.</p>
-                
-                <h4>5. Tarifas y Pagos</h4>
-                <p>Las tarifas por el servicio de aparcacoches serán establecidas por la empresa a la que contrata el servicio y comunicadas al usuario antes de la prestación del servicio. Al utilizar nuestro servicio, aceptas pagar las tarifas correspondientes según lo acordado.</p>
-                
-                <h4>6. Duración y Terminación</h4>
-                <p>Este acuerdo entrará en vigor al utilizar nuestros servicios y permanecerá vigente hasta la devolución de tu vehículo. Nos reservamos el derecho de rescindir este acuerdo en cualquier momento si consideramos que tu conducta o acciones ponen en riesgo la seguridad o integridad de nuestro servicio.</p>
-                
-                <h4>7. Legislación Aplicable y Jurisdicción</h4>
+                <p>Por favor, lea atentamente los siguientes términos y condiciones antes de utilizar los servicios de aparcacoches proporcionados a través de nuestra entidad. Al utilizar nuestros servicios, usted acepta estar legalmente vinculado por estos términos y condiciones.</p>
+
+                <h4>1. Descripción del Servicio</h4>
+                <p>Como intermediarios, facilitamos el uso del servicio de aparcacoches proporcionado por la empresa a la que ha contratado el servicio en cuestión . Al utilizar nuestro servicio, la Empresa proporcionará un espacio seguro para estacionar su vehículo durante el tiempo acordado. El servicio incluye la recepción, custodia y devolución de su vehículo en el lugar designado por la Empresa.</p>
+              
+                <h4>2. Procedimiento de Entrega del Vehículo</h4>
+                  <p>Para utilizar nuestro servicio de aparcacoches, usted deberá entregar su vehículo junto con la llave correspondiente a los empleados designados por la Empresa. Al hacer esto, usted entiende y acepta lo siguiente:
+                    <ul>
+                        <li>La entrega de la llave es indispensable para facilitar el estacionamiento y la movilidad de los vehículos dentro de las instalaciones de la Empresa.</li>
+                        <li>En el caso de que la llave entregada contenga objetos adicionales que dificulten su manejo (por ejemplo, llaveros voluminosos, dispositivos electrónicos, etc.), usted acepta que dichos objetos puedan ser retirados y colocados dentro del vehículo para facilitar la gestión de la llave.</li>
+                        <li>La Empresa podrá colocar una etiqueta u otro elemento identificativo en la llave del vehículo para garantizar una correcta identificación y manejo durante el servicio de aparcacoches.</li>
+                    </ul>
+                  </p>              
+                <h4>3. Responsabilidades del Intermediario</h4>
+                <p>Como intermediarios, nuestro objetivo es garantizar que el servicio proporcionado por la Empresa cumpla con los más altos estándares de calidad y seguridad. Facilitamos la comunicación y coordinación entre el Cliente y la Empresa, asegurándonos de que todas las necesidades y expectativas sean atendidas adecuadamente.</p>
+              
+                <h4>4. Responsabilidades de la Empresa</h4>
+                <p>La Empresa se compromete a tomar todas las precauciones razonables para garantizar la seguridad de su vehículo mientras esté bajo su custodia. Sin embargo, la Empresa no será responsable de daños, pérdidas o robos que pudieran ocurrir, salvo en casos de negligencia comprobada por parte de la Empresa.</p>
+              
+                <h4>5. Responsabilidades del Usuario</h4>
+                <p>Como usuario de nuestro servicio, usted acepta ser responsable de cualquier daño causado a su vehículo como resultado de su propio manejo o negligencia. Además, reconoce que es responsable de cualquier objeto personal dejado dentro del vehículo y exime a la Empresa y al intermediario de cualquier responsabilidad al respecto.</p>
+              
+                <h4>6. Tarifas y Pagos</h4>
+                <p>Las tarifas por el servicio de aparcacoches serán establecidas por la Empresa y comunicadas al usuario antes de la prestación del servicio. Al utilizar nuestro servicio, usted acepta pagar las tarifas correspondientes según lo acordado. Los pagos deberán realizarse de acuerdo con las instrucciones proporcionadas por el intermediario y/o la Empresa.</p>
+              
+                <h4>7. Duración y Terminación</h4>
+                <p>Este acuerdo entrará en vigor al utilizar nuestros servicios y permanecerá vigente hasta la devolución de su vehículo. Nos reservamos el derecho de rescindir este acuerdo en cualquier momento si consideramos que su conducta o acciones ponen en riesgo la seguridad o integridad de nuestro servicio o de la Empresa.</p>
+              
+                <h4>8. Legislación Aplicable y Jurisdicción</h4>
                 <p>Este acuerdo se regirá e interpretará de acuerdo con las leyes del [país/estado/provincia]. Cualquier disputa relacionada con estos términos y condiciones estará sujeta a la jurisdicción exclusiva de los tribunales de [ciudad/país/estado/provincia].</p>
                 
-                <h4>8. Modificaciones y Actualizaciones</h4>
-                <p>Nos reservamos el derecho de modificar o actualizar estos términos y condiciones en cualquier momento. Cualquier cambio será efectivo inmediatamente después de su publicación en nuestro sitio web o mediante notificación directa a los usuarios. Es tu responsabilidad revisar periódicamente estos términos y condiciones para estar al tanto de cualquier cambio.</p>
-                
-                <p>Al utilizar nuestros servicios, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguno de los términos establecidos aquí, te rogamos que no utilices nuestro servicio de aparcacoches.</p>
-                
-                <h4>9. Modificaciones</h4>
-                <p>La Empresa se reserva el derecho de modificar o enmendar estos Términos en cualquier momento y sin previo aviso. Se alienta al Cliente a revisar periódicamente estos Términos para estar al tanto de cualquier cambio.</p>
-                
-                <h4>10. Aceptación de los Términos</h4>
-                <p>Al utilizar el servicio de aparcacoches de la Empresa, el Cliente acepta cumplir con estos Términos en su totalidad.</p>
+                <h4>9. Manejo de Datos Personales</h4>
+                <p>Al completar y enviar el formulario de reserva, usted acepta que el intermediario y la Empresa recopilen, almacenen y utilicen sus datos personales para la gestión y prestación del servicio de aparcacoches. Sus datos serán tratados con la máxima confidencialidad y de acuerdo con las leyes y regulaciones aplicables sobre protección de datos. Usted tiene derecho a acceder, rectificar y eliminar sus datos personales en cualquier momento, así como a retirar su consentimiento para su tratamiento, contactándonos a través de [información de contacto del intermediario o de la Empresa].</p>
+
+                <h4>10. Modificaciones y Actualizaciones</h4>
+                <p>Nos reservamos el derecho de modificar o actualizar estos términos y condiciones en cualquier momento. Cualquier cambio será efectivo inmediatamente después de su publicación en nuestro sitio web o mediante notificación directa a los usuarios. Es su responsabilidad revisar periódicamente estos términos y condiciones para estar al tanto de cualquier cambio.</p>
+              
+                <h4>11. Aceptación de los Términos</h4>
+                <p>Al utilizar nuestros servicios, usted acepta estos términos y condiciones en su totalidad. Si no está de acuerdo con alguno de los términos establecidos aquí, le rogamos que no utilice nuestro servicio de aparcacoches.</p>              
               </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
@@ -376,10 +386,12 @@
                     document.getElementById("nom_cliente").classList.remove("is-valid");
                     document.getElementById("nom_cliente").classList.add("is-invalid");
                     errornombre.style.display = 'block';
+                    return false;
                 } else {
                     document.getElementById("nom_cliente").classList.remove("is-invalid");
                     document.getElementById("nom_cliente").classList.add("is-valid");
                     errornombre.style.display = 'none';
+                    return true;
                 }
             });
 
@@ -455,6 +467,51 @@
       var regex = /^\d{9}$/; // El número debe tener exactamente 9 dígitos
       return regex.test(numero);
     }
+    var errormodelo = document.getElementById('error-modelo');
+    function validarModelo(input) {
+        if (input.value.trim() === '') { // Verificar si el campo está vacío
+            document.getElementById("modelo").classList.remove("is-valid");
+            document.getElementById("modelo").classList.add("is-invalid");
+            errormodelo.style.display = 'block';
+            return false;
+        } else {
+            document.getElementById("modelo").classList.remove("is-invalid");
+            document.getElementById("modelo").classList.add("is-valid");
+            errormodelo.style.display = 'none';
+            return true;
+        }
+    // Expresión regular para validar colores con las especificaciones dadas
+    var regex = /^[A-Z][a-z]*\s[A-Z][a-z]*$/;
+    
+    // Comprobar si el valor del input coincide con la expresión regular
+    if (regex.test(input.value)) {
+        input.style.borderColor = ""; // Establecer borde a su estado original si es válido
+        return true;
+    } else {
+        // Convertir todo el texto a minúsculas
+        var texto = input.value.toLowerCase();
+        // Dividir el texto en palabras
+        var palabras = texto.split(" ");
+        // Limitar la cantidad de palabras a dos
+        palabras = palabras.slice(0, 2);
+        // Capitalizar la primera letra de cada palabra
+        for (var i = 0; i < palabras.length; i++) {
+            palabras[i] = palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1);
+        }
+        // Unir las palabras nuevamente en una cadena con un solo espacio entre ellas
+        var textoFormateado = palabras.join(" ");
+        input.value = textoFormateado; // Establecer el valor del campo de entrada con el texto formateado
+        // input.style.borderColor = "red"; // Establecer borde rojo ya que la entrada no es válida
+        return false;
+    }
+                
+}
+    // Ejemplo de uso:
+var inputModelo = document.getElementById("modelo");
+
+inputModelo.addEventListener("input", function() {
+    validarModelo(this);
+});
 
     function validarColor(input) {
     // Expresión regular para validar colores con las especificaciones dadas
@@ -566,12 +623,6 @@ var inputEntrada = document.getElementById("fecha_entrada");
 inputSalida.addEventListener("input", function() {
     validarFechaSalida(this, inputEntrada);
 });
-
-
-
-
-
-
 
     var cochesSelect = document.getElementById("cochesSelect");
     // Crear una nueva solicitud XMLHttpRequest
