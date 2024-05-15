@@ -28,7 +28,8 @@
         <thead>
             <tr>
                 <th style="width: 5%;">#</th>
-                <th style="width: 15%;">Nombre completo</th>
+                <th style="width: 15%;">Nombre</th>
+                <th style="width: 15%;">Apellido</th>
                 <th style="width: 20%;">Email</th>
                 <th style="width: 10%;">Rol</th>
                 <th style="width: 50%;">Acciones</th>
@@ -36,21 +37,28 @@
         </thead>
 
         <tbody>
-            @forelse ($empleados as $usuario)
+            @forelse ($empleados as $empleado)
                 <tr>
-                    <td>{{ $usuario->id }}</td>
-                    <td>{{ $usuario->nombre }} {{ $usuario->apellidos }}</td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>{{ $usuario->id_rol }}</td>
+                    <td>{{ $empleado->id }}</td>
+                    <td>{{ $empleado->nombre }}</td>
+                    <td>{{ $empleado->apellidos }}</td>
+                    <td>{{ $empleado->email }}</td>
                     <td>
-                        <a href="{{ route('empleado.show', ['id' => $usuario->id]) }}"
-                            class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Mostrar</a>
+                        @if ($empleado->id_rol)
+                            {{ \App\Models\tbl_roles::find($empleado->id_rol)->nombre }}
+                        @else
+                            Sin rol asignado
+                        @endif
+                    </td>
+                                        <td>
+                        <a href="{{ route('empleado.show', ['id' => $empleado->id]) }}" class="btn btn-info btn-sm"><i
+                                class="fas fa-eye"></i> Mostrar</a>
 
                         <a href="#" class="btn btn-primary btn-sm btn-edit"
-                            data-product-id="{{ $usuario->id }}"><i class="fas fa-edit"></i> Editar</a>
+                            data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i> Editar</a>
 
-                        <button onclick="eliminarUsuario({{ $usuario->id }})"
-                            class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                        <button onclick="eliminarUsuario({{ $empleado->id }})" class="btn btn-danger btn-sm"><i
+                                class="fas fa-trash-alt"></i> Eliminar</button>
                     </td>
                 </tr>
             @empty
@@ -64,8 +72,8 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function eliminarUsuario(id) {

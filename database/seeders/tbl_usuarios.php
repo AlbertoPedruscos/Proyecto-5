@@ -18,7 +18,7 @@ class tbl_usuarios extends Seeder
             'apellidos' => 'Cesar',
             'email' => 'julio@gmail.com',
             'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
+            'id_rol' => 2,
             'id_empresa' => 1,
             'created_at' => now(),
             'updated_at' => now()
@@ -28,8 +28,8 @@ class tbl_usuarios extends Seeder
             'apellidos' => 'Catala',
             'email' => 'iker@gmail.com',
             'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
-            'id_empresa' => 1,
+            'id_rol' => 2,
+            'id_empresa' => 2,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -38,7 +38,7 @@ class tbl_usuarios extends Seeder
             'apellidos' => 'Bermejo',
             'email' => 'alberto@gmail.com',
             'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
+            'id_rol' => 3,
             'id_empresa' => 1,
             'created_at' => now(),
             'updated_at' => now()
@@ -48,7 +48,7 @@ class tbl_usuarios extends Seeder
             'apellidos' => 'Lopez',
             'email' => 'oscar@gmail.com',
             'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
+            'id_rol' => 3,
             'id_empresa' => 1,
             'created_at' => now(),
             'updated_at' => now()

@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Response;
 class EmpleadosController extends Controller
 {
     public function index(Request $request) {
-        $empleados = tbl_usuarios::all();
+        $empleados = tbl_usuarios::where('id_rol', '=', 3)->where('id_empresa', '=', $request->session()->get('empresa'))->get();
         $roles = tbl_roles::all();
         return view('gestion.gestEmpleados', compact('empleados','roles'));
     }
     
     public function store(Request $request) {
+        $idEmpresa = $request->session()->get('empresa');
+
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -28,6 +30,8 @@ class EmpleadosController extends Controller
         $empleado->apellidos = $request->input('apellido');
         $empleado->email = $request->input('email');
         $empleado->contrasena = bcrypt($request->input('pass'));
+        $empleado->id_rol = 3;
+        $empleado->id_empresa = $idEmpresa;
         $empleado->save();
     
         return redirect()->back()->with('success', 'Usuario registrado correctamente.');
