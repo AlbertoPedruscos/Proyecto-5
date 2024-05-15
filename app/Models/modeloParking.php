@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tbl_parking extends Model
+class modeloParking extends Model
 {
     use HasFactory;
     
-    protected $table = 'tbl_parking';
+    protected $table = 'tbl_parkings';
 
     protected $fillable = [
         'nombre',

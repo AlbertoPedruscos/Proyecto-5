@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\modeloReserva;
+use App\Models\modeloParking;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,7 @@ class ReservasController extends Controller
     public function mostrarR(Request $request) {
         // Obtener el filtro enviado desde la solicitud Ajax
         $filtro = "%" . $request->input('filtro') . "%";
+        // $parking = "%" . $request->input('parking') . "%";
         $fechaActual = Carbon::now()->toDateTimeString();
     
         // Filtrar las reservas según el filtro
@@ -49,5 +51,15 @@ class ReservasController extends Controller
         $reserva_cliente = modeloReserva::findOrFail($id_res); // Usamos findOrFail para obtener la reserva o lanzar una excepción si no se encuentra
         return view('reserva_cliente', compact('reserva_cliente')); // Pasamos los datos a la vista
     }
+    public function filtroUbi(Request $request) {
+        $parkings = modeloParking::where('id_empresa', function ($query) {
+            $query->select('id_empresa')
+                ->from('tbl_usuarios')
+                ->where('id', 2);
+        })->get();
+    
+        return response()->json(['parkings' => $parkings]);
+    }
+    
     
 }

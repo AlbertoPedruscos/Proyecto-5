@@ -49,14 +49,14 @@
         </nav>
         <div class="filtro">
             <div class="iconoFiltro">
-                <div class="accordion-item" style="padding-left: 1.5vh;">
+                <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <p class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            <span class="material-symbols-outlined" style="background-color: transparent;">
+                            <span class="material-symbols-outlined">
                                 filter_alt
                             </span>
-                        </p>
+                        </button>
                     </h2>
                 </div>
             </div>
@@ -69,45 +69,7 @@
         </div>
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Ubicación
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div id="ubicaciones">
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Accordion Item #2
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          Accordion Item #3
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <p>Filtro</p>
             </div>
         </div>
         <div class="reservas" id="reservas">
@@ -146,34 +108,26 @@
                     //     tabla += '<tr><td>' + reserva.id + '</td><td>' + reserva.nom_cliente + '</td><td>' + reserva.num_telf + '</td><td>' + reserva.email + '</td></tr>';
                     // });
                     var contadorVueltas = 0;
-                    // Primero, convertimos las fechas de entrada y salida en objetos Date y añadimos la propiedad hora para cada reserva
-                    data.reservas.forEach(function(reserva) {
-                        reserva.fechaEntrada = new Date(reserva.fecha_entrada);
-                        reserva.fechaSalida = new Date(reserva.fecha_salida);
-
-                        // Calculamos la hora basada en la fecha de entrada o salida, dependiendo de cuál sea más temprana
-                        reserva.hora = Math.min(reserva.fechaEntrada.getTime(), reserva.fechaSalida.getTime());
-                    });
-
-                    // Luego, ordenamos las reservas por la propiedad hora
-                    data.reservas.sort(function(a, b) {
-                        return a.hora - b.hora;
-                    });
-
-                    // Finalmente, recorremos las reservas para crear el contenido
                     data.reservas.forEach(function(reserva) {
                         contadorVueltas++;
-
-                        var esHoyEntrada = comparaFechas(new Date(), reserva.fechaEntrada);
-                        var esHoySalida = comparaFechas(new Date(), reserva.fechaSalida);
+                        var esHoyEntrada = comparaFechas(new Date(), new Date(reserva.fecha_entrada));
+                        var esHoySalida = comparaFechas(new Date(), new Date(reserva.fecha_salida));
                         
-                        var horaMostrar = '';
+                        var claseColor = esHoyEntrada ? 'green' : (esHoySalida ? 'red' : 'white; color: black;');
 
-                        if (esHoyEntrada) {
-                            horaMostrar = formatoHora(reserva.fechaEntrada.getHours()) + ':' + formatoHora(reserva.fechaEntrada.getMinutes());
-                        } else if (esHoySalida) {
-                            horaMostrar = formatoHora(reserva.fechaSalida.getHours()) + ':' + formatoHora(reserva.fechaSalida.getMinutes());
-                        }
+                        contenidoReserva += '<div class="reservaCliente" style="background-color: ' + claseColor + ';" id="reserva' + reserva.id + '" onclick="window.location.href = \'/info_res?id_r=' + reserva.id + '\'">';
+                        contenidoReserva += '<div class="horasReservas">';
+                        
+                        var fechaActual = new Date();
+                        var fechaEntrada = new Date(reserva.fecha_entrada);
+                        var fechaSalida = new Date(reserva.fecha_salida);
+
+                        var horaEntrada = formatoHora(fechaEntrada.getHours()) + ':' + formatoHora(fechaEntrada.getMinutes());
+                        var horaSalida = formatoHora(fechaSalida.getHours()) + ':' + formatoHora(fechaSalida.getMinutes());
+                        
+                        var horaMostrar = esHoyEntrada ? horaEntrada : horaSalida;
+
+                        contenidoReserva += '<h5 style="float: left;">' + horaMostrar + '</h5>';
 
                         var tieneFirma = '';
                         if (esHoyEntrada && reserva.firma_entrada) {
@@ -182,11 +136,6 @@
                             tieneFirma = '<span class="material-symbols-outlined"> done </span>';
                         }
 
-                        var claseColor = esHoyEntrada ? 'green' : (esHoySalida ? 'red' : 'white; color: black');
-
-                        contenidoReserva += '<div class="reservaCliente" style="background-color: ' + claseColor + ';" id="reserva' + reserva.id + '" onclick="window.location.href = \'/info_res?id_r=' + reserva.id + '\'">';
-                        contenidoReserva += '<div class="horasReservas">';
-                        contenidoReserva += '<h5 style="float: left;">' + horaMostrar + '</h5>';
                         contenidoReserva += '<p>' + tieneFirma + '</p>';
                         contenidoReserva += '</div>';
                         contenidoReserva += '<h3>' + reserva.matricula + '</h3>';
@@ -194,17 +143,12 @@
                         var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre : 'No asignado';
                         var desH = reserva.trabajador ? 'disabled' : '';
                         
-                        contenidoReserva += '<button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' + nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
+                        contenidoReserva += '<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' + nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
                         contenidoReserva += '</div>';
                     });
 
-                    // Agregar event listeners a los checkboxes
-                    parkings.forEach(function(parking) {
-                        var checkbox = document.getElementById('parking' + parking.id);
-                        checkbox.addEventListener('change', function() {
-                            filtrarReservas(parking.id); // Llamar a filtrarReservas() con el valor del checkbox como argumento
-                        });
-                    });
+
+
 
                     function comparaFechas(fecha1, fecha2) {
                         return fecha1.toDateString() === fecha2.toDateString();
@@ -234,7 +178,7 @@
                 };
 
                 // Enviar la petición
-                xhr.send("filtro=" + encodeURIComponent(filtro) + "&parking=" + idParking); // Asegúrate de codificar el filtro correctamente
+                xhr.send("filtro=" + encodeURIComponent(filtro)); // Asegúrate de codificar el filtro correctamente
             }
 
             //   // Agregar un event listener para el evento 'input'
@@ -249,48 +193,6 @@
                     filtrarReservas();
                 }
             });
-            function filtroUbi() {
-                // document.getElementById('reservas').innerHTML = "";
-                // Obtener el valor del input de búsqueda
-                // Obtener el token CSRF desde una etiqueta meta
-                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                // Configurar la petición Ajax incluyendo el token CSRF
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', "{{ route('filtroUbi') }}", true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Establecer el tipo de contenido
-                xhr.setRequestHeader('X-CSRF-TOKEN', token); // Configurar el token CSRF en la cabecera de la solicitud
-
-
-                // Configurar el callback cuando la petición haya sido completada
-                xhr.onload = function() {
-                    if (xhr.status >= 200 && xhr.status < 400) {
-                        var data = JSON.parse(xhr.responseText);
-                        var parkings = data.parkings;
-
-                        // Construir el HTML para los parkings
-                        var html = '';
-                        parkings.forEach(function(parking) {
-                            html += '<div class="form-check">';
-                            html += '<input class="form-check-input" type="checkbox" value="' + parking.id + '" id="parking' + parking.id + '">';
-                            html += '<label class="form-check-label" for="parking' + parking.id + '">' + parking.nombre + '</label>';
-                            html += '</div>';
-                        });
-
-                        // Actualizar el contenido del elemento 'ubicaciones'
-                        document.getElementById('ubicaciones').innerHTML = html;
-                    }
-                };
-
-                // Configurar el callback para manejar errores de red
-                xhr.onerror = function() {
-                    console.error('Error de red al realizar la petición.');
-                };
-
-                // Enviar la petición
-                xhr.send(); // Asegúrate de codificar el filtro correctamente
-                }
-            filtroUbi();
             filtrarReservas();
         </script>
     </body>

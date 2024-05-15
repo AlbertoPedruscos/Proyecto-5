@@ -36,6 +36,7 @@ Route::post('/enviarMen', [chatController::class, 'enviarMen'])->name('enviarMen
 
 
 Route::post('/mostrar_reservas', [ReservasController::class, 'mostrarR'])->name('mostrarR');
+Route::post('/filtroubi', [ReservasController::class, 'filtroUbi'])->name('filtroUbi');
 Route::post('/mostrar_reservas_filtro', [ReservasController::class, 'mostrarRFiltro'])->name('mostrarRFiltro');
 
 Route::get('/cambio', function () {
