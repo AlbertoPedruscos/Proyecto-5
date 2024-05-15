@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Response;
 class EmpleadosController extends Controller
 {
     public function index(Request $request) {
-        $empleados = tbl_usuarios::where('id_rol', '=', 3)->where('id_empresa', '=', $request->session()->get('empresa'))->get();
+        $idEmpresa = $request->session()->get('empresa');
+        $empleados = tbl_usuarios::where('id_empresa', $idEmpresa)->get();
         $roles = tbl_roles::all();
         return view('gestion.gestEmpleados', compact('empleados','roles'));
     }
@@ -51,20 +52,31 @@ class EmpleadosController extends Controller
 
     public function buscarEmpleado(Request $request)
     {
-        $query = tbl_usuarios::query();
+        $idEmpresa = $request->session()->get('empresa');
+        $query = tbl_usuarios::where('id_empresa', $idEmpresa);
     
         // Filtrar por nombre si se proporciona
-        if ($request->has('search')) {
+        if ($request->filled('search')) {
             $query->where('nombre', 'like', '%' . $request->search . '%');
         }
     
         // Filtrar por rol si se selecciona
-        if ($request->has('rol')) {
+        if ($request->filled('rol')) {
             $query->where('id_rol', $request->rol);
         }
     
+        // Si no se proporciona ningún filtro, devolver todos los empleados
+        if (!$request->filled('search') && !$request->filled('rol')) {
+            $query->where('id_empresa', $idEmpresa);
+        }
+    
+        // Obtener los empleados según la consulta
         $empleados = $query->get();
     
-        return Response::json(view('tablas.tbl_empleados', compact('empleados'))->render());
+        // Renderizar la vista de la tabla de empleados con los datos obtenidos
+        $view = view('tablas.tbl_empleados', compact('empleados'))->render();
+    
+        // Devolver la respuesta como JSON
+        return response()->json($view);
     }
 }
