@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\tbl_usuarios;
+use App\Models\tbl_roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -10,7 +11,8 @@ class EmpleadosController extends Controller
 {
     public function index(Request $request) {
         $empleados = tbl_usuarios::all();
-        return view('gestion.gestEmpleados', compact('empleados'));
+        $roles = tbl_roles::all();
+        return view('gestion.gestEmpleados', compact('empleados','roles'));
     }
     
     public function store(Request $request) {
@@ -45,7 +47,20 @@ class EmpleadosController extends Controller
 
     public function buscarEmpleado(Request $request)
     {
-        $empleados = tbl_usuarios::where('nombre', 'like', '%'.$request->search.'%')->get();
+        $query = tbl_usuarios::query();
+    
+        // Filtrar por nombre si se proporciona
+        if ($request->has('search')) {
+            $query->where('nombre', 'like', '%' . $request->search . '%');
+        }
+    
+        // Filtrar por rol si se selecciona
+        if ($request->has('rol')) {
+            $query->where('id_rol', $request->rol);
+        }
+    
+        $empleados = $query->get();
+    
         return Response::json(view('tablas.tbl_empleados', compact('empleados'))->render());
     }
 }

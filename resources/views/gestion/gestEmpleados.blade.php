@@ -48,14 +48,30 @@
             <div class="alert alert-success" style="padding-top: 10px">{{ session('success') }}</div>
         @endif
 
+        {{-- CANTIDAD DE USUARIOS --}}
+        <h3>Total de usuarios: ({{ count($empleados) }})</h3>
+
         {{-- FILTRO POR TEXTO --}}
         <form id="searchForm" method="GET">
             <div class="form-group">
                 <label for="search">Buscar por nombre:</label>
-                <input type="text" name="search" id="search" class="form-control" value="{{ request()->input('search') }}" onkeyup="buscarEmpleado()">
+                <input type="text" name="search" id="search" class="form-control"
+                    value="{{ request()->input('search') }}" onkeyup="buscarEmpleado()" placeholder="Busca por nombre de empleado">
             </div>
         </form>
-        
+
+        {{-- FILTRO POR ROL --}}
+        <form action="">
+            <select name="rol" id="rol" onchange="buscarEmpleado()">
+                <option value="" selected disabled>-- Selecciona un rol --</option>
+                @foreach ($roles as $rol)
+                    @if ($rol->id != 1)
+                        <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
+                    @endif
+                @endforeach
+            </select>
+        </form>
+
         {{-- REGISTRAR USUARIO --}}
         <button type="button" class="btn btn-primary" id="abrirModal">Registrar usuario</button>
 
@@ -132,18 +148,20 @@
         </script>
 
         <script>
-            // Función para realizar la búsqueda mientras se escribe en el campo de búsqueda
-            $('#search').on('keyup', function() {
+            // Función para realizar la búsqueda cuando se cambia el valor del campo de búsqueda o del filtro por rol
+            $('#search, #rol').on('change keyup', function() {
                 buscarEmpleado();
             });
 
             function buscarEmpleado() {
                 var searchKeyword = $('#search').val();
+                var rolFilter = $('#rol').val();
                 $.ajax({
                     url: '{{ route('empleado.buscar') }}',
                     type: 'GET',
                     data: {
-                        search: searchKeyword
+                        search: searchKeyword,
+                        rol: rolFilter
                     },
                     success: function(response) {
                         $('#tabla').html(response);
