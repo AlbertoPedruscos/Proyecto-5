@@ -44,7 +44,7 @@ class LoginController extends Controller
             $request->session()->put('empresa', $user->id_empresa);
             $request->session()->put('nombre_empresa', $empresa->nombre); 
 
-            return redirect()->route('mapa');
+            return redirect()->route('gestEmpleados');
 
         } else {
             // Si las credenciales son incorrectas, redirigir con mensaje de error

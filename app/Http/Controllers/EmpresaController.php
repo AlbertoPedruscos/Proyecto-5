@@ -45,12 +45,16 @@ class EmpresaController extends Controller
         $rol = $request->input('rol');
 
         $resultado = tbl_usuarios::find($id);
-        $resultado->nombre = $nombre;
-        $resultado->apellidos = $apellidos;
-        $resultado->email = $email;
-        $resultado->id_rol = $rol;
-        $resultado->save();
-        echo "ok";
+        if ($resultado) {
+            $resultado->nombre = $nombre;
+            $resultado->apellidos = $apellidos;
+            $resultado->email = $email;
+            $resultado->id_rol = $rol;
+            $resultado->save();
+            return response()->json(['message' => 'ok']);
+        } else {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
     }
 
     public function eliminar(Request $request)
@@ -63,11 +67,15 @@ class EmpresaController extends Controller
                     $resultado->delete();
                 }
             }
-            echo "ok";
+            return response()->json(['message' => 'ok']);
         } else {
             $resultado = tbl_usuarios::find($ids);
-            $resultado->delete();
-            echo "ok";
+            if ($resultado) {
+                $resultado->delete();
+                return response()->json(['message' => 'ok']);
+            } else {
+                return response()->json(['error' => 'Usuario no encontrado'], 404);
+            }
         }
     }
 
@@ -79,10 +87,7 @@ class EmpresaController extends Controller
         $apellidos = $request->input('apellido');
         $email = $request->input('email');
         $pwdencrip = bcrypt($request->input('email'));
-        // $pwd = $request->input('pwd');
         $SelecRoles = $request->input('SelecRoles');
-
-
 
         $resultado = new tbl_usuarios();
         $resultado->nombre = $nombre;
@@ -92,6 +97,6 @@ class EmpresaController extends Controller
         $resultado->id_rol = $SelecRoles;
         $resultado->id_empresa = $empresa;
         $resultado->save();
-        echo "ok";
+        return response()->json(['message' => 'ok']);
     }
 }

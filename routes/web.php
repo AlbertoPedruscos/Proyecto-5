@@ -8,6 +8,7 @@ use App\Http\Controllers\InicioController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ReservasGrudController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\EmpleadosController;
 
 
 Route::get('/', function () {
@@ -66,3 +67,14 @@ Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas']
 
 
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
+
+
+
+/* Gestión empleados prueba Iker */
+Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados');
+Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('empleado.store');
+Route::get('/empleado/show/{id}', [EmpleadosController::class, 'show'])->name('empleado.show');
+Route::post('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update');
+Route::post('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy');
+// Route::get('/empleado/buscarEmpleado', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscarEmpleado');
+Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar');
