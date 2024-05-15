@@ -70,12 +70,10 @@ Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO
 
 
 
-/* Gestión empleados prueba Iker */
-Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar
-Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('empleado.store'); // Registrar
-// Route::get('/empleado/show/{id}', [EmpleadosController::class, 'show'])->name('empleado.show'); // Ir a una página externa para ver los datos del usuario
-Route::get('/empleado/{id}/edit', [EmpleadosController::class, 'edit'])->name('empleado.edit'); // Editar
-Route::post('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update'); // Actualizar
-Route::post('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar
-Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar'); // Buscar
-Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar (método DELETE)
+/* Gestión empleados */
+Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar todos los empleados
+Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('empleado.store'); // Registrar un nuevo empleado
+Route::get('/empleado/{id}/edit', [EmpleadosController::class, 'edit'])->name('empleado.edit'); // Editar un empleado
+Route::put('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update'); // Actualizar datos de un empleado
+Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar un empleado
+Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar'); // Buscar empleados

@@ -93,33 +93,38 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="{{ route('empleado.store') }}" method="post" id="frmlogin">
-                            @csrf
-                            <div class="form-group">
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" name="nombre" id="nombre" placeholder="Introduce el nombre"
-                                    class="form-control">
-                            </div>
+                        @if (isset($empleado))
+                            <form action="{{ route('empleado.update', ['id' => $empleado->id]) }}" method="POST">
+                            @else
+                                <form action="{{ route('empleado.store') }}" method="post" id="frmlogin">
+                        @endif
+                        @csrf
+                        @if (isset($empleado))
+                            @method('PUT')
+                        @endif
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre" placeholder="Introduce el nombre"
+                                class="form-control" value="{{ isset($empleado) ? $empleado->nombre : '' }}">
+                        </div>
 
-                            <div class="form-group">
-                                <label for="apellido">Apellidos:</label>
-                                <input type="text" name="apellido" id="apellido" placeholder="Introduce el apellido"
-                                    class="form-control">
-                            </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellidos:</label>
+                            <input type="text" name="apellido" id="apellido" placeholder="Introduce el apellido"
+                                class="form-control" value="{{ isset($empleado) ? $empleado->apellidos : '' }}">
+                        </div>
 
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" name="email" id="email" placeholder="Introduce el email"
-                                    class="form-control">
-                            </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" id="email" placeholder="Introduce el email"
+                                class="form-control" value="{{ isset($empleado) ? $empleado->email : '' }}">
+                        </div>
 
-                            <div class="form-group">
-                                <label for="pass">Contraseña:</label>
-                                <input type="password" name="pass" id="pass" placeholder="Introduce la contraseña"
-                                    class="form-control">
-                            </div>
-
+                        @if (isset($empleado))
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        @else
                             <button type="submit" class="btn btn-primary">Registrar</button>
+                        @endif
                         </form>
                     </div>
                 </div>
@@ -148,7 +153,31 @@
             });
         </script>
 
-        {{-- FILTRO POR NOMBRE Y ROL SUMATICVO --}}
+        {{-- MOSTRAR MODAL EDITAR USUARIO --}}
+        <script>
+            $(document).ready(function() {
+                $('.btn-edit').click(function(e) {
+                    e.preventDefault();
+                    var empleadoId = $(this).data('product-id');
+                    $.ajax({
+                        url: '/empleado/' + empleadoId + '/edit',
+                        type: 'GET',
+                        success: function(response) {
+                            $('#edit_nombre').val(response.nombre);
+                            $('#edit_apellido').val(response.apellidos);
+                            $('#edit_email').val(response.email);
+                            $('#editModal').modal('show');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                            alert('Error al cargar los datos del usuario.');
+                        }
+                    });
+                });
+            });
+        </script>
+
+        {{-- FILTRO POR NOMBRE Y ROL SUMATIVO --}}
         <script>
             $('#search, #rol').on('change keyup', function() {
                 buscarEmpleado();

@@ -16,6 +16,28 @@ class EmpleadosController extends Controller
         return view('gestion.gestEmpleados', compact('empleados','roles'));
     }
     
+    public function edit($id) {
+        $empleado = tbl_usuarios::findOrFail($id);
+        return response()->json($empleado);
+    }
+    
+    public function update(Request $request, $id) {
+        $empleado = tbl_usuarios::findOrFail($id);
+    
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:tbl_usuarios,email,'.$empleado->id,
+        ]);
+    
+        $empleado->nombre = $request->input('nombre');
+        $empleado->apellidos = $request->input('apellidos');
+        $empleado->email = $request->input('email');
+        $empleado->save();
+    
+        return redirect()->route('gestEmpleados')->with('success', 'Empleado actualizado correctamente.');
+    }
+
     public function store(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
 
@@ -37,36 +59,7 @@ class EmpleadosController extends Controller
     
         return redirect()->back()->with('success', 'Usuario registrado correctamente.');
     }
-        
-    public function show($id) {
-        //
-    }
-
-    public function edit($id) {
-        $empleado = tbl_usuarios::findOrFail($id);
-        return response()->json($empleado);
-    }
-    
-    public function update(Request $request, $id) {
-        $empleado = tbl_usuarios::findOrFail($id);
-    
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellidos' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:tbl_usuarios,email,'.$empleado->id,
-        ]);
-        
-        $empleado->nombre = $request->input('nombre');
-        $empleado->apellidos = $request->input('apellido');
-        $empleado->email = $request->input('email');
-        $empleado->contrasena;
-        $empleado->id_rol = 3;
-        $empleado->id_empresa = $idEmpresa;
-        $empleado->update();
-    
-        return response()->json(['success' => 'Empleado actualizado correctamente.']);
-    }
-        
+                        
     public function destroy($id)
     {
         $empleado = tbl_usuarios::findOrFail($id);

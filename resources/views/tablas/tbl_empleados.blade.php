@@ -49,19 +49,20 @@
                         @endif
                     </td>
                     <td>
-                        {{-- <a href="{{ route('empleado.show', ['id' => $empleado->id]) }}" class="btn btn-info btn-sm"><i
-                                class="fas fa-eye"></i> Mostrar</a> --}}
-
-                        <a href="#" class="btn btn-primary btn-sm btn-edit"
-                            data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i> Editar</a>
-
-                        <!-- Formulario para eliminar el usuario -->
-                        <form id="frmEliminar{{ $empleado->id }}" action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" onclick="eliminarUsuario({{ $empleado->id }})" class="btn btn-danger btn-sm"><i
-                                    class="fas fa-trash-alt"></i> Eliminar</button>
-                        </form>
+                        <!-- Verificar si el ID del empleado es diferente de 2 para mostrar los botones -->
+                        @if ($empleado->id != 2)
+                            <!-- Botón para editar empleado -->
+                            <button class="btn btn-primary btn-sm btn-edit" data-product-id="{{ $empleado->id }}"><i
+                                    class="fas fa-edit"></i> Editar</button>
+                            <!-- Formulario para eliminar el usuario -->
+                            <form id="frmEliminar{{ $empleado->id }}"
+                                action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" onclick="eliminarUsuario({{ $empleado->id }})"
+                                    class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @empty
@@ -72,6 +73,43 @@
         </tbody>
     </table>
 
+
+    <!-- Modal de edición de empleado -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar empleado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm" action="{{ route('empleado.update', ['id' => $empleado->id]) }}"
+                        method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="edit_nombre">Nombre:</label>
+                            <input type="text" name="nombre" id="edit_nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_apellidos">Apellidos:</label>
+                            <input type="text" name="apellidos" id="edit_apellidos" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit_email">Email:</label>
+                            <input type="email" name="email" id="edit_email" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -79,6 +117,29 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        $(document).ready(function() {
+            $('.btn-edit').click(function(e) {
+                e.preventDefault();
+                var empleadoId = $(this).data('product-id');
+                $.ajax({
+                    url: '/empleado/' + empleadoId + '/edit',
+                    type: 'GET',
+                    success: function(response) {
+                        // Llenar el modal de edición con los datos del empleado
+                        $('#edit_nombre').val(response.nombre);
+                        $('#edit_apellidos').val(response.apellidos);
+                        $('#edit_email').val(response.email);
+                        // Mostrar el modal de edición
+                        $('#editModal').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert('Error al cargar los datos del usuario.');
+                    }
+                });
+            });
+        });
+
         function eliminarUsuario(id) {
             Swal.fire({
                 title: '¿Estás seguro?',
