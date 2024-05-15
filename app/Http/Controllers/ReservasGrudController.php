@@ -4,26 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tbl_usuarios;
-use App\Models\tbl_roles;
 use App\Models\tbl_reservas;
+use App\Models\tbl_parking;
+use App\Models\tbl_plazas;
 
 class ReservasGrudController extends Controller
 {
     public function listarreservas()
     {
-        $empresa = session('id_empresa');
-        $usuarios = tbl_usuarios::all()->where('id', 2);
+        $empresa = session('empresa');
+        $parkings = tbl_parking::where('id_empresa', $empresa)->get();
+        $plazas = [];
+        foreach ($parkings as $parking) {
+            $parkingId = $parking->id;
+            $plazasDelParking = tbl_plazas::where('id_parking', $parkingId)->where('id_estado', 2)->get();
+            $plazas = array_merge($plazas, $plazasDelParking->toArray());
+        }
+
+
+        $usuarios = tbl_usuarios::where('id_empresa', $empresa)->get();
         $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
             ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
             ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
             ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
-            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'e.nombre as empresa')
-            ->orderby('tbl_reservas.fecha_entrada', 'asc')
-            ->where('e.id', 2);
-        $reservas = $reservas->get();
-        // return response()->json($reservas);
-        return response()->json(['reservas' => $reservas, 'usuarios' => $usuarios]);
+            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.id as parkingID', 'pakg.nombre as parking', 'e.nombre as empresa')
+            ->orderBy('tbl_reservas.fecha_entrada', 'asc')
+            ->where('e.id', $empresa)
+            ->get();
+        // return response()->json($parkings);
+
+        return response()->json(['reservas' => $reservas, 'usuarios' => $usuarios, 'parkings' => $parkings, 'plazas' => $plazas]);
     }
+
 
 
 
@@ -64,7 +76,7 @@ class ReservasGrudController extends Controller
 
     public function registrar(Request $request)
     {
-        $empresa = session('id_empresa');
+        $empresa = session('empresa');
 
         $nombre = $request->input('nombreuser');
         $apellidos = $request->input('apellido');

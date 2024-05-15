@@ -9,7 +9,7 @@ class tbl_parking extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_parking'; // Especifica la tabla si no sigue la convención
+    protected $table = 'tbl_parkings'; // Especifica la tabla si no sigue la convención
     protected $primaryKey = 'id'; // Establece la clave primaria
 
     // Asignación masiva permitida
@@ -28,7 +28,7 @@ class tbl_parking extends Model
         return $this->hasMany(tbl_plazas::class, 'id_parking');
     }
 
-    // Métodos personalizados, como scopes o transformaciones de datos
+    // Método personalizado para cargar la relación con la empresa
     public function scopeWithEmpresa($query)
     {
         return $query->with('empresa');
