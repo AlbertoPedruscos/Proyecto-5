@@ -160,9 +160,13 @@
                     e.preventDefault();
                     var empleadoId = $(this).data('product-id');
                     $.ajax({
-                        url: '/empleado/' + empleadoId + '/edit',
+                        url: '{{ route('empleado.edit', ['id' => ':id']) }}'.replace(':id',
+                            empleadoId),
                         type: 'GET',
                         success: function(response) {
+                            $('#editForm').attr('action',
+                                '{{ route('empleado.update', ['id' => ':id']) }}'.replace(
+                                    ':id', empleadoId));
                             $('#edit_nombre').val(response.nombre);
                             $('#edit_apellido').val(response.apellidos);
                             $('#edit_email').val(response.email);

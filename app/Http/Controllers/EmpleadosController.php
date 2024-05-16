@@ -6,16 +6,18 @@ use App\Models\tbl_usuarios;
 use App\Models\tbl_roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 class EmpleadosController extends Controller
 {
     public function index(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
-        $empleados = tbl_usuarios::where('id_empresa', $idEmpresa)->get();
+        $perPage = $request->query('perPage', 10); // Por defecto
+        $empleados = tbl_usuarios::where('id_empresa', $idEmpresa)->paginate($perPage);
         $roles = tbl_roles::all();
-        return view('gestion.gestEmpleados', compact('empleados','roles'));
+        return view('gestion.gestEmpleados', compact('empleados', 'roles'));
     }
-    
+            
     public function edit($id) {
         $empleado = tbl_usuarios::findOrFail($id);
         return response()->json($empleado);
