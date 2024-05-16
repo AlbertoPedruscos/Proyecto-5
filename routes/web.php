@@ -68,7 +68,7 @@ Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas']
 
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 
-
+    
 
 /* Gestión empleados prueba Iker */
 Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar todos los empleados
