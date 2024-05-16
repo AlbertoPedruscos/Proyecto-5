@@ -16,32 +16,6 @@ class EmpleadosController extends Controller
         return view('gestion.gestEmpleados', compact('empleados','roles'));
     }
     
-    public function store(Request $request) {
-        $idEmpresa = $request->session()->get('empresa');
-
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:tbl_usuarios',
-            'pass' => 'required|string|min:6|max:20', 
-        ]);
-    
-        $empleado = new tbl_usuarios();
-        $empleado->nombre = $request->input('nombre');
-        $empleado->apellidos = $request->input('apellido');
-        $empleado->email = $request->input('email');
-        $empleado->contrasena = bcrypt($request->input('pass'));
-        $empleado->id_rol = 3;
-        $empleado->id_empresa = $idEmpresa;
-        $empleado->save();
-    
-        return redirect()->back()->with('success', 'Usuario registrado correctamente.');
-    }
-        
-    public function show($id) {
-        //
-    }
-
     public function edit($id) {
         $empleado = tbl_usuarios::findOrFail($id);
         return response()->json($empleado);
@@ -55,18 +29,36 @@ class EmpleadosController extends Controller
             'apellidos' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:tbl_usuarios,email,'.$empleado->id,
         ]);
-        
+    
+        $empleado->nombre = $request->input('nombre');
+        $empleado->apellidos = $request->input('apellidos');
+        $empleado->email = $request->input('email');
+        $empleado->save();
+    
+        return redirect()->route('gestEmpleados')->with('success', 'Empleado actualizado correctamente.');
+    }
+
+    public function store(Request $request) {
+        $idEmpresa = $request->session()->get('empresa');
+
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:tbl_usuarios',
+            'pass' => 'required|string|min:6|max:20', 
+        ]);
+
+        $empleado = new tbl_usuarios();
         $empleado->nombre = $request->input('nombre');
         $empleado->apellidos = $request->input('apellido');
         $empleado->email = $request->input('email');
-        $empleado->contrasena;
+        $empleado->contrasena = bcrypt($request->input('pass'));
         $empleado->id_rol = 3;
         $empleado->id_empresa = $idEmpresa;
-        $empleado->update();
-    
-        return response()->json(['success' => 'Empleado actualizado correctamente.']);
-    }
-        
+        $empleado->save();
+
+        return redirect()->back()->with('success', 'Usuario registrado correctamente.');
+    }                        
     public function destroy($id)
     {
         $empleado = tbl_usuarios::findOrFail($id);

@@ -148,7 +148,31 @@
             });
         </script>
 
-        {{-- FILTRO POR NOMBRE Y ROL SUMATICVO --}}
+        {{-- MOSTRAR MODAL EDITAR USUARIO --}}
+        <script>
+            $(document).ready(function() {
+                $('.btn-edit').click(function(e) {
+                    e.preventDefault();
+                    var empleadoId = $(this).data('product-id');
+                    $.ajax({
+                        url: '/empleado/' + empleadoId + '/edit',
+                        type: 'GET',
+                        success: function(response) {
+                            $('#edit_nombre').val(response.nombre);
+                            $('#edit_apellido').val(response.apellidos);
+                            $('#edit_email').val(response.email);
+                            $('#editModal').modal('show');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                            alert('Error al cargar los datos del usuario.');
+                        }
+                    });
+                });
+            });
+        </script>
+
+        {{-- FILTRO POR NOMBRE Y ROL SUMATIVO --}}
         <script>
             $('#search, #rol').on('change keyup', function() {
                 buscarEmpleado();
