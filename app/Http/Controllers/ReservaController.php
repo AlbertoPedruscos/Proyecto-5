@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\tbl_reservas; // Asegúrate de importar el modelo adecuado
+use App\Models\tbl_reservas;
 use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
@@ -26,7 +26,7 @@ class ReservaController extends Controller
         $reserva->marca = $request->cochesSelect;
         $reserva->modelo = $request->modelo;
         $reserva->color =  $request->color;
-        $reserva->num_telf = $request->prefijo + $request->num_telf;
+        $reserva->num_telf = $request->prefijo . $request->num_telf;
         $reserva->email = $request->email;
         $reserva->ubicacion_entrada = $request->ubicacion_entrada;
         $reserva->ubicacion_salida = $request->ubicacion_salida;
@@ -37,14 +37,14 @@ class ReservaController extends Controller
         // Envio de correo
         // $sujeto = $request->get('nombre');
         $sujeto = "Codigo de Reserva";
-        $nombre_cliente = $request->nom_cliente;
+        // $nombre_cliente = $request->nom_cliente;
         // $nombreRemitente = $request->nombre;
         // $mensaje = $request->mensaje;
         $correoDestinatario = $request->email;
 
         Mail::send('correo.vistacorreo', [
             // 'nombre' => $nombreRemitente,
-            'correo' => $request->email,
+            // 'correo' => $request->email,
             'nombre_cliente' => $request->nom_cliente,
             'codigo_reserva' => $id
         ], function ($message) use ($correoDestinatario, $sujeto) {
