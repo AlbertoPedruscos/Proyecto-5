@@ -9,7 +9,7 @@ class tbl_parking extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_parking'; // Especifica la tabla si no sigue la convención
+    protected $table = 'tbl_parkings'; // Especifica la tabla si no sigue la convención
     protected $primaryKey = 'id'; // Establece la clave primaria
 
     // Asignación masiva permitida

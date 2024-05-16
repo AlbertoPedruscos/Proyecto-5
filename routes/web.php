@@ -64,11 +64,9 @@ Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas']
 
 
 // Formulario reserva
-
-
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 
-    
+
 
 /* Gestión empleados prueba Iker */
 Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar todos los empleados
@@ -77,3 +75,11 @@ Route::get('/empleado/{id}/edit', [EmpleadosController::class, 'edit'])->name('e
 Route::put('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update'); // Actualizar datos de un empleado
 Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar un empleado
 Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar'); // Buscar empleados
+
+
+
+
+// Info de los registros
+Route::get('/registros', function () {
+    return view('gestion.registros');
+})->name('registros');
