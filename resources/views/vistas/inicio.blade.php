@@ -300,8 +300,8 @@
                         }
                     } else {
                         Swal.fire({
-                            icon: 'error',
-                            title: 'No se ha podido establecer conexión',
+                            icon: 'warning',
+                            title: 'Comprueba los campos <br> o <br> contacta con la empresa',
                             showConfirmButton: false,
                             timer: 1500
                         });
