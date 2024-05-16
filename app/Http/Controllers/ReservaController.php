@@ -10,21 +10,6 @@ class ReservaController extends Controller
 {
     public function reservaO(Request $request)
     {
-        // Validar los datos del formulario
-        $request->validate([
-            'nom_cliente' => 'required|string|max:45',
-            'matricula' => 'required|string|max:10',
-            'marca' => 'required|string|max:15',
-            'modelo' => 'required|string|max:20',
-            'color' => 'required|string|max:15',
-            'num_telf' => ['required', 'regex:/^[0-9]{9}$/'],
-            'email' => 'required|email|max:45',
-            'ubicacion_entrada' => 'required|string|max:20',
-            'ubicacion_salida' => 'required|string|max:20',
-            'fecha_entrada' => 'required|date',
-            'fecha_salida' => 'required|date',
-        ]);
-
         // Generar un ID aleatorio de 20 dígitos y verificar si ya existe
         do {
             $id = '';
@@ -38,10 +23,10 @@ class ReservaController extends Controller
         $reserva->id = $id;
         $reserva->nom_cliente = $request->nom_cliente;
         $reserva->matricula = $request->matricula;
-        $reserva->marca = $request->marca;
+        $reserva->marca = $request->cochesSelect;
         $reserva->modelo = $request->modelo;
-        $reserva->color = $request->color;
-        $reserva->num_telf = $request->num_telf;
+        $reserva->color =  $request->color;
+        $reserva->num_telf = $request->prefijo + $request->num_telf;
         $reserva->email = $request->email;
         $reserva->ubicacion_entrada = $request->ubicacion_entrada;
         $reserva->ubicacion_salida = $request->ubicacion_salida;
@@ -59,8 +44,8 @@ class ReservaController extends Controller
 
         Mail::send('correo.vistacorreo', [
             // 'nombre' => $nombreRemitente,
-            'correo' => $correoDestinatario,
-            'nombre_cliente' => $nombre_cliente,
+            'correo' => $request->email,
+            'nombre_cliente' => $request->nom_cliente,
             'codigo_reserva' => $id
         ], function ($message) use ($correoDestinatario, $sujeto) {
             $message->to($correoDestinatario)

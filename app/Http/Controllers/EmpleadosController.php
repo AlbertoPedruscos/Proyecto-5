@@ -47,7 +47,7 @@ class EmpleadosController extends Controller
             'email' => 'required|string|email|max:255|unique:tbl_usuarios',
             'pass' => 'required|string|min:6|max:20', 
         ]);
-    
+
         $empleado = new tbl_usuarios();
         $empleado->nombre = $request->input('nombre');
         $empleado->apellidos = $request->input('apellido');
@@ -56,10 +56,9 @@ class EmpleadosController extends Controller
         $empleado->id_rol = 3;
         $empleado->id_empresa = $idEmpresa;
         $empleado->save();
-    
+
         return redirect()->back()->with('success', 'Usuario registrado correctamente.');
-    }
-                        
+    }                        
     public function destroy($id)
     {
         $empleado = tbl_usuarios::findOrFail($id);
