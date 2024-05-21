@@ -49,7 +49,7 @@
         @endif
 
         {{-- CANTIDAD DE USUARIOS --}}
-        <h3>Total de usuarios: ({{ count($empleados) }})</h3>
+        <h3>Total de usuarios: ({{ $totalEmpleados }})</h3>
 
         {{-- FILTRO POR TEXTO --}}
         <form id="searchForm" method="GET">
@@ -74,7 +74,7 @@
         </form>
 
         {{-- REGISTRAR USUARIO --}}
-        <button type="button" class="btn btn-primary" id="abrirModal">Registrar usuario</button>
+        <button type="button" class="btn btn-primary" id="abrirModal">Añadir usuario</button>
 
         {{-- TABLA --}}
         <div id="tabla">
@@ -82,49 +82,84 @@
         </div>
 
         {{-- MODAL AÑADIR USUARIO --}}
-        <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="register" aria-hidden="true">
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal-register"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modallogin">Registrar usuario</h5>
+                        <h5 class="modal-title" id="modal-register">Registrar nuevo empleado</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
                     <div class="modal-body">
-                        @if (isset($empleado))
-                            <form action="{{ route('empleado.update', ['id' => $empleado->id]) }}" method="POST">
-                            @else
-                                <form action="{{ route('empleado.store') }}" method="post" id="frmlogin">
-                        @endif
-                        @csrf
-                        @if (isset($empleado))
-                            @method('PUT')
-                        @endif
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" name="nombre" id="nombre" placeholder="Introduce el nombre"
-                                class="form-control" value="{{ isset($empleado) ? $empleado->nombre : '' }}">
-                        </div>
+                        <form action="{{ route('empleado.store') }}" method="post" id="frmRegistro">
+                            @csrf
 
-                        <div class="form-group">
-                            <label for="apellido">Apellidos:</label>
-                            <input type="text" name="apellido" id="apellido" placeholder="Introduce el apellido"
-                                class="form-control" value="{{ isset($empleado) ? $empleado->apellidos : '' }}">
-                        </div>
+                            <input type="hidden" name="currentUrl" id="currentUrl">
 
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" name="email" id="email" placeholder="Introduce el email"
-                                class="form-control" value="{{ isset($empleado) ? $empleado->email : '' }}">
-                        </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" name="nombre" id="nombre" placeholder="Introduce el nombre"
+                                    class="form-control" value="{{ isset($empleado) ? $empleado->nombre : '' }}">
+                            </div>
 
-                        @if (isset($empleado))
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        @else
+                            <div class="form-group">
+                                <label for="apellido">Apellidos:</label>
+                                <input type="text" name="apellido" id="apellido" placeholder="Introduce el apellido"
+                                    class="form-control" value="{{ isset($empleado) ? $empleado->apellidos : '' }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" name="email" id="email" placeholder="Introduce el email"
+                                    class="form-control" value="{{ isset($empleado) ? $empleado->email : '' }}">
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Registrar</button>
-                        @endif
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- MODAL EDITAR USUARIO --}}
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modal-edit"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-edit">Editar empleado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editForm" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="hidden" name="currentUrl" id="currentUrl">
+
+                            <div class="form-group">
+                                <label for="edit_nombre">Nombre:</label>
+                                <input type="text" name="nombre" id="edit_nombre" placeholder="Introduce el nombre"
+                                    class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_apellido">Apellidos:</label>
+                                <input type="text" name="apellido" id="edit_apellido"
+                                    placeholder="Introduce el apellido" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit_email">Email:</label>
+                                <input type="email" name="email" id="edit_email" placeholder="Introduce el email"
+                                    class="form-control">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
                         </form>
                     </div>
                 </div>
@@ -134,7 +169,15 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        {{-- MOSTRAR MODAL AGREGAR USUARIO --}}
+
+        <script>
+            $(document).ready(function() {
+                $('#abrirModal').click(function() {
+                    $('#registerModal').modal('show');
+                });
+            });
+        </script>
+        
         <script>
             $(document).ready(function() {
                 $('#abrirModal').click(function() {
@@ -189,13 +232,11 @@
 
             function buscarEmpleado() {
                 var searchKeyword = $('#search').val();
-                var rolFilter = $('#rol').val();
                 $.ajax({
                     url: '{{ route('empleado.buscar') }}',
                     type: 'GET',
                     data: {
-                        search: searchKeyword,
-                        rol: rolFilter
+                        search: searchKeyword
                     },
                     success: function(response) {
                         $('#tabla').html(response);
@@ -206,6 +247,14 @@
                     }
                 });
             }
+        </script>
+
+        <script>
+            // Obtener la URL actual del navegador
+            var currentUrl = window.location.href;
+
+            // Establecer el valor del campo oculto
+            document.getElementById("currentUrl").value = currentUrl;
         </script>
     @endpush
 @else
