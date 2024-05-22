@@ -12,10 +12,12 @@ class EmpleadosController extends Controller
 {
     public function index(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
-        $perPage = $request->query('perPage', 10); // Por defecto
+        $perPage = $request->query('perPage', 5); 
         $empleados = tbl_usuarios::where('id_empresa', $idEmpresa)->paginate($perPage);
         $roles = tbl_roles::all();
-        return view('gestion.gestEmpleados', compact('empleados', 'roles'));
+        $totalEmpleados = tbl_usuarios::where('id_empresa', $idEmpresa)->count();
+        return view('gestion.gestEmpleados', compact('empleados', 'roles', 'totalEmpleados'));
+        
     }
             
     public function edit($id) {
@@ -42,25 +44,25 @@ class EmpleadosController extends Controller
 
     public function store(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
-
+    
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:tbl_usuarios',
-            'pass' => 'required|string|min:6|max:20', 
         ]);
-
+    
         $empleado = new tbl_usuarios();
         $empleado->nombre = $request->input('nombre');
         $empleado->apellidos = $request->input('apellido');
         $empleado->email = $request->input('email');
-        $empleado->contrasena = bcrypt($request->input('pass'));
+        $empleado->contrasena = bcrypt('qweQWE123');
         $empleado->id_rol = 3;
         $empleado->id_empresa = $idEmpresa;
         $empleado->save();
-
-        return redirect()->back()->with('success', 'Usuario registrado correctamente.');
-    }                        
+    
+        return redirect()->route('gestEmpleados')->with('success', 'Usuario registrado correctamente.');
+    }
+        
     public function destroy($id)
     {
         $empleado = tbl_usuarios::findOrFail($id);
@@ -73,33 +75,51 @@ class EmpleadosController extends Controller
         }
     }
             
+    // public function buscarEmpleado(Request $request)
+    // {
+    //     $idEmpresa = $request->session()->get('empresa');
+    
+    //     \Log::info('Buscar Empleado - Empresa ID:', ['idEmpresa' => $idEmpresa]);
+    //     \Log::info('Buscar Empleado - Request Data:', ['search' => $request->search, 'rol' => $request->rol]);
+    
+    //     $query = tbl_usuarios::where('id_empresa', $idEmpresa);
+    
+    //     if ($request->filled('search')) {
+    //         \Log::info('Buscar Empleado - Filtrar por Nombre:', ['search' => $request->search]);
+    //         $query->where('nombre', 'like', '%' . $request->search . '%');
+    //     }
+    
+    //     if ($request->filled('rol')) {
+    //         \Log::info('Buscar Empleado - Filtrar por Rol:', ['rol' => $request->rol]);
+    //         $query->where('id_rol', $request->rol);
+    //     }
+    
+    //     try {
+    //         $empleados = $query->get();
+    //         \Log::info('Buscar Empleado - Empleados Encontrados:', ['empleados' => $empleados]);
+    
+    //         $view = view('tablas.tbl_empleados', compact('empleados'))->render();
+    //         return response()->json($view);
+    //     } catch (\Exception $e) {
+    //         \Log::error('Error al buscar empleados: ' . $e->getMessage(), ['exception' => $e]);
+    //         return response()->json(['error' => 'Error al realizar la búsqueda.'], 500);
+    //     }
+    // }
+
     public function buscarEmpleado(Request $request)
     {
-        $idEmpresa = $request->session()->get('empresa');
-        $query = tbl_usuarios::where('id_empresa', $idEmpresa);
+        $query = tbl_usuarios::where('id_empresa', $request->session()->get('empresa'));
     
-        // Filtrar por nombre si se proporciona
         if ($request->filled('search')) {
-            $query->where('nombre', 'like', '%' . $request->search . '%');
+            $query->where('nombre', 'like', '%'.$request->search.'%');
         }
     
-        // Filtrar por rol si se selecciona
         if ($request->filled('rol')) {
             $query->where('id_rol', $request->rol);
         }
     
-        // Si no se proporciona ningún filtro, devolver todos los empleados
-        if (!$request->filled('search') && !$request->filled('rol')) {
-            $query->where('id_empresa', $idEmpresa);
-        }
-    
-        // Obtener los empleados según la consulta
         $empleados = $query->get();
     
-        // Renderizar la vista de la tabla de empleados con los datos obtenidos
-        $view = view('tablas.tbl_empleados', compact('empleados'))->render();
-    
-        // Devolver la respuesta como JSON
-        return response()->json($view);
+        return Response::json(view('tablas.tbl_empleados', compact('empleados'))->render());
     }
-}
+}    

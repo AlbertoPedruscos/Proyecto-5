@@ -68,15 +68,14 @@ Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO
 
 
 
+
 /* Gestión empleados prueba Iker */
 Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar todos los empleados
 Route::post('/empleado/store', [EmpleadosController::class, 'store'])->name('empleado.store'); // Registrar
 Route::get('/empleado/{id}/edit', [EmpleadosController::class, 'edit'])->name('empleado.edit'); // Editar un empleado
 Route::put('/empleado/update/{id}', [EmpleadosController::class, 'update'])->name('empleado.update'); // Actualizar datos de un empleado
 Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])->name('empleado.destroy'); // Eliminar un empleado
-Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar'); // Buscar empleados
-
-
+Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->name('empleado.buscar');
 
 
 // Info de los registros
