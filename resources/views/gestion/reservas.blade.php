@@ -40,20 +40,6 @@
             </nav>
         </header>
 
-        <button id="menu" class="btnregister">Registrar <i class="fas fa-user-circle"></i></button>
-
-        <div class="col-lg-12 ml-auto" style="border:1px solid">
-            <form action="" method="post" id="frmbusqueda">
-                <div class="form-group">
-                    <label for="nombre">nombre:</label>
-                    <input type="text" name="nombre" id="nombre" placeholder="Buscar...">
-                </div>
-            </form>
-        </div>
-        <div>
-            <button onclick="selectmuldel()">Eliminar seleccion</button>
-        </div>
-
         <div class="column-container">
             <div>
                 <p>Pasadas</p>
