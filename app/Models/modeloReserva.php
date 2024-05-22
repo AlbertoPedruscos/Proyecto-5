@@ -24,12 +24,18 @@ class modeloReserva extends Model
         'ubicacion_salida',
         'fecha_entrada',
         'fecha_salida',
-        'firma',
+        'firma_entrada',
+        'firma_salida',
+        'notas',
     ];
 
     public function trabajador()
     {
         return $this->belongsTo(tbl_usuarios::class, 'id_trabajador', 'id', 'nombre');
+    }
+    public function plaza()
+    {
+        return $this->belongsTo(tbl_plazas::class, 'id_plaza', 'id', 'id_parking');
     }
 }
 
