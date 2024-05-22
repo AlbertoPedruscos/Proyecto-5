@@ -32,8 +32,7 @@
                     <div class="row g-2">
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="nom_cliente" id="nom_cliente"
-                                    placeholder="Enter your name...">
+                                <input type="text" class="form-control" name="nom_cliente" id="nom_cliente">
                                 <label for="floatingInputValue">Nombre</label>
                             </div>
                             <div class="invalid-feedback" id="error-nombre" style="display: none;">
@@ -42,8 +41,7 @@
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="matricula" id="matricula"
-                                    placeholder="Enter your plate...">
+                                <input type="text" class="form-control" name="matricula" id="matricula">
                                 <label for="floatingInputValue">Matrícula</label>
                             </div>
                             <div class="invalid-feedback" id="error-matricula" style="display: none;">
@@ -53,8 +51,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-floating">
-                            <input type="email" class="form-control" name="email" id="email"
-                                placeholder="name@example.com">
+                            <input type="email" class="form-control" name="email" id="email">
                             <label for="floatingInputGrid">Email</label>
                         </div>
                         <div class="invalid-feedback" id="error-email" style="display: none;">
@@ -73,8 +70,7 @@
                         </div>
                         <div class="col-md-7">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="num_telf" id="num_telf"
-                                    placeholder="Enter your phone number...">
+                                <input type="text" class="form-control" name="num_telf" id="num_telf">
                                 <label for="floatingInputValue">Teléfono</label>
                             </div>
                             <div class="invalid-feedback" id="error-telf" style="display: none;">
@@ -94,8 +90,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="modelo" id="modelo"
-                                    placeholder="Enter your car type...">
+                                <input type="text" class="form-control" name="modelo" id="modelo">
                                 <label for="floatingInputValue">Modelo</label>
                             </div>
                             <div class="invalid-feedback" id="error-modelo" style="display: none;">
@@ -104,8 +99,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="color" id="colorInput"
-                                    placeholder="Enter your color...">
+                                <input type="text" class="form-control" name="color" id="colorInput">
                                 <label for="colorInput">Color</label>
                                 {{-- ESTE NO ES OBLIGATORIO --}}
                             </div>
@@ -140,13 +134,12 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Entrega</span>
-                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada"
-                            placeholder="date">
+                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada">
                     </div>
                     <div class="input-group">
                         <span class="input-group-text">Recogida</span>
                         <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida"
-                            placeholder="date" disabled>
+                            disabled>
                     </div>
                 </div>
                 <div class="col-12">

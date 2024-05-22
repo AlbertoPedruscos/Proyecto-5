@@ -37,7 +37,7 @@
                             </div>
                             <div class="invalid-feedback" id="error-nombre" style="display: none;">
                                 El nombre no puede estar vacio.
-                            </div>                                          
+                            </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
@@ -63,8 +63,7 @@
                         </div>
                         <div class="col-md-7">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="num_telf" id="num_telf"
-                                    placeholder="Enter your phone number..." disabled>
+                                <input type="text" class="form-control" name="num_telf" id="num_telf" disabled>
                                 <label for="floatingInputValue">Teléfono</label>
                             </div>
                             <div class="invalid-feedback" id="error-telf" style="display: none;">
@@ -75,8 +74,7 @@
 
                     <div class="col-md-12">
                         <div class="form-floating">
-                            <input type="email" class="form-control" name="email" id="email"
-                                placeholder="name@example.com">
+                            <input type="email" class="form-control" name="email" id="email">
                             <label for="floatingInputGrid">Email</label>
                         </div>
                         <div class="invalid-feedback" id="error-email" style="display: none;">
@@ -93,7 +91,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button type="submit" id="form-btn" class="btn btn-dark">Enviar</button>
+                        <button type="submit" id="form-btn" class="btn btn-dark" disabled>Enviar</button>
                     </div>
             </form>
         </div>
