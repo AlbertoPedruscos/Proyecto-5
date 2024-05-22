@@ -30,7 +30,6 @@
           </span>
         </a>
             <a class="navbar-brand" href="#">Reserva núm. #{{ $reserva_cliente->id }}</a>
-
         </div>
     </nav>
     <div class="reserva">
@@ -177,6 +176,7 @@
             console.log(err);
         });
     }
+    
     function parar() {
       webcam.stop();
     }

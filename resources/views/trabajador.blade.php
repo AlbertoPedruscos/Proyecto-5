@@ -14,6 +14,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{{ asset('./css/reservas.css') }}">
         {{-- TOKEN --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -54,6 +55,7 @@
                             <a class="navbar-brand" href="logout" class="dropdown-item" style="color: black;">Cerrar
                                 sesión</a>
                             <a class="navbar-brand" href="/chatG" class="dropdown-item" style="color: black;">Chat</a>
+                            <div id="google_translate_element" class="google"></div>
                         </ul>
                     </div>
                 </div>
@@ -185,11 +187,14 @@
                 </span>
             </div>
         </div>
+        {{-- <button data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</button>
+        <button data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</button> --}}
         <div class="reservas" id="reservas">
 
         </div>
 
         <script type="text/javascript">
+
             var idParking = ""; // Declarar idParking de forma global
             var checkbox;
             var allres;
@@ -227,8 +232,13 @@
                         console.log("fechaActual:", fechaActual);
 
                         if (!filtroFecha || filtroFecha === fechaActual) {
-                            textonav.innerHTML = "Reservas de hoy";
-                            document.getElementById("texto-nav2").innerHTML = "Reservas de hoy";
+                            if (inputFiltro.value == "") {
+                                textonav.innerHTML = "Reservas de hoy";
+                                document.getElementById("texto-nav2").innerHTML = "Reservas de hoy";
+                            } else {
+                                textonav.innerHTML = "Reservas";
+                                document.getElementById("texto-nav2").innerHTML = "Reservas";
+                            }
                         } else {
                             textonav.innerHTML = "Reservas de " + filtroFecha;
                             document.getElementById("texto-nav2").innerHTML = "Reservas del " + filtroFecha;
@@ -270,7 +280,7 @@
 
                                     contenidoReserva += '<div class="reservaCliente" style="background-color: ' +
                                         claseColor + ';" id="reserva' + reserva.id +
-                                        '" onclick="window.location.href = \'/info_res?id_r=' + reserva.id + '\'">';
+                                        '">';
                                     contenidoReserva += '<div class="horasReservas">';
                                     contenidoReserva += '<h5 style="float: left;">' + horaMostrar + '</h5>';
                                     contenidoReserva += '<p>' + tieneFirma + '</p>';
@@ -281,8 +291,7 @@
                                         'No asignado';
                                     var desH = reserva.trabajador ? 'disabled' : '';
 
-                                    contenidoReserva +=
-                                        '<button type="button" class="btn btn-light" onclick="filtrarReservas()">' + nombreTrabajador + '</button>';
+                                    contenidoReserva += '<button type="button" class="btn btn-light" data-toggle="popover" title="Popover Header" onmouseover="">' + nombreTrabajador + '</button>';
                                     contenidoReserva += '</div>';
                                 }
                                 if (esHoySalida) {
@@ -308,7 +317,6 @@
                                     var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre :
                                         'No asignado';
                                     var desH = reserva.trabajador ? 'disabled' : '';
-
                                     contenidoReserva +=
                                         '<button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' +
                                         nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
@@ -338,7 +346,6 @@
                                     var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre :
                                         'No asignado';
                                     var desH = reserva.trabajador ? 'disabled' : '';
-
                                     contenidoReserva +=
                                         '<button type="button" class="btn btn-light" style="z-index: 2;">' + nombreTrabajador + '</button>';
                                     contenidoReserva += '</div>';
@@ -347,6 +354,7 @@
                         });
 
                         console.log('Total de vueltas: ' + data.reservas.length);
+                        document.getElementById('texto-nav').innerHTML += " (" + data.reservas.length + ")"; 
 
                         // Actualizar el contenido de la sección de reservas con la tabla construida
                         document.getElementById('reservas').innerHTML = contenidoReserva;
@@ -523,7 +531,17 @@
             function comparaFechas(fecha1, fecha2) {
                 return fecha1.toDateString() === fecha2.toDateString();
             }
+            $(document).ready(function(){
+  $('[data-toggle="popover"]').popover();   
+});
         </script>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'ca,eu,gl,en,fr,it,pt,de', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, gaTrack: true}, 'google_translate_element');
+                    }
+            </script>
+            
+            <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     </body>
 
     </html>
