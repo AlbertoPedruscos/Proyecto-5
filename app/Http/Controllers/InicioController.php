@@ -10,4 +10,9 @@ class InicioController extends Controller
     {
         return view('vistas.inicio');
     }
+    
+    public function contactanos()
+    {
+        return view('vistas.contactanos');
+    }
 }

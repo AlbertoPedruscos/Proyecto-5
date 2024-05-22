@@ -19,7 +19,7 @@
 
         <ul class="nav-right">
             <li><a href="">Sobre nosotros</a></li>
-            <li><a href="">Contáctanos</a></li>
+            <li><a href="{{ route('contactanos') }}">Contáctanos</a></li>
             <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
         </ul>
     </nav>
@@ -104,11 +104,12 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="color" id="color"
-                                    placeholder="Enter your phone number...">
-                                <label for="floatingInputValue">Color</label>
-                                {{-- ESTE NO ES  OBLIGATORIO --}}
+                                <input type="text" class="form-control" name="color" id="colorInput"
+                                    placeholder="Enter your color...">
+                                <label for="colorInput">Color</label>
+                                {{-- ESTE NO ES OBLIGATORIO --}}
                             </div>
+                            <div id="colorValidationMessage" style="color: red;"></div>
                         </div>
                     </div>
                     <div class="row g-2">
@@ -162,7 +163,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -266,53 +267,37 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
-            var formbtn = document.getElementById('form-btn');
-
-            function reservarNuevo() {
-                var form = document.getElementById('FrmReserva');
-                var formdata = new FormData(form);
-
-                var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
-                formdata.append('_token', csrfToken);
-                formdata.forEach(function(value, key) {
-                    console.log(key + ': ' + value);
-                });
-                var ajax = new XMLHttpRequest();
-                ajax.open('POST', '/reservaO');
-
-                ajax.onload = function() {
-                    if (ajax.status === 200) {
-                        if (ajax.responseText === "ok") {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡El vehiculo ha sido reservado!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                            form.reset();
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: '¡Hubo un problema al reservar el vehículo!',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Comprueba los campos <br> o <br> contacta con la empresa',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-                };
-
-                ajax.send(formdata);
-            }
             // VALIDACIONES
 
             document.addEventListener("DOMContentLoaded", function() {
+
+                var inputNombre = document.getElementById("nom_cliente");
+                var errornombre = document.getElementById("error-nombre");
+
+                inputNombre.addEventListener("blur", function() {
+                    var texto = this.value.replace(/\d/g, ''); // Eliminar números del texto ingresado
+                    texto = texto.toLowerCase().replace(/\b\w/g, function(
+                        l
+                    ) { // Convertir todo el texto a minúsculas y capitalizar la primera letra de cada palabra
+                        return l.toUpperCase();
+                    });
+                    this.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+
+                    if (texto.trim() === '') { // Verificar si el campo está vacío
+                        document.getElementById("nom_cliente").classList.remove("is-valid");
+                        document.getElementById("nom_cliente").classList.add("is-invalid");
+                        errornombre.style.display = 'block';
+                        return false;
+                    } else {
+                        document.getElementById("nom_cliente").classList.remove("is-invalid");
+                        document.getElementById("nom_cliente").classList.add("is-valid");
+                        errornombre.style.display = 'none';
+                        return true;
+                    }
+                });
+
+                // Matricula
+
                 var matriculaInput = document.getElementById("matricula");
                 var errormatricula = document.getElementById('error-matricula');
 
@@ -441,36 +426,8 @@
                     var regex = /^\d{1}[A-Za-z]{3}\d{2}$/;
                     return regex.test(matricula);
                 }
-                var inputNombre = document.getElementById("nom_cliente");
-                var errornombre = document.getElementById("error-nombre");
-
-                inputNombre.addEventListener("input", function() {
-                    var texto = this.value.replace(/\d/g, ''); // Eliminar números del texto ingresado
-                    texto = texto.toLowerCase().replace(/\b\w/g, function(
-                        l
-                    ) { // Convertir todo el texto a minúsculas y capitalizar la primera letra de cada palabra
-                        return l.toUpperCase();
-                    });
-                    this.value = texto; // Establecer el valor del campo de entrada con el texto formateado
-
-                    if (texto.trim() === '') { // Verificar si el campo está vacío
-                        document.getElementById("nom_cliente").classList.remove("is-valid");
-                        document.getElementById("nom_cliente").classList.add("is-invalid");
-                        errornombre.style.display = 'block';
-                        return false;
-                    } else {
-                        document.getElementById("nom_cliente").classList.remove("is-invalid");
-                        document.getElementById("nom_cliente").classList.add("is-valid");
-                        errornombre.style.display = 'none';
-                        return true;
-                    }
-                });
-
-
-
 
                 // EMAIL
-
 
                 var email = document.getElementById("email");
                 var erroremail = document.getElementById('error-email');
@@ -496,15 +453,14 @@
                     return dominioValido;
                 }
 
+
+
                 // TELEFONO
                 var num_telf = document.getElementById("num_telf");
                 num_telf.addEventListener("input", function() {
                     var numero = num_telf.value.trim();
-
-
                     // Reemplazar espacios y letras por una cadena vacía
                     num_telf.value = num_telf.value.replace(/\s/g, '').replace(/[a-zA-Z]/g, '');
-
                     // Si el número no empieza por 6, limpiar el campo y mostrar un mensaje de error
                     if (numero.charAt(0) !== '6' && numero.charAt(0) !== '9' && numero.charAt(0) !== '7') {
                         num_telf.value = "";
@@ -512,15 +468,16 @@
                         // mensajeError.style.marginTop = "10px"; // Añadir un margen superior al mensaje de error
                         return;
                     }
-
                     // Limitar la longitud a 9 caracteres
                     if (numero.length > 9) {
                         num_telf.value = numero.slice(0, 9); // Truncar el número a 9 caracteres
                     }
 
                 });
+
                 var errortelf = document.getElementById('error-telf');
                 num_telf.addEventListener("blur", function() {
+
                     if (!validarNumero(num_telf.value)) {
                         formbtn.disabled = true;
                         document.getElementById("num_telf").classList.add("is-invalid");
@@ -539,7 +496,15 @@
                     var regex = /^\d{9}$/; // El número debe tener exactamente 9 dígitos
                     return regex.test(numero);
                 }
+
+                // Modelo
+
+                var inputModelo = document.getElementById("modelo");
                 var errormodelo = document.getElementById('error-modelo');
+
+                inputModelo.addEventListener("blur", function() {
+                    validarModelo(this);
+                });
 
                 function validarModelo(input) {
                     if (input.value.trim() === '') { // Verificar si el campo está vacío
@@ -553,41 +518,7 @@
                         errormodelo.style.display = 'none';
                         return true;
                     }
-                    // Expresión regular para validar colores con las especificaciones dadas
-                    var regex = /^[A-Z][a-z]*\s[A-Z][a-z]*$/;
 
-                    // Comprobar si el valor del input coincide con la expresión regular
-                    if (regex.test(input.value)) {
-                        input.style.borderColor = ""; // Establecer borde a su estado original si es válido
-                        return true;
-                    } else {
-                        // Convertir todo el texto a minúsculas
-                        var texto = input.value.toLowerCase();
-                        // Dividir el texto en palabras
-                        var palabras = texto.split(" ");
-                        // Limitar la cantidad de palabras a dos
-                        palabras = palabras.slice(0, 2);
-                        // Capitalizar la primera letra de cada palabra
-                        for (var i = 0; i < palabras.length; i++) {
-                            palabras[i] = palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1);
-                        }
-                        // Unir las palabras nuevamente en una cadena con un solo espacio entre ellas
-                        var textoFormateado = palabras.join(" ");
-                        input.value =
-                            textoFormateado; // Establecer el valor del campo de entrada con el texto formateado
-                        // input.style.borderColor = "red"; // Establecer borde rojo ya que la entrada no es válida
-                        return false;
-                    }
-
-                }
-                // Ejemplo de uso:
-                var inputModelo = document.getElementById("modelo");
-
-                inputModelo.addEventListener("input", function() {
-                    validarModelo(this);
-                });
-
-                function validarColor(input) {
                     // Expresión regular para validar colores con las especificaciones dadas
                     var regex = /^[A-Z][a-z]*\s[A-Z][a-z]*$/;
 
@@ -614,27 +545,21 @@
                         return false;
                     }
                 }
-
-                // Ejemplo de uso:
-                var inputColor = document.getElementById("color");
-
-                inputColor.addEventListener("input", function() {
-                    validarColor(this);
-                });
-
-
 
                 // FECHA ENTRADA
+                var inputFecha = document.getElementById("fecha_entrada");
+
+                inputFecha.addEventListener("input", function() {
+                    validarFecha(this);
+                });
 
                 function validarFecha(input) {
                     var fechaIngresada = new Date(input.value);
                     var fechaActual = new Date();
-
                     // Obtener la fecha actual en milisegundos
                     var fechaActualMS = fechaActual.getTime();
                     // Agregar 10 minutos (10 * 60 * 1000 milisegundos) a la fecha actual
                     var fechaMinimaPermitidaMS = fechaActualMS + (10 * 60 * 1000);
-
                     // Comprobar si la fecha ingresada es válida
                     if (!isNaN(fechaIngresada.getTime())) {
                         // Comprobar si la fecha ingresada es mayor o igual que la fecha actual y si es mayor o igual que la fecha actual + 10 minutos
@@ -662,24 +587,18 @@
                     }
                 }
 
-
-                // Ejemplo de uso:
-                var inputFecha = document.getElementById("fecha_entrada");
-
-                inputFecha.addEventListener("input", function() {
-                    validarFecha(this);
-                });
-
                 // FECHA SALIDA
-
+                var inputSalida = document.getElementById("fecha_salida");
+                var inputEntrada = document.getElementById("fecha_entrada");
+                inputSalida.addEventListener("input", function() {
+                    validarFechaSalida(this, inputEntrada);
+                });
 
                 function validarFechaSalida(inputSalida, inputEntrada) {
                     var fechaSalida = new Date(inputSalida.value);
                     var fechaEntrada = new Date(inputEntrada.value);
-
                     // Agregar 5 horas (5 * 60 * 60 * 1000 milisegundos) a la fecha de entrada
                     var fechaMinimaPermitidaMS = fechaEntrada.getTime() + (5 * 60 * 60 * 1000);
-
                     // Comprobar si la fecha de salida es válida y si es al menos 5 horas después de la fecha de entrada
                     if (!isNaN(fechaSalida.getTime()) && fechaSalida >= new Date(fechaMinimaPermitidaMS)) {
                         inputSalida.setCustomValidity(""); // La fecha es válida
@@ -690,36 +609,33 @@
                         return false;
                     }
                 }
-
-                // Ejemplo de uso:
-                var inputSalida = document.getElementById("fecha_salida");
-                var inputEntrada = document.getElementById("fecha_entrada");
-
-                inputSalida.addEventListener("input", function() {
-                    validarFechaSalida(this, inputEntrada);
-                });
-
-                var cochesSelect = document.getElementById("cochesSelect");
-                // Crear una nueva solicitud XMLHttpRequest
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        // Parsear la respuesta JSON
-                        var data = JSON.parse(this.responseText);
-                        // Iterar sobre los datos y agregar opciones al select
-                        data.forEach(coche => {
-                            var option = document.createElement("option");
-                            option.value = coche.marca;
-                            option.textContent = coche.marca;
-                            cochesSelect.appendChild(option);
-                        });
-                    }
-                };
-
-                // Abrir y enviar la solicitud
-                xhr.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/coches", true);
-                xhr.send();
             });
+
+            // Tipo Coche
+
+            var cochesSelect = document.getElementById("cochesSelect");
+            // Crear una nueva solicitud XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Parsear la respuesta JSON
+                    var data = JSON.parse(this.responseText);
+                    // Iterar sobre los datos y agregar opciones al select
+                    data.forEach(coche => {
+                        var option = document.createElement("option");
+                        option.value = coche.marca;
+                        option.textContent = coche.marca;
+                        cochesSelect.appendChild(option);
+                    });
+                }
+            };
+
+            // Abrir y enviar la solicitud
+            xhr.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/coches", true);
+            xhr.send();
+
+            // Prefijo
+
             var prefijo = document.getElementById("prefijo");
             // Crear una nueva solicitud XMLHttpRequest
             var xhr2 = new XMLHttpRequest();
@@ -728,10 +644,10 @@
                     // Parsear la respuesta JSON
                     var data = JSON.parse(this.responseText);
                     // Iterar sobre los datos y agregar opciones al select
-                    data.forEach(coche => {
+                    data.forEach(prefijos => {
                         var option = document.createElement("option");
-                        option.value = coche.prefijo;
-                        option.textContent = coche.pais + " (" + coche.prefijo + ")";
+                        option.value = prefijos.prefijo;
+                        option.textContent = prefijos.pais + " (" + prefijos.prefijo + ")";
                         prefijo.appendChild(option);
                     });
                 }
@@ -740,5 +656,50 @@
             // Abrir y enviar la solicitud
             xhr2.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/prefijo", true);
             xhr2.send();
+
+            var formbtn = document.getElementById('form-btn');
+
+            function reservarNuevo() {
+                var form = document.getElementById('FrmReserva');
+                var formdata = new FormData(form);
+
+                var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+                formdata.append('_token', csrfToken);
+                formdata.forEach(function(value, key) {
+                    console.log(key + ': ' + value);
+                });
+                var ajax = new XMLHttpRequest();
+                ajax.open('POST', '/reservaO');
+
+                ajax.onload = function() {
+                    if (ajax.status === 200) {
+                        if (ajax.responseText === "ok") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡El vehiculo ha sido reservado!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            form.reset();
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Hubo un problema al reservar el vehículo!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '!Comprueba los campos¡ <br> O <br> Contacta con la empresa',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                };
+
+                ajax.send(formdata);
+            }
         </script>
     @endpush

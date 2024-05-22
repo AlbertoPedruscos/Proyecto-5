@@ -83,3 +83,8 @@ Route::get('/empleado/buscar', [EmpleadosController::class, 'buscarEmpleado'])->
 Route::get('/registros', function () {
     return view('gestion.registros');
 })->name('registros');
+
+// Info de los registros
+Route::get('/contactanos', function () {
+    return view('vistas.contactanos');
+})->name('contactanos');
