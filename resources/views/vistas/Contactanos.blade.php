@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-7">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="num_telf" id="num_telf" disabled>
+                                <input type="text" class="form-control" name="num_telf" id="num_telf">
                                 <label for="floatingInputValue">Teléfono</label>
                             </div>
                             <div class="invalid-feedback" id="error-telf" style="display: none;">
@@ -199,9 +199,399 @@
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
+            // VALIDACIONES
+
+            document.addEventListener("DOMContentLoaded", function() {
+
+                var inputNombre = document.getElementById("nom_cliente");
+                var errornombre = document.getElementById("error-nombre");
+
+                inputNombre.addEventListener("blur", function() {
+                    var texto = this.value.replace(/\d/g, ''); // Eliminar números del texto ingresado
+                    texto = texto.toLowerCase().replace(/\b\w/g, function(
+                        l
+                    ) { // Convertir todo el texto a minúsculas y capitalizar la primera letra de cada palabra
+                        return l.toUpperCase();
+                    });
+                    this.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+
+                    if (texto.trim() === '') { // Verificar si el campo está vacío
+                        document.getElementById("nom_cliente").classList.remove("is-valid");
+                        document.getElementById("nom_cliente").classList.add("is-invalid");
+                        errornombre.style.display = 'block';
+                        return false;
+                    } else {
+                        document.getElementById("nom_cliente").classList.remove("is-invalid");
+                        document.getElementById("nom_cliente").classList.add("is-valid");
+                        errornombre.style.display = 'none';
+                        return true;
+                    }
+                });
+
+                // Matricula
+
+                var matriculaInput = document.getElementById("matricula");
+                var errormatricula = document.getElementById('error-matricula');
+
+                matriculaInput.addEventListener("blur", function() {
+                    var matricula = matriculaInput.value.trim();
+
+                    var valor = matriculaInput.value.toUpperCase(); // Convertir a mayúsculas
+                    var regex = /^[A-Z0-9]*$/;
+                    matriculaInput.value =
+                        valor; // Establecer el valor del campo de entrada con el texto formateado
+
+                    if (!regex.test(valor)) {
+                        // Si se ingresa un carácter especial que no sea letra o número, eliminarlo del valor del input
+                        matriculaInput.value = valor.replace(/[^A-Z0-9]/g, '');
+                    }
+
+                    if (validarMatricula(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaF(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaA(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaU(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaH(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaRU(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaSU(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else if (validarMatriculaH2(matricula)) {
+                        formbtn.disabled = false;
+                        errormatricula.style.display = 'none';
+                        document.getElementById("matricula").classList.remove("is-invalid");
+                        document.getElementById("matricula").classList.add("is-valid");
+                    } else {
+                        formbtn.disabled = true;
+                        errormatricula.style.display = 'block';
+                        document.getElementById("matricula").classList.remove("is-valid");
+                        document.getElementById("matricula").classList.add("is-invalid");
+                    }
+                });
+
+
+                function validarMatricula(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^\d{4}[A-Za-z]{3}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaF(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^[A-Za-z]{2}\d{3}[A-Za-z]{2}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaU(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^[A-Za-z]{2}\d{4}[A-Za-z]{2}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaA(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^[A-Za-z]{1}\d{4}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaH(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^[A-Za-z]{2}\d{3}[A-Za-z]{1}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaRU(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^[A-Za-z]{2}\d{2}[A-Za-z]{3}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaSU(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^[A-Za-z]{2}\d{6}$/;
+                    return regex.test(matricula);
+                }
+
+                function validarMatriculaH2(matricula) {
+                    // Aquí puedes escribir tu lógica de validación para la matrícula
+                    // Por ejemplo, si la matrícula debe tener un formato específico
+                    // como tres letras seguidas de tres números, podrías hacer algo como esto:
+                    var regex = /^\d{1}[A-Za-z]{3}\d{2}$/;
+                    return regex.test(matricula);
+                }
+
+                // EMAIL
+
+                var email = document.getElementById("email");
+                var erroremail = document.getElementById('error-email');
+                email.addEventListener("input", function() {
+                    var texto = email.value.toLowerCase(); // Convertir todo el texto a minúsculas
+                    email.value = texto; // Establecer el valor del campo de entrada con el texto formateado
+                    erroremail.style.display = "none";
+                });
+                email.addEventListener("blur", function() {
+                    document.getElementById("email").classList.remove("is-invalid");
+                    document.getElementById("email").classList.add("is-valid");
+                    if (!validarDominio(email.value)) {
+                        // alert("Por favor, introduce un correo electrónico con un dominio válido.");
+                        erroremail.style.display = "block";
+                        document.getElementById("email").classList.add("is-invalid");
+                        document.getElementById("email").classList.remove("is-valid");
+                        // email.value = ""; // Limpiar el campo si el dominio no es válido
+                    }
+                });
+
+                function validarDominio(email) {
+                    var dominioValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                    return dominioValido;
+                }
+
+
+
+                // TELEFONO
+                var num_telf = document.getElementById("num_telf");
+                num_telf.addEventListener("input", function() {
+                    var numero = num_telf.value.trim();
+                    // Reemplazar espacios y letras por una cadena vacía
+                    num_telf.value = num_telf.value.replace(/\s/g, '').replace(/[a-zA-Z]/g, '');
+                    // Si el número no empieza por 6, limpiar el campo y mostrar un mensaje de error
+                    if (numero.charAt(0) !== '6' && numero.charAt(0) !== '9' && numero.charAt(0) !== '7') {
+                        num_telf.value = "";
+                        formbtn.disabled = true;
+                        // mensajeError.style.marginTop = "10px"; // Añadir un margen superior al mensaje de error
+                        return;
+                    }
+                    // Limitar la longitud a 9 caracteres
+                    if (numero.length > 9) {
+                        num_telf.value = numero.slice(0, 9); // Truncar el número a 9 caracteres
+                    }
+
+                });
+
+                var errortelf = document.getElementById('error-telf');
+                num_telf.addEventListener("blur", function() {
+
+                    if (!validarNumero(num_telf.value)) {
+                        formbtn.disabled = true;
+                        document.getElementById("num_telf").classList.add("is-invalid");
+                        document.getElementById("num_telf").classList.remove("is-valid");
+                        errortelf.style.display = "block";
+
+                    } else {
+                        formbtn.disabled = false;
+                        document.getElementById("num_telf").classList.remove("is-invalid");
+                        document.getElementById("num_telf").classList.add("is-valid");
+                        errortelf.style.display = "none";
+                    }
+                });
+
+                function validarNumero(numero) {
+                    var regex = /^\d{9}$/; // El número debe tener exactamente 9 dígitos
+                    return regex.test(numero);
+                }
+
+                // Modelo
+
+                var inputModelo = document.getElementById("modelo");
+                var errormodelo = document.getElementById('error-modelo');
+
+                inputModelo.addEventListener("blur", function() {
+                    validarModelo(this);
+                });
+
+                function validarModelo(input) {
+                    if (input.value.trim() === '') { // Verificar si el campo está vacío
+                        document.getElementById("modelo").classList.remove("is-valid");
+                        document.getElementById("modelo").classList.add("is-invalid");
+                        errormodelo.style.display = 'block';
+                        return false;
+                    } else {
+                        document.getElementById("modelo").classList.remove("is-invalid");
+                        document.getElementById("modelo").classList.add("is-valid");
+                        errormodelo.style.display = 'none';
+                        return true;
+                    }
+
+                    // Expresión regular para validar colores con las especificaciones dadas
+                    var regex = /^[A-Z][a-z]*\s[A-Z][a-z]*$/;
+
+                    // Comprobar si el valor del input coincide con la expresión regular
+                    if (regex.test(input.value)) {
+                        input.style.borderColor = ""; // Establecer borde a su estado original si es válido
+                        return true;
+                    } else {
+                        // Convertir todo el texto a minúsculas
+                        var texto = input.value.toLowerCase();
+                        // Dividir el texto en palabras
+                        var palabras = texto.split(" ");
+                        // Limitar la cantidad de palabras a dos
+                        palabras = palabras.slice(0, 2);
+                        // Capitalizar la primera letra de cada palabra
+                        for (var i = 0; i < palabras.length; i++) {
+                            palabras[i] = palabras[i].charAt(0).toUpperCase() + palabras[i].slice(1);
+                        }
+                        // Unir las palabras nuevamente en una cadena con un solo espacio entre ellas
+                        var textoFormateado = palabras.join(" ");
+                        input.value =
+                            textoFormateado; // Establecer el valor del campo de entrada con el texto formateado
+                        // input.style.borderColor = "red"; // Establecer borde rojo ya que la entrada no es válida
+                        return false;
+                    }
+                }
+
+                // FECHA ENTRADA
+                var inputFecha = document.getElementById("fecha_entrada");
+
+                inputFecha.addEventListener("input", function() {
+                    validarFecha(this);
+                });
+
+                function validarFecha(input) {
+                    var fechaIngresada = new Date(input.value);
+                    var fechaActual = new Date();
+                    // Obtener la fecha actual en milisegundos
+                    var fechaActualMS = fechaActual.getTime();
+                    // Agregar 10 minutos (10 * 60 * 1000 milisegundos) a la fecha actual
+                    var fechaMinimaPermitidaMS = fechaActualMS + (10 * 60 * 1000);
+                    // Comprobar si la fecha ingresada es válida
+                    if (!isNaN(fechaIngresada.getTime())) {
+                        // Comprobar si la fecha ingresada es mayor o igual que la fecha actual y si es mayor o igual que la fecha actual + 10 minutos
+                        if (fechaIngresada >= fechaActual && fechaIngresada >= new Date(fechaMinimaPermitidaMS)) {
+                            input.setCustomValidity(""); // La fecha es válida
+                            var inputSalida = document.getElementById("fecha_salida");
+                            inputSalida.disabled = false; // Habilitar el campo de fecha de salida
+                            formbtn.disabled = true;
+                            return true;
+                        } else {
+                            fechaIngresada.value = ""; // Vaciar el campo de fecha si la fecha ingresada no es válida
+                            var inputSalida = document.getElementById("fecha_salida");
+                            inputSalida.disabled = true; // Deshabilitar el campo de fecha de salida
+                            formbtn.disabled = true;
+                            return false;
+                        }
+                    } else {
+                        input.value = ""; // Vaciar el campo de fecha si la fecha ingresada no es válida
+                        input.setCustomValidity("Formato de fecha inválido."); // Mensaje de error personalizado
+                        input.style.borderColor = "red"; // Establecer borde rojo si no es válida
+                        var inputSalida = document.getElementById("fecha_salida");
+                        inputSalida.disabled = true; // Deshabilitar el campo de fecha de salida
+                        formbtn.disabled = true;
+                        return false;
+                    }
+                }
+
+                // FECHA SALIDA
+                var inputSalida = document.getElementById("fecha_salida");
+                var inputEntrada = document.getElementById("fecha_entrada");
+                inputSalida.addEventListener("input", function() {
+                    validarFechaSalida(this, inputEntrada);
+                });
+
+                function validarFechaSalida(inputSalida, inputEntrada) {
+                    var fechaSalida = new Date(inputSalida.value);
+                    var fechaEntrada = new Date(inputEntrada.value);
+                    // Agregar 5 horas (5 * 60 * 60 * 1000 milisegundos) a la fecha de entrada
+                    var fechaMinimaPermitidaMS = fechaEntrada.getTime() + (5 * 60 * 60 * 1000);
+                    // Comprobar si la fecha de salida es válida y si es al menos 5 horas después de la fecha de entrada
+                    if (!isNaN(fechaSalida.getTime()) && fechaSalida >= new Date(fechaMinimaPermitidaMS)) {
+                        inputSalida.setCustomValidity(""); // La fecha es válida
+                        formbtn.disabled = false;
+                        return true;
+                    } else {
+                        formbtn.disabled = true;
+                        return false;
+                    }
+                }
+            });
+
+            // Tipo Coche
+
+            var cochesSelect = document.getElementById("cochesSelect");
+            // Crear una nueva solicitud XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Parsear la respuesta JSON
+                    var data = JSON.parse(this.responseText);
+                    // Iterar sobre los datos y agregar opciones al select
+                    data.forEach(coche => {
+                        var option = document.createElement("option");
+                        option.value = coche.marca;
+                        option.textContent = coche.marca;
+                        cochesSelect.appendChild(option);
+                    });
+                }
+            };
+
+            // Abrir y enviar la solicitud
+            xhr.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/coches", true);
+            xhr.send();
+
+            // Prefijo
+
+            var prefijo = document.getElementById("prefijo");
+            // Crear una nueva solicitud XMLHttpRequest
+            var xhr2 = new XMLHttpRequest();
+            xhr2.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Parsear la respuesta JSON
+                    var data = JSON.parse(this.responseText);
+                    // Iterar sobre los datos y agregar opciones al select
+                    data.forEach(prefijos => {
+                        var option = document.createElement("option");
+                        option.value = prefijos.prefijo;
+                        option.textContent = prefijos.pais + " (" + prefijos.prefijo + ")";
+                        prefijo.appendChild(option);
+                    });
+                }
+            };
+
+            // Abrir y enviar la solicitud
+            xhr2.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/prefijo", true);
+            xhr2.send();
+
             var formbtn = document.getElementById('form-btn');
 
-            function ContactanosNuevo() {
+            function reservarNuevo() {
                 var form = document.getElementById('FrmReserva');
                 var formdata = new FormData(form);
 
@@ -211,7 +601,7 @@
                     console.log(key + ': ' + value);
                 });
                 var ajax = new XMLHttpRequest();
-                ajax.open('POST', '/ContactanosNuevo');
+                ajax.open('POST', '/reservaO');
 
                 ajax.onload = function() {
                     if (ajax.status === 200) {
@@ -243,233 +633,5 @@
 
                 ajax.send(formdata);
             }
-
-            // VALIDACIONES
-
-            document.addEventListener("DOMContentLoaded", function() {
-
-                var inputNombre = document.getElementById("nom_cliente");
-                var errornombre = document.getElementById("error-nombre");
-
-                inputNombre.addEventListener("blur", function() {
-                    var texto = this.value.replace(/\d/g, ''); // Eliminar números del texto ingresado
-                    texto = texto.toLowerCase().replace(/\b\w/g, function(
-                        l
-                    ) { // Convertir todo el texto a minúsculas y capitalizar la primera letra de cada palabra
-                        return l.toUpperCase();
-                    });
-                    this.value = texto; // Establecer el valor del campo de entrada con el texto formateado
-
-                    if (texto.trim() === '') { // Verificar si el campo está vacío
-                        document.getElementById("nom_cliente").classList.remove("is-valid");
-                        document.getElementById("nom_cliente").classList.add("is-invalid");
-                        errornombre.style.display = 'block';
-                        return false;
-                    } else {
-                        document.getElementById("nom_cliente").classList.remove("is-invalid");
-                        document.getElementById("nom_cliente").classList.add("is-valid");
-                        errornombre.style.display = 'none';
-                        return true;
-                    }
-                });
-
-                // Apellido
-
-                var inputapellidos = document.getElementById("apellidos");
-                var errorapellidos = document.getElementById("error-apellidos");
-
-                inputapellidos.addEventListener("blur", function() {
-                    var texto = this.value.replace(/\d/g, ''); // Eliminar números del texto ingresado
-                    texto = texto.toLowerCase().replace(/\b\w/g, function(
-                        l
-                    ) { // Convertir todo el texto a minúsculas y capitalizar la primera letra de cada palabra
-                        return l.toUpperCase();
-                    });
-                    this.value = texto; // Establecer el valor del campo de entrada con el texto formateado
-
-                    if (texto.trim() === '') { // Verificar si el campo está vacío
-                        document.getElementById("apellidos").classList.remove("is-valid");
-                        document.getElementById("apellidos").classList.add("is-invalid");
-                        errorapellidos.style.display = 'block';
-                        return false;
-                    } else {
-                        document.getElementById("apellidos").classList.remove("is-invalid");
-                        document.getElementById("apellidos").classList.add("is-valid");
-                        errorapellidos.style.display = 'none';
-                        return true;
-                    }
-                });
-
-                // EMAIL
-
-                var email = document.getElementById("email");
-                var erroremail = document.getElementById('error-email');
-                email.addEventListener("input", function() {
-                    var texto = email.value.toLowerCase(); // Convertir todo el texto a minúsculas
-                    email.value = texto; // Establecer el valor del campo de entrada con el texto formateado
-                    erroremail.style.display = "none";
-                });
-                email.addEventListener("blur", function() {
-                    document.getElementById("email").classList.remove("is-invalid");
-                    document.getElementById("email").classList.add("is-valid");
-                    if (!validarDominio(email.value)) {
-                        // alert("Por favor, introduce un correo electrónico con un dominio válido.");
-                        erroremail.style.display = "block";
-                        document.getElementById("email").classList.add("is-invalid");
-                        document.getElementById("email").classList.remove("is-valid");
-                        // email.value = ""; // Limpiar el campo si el dominio no es válido
-                    }
-                });
-
-                function validarDominio(email) {
-                    var dominioValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-                    return dominioValido;
-                }
-
-
-            });
-
-
-            const prefijosLongitud = {
-                "+34": 9, // España
-                "+49": 11, // Alemania
-                "+33": 9, // Francia
-                "+39": 11, // Italia
-                "+44": 10, // Reino Unido
-                "+7": 10, // Rusia
-                "+380": 12, // Ucrania
-                "+48": 9, // Polonia
-                "+40": 10, // Rumania
-                "+31": 9, // Países Bajos
-                "+32": 9, // Bélgica
-                "+30": 10, // Grecia
-                "+351": 9, // Portugal
-                "+46": 9, // Suecia
-                "+47": 8, // Noruega
-                "+1": 10, // Estados Unidos y Canadá
-                "+52": 10, // México
-                "+55": 11, // Brasil
-                "+54": 10, // Argentina
-                "+57": 10, // Colombia
-                "+56": 9, // Chile
-                "+58": 10, // Venezuela
-                "+51": 9, // Perú
-                "+593": 10, // Ecuador
-                "+53": 8, // Cuba
-                "+591": 8, // Bolivia
-                "+506": 8, // Costa Rica
-                "+507": 8, // Panamá
-                "+598": 8, // Uruguay
-                "+86": 11, // China
-                "+91": 10, // India
-                "+81": 10, // Japón
-                "+82": 10, // Corea del Sur
-                "+62": 12, // Indonesia
-                "+90": 10, // Turquía
-                "+63": 10, // Filipinas
-                "+66": 9, // Tailandia
-                "+84": 10, // Vietnam
-                "+972": 10, // Israel
-                "+60": 11, // Malasia
-                "+65": 8, // Singapur
-                "+92": 11, // Pakistán
-                "+880": 13, // Bangladés
-                "+966": 13, // Arabia Saudita
-                "+20": 11, // Egipto
-                "+27": 10, // Sudáfrica
-                "+234": 11, // Nigeria
-                "+254": 11, // Kenia
-                "+212": 10, // Marruecos
-                "+213": 10, // Argelia
-                "+256": 11, // Uganda
-                "+233": 10, // Ghana
-                "+237": 9, // Camerún
-                "+225": 10, // Costa de Marfil
-                "+221": 9, // Senegal
-                "+255": 11, // Tanzania
-                "+249": 11, // Sudán
-                "+218": 10, // Libia
-                "+216": 8, // Túnez
-                "+61": 9, // Australia
-                "+64": 10, // Nueva Zelanda
-                "+679": 7, // Fiji
-                "+675": 8, // Papúa Nueva Guinea
-                "+676": 8, // Tonga
-                "+98": 10, // Irán
-                "+964": 10, // Iraq
-                "+962": 10, // Jordania
-                "+961": 8, // Líbano
-                "+965": 8, // Kuwait
-                "+971": 9, // Emiratos Árabes Unidos
-                "+968": 8, // Omán
-                "+974": 8, // Catar
-                "+973": 8, // Bahrein
-                "+967": 9 // Yemen
-            };
-
-            function habilitarTelefono() {
-                var prefijo = document.getElementById("prefijo").value;
-                var telefonoInput = document.getElementById("num_telf");
-
-                // Verificar si el prefijo seleccionado está en el objeto prefijosLongitud
-                if (prefijo in prefijosLongitud) {
-
-                    telefonoInput.disabled = false;
-                    telefonoInput.maxLength = prefijosLongitud[prefijo];
-                    // telefonoInput.value = "";
-                    verificarLongitud();
-                    // Establecer la longitud máxima del teléfono
-                }
-            }
-
-            // Event listener para el cambio en el prefijo
-            document.getElementById("prefijo").addEventListener("change", habilitarTelefono);
-
-            function verificarLongitud() {
-                const telefonoInput = document.getElementById('num_telf');
-                telefonoInput.addEventListener("blur", function() {
-                    const telefono = telefonoInput.value;
-                    const prefijo = document.getElementById('prefijo').value;
-                    const longitudEsperada = prefijosLongitud[prefijo];
-                    const errorTelf = document.getElementById('error-telf');
-
-                    if (telefono === "") {
-                        errorTelf.style.display = 'block';
-                        telefonoInput.classList.remove('is-valid');
-                        telefonoInput.classList.add('is-invalid');
-                    } else if (telefono.length === longitudEsperada) {
-                        errorTelf.style.display = 'none';
-                        telefonoInput.classList.remove('is-invalid');
-                        telefonoInput.classList.add('is-valid');
-                    } else {
-                        errorTelf.style.display = 'block';
-                        telefonoInput.classList.remove('is-valid');
-                        telefonoInput.classList.add('is-invalid');
-                    }
-                });
-            }
-
-
-
-            var prefijo = document.getElementById("prefijo");
-            // Crear una nueva solicitud XMLHttpRequest
-            var xhr2 = new XMLHttpRequest();
-            xhr2.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // Parsear la respuesta JSON
-                    var data = JSON.parse(this.responseText);
-                    // Iterar sobre los datos y agregar opciones al select
-                    data.forEach(prefijos => {
-                        var option = document.createElement("option");
-                        option.value = prefijos.prefijo;
-                        option.textContent = prefijos.pais + " (" + prefijos.prefijo + ")";
-                        prefijo.appendChild(option);
-                    });
-                }
-            };
-
-            // Abrir y enviar la solicitud
-            xhr2.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/prefijo", true);
-            xhr2.send();
         </script>
     @endpush
