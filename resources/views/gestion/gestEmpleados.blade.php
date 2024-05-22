@@ -17,24 +17,7 @@
         {{-- NAVBAR --}}
         <header>
             <nav>
-                <ul class="nav-left">
-                    <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
-                    <li class="active">Empleados</li>
-                    <li><a href="{{ 'reservas' }}">Reservas</a></li>
-                    <li><a href="{{ 'mapa' }}">Mapa</a></li>
-                </ul>
-
-                <ul class="nav-right">
-                    <li>{{ session('nombre') }}</li>
-
-                    @if (session('nombre_empresa'))
-                        <li>{{ session('nombre_empresa') }}</li>
-                    @else
-                        <li>Empresa no asignada</li>
-                    @endif
-
-                    <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
-                </ul>
+                <!-- Contenido de la barra de navegación -->
             </nav>
         </header>
 
@@ -51,218 +34,49 @@
         {{-- CANTIDAD DE USUARIOS --}}
         <h3>Total de usuarios: ({{ $totalEmpleados }})</h3>
 
-        {{-- FILTRO POR TEXTO --}}
-        <form id="searchForm" method="GET">
-            <div class="form-group">
-                <label for="search">Buscar por nombre:</label>
-                <input type="text" name="search" id="search" class="form-control"
-                    value="{{ request()->input('search') }}" onkeyup="buscarEmpleado()"
-                    placeholder="Busca por nombre de empleado">
-            </div>
-        </form>
-
-        {{-- FILTRO POR ROL --}}
-        <form action="">
-            <select name="rol" id="rol" onchange="buscarEmpleado()">
-                <option value="" selected disabled>-- Selecciona un rol --</option>
-                @foreach ($roles as $rol)
-                    @if ($rol->id != 1)
-                        <option value="{{ $rol->id }}">{{ $rol->nombre }}</option>
-                    @endif
-                @endforeach
+        {{-- FORMULARIO FILTRO Y PÁGINA --}}
+        <form id="filterForm" method="GET">
+            <label for="perPage">Elementos por página:</label>
+            <select name="perPage" id="perPage">
+                <option value="5" {{ Request::get('perPage') == 5 ? 'selected' : '' }}>5</option>
+                <option value="10" {{ Request::get('perPage') == 10 ? 'selected' : '' }}>10</option>
+                <option value="15" {{ Request::get('perPage') == 15 ? 'selected' : '' }}>15</option>
             </select>
+            <button type="submit">Filtrar</button>
         </form>
-
-        {{-- REGISTRAR USUARIO --}}
-        <button type="button" class="btn btn-primary" id="abrirModal">Añadir usuario</button>
 
         {{-- TABLA --}}
         <div id="tabla">
             @include('tablas.tbl_empleados')
         </div>
 
+        {{-- REGISTRAR USUARIO --}}
+        <button type="button" class="btn btn-primary" id="abrirModal">Añadir usuario</button>
+
         {{-- MODAL AÑADIR USUARIO --}}
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal-register"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-register">Registrar nuevo empleado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('empleado.store') }}" method="post" id="frmRegistro">
-                            @csrf
-
-                            <input type="hidden" name="currentUrl" id="currentUrl">
-
-                            <div class="form-group">
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" name="nombre" id="nombre" placeholder="Introduce el nombre"
-                                    class="form-control" value="{{ isset($empleado) ? $empleado->nombre : '' }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="apellido">Apellidos:</label>
-                                <input type="text" name="apellido" id="apellido" placeholder="Introduce el apellido"
-                                    class="form-control" value="{{ isset($empleado) ? $empleado->apellidos : '' }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" name="email" id="email" placeholder="Introduce el email"
-                                    class="form-control" value="{{ isset($empleado) ? $empleado->email : '' }}">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Registrar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- MODAL EDITAR USUARIO --}}
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modal-edit"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-edit">Editar empleado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editForm" method="POST">
-                            @csrf
-                            @method('PUT')
-
-                            <input type="hidden" name="currentUrl" id="currentUrl">
-
-                            <div class="form-group">
-                                <label for="edit_nombre">Nombre:</label>
-                                <input type="text" name="nombre" id="edit_nombre" placeholder="Introduce el nombre"
-                                    class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="edit_apellido">Apellidos:</label>
-                                <input type="text" name="apellido" id="edit_apellido"
-                                    placeholder="Introduce el apellido" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="edit_email">Email:</label>
-                                <input type="email" name="email" id="edit_email" placeholder="Introduce el email"
-                                    class="form-control">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {{-- Contenido del modal de añadir usuario --}}
         </div>
     @endsection
-
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-        <script>
-            $(document).ready(function() {
-                $('#abrirModal').click(function() {
-                    $('#registerModal').modal('show');
-                });
-            });
-        </script>
-        
-        <script>
-            $(document).ready(function() {
-                $('#abrirModal').click(function() {
-                    $('#register').modal('show');
-                });
-
-                $('#register').on('hide.bs.modal', function() {
-                    $('#frmlogin')[0].reset();
-                });
-
-                $(window).click(function(event) {
-                    if (event.target == $('#register')[0]) {
-                        $('#register').modal('hide');
-                    }
-                });
-            });
-        </script>
-
-        {{-- MOSTRAR MODAL EDITAR USUARIO --}}
-        <script>
-            $(document).ready(function() {
-                $('.btn-edit').click(function(e) {
-                    e.preventDefault();
-                    var empleadoId = $(this).data('product-id');
-                    $.ajax({
-                        url: '{{ route('empleado.edit', ['id' => ':id']) }}'.replace(':id',
-                            empleadoId),
-                        type: 'GET',
-                        success: function(response) {
-                            $('#editForm').attr('action',
-                                '{{ route('empleado.update', ['id' => ':id']) }}'.replace(
-                                    ':id', empleadoId));
-                            $('#edit_nombre').val(response.nombre);
-                            $('#edit_apellido').val(response.apellidos);
-                            $('#edit_email').val(response.email);
-                            $('#editModal').modal('show');
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                            alert('Error al cargar los datos del usuario.');
-                        }
-                    });
-                });
-            });
-        </script>
-
-        {{-- FILTRO POR NOMBRE Y ROL SUMATIVO --}}
-        <script>
-            $('#search, #rol').on('change keyup', function() {
-                buscarEmpleado();
-            });
-
-            function buscarEmpleado() {
-                var searchKeyword = $('#search').val();
-                $.ajax({
-                    url: '{{ route('empleado.buscar') }}',
-                    type: 'GET',
-                    data: {
-                        search: searchKeyword
-                    },
-                    success: function(response) {
-                        $('#tabla').html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                        alert('Error al realizar la búsqueda.');
-                    }
-                });
-            }
-        </script>
-
-        <script>
-            // Obtener la URL actual del navegador
-            var currentUrl = window.location.href;
-
-            // Establecer el valor del campo oculto
-            document.getElementById("currentUrl").value = currentUrl;
-        </script>
-    @endpush
 @else
     @php
-        session()->flash('error', 'Debes iniciar sesión para acceder a esta página');
+        header('Location: ' . route('login'));
+        exit();
     @endphp
-
-    <script>
-        window.location = "{{ route('login') }}";
-    </script>
 @endif
+
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7+Yj7/6/gqH1D00iW6c+zo5FJ3w7QaXK/z6ZC9Yg" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha384-B4tt8/DBP0LbRULaFO15QwEReKo0+kTPrUN6RfFzAD5SMoFfO+Xt5Jx5W2c6Xg7L" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9b4Is3NZoJ6wTrFjjGmkjFw8LLAPk2vRT0TctW7NO3S1Zef6j5oaJXp" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/empleados.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Manejar el evento de cambio en el select de perPage
+            $('#perPage').on('change', function() {
+                $('#filterForm').submit(); // Enviar el formulario cuando se cambie el número de elementos por página
+            });
+        });
+    </script>
+@endpush

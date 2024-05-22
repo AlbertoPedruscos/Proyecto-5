@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,18 +18,6 @@
 <body>
     <div>
         <h1>Gestión de Empleados</h1>
-
-        <!-- Cantidad de resultados por página -->
-        <h4>Cantidad de resultados por página:</h4>
-        <form action="{{ route('gestEmpleados') }}" method="GET">
-            <select name="perPage" id="perPage" onchange="this.form.submit()">
-                <option value="5" {{ Request::get('perPage') == 5 ? 'selected' : '' }}>5</option>
-                <option value="10" {{ Request::get('perPage') == 10 ? 'selected' : '' }}>10</option>
-                <option value="20" {{ Request::get('perPage') == 20 ? 'selected' : '' }}>20</option>
-                <option value="50" {{ Request::get('perPage') == 50 ? 'selected' : '' }}>50</option>
-                <option value="100" {{ Request::get('perPage') == 100 ? 'selected' : '' }}>100</option>
-            </select>
-        </form>
 
         <!-- Tabla de empleados -->
         <table class="table table-bordered">
@@ -97,14 +86,12 @@
                             <label for="edit_nombre">Nombre:</label>
                             <input type="text" name="nombre" id="edit_nombre" class="form-control">
                         </div>
+
                         <div class="form-group">
                             <label for="edit_apellidos">Apellidos:</label>
                             <input type="text" name="apellidos" id="edit_apellidos" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label for="edit_email">Email:</label>
-                            <input type="email" name="email" id="edit_email" class="form-control">
-                        </div>
+
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
                     </form>
                 </div>
