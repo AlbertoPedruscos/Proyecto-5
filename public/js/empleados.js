@@ -1,34 +1,51 @@
 $(document).ready(function() {
-    // Función para cargar los datos de la página actual con los filtros aplicados
-    function fetchData(page) {
-        $.ajax({
-            url: window.location.href, // Obtener la URL actual
-            method: "GET",
-            data: $('#filterForm').serialize() + '&page=' + page, // Serializar los datos del formulario y agregar el número de página
-            success: function(data) {
-                $('#tabla').html(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error en la petición AJAX: ", error);
-            }
+    $(document).ready(function() {
+        // Manejar el evento de cambio en el select de perPage
+        $('#perPage').on('change', function() {
+            $('#filterForm').submit(); // Enviar el formulario cuando se cambie el número de elementos por página
         });
-    }
-
-    // Manejar el envío del formulario de filtros
-    $(document).on('submit', '#filterForm', function(e) {
-        e.preventDefault();
-        fetchData(1); // Cargar la primera página con los nuevos filtros aplicados
+    
+        // Manejar el evento de cambio en los filtros de búsqueda y rol
+        $('#search, #rol').on('change', function() {
+            $('#filterForm').submit(); // Enviar el formulario cuando cambie algún filtro
+        });
+    
+        $('.btn-edit').click(function(e) {
+            e.preventDefault();
+            var empleadoId = $(this).data('product-id');
+            $.ajax({
+                url: '/empleado/' + empleadoId + '/edit',
+                type: 'GET',
+                success: function(response) {
+                    // Llenar el modal de edición con los datos del empleado
+                    $('#edit_nombre').val(response.nombre);
+                    $('#edit_apellidos').val(response.apellidos);
+                    $('#edit_email').val(response.email);
+                    // Mostrar el modal de edición
+                    $('#editModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('Error al cargar los datos del usuario.');
+                }
+            });
+        });
     });
-
-    // Manejar el evento de clic en los enlaces de paginación
-    $(document).on('click', '.pagination a', function(e) {
-        e.preventDefault();
-        var page = $(this).attr('href').split('page=')[1]; // Obtener el número de página desde el enlace
-        fetchData(page); // Cargar la página correspondiente con los filtros aplicados
-    });
-
+    
     // Mostrar el modal de registro al hacer clic en
     $('#abrirModal').click(function() {
         $('#registerModal').modal('show');
     });
+
+    $(document).ready(function() {
+        // Manejar el evento keyup en el campo de búsqueda
+        $('#search').on('keyup', function() {
+            $('#filterForm').submit(); // Enviar el formulario cuando se suelta una tecla en el campo de búsqueda
+        });
+    
+        // Manejar el evento change en el select de rol
+        $('#rol').on('change', function() {
+            $('#filterForm').submit(); // Enviar el formulario cuando se cambia el valor del select de rol
+        });
+    });    
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\tbl_usuarios;
+use App\Models\tbl_empresas;
 use App\Models\tbl_roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -51,41 +52,42 @@ class EmpleadosController extends Controller
 
     public function update(Request $request, $id) {
         $empleado = tbl_usuarios::findOrFail($id);
-
+    
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
         ]);
-
+    
         $empleado->nombre = $request->input('nombre');
         $empleado->apellidos = $request->input('apellidos');
-        $empleado->email;
-        $empleado->id_rol; 
         $empleado->save();
-
+    
         return redirect()->route('gestEmpleados')->with('success', 'Empleado actualizado correctamente.');
     }
-
+    
     public function store(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
-
+        $nombreEmpresa = tbl_empresas::find($idEmpresa)->nombre; // Reemplaza 'Empresa' con el modelo real de tu empresa
+    
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
         ]);
-
+    
+        $nombreEmpresaSinEspacios = str_replace(' ', '', $nombreEmpresa);
+    
         $empleado = new tbl_usuarios();
         $empleado->nombre = $request->input('nombre');
         $empleado->apellidos = $request->input('apellido');
-        $empleado->email = strtolower($request->input('nombre').'.'.$request->input('apellido').'@gmail.com');
+        $empleado->email = strtolower($request->input('nombre').'.'.$request->input('apellido').'@'.$nombreEmpresaSinEspacios).'.com'; // Elimina los espacios en el nombre de la empresa
         $empleado->contrasena = bcrypt('qweQWE123');
         $empleado->id_rol = 3;
         $empleado->id_empresa = $idEmpresa;
         $empleado->save();
-
+    
         return redirect()->route('gestEmpleados')->with('success', 'Usuario registrado correctamente.');
     }
-
+    
     public function destroy($id) {
         $empleado = tbl_usuarios::findOrFail($id);
         if ($empleado->id_rol == 2) { // Usar operador de comparación (==) en lugar de asignación (=)
