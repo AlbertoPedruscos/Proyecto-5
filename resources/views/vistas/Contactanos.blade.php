@@ -19,7 +19,7 @@
 
         <ul class="nav-right">
             <li><a href="">Sobre nosotros</a></li>
-            <li><a href="{{ route('contactanos') }}">Contáctanos</a></li>
+            <li><a href="{{ route('inicio') }}">Reservar</a></li>
             <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
         </ul>
     </nav>
@@ -27,7 +27,7 @@
     <div id="formulario">
         <div id="cont-form">
             <h1>Haga su reserva</h1>
-            <form action="" method="post" id="FrmReserva" class="form-floating">
+            <form action="" method="post" id="FrmContactanos" class="form-floating" onsubmit="Contactanos()">
                 <div class="form-floating inputs">
                     <div class="row g-2">
                         <div class="col-md">
@@ -41,29 +41,22 @@
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="matricula" id="matricula">
-                                <label for="floatingInputValue">Matrícula</label>
+                                <input type="text" class="form-control" name="apellidos" id="apellidos">
+                                <label for="floatingInputValue">apellido/s</label>
                             </div>
-                            <div class="invalid-feedback" id="error-matricula" style="display: none;">
-                                Formato de matrícula incorrecto.
+                            <div class="invalid-feedback" id="error-apellidos" style="display: none;">
+                                El apellido/s no puede estar vacio.
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-floating">
-                            <input type="email" class="form-control" name="email" id="email">
-                            <label for="floatingInputGrid">Email</label>
-                        </div>
-                        <div class="invalid-feedback" id="error-email" style="display: none;">
-                            Formato de email incorrecto.
-                        </div>
-                    </div>
+
                     <div class="row g-2">
                         <div class="col-md-5">
                             <div class="form-floating">
                                 <select class="form-select" name="prefijo" id="prefijo"
                                     aria-label="Floating label select example">
                                     <option selected disabled>Seleccione su prefijo</option>
+                                    <!-- Opciones de prefijo aquí -->
                                 </select>
                                 <label for="floatingSelect">Prefijo</label>
                             </div>
@@ -78,82 +71,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <select class="form-select" name="cochesSelect" id="cochesSelect"
-                                    aria-label="Floating label select example">
-                                    <option value="0" selected disabled>Seleccione su vehículo...</option>
-                                </select>
-                                <label for="floatingSelect">Vehículo</label>
-                            </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" name="email" id="email">
+                            <label for="floatingInputGrid">Email</label>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="modelo" id="modelo">
-                                <label for="floatingInputValue">Modelo</label>
-                            </div>
-                            <div class="invalid-feedback" id="error-modelo" style="display: none;">
-                                El campo "modelo" no puede estar vacío.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="color" id="colorInput">
-                                <label for="colorInput">Color</label>
-                                {{-- ESTE NO ES OBLIGATORIO --}}
-                            </div>
-                            <div id="colorValidationMessage" style="color: red;"></div>
+                        <div class="invalid-feedback" id="error-email" style="display: none;">
+                            Formato de email incorrecto.
                         </div>
                     </div>
-                    <div class="row g-2">
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" name="ubicacion_entrada" id="ubicacion_entrada"
-                                    aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione el punto de entrega...</option>
-                                    <option value="Aeropuerto T1" selected>Aeropuerto T1</option>
-                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
-                                    <option value="Puerto">Puerto</option>
-                                </select>
-                                <label for="floatingSelect">Punto de entrega</label>
-                            </div>
-                        </div>
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" name="ubicacion_salida" id="ubicacion_salida"
-                                    aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione el punto de recogida...</option>
-                                    <option value="Aeropuerto T1" selected>Aeropuerto T1</option>
-                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
-                                    <option value="Puerto">Puerto</option>
-                                </select>
-                                <label for="floatingSelect">Punto de recogida</label>
-                            </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
+                            <label class="form-check-label" for="invalidCheck2">
+                                He leído y acepto los <a style="color: blue;" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">términos y condiciones de uso</a>.
+                            </label>
                         </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-text">Entrega</span>
-                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada">
+                    <div class="col-12">
+                        <button type="submit" id="form-btn" class="btn btn-dark" disabled>Enviar</button>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-text">Recogida</span>
-                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida"
-                            disabled>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
-                        <label class="form-check-label" for="invalidCheck2">
-                            He leído y acepto los <a style="color: blue;" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">términos y condiciones de uso</a>.
-                        </label>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <button type="button" id="form-btn" class="btn btn-dark" onclick="reservarNuevo()">Enviar</button>
-                </div>
             </form>
         </div>
 

@@ -82,3 +82,8 @@ Route::delete('/empleado/destroy/{id}', [EmpleadosController::class, 'destroy'])
 Route::get('/registros', function () {
     return view('gestion.registros');
 })->name('registros');
+
+// Info de los registros
+Route::get('/contactanos', function () {
+    return view('vistas.contactanos');
+})->name('contactanos');
