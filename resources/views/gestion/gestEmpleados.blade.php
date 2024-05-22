@@ -38,8 +38,12 @@
             </nav>
         </header>
 
+        {{-- CANTIDAD DE USUARIOS --}}
+        <h3>Total de usuarios: ({{ $totalEmpleados }})</h3>
+
         {{-- REGISTRAR USUARIO --}}
         <button type="button" class="btn btn-primary" id="abrirModal">Añadir usuario</button>
+
 
         {{-- MENSAJE ERROR --}}
         @if (session('error'))
@@ -50,9 +54,6 @@
         @if (session('success'))
             <div class="alert alert-success" style="padding-top: 10px">{{ session('success') }}</div>
         @endif
-
-        {{-- CANTIDAD DE USUARIOS --}}
-        <h3>Total de usuarios: ({{ $totalEmpleados }})</h3>
 
         {{-- FORMULARIO FILTRO Y PÁGINA --}}
         <form id="filterForm">
