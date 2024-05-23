@@ -24,6 +24,7 @@ class tbl_empresas extends Seeder
             ['nombre' => 'Aparcamientos Innovadores'],
             ['nombre' => 'Park&Go'],
             ['nombre' => 'Smart Parking'],
+            ['nombre' => 'MyControlPark'],
         ]);
 
     }

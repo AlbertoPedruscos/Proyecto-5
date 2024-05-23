@@ -50,7 +50,7 @@ class LoginController extends Controller
                     return redirect()->route('admin');
                     break;
                 case 2:
-                    return redirect()->route('empleados');
+                    return redirect()->route('gestEmpleados');
                     break;
                 case 3:
                     return view('vistas.trabajador');

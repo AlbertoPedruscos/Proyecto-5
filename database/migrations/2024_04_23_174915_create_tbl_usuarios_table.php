@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email', 150);
             $table->string('contrasena', 255);
             $table->unsignedBigInteger('id_rol');
-            $table->unsignedBigInteger('id_empresa');
+            $table->unsignedBigInteger('id_empresa')->nullable();
             $table->timestamps();
 
             $table->foreign('id_rol')->references('id')->on('tbl_roles')->onDelete('cascade')->onUpdate('cascade');
