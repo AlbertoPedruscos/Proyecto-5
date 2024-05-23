@@ -43,15 +43,15 @@ class LoginController extends Controller
             $request->session()->put('rol', $user->id_rol);
 
             if ($user->id_rol == 1) {
-                return redirect()->route('mapa_admin');
+                return redirect()->route('mapa_admin'); // CAMBIAR A ADMIN TOTAL
             } 
             
             else if ($user->id_rol == 2){
-                return redirect()->route('trabajador');
+                return redirect()->route('trabajador'); // GESTOR
             }
 
             else if ($user->id_rol == 3){
-                return redirect()->route('trabajador');
+                return redirect()->route('trabajador'); // APARCACOCHES
             }
 
         } 
