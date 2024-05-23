@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +16,6 @@
 
 <body>
     <div>
-        <h1>Gestión de Empleados</h1>
-
         <!-- Tabla de empleados -->
         <table class="table table-bordered">
             <thead>
@@ -31,35 +28,44 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($empleados as $empleado)
+                @if ($empleados->isEmpty())
                     <tr>
-                        <td>{{ $empleado->id }}</td>
-                        <td>{{ $empleado->nombre }} {{ $empleado->apellidos }}</td>
-                        <td>{{ $empleado->email }}</td>
-                        <td>
-                            @if ($empleado->id_rol)
-                                {{ \App\Models\tbl_roles::find($empleado->id_rol)->nombre }}
-                            @else
-                                Sin rol asignado
-                            @endif
-                        </td>
-                        <td>
-                            @if ($empleado->id != 2)
-                                <!-- Botón para editar empleado -->
-                                <button class="btn btn-primary btn-sm btn-edit"
-                                    data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i> Editar</button>
-                                <!-- Formulario para eliminar el usuario -->
-                                <form id="frmEliminar{{ $empleado->id }}"
-                                    action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="eliminarUsuario({{ $empleado->id }})"
-                                        class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                                </form>
-                            @endif
-                        </td>
+                        <td colspan="5" class="text-center">No se encontraron resultados.</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($empleados as $empleado)
+                        <tr>
+                            <td>{{ $empleado->id }}</td>
+                            <td>{{ $empleado->nombre }} {{ $empleado->apellidos }}</td>
+                            <td>{{ $empleado->email }}</td>
+                            <td>
+                                @if ($empleado->id_rol)
+                                    {{ \App\Models\tbl_roles::find($empleado->id_rol)->nombre }}
+                                @else
+                                    Sin rol asignado
+                                @endif
+                            </td>
+                            <td>
+                                @if ($empleado->id_rol == 3)
+                                    <!-- Botón para editar empleado -->
+                                    <button class="btn btn-primary btn-sm btn-edit"
+                                        data-product-id="{{ $empleado->id }}"><i class="fas fa-edit"></i>
+                                        Editar</button>
+                                    <!-- Formulario para eliminar el usuario -->
+                                    <form id="frmEliminar{{ $empleado->id }}"
+                                        action="{{ route('empleado.destroy', ['id' => $empleado->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="eliminarUsuario({{ $empleado->id }})"
+                                            class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i>
+                                            Eliminar</button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
 
@@ -81,7 +87,7 @@
                 <div class="modal-body">
                     <form id="editForm" action="{{ route('empleado.update', ['id' => ':id']) }}" method="POST">
                         @csrf
-                        @method('PUT')                       
+                        @method('PUT')
                         <div class="form-group">
                             <label for="edit_nombre">Nombre:</label>
                             <input type="text" name="nombre" id="edit_nombre" class="form-control">
