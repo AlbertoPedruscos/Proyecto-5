@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nombre', 45);
             $table->string('apellidos', 45);
-            $table->string('email', 45);
+            $table->string('email', 150);
             $table->string('contrasena', 255);
             $table->unsignedBigInteger('id_rol');
             $table->unsignedBigInteger('id_empresa');
