@@ -53,7 +53,6 @@ Route::get('/empleados', function () {
     return view('gestion.empleados');
 })->name('empleados');
 
-
 Route::post('/Listarempleados', [EmpresaController::class, 'Listarempleados'])->name('Listarempleados');
 Route::post('/registrar', [EmpresaController::class,  'registrar'])->name('registrar');
 Route::post('/estado', [EmpresaController::class,  'estado'])->name('estado');
@@ -65,16 +64,20 @@ Route::get('/reservas', function () {
     return view('gestion.reservas');
 })->name('reservas');
 
-
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+
 
 
 
 // Formulario reserva
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
 // Formulario Contactacnos
-Route::post('/Contactanos', [ReservaController::class, 'Contactanos'])->name('Contactanos');
 
+Route::get('/contactanos', function () {
+    return view('vistas.contactanos');
+})->name('contactanos');
+
+Route::post('/Contactanos', [ReservaController::class, 'Contactanos'])->name('Contactanos');
 
 /* Trabajador */
 
@@ -184,24 +187,23 @@ Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->na
 
 
 // Reservas
+
 Route::get('/gestionreservas', function () {
     return view('empresa.gestionreservas');
 })->name('gestionreservas');
-
-
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
 Route::post('/CancelarReserva', [ReservasGrudController::class,  'CancelarReserva'])->name('CancelarReserva');
-// Route::post('/admineditar', [AdminGrudController::class,  'admineditar'])->name('adminadmineditar');
-// Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->name('admineliminar');
+
+
+
+
+// Chat
 
 Route::get('/chatG', function () {
     return view('vistas.chat');
 });
 
 // Info de los registros
-Route::get('/contactanos', function () {
-    return view('vistas.contactanos');
-})->name('contactanos');
 
 /* Gestión empleados prueba Iker */
 Route::get('/gestEmpleados', [EmpleadosController::class, 'index'])->name('gestEmpleados'); // Mostrar todos los empleados

@@ -128,44 +128,60 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
 
             // tabla usuarios
             let tabla = '';
+            console.log(usuarios);
             usuarios.forEach(function (usuario) {
-                let str = "<tr>";
-                // str += "<form action='' method='post' id='frmeditar'>";
+                if (usuario.id_empresa !== 11) {
+                    let str = "<tr>";
+                    str += "<form action='' method='post' id='frmeditar'>";
+                    str += "<input type='hidden' name='idp' id='idp' value='" + usuario.id + "'>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='nombre' id='nombre_" + usuario.id + "' value='" + usuario.nombre + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.nombre + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='apellidos' id='apellidos_" + usuario.id + "' value='" + usuario.apellidos + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.apellidos + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.email + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.email + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><select name='rol' id='rol_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
+                    roles.forEach(function (rol) {
+                        str += "<option value='" + rol.id + "'";
+                        if (rol.id === usuario.id_rol) {
+                            str += " selected";
+                        }
+                        str += ">" + rol.nombre + "</option>";
+                    });
+                    str += "</select></td>";
+                    str += "<td><select name='rol' id='empresa_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
+                    empresas.forEach(function (empresa) {
+                        str += "<option value='" + empresa.id + "'";
+                        if (empresa.id === usuario.id_empresa) {
+                            str += " selected";
+                        }
+                        str += ">" + empresa.nombre + "</option>";
+                    });
+                    str += "</select></td>";
+                    str += '<td><input type="checkbox" onclick="guardarEstadosCheckbox()" class="checkbox-usuaiors" name="pedidos" value="' + usuario.id + '"';
 
-                str += "<input type='hidden' name='idp' id='idp' value='" + usuario.id + "'>";
-                str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='nombre' id='nombre_" + usuario.id + "' value='" + usuario.nombre + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.nombre + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
-                str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='apellidos' id='apellidos_" + usuario.id + "' value='" + usuario.apellidos + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.apellidos + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
-                str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.email + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.email + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
-                str += "<td><select name='rol' id='rol_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
-                roles.forEach(function (rol) {
-                    str += "<option value='" + rol.id + "'";
-                    if (rol.id === usuario.id_rol) {
-                        str += " selected";
+                    // Restaurar el estado del checkbox
+
+                    if (estadosCheckbox[usuario.id]) {
+                        str += ' checked';
                     }
-                    str += ">" + rol.nombre + "</option>";
-                });
-                str += "</select></td>";
-                str += "<td><select name='rol' id='empresa_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
-                empresas.forEach(function (empresa) {
-                    str += "<option value='" + empresa.id + "'";
-                    if (empresa.id === usuario.id_empresa) {
-                        str += " selected";
-                    }
-                    str += ">" + empresa.nombre + "</option>";
-                });
-                str += "</select></td>";
-                str += '<td><input type="checkbox" onclick="guardarEstadosCheckbox()" class="checkbox-usuaiors" name="pedidos" value="' + usuario.id + '"';
+                    str += '></td>';
+                    str += "<td><input type='button' id='registrar_" + usuario.id + "' class='btn btn-danger' onclick='eliminarUsuario(" + usuario.id + ")' value='Eliminar'></td>";
 
-                // Restaurar el estado del checkbox
+                    // str += "</form></tr>";
+                    tabla += str;
+                } else {
+                    let str = "<tr>";
+                    // str += "<form action='' method='post' id='frmeditar'>";
 
-                if (estadosCheckbox[usuario.id]) {
-                    str += ' checked';
+                    str += "<input type='hidden' name='idp' id='idp' value='" + usuario.id + "'>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='nombre' id='nombre_" + usuario.id + "' value='" + usuario.nombre + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.nombre + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='apellidos' id='apellidos_" + usuario.id + "' value='" + usuario.apellidos + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.apellidos + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.email + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.email + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.nom_rol + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.nom_rol + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.nom_empresa + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.nom_empresa + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                    str += "<td></td>";
+                    str += "<td></td>";
+                    str += "</form></tr>";
+                    tabla += str;
                 }
-                str += '></td>';
-                str += "<td><input type='button' id='registrar_" + usuario.id + "' class='btn btn-danger' onclick='eliminarUsuario(" + usuario.id + ")' value='Eliminar'></td>";
-
-                // str += "</form></tr>";
-                tabla += str;
             });
             resultado.innerHTML = tabla;
         } else {
