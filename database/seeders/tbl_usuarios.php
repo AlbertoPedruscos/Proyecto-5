@@ -55,21 +55,5 @@ class tbl_usuarios extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-
-        // Usuarios adicionales
-        for ($empresa = 1; $empresa <= 5; $empresa++) {
-            for ($i = 1; $i <= 15; $i++) {
-                DB::table('tbl_usuarios')->insert([
-                    'nombre' => 'Usuario' . $i,
-                    'apellidos' => 'Apellido' . $i,
-                    'email' => 'usuario' . $i . 'empresa' . $empresa . '@gmail.com',
-                    'contrasena' => bcrypt('qweQWE123'),
-                    'id_rol' => 3,
-                    'id_empresa' => $empresa,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-            }
-        }
     }
 }
