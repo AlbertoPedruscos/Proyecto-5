@@ -65,7 +65,9 @@ Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas']
 
 // Formulario reserva
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
-
+Route::post('/CancelarReserva', [EmpresaController::class, 'CancelarReserva'])->name('CancelarReserva');
+// Formulario Contactacnos
+Route::post('/Contactanos', [ReservaController::class, 'Contactanos'])->name('Contactanos');
 
 
 

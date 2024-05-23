@@ -137,7 +137,7 @@ class MapaGestorController extends Controller
         $nombre = $request->get("nombre");
         $empresa = $request->get("empresa");
     
-        $query = Parking::query();
+        $query = tbl_parking::query();
     
         if ($nombre) {
             $query->where("nombre", "LIKE", "%" + $nombre + "%");

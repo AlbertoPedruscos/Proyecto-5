@@ -26,8 +26,8 @@
 
     <div id="formulario">
         <div id="cont-form">
-            <h1>Haga su reserva</h1>
-            <form action="" method="post" id="FrmContactanos" class="form-floating" onsubmit="Contactanos()">
+            <h1>Contactanos</h1>
+            <form action="" method="post" id="FrmContactanos" class="form-floating" >
                 <div class="form-floating inputs">
                     <div class="row g-2">
                         <div class="col-md">
@@ -81,6 +81,15 @@
                             Formato de email incorrecto.
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="mensaje" id="mensaje">
+                            <label for="floatingInputGrid">Mensaje</label>
+                        </div>
+                        <div class="invalid-feedback" id="error-mensaje" style="display: none;">
+                            Formato del texto incorrecto.
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
@@ -91,7 +100,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button type="submit" id="form-btn" class="btn btn-dark" disabled>Enviar</button>
+                        <button type="button" id="form-btn" class="btn btn-dark" onclick="Contactanos()">Enviar</button>
                     </div>
             </form>
         </div>
@@ -591,42 +600,44 @@
 
             var formbtn = document.getElementById('form-btn');
 
-            function reservarNuevo() {
-                var form = document.getElementById('FrmReserva');
+            function Contactanos() {
+                var form = document.getElementById('FrmContactanos');
                 var formdata = new FormData(form);
 
                 var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+
                 formdata.append('_token', csrfToken);
                 formdata.forEach(function(value, key) {
                     console.log(key + ': ' + value);
                 });
+
                 var ajax = new XMLHttpRequest();
-                ajax.open('POST', '/reservaO');
+                ajax.open('POST', '/Contactanos');
 
                 ajax.onload = function() {
                     if (ajax.status === 200) {
                         if (ajax.responseText === "ok") {
                             Swal.fire({
                                 icon: 'success',
-                                title: '¡El vehiculo ha sido reservado!',
+                                title: '¡Nos pondremos en contacto contigo en cuanto podamos!',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2000
                             });
                             form.reset();
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: '¡Hubo un problema al reservar el vehículo!',
+                                title: '¡No se pudo enviar tu mensaje prueba en correo a: mycontrolpark@gmail.com!',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2000
                             });
                         }
                     } else {
                         Swal.fire({
                             icon: 'warning',
-                            title: '!Comprueba los campos¡ <br> O <br> Contacta con la empresa',
+                            title: '!Comprueba los campos¡ <br> O <br> Contactanos en mycontrolpark@gmail.com',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2000
                         });
                     }
                 };

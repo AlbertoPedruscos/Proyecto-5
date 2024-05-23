@@ -54,4 +54,28 @@ class ReservaController extends Controller
 
         echo "ok";
     }
+    public function Contactanos(Request $request)
+    {
+        // Envio de correo
+        // $sujeto = $request->get('nombre');
+        $sujeto = "Informacion empresa";
+        // $nombre_cliente = $request->nom_cliente;
+        // $nombreRemitente = $request->nombre;
+        // $mensaje = $request->mensaje;
+        $correoDestinatario = "mycontrolpark@gmail.com";
+
+        Mail::send('correo.contactanos', [
+            'nom_cliente' => $request->nom_cliente,
+            'apellidos' => $request->apellidos,
+            'prefijo' => $request->prefijo,
+            'num_telf' => $request->num_telf,
+            'email' => $request->email,
+            'mensaje' => $request->mensaje
+        ], function ($message) use ($correoDestinatario, $sujeto) {
+            $message->to($correoDestinatario)
+                ->subject($sujeto);
+        });
+
+        echo "ok";
+    }
 }
