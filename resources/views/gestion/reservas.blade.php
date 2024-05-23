@@ -8,7 +8,7 @@
     @endsection
 
     @section('css')
-        <link rel="stylesheet" href="{{ asset('css/reservas.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/reservas_empresas.css') }}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @endsection
