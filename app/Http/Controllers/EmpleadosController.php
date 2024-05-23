@@ -12,11 +12,10 @@ class EmpleadosController extends Controller
 {
     public function index(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
-        $perPage = $request->query('perPage', 5);
+        $perPage = $request->query('perPage', 10);
         $search = $request->query('search', '');
         $rol = $request->query('rol', '');
     
-        // Filtrar empleados según la búsqueda y el rol
         $query = tbl_usuarios::where('id_empresa', $idEmpresa);
     
         if (!empty($search)) {
@@ -30,21 +29,20 @@ class EmpleadosController extends Controller
             $query->where('id_rol', $rol);
         }
     
-        // Contar el total de empleados
         $totalEmpleados = $query->count();
-    
-        // Obtener empleados con paginación
         $empleados = $query->paginate($perPage);
-    
         $roles = tbl_roles::all();
     
         if ($request->ajax()) {
-            return view('tablas.tbl_empleados', compact('empleados', 'totalEmpleados'))->render();
+            return response()->json([
+                'html' => view('tablas.tbl_empleados', compact('empleados'))->render(),
+                'totalEmpleados' => $totalEmpleados,
+            ]);
         }
     
         return view('gestion.gestEmpleados', compact('empleados', 'roles', 'totalEmpleados', 'perPage', 'search', 'rol'));
     }
-        
+                    
     public function edit($id) {
         $empleado = tbl_usuarios::findOrFail($id);
         return response()->json($empleado);
@@ -76,18 +74,27 @@ class EmpleadosController extends Controller
     
         $nombreEmpresaSinEspacios = str_replace(' ', '', $nombreEmpresa);
     
+        $nombre = $request->input('nombre');
+        $apellidos = $request->input('apellido');
+    
+        // Eliminar espacios adicionales en nombre y apellidos
+        $nombreSinEspacios = str_replace(' ', '', $nombre);
+        $apellidosSinEspacios = str_replace(' ', '', $apellidos);
+    
+        // Formar el email usando el nombre y apellidos sin espacios
+        $email = strtolower($nombreSinEspacios . '.' . $apellidosSinEspacios . '@' . $nombreEmpresaSinEspacios . '.com');
+    
         $empleado = new tbl_usuarios();
-        $empleado->nombre = $request->input('nombre');
-        $empleado->apellidos = $request->input('apellido');
-        $empleado->email = strtolower($request->input('nombre').'.'.$request->input('apellido').'@'.$nombreEmpresaSinEspacios).'.com'; // Elimina los espacios en el nombre de la empresa
+        $empleado->nombre = $nombre;
+        $empleado->apellidos = $apellidos;
+        $empleado->email = $email; // Usar el email formado
         $empleado->contrasena = bcrypt('qweQWE123');
         $empleado->id_rol = 3;
         $empleado->id_empresa = $idEmpresa;
         $empleado->save();
     
         return redirect()->route('gestEmpleados')->with('success', 'Usuario registrado correctamente.');
-    }
-    
+    }    
     public function destroy($id) {
         $empleado = tbl_usuarios::findOrFail($id);
         if ($empleado->id_rol == 2) { // Usar operador de comparación (==) en lugar de asignación (=)

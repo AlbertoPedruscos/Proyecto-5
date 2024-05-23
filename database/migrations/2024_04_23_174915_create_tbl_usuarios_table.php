@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 45)->nullable();
             $table->string('apellidos', 45)->nullable();
-            $table->string('email', 45)->nullable();
+            $table->string('email', 150)->nullable();
             $table->string('contrasena')->nullable();
             $table->unsignedBigInteger('id_rol')->nullable();
             $table->unsignedBigInteger('id_empresa')->nullable();

@@ -7,12 +7,15 @@
 
 /* Estilos del body */
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-image: url('../img/OIG1.jpeg');
     background-size: cover; /* Hace que la imagen de fondo cubra todo el cuerpo */
     background-position: center bottom; /* Alinea la imagen en el centro */
     color: #fff;
-    overflow: hidden; /* Evita barras de desplazamiento no deseadas */
     height: 100vh;
+    margin: 0;
 }
 
 /* Estilo para el nav y su contenido */
@@ -24,6 +27,9 @@ nav {
     background: rgba(0, 0, 0, 0.5); 
     width: 100%;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* Estilo para el logo y el resto de elementos */
@@ -70,10 +76,8 @@ nav .nav-right {
     border-radius: 8px;
     border: 1px solid #e0cbbd;    
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); 
-    width: 35%; 
-    margin-left: 35px; 
-    margin-top: 20px; 
     height: auto; 
+    width: 650px;
 }
 
 /* Estilos para el título del formulario con línea divisoria usando pseudo-element */
@@ -131,7 +135,6 @@ nav .nav-right {
     border: 1px solid #ccc;
     width: 100%; 
 }
-
 
 /* Estilos para el botón en el formulario */
 #btn-enviar {

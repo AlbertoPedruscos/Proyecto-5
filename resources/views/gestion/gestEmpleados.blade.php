@@ -44,6 +44,9 @@
         {{-- REGISTRAR USUARIO --}}
         <button type="button" class="btn btn-primary" id="abrirModal">Añadir usuario</button>
 
+        {{-- QUITAR FILTRO --}}
+        <button class="btn btn-danger" style="border-radius: 5px;"><a href="/gestEmpleados"
+                style="text-decoration: none; color: white;">Quitar filtros</a></button>
 
         {{-- MENSAJE ERROR --}}
         @if (session('error'))
@@ -75,13 +78,22 @@
                     @endforeach
                 </select>
             </div>
+
+            <div class="form-group">
+                <label for="perPage">Mostrar:</label>
+                <select name="perPage" id="perPage" class="form-control">
+                    <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                    <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                    <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                    <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                </select>
+            </div>
         </form>
 
         {{-- TABLA --}}
         <div id="tabla">
             @include('tablas.tbl_empleados')
         </div>
-
 
         {{-- MODAL AÑADIR USUARIO --}}
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal-register"
@@ -146,11 +158,22 @@
                     data: $('#filterForm').serialize(),
                     success: function(data) {
                         $('#tabla').html(data);
+                        updateFormValues();
                     }
                 });
             }
 
-            $(document).on('submit', '#filterForm', function(e) {
+            function updateFormValues() {
+                $('#search').val('{{ $search }}');
+                $('#rol').val('{{ $rol }}');
+                $('#perPage').val('{{ $perPage }}');
+            }
+
+            $('#perPage, #search, #rol').on('change', function() {
+                $('#filterForm').submit();
+            });
+
+            $('#filterForm').on('submit', function(e) {
                 e.preventDefault();
                 fetchData(1);
             });
@@ -159,6 +182,29 @@
                 e.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
                 fetchData(page);
+            });
+
+            $('#abrirModal').click(function() {
+                $('#registerModal').modal('show');
+            });
+
+            $('.btn-edit').click(function(e) {
+                e.preventDefault();
+                var empleadoId = $(this).data('product-id');
+                $.ajax({
+                    url: '/empleado/' + empleadoId + '/edit',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#edit_nombre').val(response.nombre);
+                        $('#edit_apellidos').val(response.apellidos);
+                        $('#edit_email').val(response.email);
+                        $('#editModal').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert('Error al cargar los datos del usuario.');
+                    }
+                });
             });
         });
     </script>
