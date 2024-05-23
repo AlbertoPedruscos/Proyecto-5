@@ -12,10 +12,11 @@ class EmpleadosController extends Controller
 {
     public function index(Request $request) {
         $idEmpresa = $request->session()->get('empresa');
-        $perPage = $request->query('perPage', 10);
+        $perPage = $request->query('perPage', 10); // Establece el valor predeterminado a 10
         $search = $request->query('search', '');
         $rol = $request->query('rol', '');
     
+        // Filtrar empleados según la búsqueda y el rol
         $query = tbl_usuarios::where('id_empresa', $idEmpresa);
     
         if (!empty($search)) {
@@ -29,20 +30,24 @@ class EmpleadosController extends Controller
             $query->where('id_rol', $rol);
         }
     
+        // Contar el total de empleados
         $totalEmpleados = $query->count();
+    
+        // Obtener empleados con paginación
         $empleados = $query->paginate($perPage);
+    
         $roles = tbl_roles::all();
     
-        if ($request->ajax()) {
-            return response()->json([
-                'html' => view('tablas.tbl_empleados', compact('empleados'))->render(),
-                'totalEmpleados' => $totalEmpleados,
-            ]);
+        // Verifica si perPage tiene un valor y lo establece como seleccionado en el select
+        $perPageOptions = [5, 10, 25, 50];
+        if (in_array($perPage, $perPageOptions)) {
+            return view('gestion.gestEmpleados', compact('empleados', 'roles', 'totalEmpleados', 'perPage', 'search', 'rol'));
+        } else {
+            // Si perPage no tiene un valor válido, redirige con perPage predeterminado
+            return redirect()->route('gestEmpleados', ['perPage' => 5]);
         }
-    
-        return view('gestion.gestEmpleados', compact('empleados', 'roles', 'totalEmpleados', 'perPage', 'search', 'rol'));
     }
-                    
+                
     public function edit($id) {
         $empleado = tbl_usuarios::findOrFail($id);
         return response()->json($empleado);
