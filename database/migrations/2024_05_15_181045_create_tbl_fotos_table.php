@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_empresas', function (Blueprint $table) {
+        Schema::create('tbl_fotos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre', 45);
+            $table->unsignedBigInteger('id_reserva');
+            $table->string('ruta');
             $table->timestamps();
-        });
 
+            $table->foreign('id_reserva')->references('id')->on('tbl_reservas')->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -24,8 +26,12 @@ return new class extends Migration
      *
      * @return void
      */
+
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
-        Schema::dropIfExists('tbl_empresas');
+        Schema::dropIfExists('tbl_fotos');
     }
 };

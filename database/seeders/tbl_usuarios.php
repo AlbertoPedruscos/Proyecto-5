@@ -14,44 +14,16 @@ class tbl_usuarios extends Seeder
     public function run(): void
     {
         DB::table('tbl_usuarios')->insert([
-            'nombre' => 'Julio',
-            'apellidos' => 'Cesar',
-            'email' => 'julio@gmail.com',
-            'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
-            'id_empresa' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_usuarios')->insert([
-            'nombre' => 'Iker',
-            'apellidos' => 'Catala',
-            'email' => 'iker@gmail.com',
-            'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
-            'id_empresa' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_usuarios')->insert([
-            'nombre' => 'Alberto',
-            'apellidos' => 'Bermejo',
-            'email' => 'alberto@gmail.com',
-            'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
-            'id_empresa' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_usuarios')->insert([
-            'nombre' => 'Oscar',
-            'apellidos' => 'Lopez',
-            'email' => 'oscar@gmail.com',
-            'contrasena' =>  bcrypt('qweQWE123'),
-            'id_rol' => 1,
-            'id_empresa' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
+            ['nombre' => 'Admin', 'apellidos' => 'admin', 'email' => 'admin@mycontrolpark.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 1, 'id_empresa' => 1],
+            ['nombre' => 'Julio Cesar', 'apellidos' => 'Carrillo', 'email' => 'julio@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 2, 'id_empresa' => 2],
+            ['nombre' => 'Alberto', 'apellidos' => 'Bermejo', 'email' => 'alberto@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 3],
+            ['nombre' => 'Iker', 'apellidos' => 'Gomez', 'email' => 'iker@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 2, 'id_empresa' => 4],
+            ['nombre' => 'Óscar', 'apellidos' => 'López', 'email' => 'oscar@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 5],
+            ['nombre' => 'Sara', 'apellidos' => 'Rodríguez', 'email' => 'sara@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 6],
+            ['nombre' => 'Alejandro', 'apellidos' => 'Lay', 'email' => 'alejandro@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 7],
+            ['nombre' => 'Paula', 'apellidos' => 'García', 'email' => 'paula@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 8],
+            ['nombre' => 'Pedro', 'apellidos' => 'Bravo', 'email' => 'pedro@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 9],
+            ['nombre' => 'Ana', 'apellidos' => 'Mena', 'email' => 'ana@gmail.com', 'contrasena' => bcrypt('qweQWE123'), 'id_rol' => 3, 'id_empresa' => 10],
         ]);
     }
 }

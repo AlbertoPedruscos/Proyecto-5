@@ -19,15 +19,15 @@
 
         <ul class="nav-right">
             <li><a href="">Sobre nosotros</a></li>
-            <li><a href="{{ route('contactanos') }}">Contáctanos</a></li>
+            <li><a href="{{ route('inicio') }}">Reservar</a></li>
             <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
         </ul>
     </nav>
 
     <div id="formulario">
         <div id="cont-form">
-            <h1>Haga su reserva</h1>
-            <form action="" method="post" id="FrmReserva" class="form-floating">
+            <h1>Contactanos</h1>
+            <form action="" method="post" id="FrmContactanos" class="form-floating" >
                 <div class="form-floating inputs">
                     <div class="row g-2">
                         <div class="col-md">
@@ -41,29 +41,22 @@
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="matricula" id="matricula">
-                                <label for="floatingInputValue">Matrícula</label>
+                                <input type="text" class="form-control" name="apellidos" id="apellidos">
+                                <label for="floatingInputValue">apellido/s</label>
                             </div>
-                            <div class="invalid-feedback" id="error-matricula" style="display: none;">
-                                Formato de matrícula incorrecto.
+                            <div class="invalid-feedback" id="error-apellidos" style="display: none;">
+                                El apellido/s no puede estar vacio.
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-floating">
-                            <input type="email" class="form-control" name="email" id="email">
-                            <label for="floatingInputGrid">Email</label>
-                        </div>
-                        <div class="invalid-feedback" id="error-email" style="display: none;">
-                            Formato de email incorrecto.
-                        </div>
-                    </div>
+
                     <div class="row g-2">
                         <div class="col-md-5">
                             <div class="form-floating">
                                 <select class="form-select" name="prefijo" id="prefijo"
                                     aria-label="Floating label select example">
                                     <option selected disabled>Seleccione su prefijo</option>
+                                    <!-- Opciones de prefijo aquí -->
                                 </select>
                                 <label for="floatingSelect">Prefijo</label>
                             </div>
@@ -78,82 +71,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <select class="form-select" name="cochesSelect" id="cochesSelect"
-                                    aria-label="Floating label select example">
-                                    <option value="0" selected disabled>Seleccione su vehículo...</option>
-                                </select>
-                                <label for="floatingSelect">Vehículo</label>
-                            </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" name="email" id="email">
+                            <label for="floatingInputGrid">Email</label>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="modelo" id="modelo">
-                                <label for="floatingInputValue">Modelo</label>
-                            </div>
-                            <div class="invalid-feedback" id="error-modelo" style="display: none;">
-                                El campo "modelo" no puede estar vacío.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="color" id="colorInput">
-                                <label for="colorInput">Color</label>
-                                {{-- ESTE NO ES OBLIGATORIO --}}
-                            </div>
-                            <div id="colorValidationMessage" style="color: red;"></div>
+                        <div class="invalid-feedback" id="error-email" style="display: none;">
+                            Formato de email incorrecto.
                         </div>
                     </div>
-                    <div class="row g-2">
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" name="ubicacion_entrada" id="ubicacion_entrada"
-                                    aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione el punto de entrega...</option>
-                                    <option value="Aeropuerto T1" selected>Aeropuerto T1</option>
-                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
-                                    <option value="Puerto">Puerto</option>
-                                </select>
-                                <label for="floatingSelect">Punto de entrega</label>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="mensaje" id="mensaje">
+                            <label for="floatingInputGrid">Mensaje</label>
                         </div>
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" name="ubicacion_salida" id="ubicacion_salida"
-                                    aria-label="Floating label select example">
-                                    <option selected disabled>Seleccione el punto de recogida...</option>
-                                    <option value="Aeropuerto T1" selected>Aeropuerto T1</option>
-                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
-                                    <option value="Puerto">Puerto</option>
-                                </select>
-                                <label for="floatingSelect">Punto de recogida</label>
-                            </div>
+                        <div class="invalid-feedback" id="error-mensaje" style="display: none;">
+                            Formato del texto incorrecto.
                         </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-text">Entrega</span>
-                        <input type="datetime-local" class="form-control" id="fecha_entrada" name="fecha_entrada">
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
+                            <label class="form-check-label" for="invalidCheck2">
+                                He leído y acepto los <a style="color: blue;" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">términos y condiciones de uso</a>.
+                            </label>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-text">Recogida</span>
-                        <input type="datetime-local" class="form-control" id="fecha_salida" name="fecha_salida"
-                            disabled>
+                    <div class="col-12">
+                        <button type="button" id="form-btn" class="btn btn-dark" onclick="Contactanos()">Enviar</button>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
-                        <label class="form-check-label" for="invalidCheck2">
-                            He leído y acepto los <a style="color: blue;" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">términos y condiciones de uso</a>.
-                        </label>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <button type="button" id="form-btn" class="btn btn-dark" onclick="reservarNuevo()">Enviar</button>
-                </div>
             </form>
         </div>
 
@@ -652,42 +600,44 @@
 
             var formbtn = document.getElementById('form-btn');
 
-            function reservarNuevo() {
-                var form = document.getElementById('FrmReserva');
+            function Contactanos() {
+                var form = document.getElementById('FrmContactanos');
                 var formdata = new FormData(form);
 
                 var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
+
                 formdata.append('_token', csrfToken);
                 formdata.forEach(function(value, key) {
                     console.log(key + ': ' + value);
                 });
+
                 var ajax = new XMLHttpRequest();
-                ajax.open('POST', '/reservaO');
+                ajax.open('POST', '/Contactanos');
 
                 ajax.onload = function() {
                     if (ajax.status === 200) {
                         if (ajax.responseText === "ok") {
                             Swal.fire({
                                 icon: 'success',
-                                title: '¡El vehiculo ha sido reservado!',
+                                title: '¡Nos pondremos en contacto contigo en cuanto podamos!',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2000
                             });
                             form.reset();
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: '¡Hubo un problema al reservar el vehículo!',
+                                title: '¡No se pudo enviar tu mensaje prueba en correo a: mycontrolpark@gmail.com!',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2000
                             });
                         }
                     } else {
                         Swal.fire({
                             icon: 'warning',
-                            title: '!Comprueba los campos¡ <br> O <br> Contacta con la empresa',
+                            title: '!Comprueba los campos¡ <br> O <br> Contactanos en mycontrolpark@gmail.com',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2000
                         });
                     }
                 };
