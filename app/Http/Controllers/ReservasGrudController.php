@@ -46,20 +46,11 @@ class ReservasGrudController extends Controller
 
     public function CancelarReserva(Request $request)
     {
-        $ids = $request->input('id');
-        if (is_array($ids)) {
-            foreach ($ids as $id) {
-                $resultado = tbl_reservas::find($id);
-                if ($resultado) {
-                    $resultado->delete();
-                }
-            }
-            echo "ok";
-        } else {
-            $resultado = tbl_reservas::find($ids);
-            $resultado->delete();
-            echo "ok";
-        }
+        $id = $request->input('id');
+        // echo $id;
+        $resultado = tbl_reservas::find($id);
+        $resultado->delete();
+        echo "ok";
     }
 
     public function registrar(Request $request)

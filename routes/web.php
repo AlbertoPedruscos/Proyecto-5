@@ -190,7 +190,7 @@ Route::get('/gestionreservas', function () {
 
 
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
-// Route::post('/adminregistrar', [AdminGrudController::class,  'adminregistrar'])->name('adminregistrar');
+Route::post('/CancelarReserva', [ReservasGrudController::class,  'CancelarReserva'])->name('CancelarReserva');
 // Route::post('/admineditar', [AdminGrudController::class,  'admineditar'])->name('adminadmineditar');
 // Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->name('admineliminar');
 
