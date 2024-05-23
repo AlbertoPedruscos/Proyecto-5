@@ -44,7 +44,12 @@ class LoginController extends Controller
             $request->session()->put('empresa', $user->id_empresa);
             $request->session()->put('nombre_empresa', $empresa->nombre); 
 
-            return redirect()->route('mapa');
+            if ($user->id_rol==2){
+                return redirect()->route('mapa');
+            }
+            elseif ($user->id_rol==3){
+                return view('vistas.trabajador');
+            }
 
         } else {
             // Si las credenciales son incorrectas, redirigir con mensaje de error

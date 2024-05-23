@@ -83,36 +83,47 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
     formdata.append('rol', filtroRol);
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/Listarempleados');
+    ajax.open('POST', '/listarempresarios');
     ajax.onload = function () {
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
             var usuarios = json.usuarios;
             var roles = json.roles;
+            var empresas = json.empresas;
 
-            // roles alta
+            // console.log(usuarios);
+
+            // Roles y empresas para formulario de alta
 
             var SelecRoles = document.getElementById('SelecRoles');
-            let tabla2 = '';
+            let RolesParaForm = '';
             roles.forEach(function (rol) {
-                if (rol.id !== 1) {
-                    tabla2 += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
+                if (rol.id !== 3) {
+                    RolesParaForm += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
                 }
             });
-            SelecRoles.innerHTML = tabla2;
+            SelecRoles.innerHTML = RolesParaForm;
+
+            var SelecEmpresa = document.getElementById('SelecEmpresa');
+            let EmpresasParaForm = '';
+            empresas.forEach(function (empresa) {
+                EmpresasParaForm += '<option value="' + empresa.id + '"> ' + empresa.nombre + '</option>';
+            });
+
+            SelecEmpresa.innerHTML = EmpresasParaForm;
 
             // roles filtro
 
             if (filtro === 1) {
                 var filtroRol = document.getElementById('filtroRol');
-                let tabla3 = '';
-                tabla3 += '<option value="">Todo</option>';
+                let ParaFiltroRoles = '';
+                ParaFiltroRoles += '<option value="">Todo</option>';
                 roles.forEach(function (rol) {
-                    if (rol.id !== 1) {
-                        tabla3 += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
+                    if (rol.id !== 3) {
+                        ParaFiltroRoles += '<option value="' + rol.id + '"> ' + rol.nombre + '</option>';
                     }
                 });
-                filtroRol.innerHTML = tabla3;
+                filtroRol.innerHTML = ParaFiltroRoles;
             }
 
             // tabla usuarios
@@ -120,40 +131,39 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
             usuarios.forEach(function (usuario) {
                 let str = "<tr>";
                 // str += "<form action='' method='post' id='frmeditar'>";
-                if (usuario.id_rol == 1) {
-                    str += "<td>" + usuario.nombre + " </td>";
-                    str += "<td>" + usuario.apellidos + "</td>";
-                    str += "<td>" + usuario.email + "</td>";
-                    str += "<td>" + usuario.nom_rol + "</td>";
-                    str += '<td></td>';
-                    str += '<td></td>';
-                } else {
-                    str += "<input type='hidden' name='idp' id='idp' value='" + usuario.id + "'>";
-                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='nombre' id='nombre_" + usuario.id + "' value='" + usuario.nombre + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.nombre + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
-                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='apellidos' id='apellidos_" + usuario.id + "' value='" + usuario.apellidos + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.apellidos + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
-                    str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.email + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.email + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
-                    str += "<td><select name='rol' id='rol_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
-                    roles.forEach(function (rol) {
-                        if (rol.id !== 1 && usuario.id_rol !== 1) {
-                            str += "<option value='" + rol.id + "'";
-                            if (rol.id === usuario.id_rol) {
-                                str += " selected";
-                            }
-                            str += ">" + rol.nombre + "</option>";
-                        }
-                    });
-                    str += "</select></td>";
-                    str += '<td><input type="checkbox" onclick="guardarEstadosCheckbox()" class="checkbox-usuaiors" name="pedidos" value="' + usuario.id + '"';
 
-                    // Restaurar el estado del checkbox
-
-                    if (estadosCheckbox[usuario.id]) {
-                        str += ' checked';
+                str += "<input type='hidden' name='idp' id='idp' value='" + usuario.id + "'>";
+                str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='nombre' id='nombre_" + usuario.id + "' value='" + usuario.nombre + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.nombre + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='apellidos' id='apellidos_" + usuario.id + "' value='" + usuario.apellidos + "' readonly ondblclick='quitarReadOnly(this, \"" + usuario.apellidos + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                str += "<td><input type='text' style='border:none; text-align:center; background-color: transparent' name='email' id='email_" + usuario.id + "' value='" + usuario.email + "' readonly ondblclick='quitarReadOnly(this,  \"" + usuario.email + "\")' onchange='activarEdicion(this, \"" + usuario.id + "\")'></td>";
+                str += "<td><select name='rol' id='rol_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
+                roles.forEach(function (rol) {
+                    str += "<option value='" + rol.id + "'";
+                    if (rol.id === usuario.id_rol) {
+                        str += " selected";
                     }
-                    str += '></td>';
-                    str += "<td><input type='button' id='registrar_" + usuario.id + "' class='btn btn-danger' onclick='eliminarUsuario(" + usuario.id + ")' value='Eliminar'></td>";
+                    str += ">" + rol.nombre + "</option>";
+                });
+                str += "</select></td>";
+                str += "<td><select name='rol' id='empresa_" + usuario.id + "' class='rol' onchange='activarEdicion(this, \"" + usuario.id + "\")'>";
+                empresas.forEach(function (empresa) {
+                    str += "<option value='" + empresa.id + "'";
+                    if (empresa.id === usuario.id_empresa) {
+                        str += " selected";
+                    }
+                    str += ">" + empresa.nombre + "</option>";
+                });
+                str += "</select></td>";
+                str += '<td><input type="checkbox" onclick="guardarEstadosCheckbox()" class="checkbox-usuaiors" name="pedidos" value="' + usuario.id + '"';
 
+                // Restaurar el estado del checkbox
+
+                if (estadosCheckbox[usuario.id]) {
+                    str += ' checked';
                 }
+                str += '></td>';
+                str += "<td><input type='button' id='registrar_" + usuario.id + "' class='btn btn-danger' onclick='eliminarUsuario(" + usuario.id + ")' value='Eliminar'></td>";
+
                 // str += "</form></tr>";
                 tabla += str;
             });
@@ -176,6 +186,7 @@ function confirmarEdicion(id) {
     var apellidosValue = document.getElementById('apellidos_' + id).value;
     var emailValue = document.getElementById('email_' + id).value;
     var rolValue = document.getElementById('rol_' + id).value;
+    var empresaValue = document.getElementById('empresa_' + id).value;
 
     Swal.fire({
         title: 'Esta seguro de editar a ' + nombreValue + '?',
@@ -193,10 +204,11 @@ function confirmarEdicion(id) {
             formdata.append('apellidos', apellidosValue);
             formdata.append('email', emailValue);
             formdata.append('rol', rolValue);
+            formdata.append('empresa', empresaValue);
             var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
             formdata.append('_token', csrfToken);
             var ajax = new XMLHttpRequest();
-            ajax.open('POST', '/estado');
+            ajax.open('POST', '/admineditar');
             ajax.onload = function () {
                 if (ajax.status === 200) {
                     if (ajax.responseText === "ok") {
@@ -245,7 +257,7 @@ function eliminarUsuario(id) {
             var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
             formdata.append('_token', csrfToken);
             var ajax = new XMLHttpRequest();
-            ajax.open('POST', '/eliminar');
+            ajax.open('POST', '/admineliminar');
             ajax.onload = function () {
                 if (ajax.status === 200) {
                     if (ajax.responseText == "ok") {
@@ -302,7 +314,7 @@ function selectmuldel() {
             });
 
             var ajax = new XMLHttpRequest();
-            ajax.open('POST', '/eliminar');
+            ajax.open('POST', '/admineliminar');
             ajax.onload = function () {
                 if (ajax.status === 200) {
                     if (ajax.responseText == "ok") {
@@ -336,7 +348,7 @@ registrar.addEventListener("click", () => {
     // });
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/registrar');
+    ajax.open('POST', '/adminregistrar');
 
     ajax.onload = function () {
         if (ajax.status === 200) {

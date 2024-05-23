@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tbl_empresas extends Model
+class parkines extends Model
 {
     use HasFactory;
-
-    protected $table = 'tbl_empresas';
+    protected $table = 'tbl_parking';
 
     protected $fillable = [
         'nombre',
+        'latitud',
+        'longitud',
+        'id_empresa',
+        'id_plaza',
     ];
-
-    public function parkings()
-    {
-        return $this->hasMany(tbl_parking::class, 'id_empresa');
-    }
 }

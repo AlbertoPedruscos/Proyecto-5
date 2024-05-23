@@ -5,60 +5,100 @@
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    box-sizing: border-box;
 }
 
+html,
 body {
-    font-family: Arial, sans-serif;
-}
-
-/* HEADER */
-header {
-    background-color: #001A2C; /* Color de fondo */
-}
-
-
-/* navbar */
-
-/* Estilo para el nav y su contenido */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 0;
     width: 100%;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Sombras sutiles */
+    height: 90vh;
+    background-color: #003459;
 }
 
-nav li {
-    list-style: none;
-    padding: 0 15px;
+.navbar {
+    height: 10vh;
+    background-color: #00171F;
+}
+
+.filtro {
+    width: 95%;
+    margin: 10vh 2.5% 0;
+    height: 10vh;
+    overflow: hidden !important;
+    display: block;
+}
+.after::after {
+    content: none !important;
+}
+
+.iconoFiltro {
+    width: 15%;
+    float: left;
+
+}
+
+.iconoFiltro span {
+    font-size: 4vh;
     color: white;
-    font-size: 18px;
-    cursor: pointer;
-    font-weight: bold;
 }
 
-nav li a {
-    text-decoration: none;
+.inputFiltro {
+    float: left;
+    width: 100%;
+    padding-left: 5%;
+    margin-top: 5%;
+}
+
+.inputFiltro input {
+    width: 85%;
+}
+
+.inputFiltro span {
+    margin: 0.25vh 0 0 0.5vh;
+    font-size: 4vh;
     color: white;
 }
 
-nav li a:hover {
-    color: gold;
+.reservaCliente {
+    /* background-color: green; */
+    color: white;
+    height: 10vh;
+    margin-top: 5%;
 }
 
-nav img {
-    max-height: 70px; 
-    object-fit: contain; 
+.reservaCliente h3 {
+    margin-left: 10%;
+    width: 35%;
+    float: left;
+    padding-top: 4vh;
 }
 
-nav .nav-left {
-    display: flex;
-    align-items: center;
+.reservaCliente button {
+    /* margin-left: 30%; */
+    width: 20%;
+    margin-top: 3.2vh;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: right;
 }
 
-nav .nav-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+.horasReservas {
+    width: 20%;
+    float: left;
+    margin-top: 4vh;
+}
+
+.reservas {
+    height: 75vh;
+    overflow: scroll;
+}
+/* .VIpgJd-ZVi9od-l4eHX-hSRGPd {
+    visibility: hidden;
+} */
+
+@media screen and (min-width: 800px) { /* Con esto lo ocultamos en la pc y se deja visible solo en mobile */
+    .mostrarenmobile{
+        display: none;
+    }
 }

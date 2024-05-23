@@ -51,8 +51,8 @@ function ListarEmpresas(nombre) {
             var json = JSON.parse(ajax.responseText);
             var reservas = json.reservas;
             var usuarios = json.usuarios;
-            console.log(json);
 
+            console.log(json.usuarios)
             // Almacenar la info
             let DatosAnteriores = '';
             let DatosActuales = '';
@@ -87,22 +87,18 @@ function ListarEmpresas(nombre) {
                 let fechaEntrada = new Date(reserva.fecha_entrada);
                 let fechaSalida = new Date(reserva.fecha_salida);
 
-
                 // console.log("El contador es: " + fechaSalida);
                 // console.log("El fechaActual es: " + fechaActualFin);
                 if (fechaEntrada > fechaActualIni && fechaSalida < fechaActual) {
                     strexpirados += '<div style="border: 1px solid #ccc; padding: 3%; margin-bottom: 20px; background-color: #f9f9f9;">';
-                    strexpirados += '<select name="" id="">';
-                    usuarios.forEach(function (usuario) {
-                        // if (rol.id !== 1 && usuario.id_rol !== 1) {
-                        strexpirados += '  <option value=""></option>';
-                        // if (rol.id === usuario.id_rol) {
-                        // strexpirados += " selected";
-                        // }
-                        // strexpirados += ">" + usuario.nombre + "</option>";
-                        // }
-                    });
-                    strexpirados += "</select>";
+                    // strexpirados += "<td><select name='rol' id='rol_" + reserva.id + "' class='rol' onchange='activarEdicion(this, \"" + reserva.id + "\")'>";
+                    // usuarios.forEach(function (usuario) {
+
+                    //     strexpirados += "<option value='" + usuario.id + "'";
+                    //     strexpirados += ">" + usuario.nombre + "</option>";
+
+                    // });
+                    // strexpirados += "</select></td>";
 
                     strexpirados += "<h5 style='margin: 0; text-align:center;'><input style='border:none; background-color: transparent'  type='text' id='cliente_" + reserva.id + "' name='cliente' value='" + reserva.nom_cliente + "' readonly ondblclick='quitarReadOnly(this, \"" + reserva.nom_cliente + "\")' onchange='activarEdicion(this, \"" + reserva.id + "\")'></h5>"; strexpirados += "<p style='margin: 0;'><strong>Trabajador: </strong> <input style='border:none; background-color: transparent'  type='text' id='tabajador_" + reserva.id + "' name='tabajador' value='" + trabajador + "' readonly ondblclick='quitarReadOnly(this, \"" + reserva.trabajador + "\")' onchange='activarEdicion(this, \"" + reserva.id + "\")'></p>";
                     strexpirados += "<p style='margin: 0;'><strong>Plaza: </strong> <input style='border:none; background-color: transparent'  type='text' id='plaza_" + reserva.id + "' name='plaza' value='" + plaza + "' readonly ondblclick='quitarReadOnly(this, \"" + reserva.plaza + "\")' onchange='activarEdicion(this, \"" + reserva.id + "\")'></p>";
@@ -123,6 +119,17 @@ function ListarEmpresas(nombre) {
                     strexpirados += '</div>';
                 } else if (fechaEntrada > fechaActualFin && fechaSalida > fechaActual) {
                     strnuevos += '<div style="border: 1px solid #ccc; padding: 3%; margin-bottom: 20px; background-color: #f9f9f9;">';
+                    strnuevos += "<td><select name='rol' id='rol_" + reserva.id + "' class='rol' onchange='activarEdicion(this, \"" + reserva.id + "\")'>";
+
+                    // usuarios.forEach(function (usuario) {
+                    //     if (usuario.id = NULL) {
+                    //         strnuevos += "<option value='" + usuario.id + "'>" + usuario.nombre + "</option>";
+                    //     }
+                    // });
+
+                    strnuevos += "</select></td>";
+
+
                     strnuevos += '<h5 style="margin: 0; text-align:center;"><input style="border:none; background-color: transparent"  type="text" id="cliente_' + reserva.id + '" name="cliente" value="' + reserva.nom_cliente + '"></h5>';
                     strnuevos += '<p style="margin: 0;"><strong>Trabajador: </strong> <input style="border:none; background-color: transparent"  type="text" id="tabajador_' + reserva.id + '" name="tabajador" value="' + trabajador + '"></p>';
                     strnuevos += '<p style="margin: 0;"><strong>Plaza: </strong> <input style="border:none; background-color: transparent"  type="text" id="plaza_' + reserva.id + '" name="plaza" value="' + plaza + '"></p>';
@@ -142,7 +149,18 @@ function ListarEmpresas(nombre) {
                     strnuevos += '<button><input type="button" id="registrar_' + reserva.id + '" class="btn btn-danger" onclick="CancelarReserva(' + reserva.id + ')" value="Cancelar"></button>';
                     strnuevos += '</div>';
                 } else {
+
                     stractivos += '<div style="border: 1px solid #ccc; padding: 3%; margin-bottom: 20px; background-color: #f9f9f9;">';
+                    stractivos += "<td><select name='rol' id='rol_" + reserva.id + "' class='rol' onchange='activarEdicion(this, \"" + reserva.id + "\")'>";
+                    // usuarios.forEach(function (usuario) {
+
+                    //     stractivos += "<option value='" + usuario.id + "'";
+                    //     stractivos += ">" + usuario.nombre + "</option>";
+
+                    // });
+                    stractivos += "</select></td>";
+
+
                     stractivos += '<h5 style="margin: 0; text-align:center;"><input style="border:none; background-color: transparent"  type="text" id="cliente_' + reserva.id + '" name="cliente" value="' + reserva.nom_cliente + '' + reserva.id + '"></h5>';
                     stractivos += '<p style="margin: 0;"><strong>Trabajador: </strong> <input style="border:none; background-color: transparent"  type="text" id="tabajador_' + reserva.id + '" name="tabajador" value="' + trabajador + '"></p>';
                     stractivos += '<p style="margin: 0;"><strong>Plaza: </strong> <input style="border:none; background-color: transparent"  type="text" id="plaza_' + reserva.id + '" name="plaza" value="' + plaza + '"></p>';
