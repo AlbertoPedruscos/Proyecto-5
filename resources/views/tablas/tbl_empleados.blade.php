@@ -85,8 +85,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm" action="{{ route('empleado.update', ['id' => ':id']) }}" method="POST">
-                        @csrf
+                    <form id="editForm" action="{{ route('empleado.update', ['id' => $empleado->id]) }}" method="POST">                        @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label for="edit_nombre">Nombre:</label>
