@@ -4,22 +4,27 @@
 @section('title', 'Login | MyControlPark') <!-- Título personalizado -->
 @section('css') <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
-    {{-- FUENTE --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 @endsection
 
 @section('content')
+    <header>
+        <nav>
+            <ul class="nav-left">
+                <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
+            </ul>
+
+            <ul class="nav-right">
+                <li><a href="{{ route('inicio') }}">Volver</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="row">
-        <div id="cont-logo" class="column-2">
-            <img src="{{ asset('img/logo.png') }}" id="logo" alt="Logo">
-        </div>
-        <div id="cont-form" class="column-2">
+        <div id="cont-form">
             <form class="login-form" method="POST" action="{{ route('login.post') }}">
                 @csrf
 
-                <h2 class="mb-4 text-center">Inicio de sesión</h2>
+                <h1 class="mb-4 text-center">Inicio de sesión</h1>
 
                 <!-- Manejo de errores y éxito -->
                 @if (session('error'))
@@ -32,27 +37,34 @@
 
                 <!-- Campo de correo electrónico -->
                 <div class="form-group">
-                    <label for="email">Correo electrónico:</label>
-                    <input type="email" name="email" id="email"
-                        class="form-control @error('email') is-invalid @enderror"
-                        placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
+                    <div class="form-field">
+                        <label for="email" class="form-label">Correo electrónico:</label>
+                        <input type="email" name="email" id="email"
+                            class="form-control @error('email') is-invalid @enderror"
+                            placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
+                    </div>
                 </div>
 
                 <!-- Campo de contraseña -->
                 <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <div class="input-group">
-                        <input type="password" name="password" id="password"
-                            class="form-control @error('password') is-invalid @enderror" placeholder="Ingresa tu contraseña"
-                            value="{{ old('password') }}">
-                        <button type="button" id="password-toggle-btn" class="btn btn-outline-secondary"
-                            onclick="togglePasswordVisibility()">
-                            <i class="far fa-eye"></i>
-                        </button>
+                    <div class="form-field">
+                        <label for="password" class="form-label">Contraseña:</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Ingresa tu contraseña" value="{{ old('password') }}">
+                            <button type="button" id="password-toggle-btn" class="btn btn-outline-secondary"
+                                onclick="togglePasswordVisibility()">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <!-- Botón de enviar -->
-                <button id="btn-enviar" class="btn btn-primary w-100">Iniciar sesión</button>
+
+                <div class="form-group">
+                    <!-- Botón de enviar -->
+                    <button id="btn-enviar">Iniciar sesión</button>
+                </div>
             </form>
         </div>
     </div>

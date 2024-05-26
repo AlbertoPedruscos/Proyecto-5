@@ -14,6 +14,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{{ asset('./css/reservas.css') }}">
         {{-- TOKEN --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -21,157 +22,187 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title id="texto-nav2"></title>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-3-circle-fill" viewBox="0 0 16 16">
-            <path
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-8.082.414c.92 0 1.535.54 1.541 1.318.012.791-.615 1.36-1.588 1.354-.861-.006-1.482-.469-1.54-1.066H5.104c.047 1.177 1.05 2.144 2.754 2.144 1.653 0 2.954-.937 2.93-2.396-.023-1.278-1.031-1.846-1.734-1.916v-.07c.597-.1 1.505-.739 1.482-1.876-.03-1.177-1.043-2.074-2.637-2.062-1.675.006-2.59.984-2.625 2.12h1.248c.036-.556.557-1.054 1.348-1.054.785 0 1.348.486 1.348 1.195.006.715-.563 1.237-1.342 1.237h-.838v1.072h.879Z" />
-        </svg>
     </head>
 
     <body>
-        <nav class="navbar navbar-dark bg-dark fixed-top">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#" id="texto-nav">Reservas de hoy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="material-symbols-outlined" style="background-color: transparent;">
-                        filter_alt
-                    </span>
-                </button>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                            aria-label="Close"></button>
+        <div class="mostrarenmobile">
+            <nav class="navbar navbar-dark bg-dark fixed-top">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" id="texto-nav">Reservas de hoy</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="material-symbols-outlined" style="background-color: transparent;">
+                            filter_alt
+                        </span>
+                    </button>
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <a class="navbar-brand" href="/chatG" class="dropdown-item"
+                                    style="color: green;">Chat</a>
+                                <a class="navbar-brand" href="/mapasA" class="dropdown-item"
+                                    style="color: blue;">Mapa</a>
+                                <a class="navbar-brand" href="logout" class="dropdown-item"
+                                    style="color: red;">Cerrar
+                                    sesión</a>
+                                {{-- <div id="google_translate_element" class="google"></div> --}}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <a class="navbar-brand" href="logout" class="dropdown-item" style="color: black;">Cerrar
-                                sesión</a>
-                            <a class="navbar-brand" href="/chatG" class="dropdown-item" style="color: black;">Chat</a>
-                        </ul>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2"
-                    aria-labelledby="offcanvasNavbarLabel" style="background-color: #00171F;">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title btn btn-danger" id="offcanvasNavbarLabel" onclick="borrarFiltro()">
-                            Borrar filtros</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                            aria-label="Close" style="background-color: white"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <div class="accordion acordion-flush" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Parking
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div id="ubicaciones">
-                                        </div>
-                                        <button type="button" id="deseleccionarUbicaciones"
-                                            class="btn btn-dark btn-sm">Deseleccionar Ubicaciones</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                        aria-controls="collapseTwo">
-                                        Fecha
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <input type="date" name="filtro_fecha" id="filtro_fecha">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                        aria-expanded="false" aria-controls="collapseThree">
-                                        Ubicación
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div class="form-check">
-                                            <input style="background-color: grey;" class="form-check-input"
-                                                type="radio" name="flexRadioDefault" value="" id="empty" checked>
-                                            <label class="form-check-label" for="empty">Ninguno</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input style="background-color: grey;" class="form-check-input"
-                                                type="radio" name="flexRadioDefault" value="Aeropuerto T1" id="Aeropuerto T1">
-                                            <label class="form-check-label" for="Aeropuerto T1">Aeropuerto T1</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input style="background-color: grey;" class="form-check-input"
-                                                type="radio" name="flexRadioDefault" value="Aeropuerto T2" id="T2">
-                                            <label class="form-check-label" for="T2">Aeropuerto T2</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input style="background-color: grey;" class="form-check-input"
-                                                type="radio" name="flexRadioDefault" value="Puerto" value="0" id="Puerto">
-                                            <label class="form-check-label" for="Puerto">Puerto</label>
-                                        </div>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item" onclick="Checked()">
-                                <h2 class="accordion-header">
-                                    <div class="accordion-button collapsed after" type="button"
-                                    data-bs-target="#collapseFive"
-                                    aria-expanded="true">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar2"
+                        aria-labelledby="offcanvasNavbarLabel" style="background-color: #00171F;">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title btn btn-danger" id="offcanvasNavbarLabel"
+                                onclick="borrarFiltro()">
+                                Borrar filtros</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                                style="background-color: white"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <div class="accordion acordion-flush" id="accordionExample">
+                                <div class="accordion-item" onclick="Checked()">
+                                    <h2 class="accordion-header">
+                                        <div class="accordion-button collapsed after" type="button"
+                                            data-bs-target="#collapseFive" aria-expanded="true">
                                             <label class="form-check-label" for="asignado" onclick="Checked()">
                                                 Asignado a mí </label>
-                                                <input type="checkbox" name="asignado" id="asignado"
+                                            <input type="checkbox" name="asignado" id="asignado"
                                                 style="margin: 0.25vh 0 0 1vh;" onclick="Checked()">
-                                            </div>
+                                        </div>
 
-                                </h2>
-                                <div id="collapseFive" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
+                                    </h2>
+                                    <div id="collapseFive" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <div class="accordion-button collapsed after" type="button"
+                                            data-bs-target="#collapseSixt" aria-expanded="true"
+                                            onclick="CheckedRes()">
+                                            <label class="form-check-label" for="pendiente" onclick="CheckedRes()">
+                                                Todas las reservas </label>
+                                            <input type="checkbox" name="pendiente" id="pendiente"
+                                                style="margin: 0.25vh 0 0 1vh;" onclick="CheckedRes()">
+                                        </div>
+
+                                    </h2>
+                                    <div id="collapseSixt" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                            Parking
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div id="ubicaciones">
+                                            </div>
+                                            <button type="button" id="deseleccionarUbicaciones"
+                                                class="btn btn-dark btn-sm">Deseleccionar Ubicaciones</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            Fecha
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <input type="date" name="filtro_fecha" id="filtro_fecha">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            Ubicación
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <div class="form-check">
+                                                <input style="background-color: grey;" class="form-check-input"
+                                                    type="radio" name="flexRadioDefault" value=""
+                                                    id="empty" checked>
+                                                <label class="form-check-label" for="empty">Ninguno</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input style="background-color: grey;" class="form-check-input"
+                                                    type="radio" name="flexRadioDefault" value="Aeropuerto T1"
+                                                    id="Aeropuerto T1">
+                                                <label class="form-check-label" for="Aeropuerto T1">Aeropuerto
+                                                    T1</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input style="background-color: grey;" class="form-check-input"
+                                                    type="radio" name="flexRadioDefault" value="Aeropuerto T2"
+                                                    id="T2">
+                                                <label class="form-check-label" for="T2">Aeropuerto T2</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input style="background-color: grey;" class="form-check-input"
+                                                    type="radio" name="flexRadioDefault" value="Puerto"
+                                                    value="0" id="Puerto">
+                                                <label class="form-check-label" for="Puerto">Puerto</label>
+                                            </div>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </nav>
+            <div class="filtro">
+                <div class="inputFiltro">
+                    <input type="search" name="filtro" id="filtro" class="form-control" style="float: left;">
+                    <span class="material-symbols-outlined" onclick="filtrarReservas()">
+                        search
+                    </span>
+                </div>
             </div>
-        </nav>
-        <div class="filtro">
-            <div class="inputFiltro">
-                <input type="search" name="filtro" id="filtro" class="form-control" style="float: left;">
-                <span class="material-symbols-outlined" onclick="filtrarReservas()">
-                    search
-                </span>
+            {{-- <button data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</button>
+            <button data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</button> --}}
+            <div class="reservas" id="reservas">
+
             </div>
         </div>
-        <div class="reservas" id="reservas">
-
-        </div>
-
         <script type="text/javascript">
             var idParking = ""; // Declarar idParking de forma global
             var checkbox;
+            var allres;
             // Obtener referencia al input de búsqueda
             var inputFiltro = document.getElementById('filtro');
             var inputFecha = document.getElementById('filtro_fecha');
@@ -206,8 +237,13 @@
                         console.log("fechaActual:", fechaActual);
 
                         if (!filtroFecha || filtroFecha === fechaActual) {
-                            textonav.innerHTML = "Reservas de hoy";
-                            document.getElementById("texto-nav2").innerHTML = "Reservas de hoy";
+                            if (inputFiltro.value == "") {
+                                textonav.innerHTML = "Reservas de hoy";
+                                document.getElementById("texto-nav2").innerHTML = "Reservas de hoy";
+                            } else {
+                                textonav.innerHTML = "Reservas";
+                                document.getElementById("texto-nav2").innerHTML = "Reservas";
+                            }
                         } else {
                             textonav.innerHTML = "Reservas de " + filtroFecha;
                             document.getElementById("texto-nav2").innerHTML = "Reservas del " + filtroFecha;
@@ -233,7 +269,7 @@
                         data.reservas.forEach(function(reserva) {
                             var esHoyEntrada = comparaFechas(new Date(), reserva.fechaEntrada);
                             var esHoySalida = comparaFechas(new Date(), reserva.fechaSalida);
-
+                            // if (esHoyEntrada && reserva.firma_entrada) {
                             var horaMostrar = '';
 
                             if (esHoyEntrada) {
@@ -261,8 +297,8 @@
                                 var desH = reserva.trabajador ? 'disabled' : '';
 
                                 contenidoReserva +=
-                                    '<button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' +
-                                    nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
+                                    '<button type="button" class="btn btn-light" data-toggle="popover" title="Popover Header" onmouseover="">' +
+                                    nombreTrabajador + '</button>';
                                 contenidoReserva += '</div>';
                             }
                             if (esHoySalida) {
@@ -288,7 +324,6 @@
                                 var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre :
                                     'No asignado';
                                 var desH = reserva.trabajador ? 'disabled' : '';
-
                                 contenidoReserva +=
                                     '<button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' +
                                     nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
@@ -318,16 +353,16 @@
                                 var nombreTrabajador = reserva.trabajador ? reserva.trabajador.nombre :
                                     'No asignado';
                                 var desH = reserva.trabajador ? 'disabled' : '';
-
                                 contenidoReserva +=
-                                    '<button type="button" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="' +
-                                    nombreTrabajador + '" ' + desH + '>' + nombreTrabajador + '</button>';
+                                    '<button type="button" class="btn btn-light" style="z-index: 2;">' +
+                                    nombreTrabajador + '</button>';
                                 contenidoReserva += '</div>';
                             }
-
+                            // }
                         });
 
                         console.log('Total de vueltas: ' + data.reservas.length);
+                        document.getElementById('texto-nav').innerHTML += " (" + data.reservas.length + ")";
 
                         // Actualizar el contenido de la sección de reservas con la tabla construida
                         document.getElementById('reservas').innerHTML = contenidoReserva;
@@ -347,6 +382,7 @@
                     "&parking=" + encodeURIComponent(idParking) + "&asignado=" + encodeURIComponent(checkbox));
             }
             var asignado = document.getElementById('asignado');
+            allres = document.getElementById('pendiente');
 
             // Agregar un event listener para el evento 'keydown' en el input de búsqueda
             inputFiltro.addEventListener('keydown', function(event) {
@@ -361,6 +397,7 @@
                 // Verificar si la tecla presionada es "Enter" (código 13)
                 filtrarReservas();
             });
+
             function checkboxstatus() {
                 // Verificar si la tecla presionada es "Enter" (código 13)
                 if (asignado.checked) {
@@ -375,8 +412,25 @@
                 filtrarReservas();
             }
 
+            function checkboxreservas() {
+                // Verificar si la tecla presionada es "Enter" (código 13)
+                if (allres.checked) {
+                    console.log('Checkbox is checked!');
+                    allres = true;
+                    // Código adicional para cuando el checkbox está activado
+                } else {
+                    console.log('Checkbox is unchecked!');
+                    allres = false;
+                    // Código adicional para cuando el checkbox está desactivado
+                }
+                filtrarReservas();
+            }
+
             asignado.addEventListener('change', function(event) {
                 checkboxstatus();
+            });
+            allres.addEventListener('change', function(event) {
+                checkboxreservas();
             });
 
             function filtroUbi() {
@@ -416,7 +470,7 @@
                             checkbox.addEventListener('change', function() {
                                 idParking = parking.id;
                                 filtrarReservas
-                            (); // Llamar a filtrarReservas() con el valor del checkbox como argumento
+                                    (); // Llamar a filtrarReservas() con el valor del checkbox como argumento
                             });
                         });
                     }
@@ -457,13 +511,23 @@
                 // Llamar a la función de filtrarReservas para refrescar la lista de reservas
                 Selects();
             }
+
             function Checked() {
-                if (asignado.checked == true){
+                if (asignado.checked == true) {
                     asignado.checked = false;
-                }else {
+                } else {
                     asignado.checked = true;
                 }
                 checkboxstatus();
+            }
+
+            function CheckedRes() {
+                if (allres.checked == true) {
+                    allres.checked = false;
+                } else {
+                    allres.checked = true;
+                }
+                checkboxreservas();
             }
 
             filtroUbi();
@@ -477,6 +541,21 @@
             function comparaFechas(fecha1, fecha2) {
                 return fecha1.toDateString() === fecha2.toDateString();
             }
+            $(document).ready(function() {
+                $('[data-toggle="popover"]').popover();
+            });
+
+            // function googleTranslateElementInit() {
+            //     new google.translate.TranslateElement({
+            //         pageLanguage: 'es',
+            //         includedLanguages: 'ca,eu,en,fr,it,pt',
+            //         // layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            //         // gaTrack: true
+            //     }, 'google_translate_element');
+            // }
+        </script>
+
+        {{-- <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"> --}}
         </script>
     </body>
 

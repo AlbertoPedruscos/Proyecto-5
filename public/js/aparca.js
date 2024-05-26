@@ -184,6 +184,9 @@ function reservar2() {
                 document.getElementById('modal').style.display = "none";
             }
         }
+        else{
+            console.log(xhr.responseText);
+        }
     };
 
     // Definir el evento onerror para manejar errores de red

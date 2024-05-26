@@ -20,9 +20,8 @@ class tbl_plazas extends Model
 
     public function parking()
     {
-        return $this->belongsTo(tbl_parking::class, 'id_parking', 'id');
+        return $this->belongsTo(tbl_parking::class, 'id_parking');
     }
-
 
     public function estado()
     {

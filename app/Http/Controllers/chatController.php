@@ -98,4 +98,38 @@ class ChatController extends Controller
         $mensajeNuevo->mensaje = $mensaje;
         $mensajeNuevo->save();
     }
+
+    public function menCor(Request $request)
+    {
+        // Verificar si se reciben las coordenadas y el token CSRF
+        if ($request->has(['lati', 'longi', '_token'])) {
+            // Obtener las coordenadas de la solicitud
+            $latitud = $request->lati;
+            $longitud = $request->longi;
+            
+            // Guardar las coordenadas en variables de sesión
+            $request->session()->put('latitudC', $latitud);
+            $request->session()->put('longitudC', $longitud);
+
+            // Respuesta de éxito (opcional)
+            return response()->json(['message' => 'Coordenadas guardadas correctamente'], 200);
+        }
+
+        // Si falta alguna de las coordenadas o el token CSRF, responder con un error
+        return response()->json(['error' => 'Faltan parámetros'], 400);
+    }
+    public function menCor2(Request $request)
+    {
+        $latitudC = $request->session()->get('latitudC');
+        $longitudC = $request->session()->get('longitudC');
+
+        // Devolver la variable de sesión como JSON
+        return response()->json([
+            'latitudC' => $latitudC,
+            'longitudC' => $longitudC
+        ]);
+
+        // Si falta alguna de las coordenadas o el token CSRF, responder con un error
+        return response()->json(['error' => 'Faltan parámetros'], 400);
+    }
 }

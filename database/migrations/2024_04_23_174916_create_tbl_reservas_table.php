@@ -17,9 +17,9 @@ return new class extends Migration {
             $table->string('nom_cliente', 45);
             $table->string('matricula', 10);
             $table->string('marca', 15);
-            $table->string('modelo', 20);
+            $table->string('modelo', 15);
             $table->string('color', 15)->nullable();
-            $table->string('num_telf', 9);
+            $table->string('num_telf', 20);
             $table->string('email', 45);
             $table->enum('ubicacion_entrada', ['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']);
             $table->enum('ubicacion_salida', ['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']);
@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->dateTime('fecha_salida');
             $table->string('firma_entrada', 75)->nullable();
             $table->string('firma_salida', 75)->nullable();
-            $table->string('notas', 254)->nullable();
+            $table->string('notas')->nullable(); // Nuevo campo 'notas' agregado como VARCHAR y permitiendo valores nulos
             $table->timestamps();
 
             $table->foreign('id_trabajador')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');

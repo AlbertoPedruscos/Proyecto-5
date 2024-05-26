@@ -13,6 +13,22 @@ body {
     height: 85vh;
     /* background-color: #003459; */
 }
+.floating-div {
+    float: left;
+    margin-right: 2vh; /* Margen derecho de 2% del alto del viewport */
+    background-color: #f0f0f0;
+    padding: 2vh; /* Relleno de 2% del alto del viewport */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select {
+    width: 20vh; /* Ancho del select */
+    padding: 1vh; /* Relleno de 1% del alto del viewport */
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    font-size: 2vh;
+}
 .navbar {
     height: 10vh;
     /* background-color: #00171F; */

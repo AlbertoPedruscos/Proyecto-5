@@ -26,7 +26,6 @@ class modeloReserva extends Model
         'fecha_salida',
         'firma_entrada',
         'firma_salida',
-        'notas',
     ];
 
     public function trabajador()
