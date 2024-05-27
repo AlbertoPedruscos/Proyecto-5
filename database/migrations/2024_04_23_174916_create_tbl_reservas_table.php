@@ -4,9 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreateTblReservasTable extends Migration
+{
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
@@ -14,6 +17,8 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_trabajador')->nullable();
             $table->unsignedBigInteger('id_plaza')->nullable();
+            $table->unsignedBigInteger('ubicacion_entrada')->nullable(); // Cambiado a ID de ubicación de entrada
+            $table->unsignedBigInteger('ubicacion_salida')->nullable(); // Cambiado a ID de ubicación de salida
             $table->string('nom_cliente', 45);
             $table->string('matricula', 10);
             $table->string('marca', 15);
@@ -21,8 +26,6 @@ return new class extends Migration {
             $table->string('color', 15)->nullable();
             $table->string('num_telf', 20);
             $table->string('email', 45);
-            $table->enum('ubicacion_entrada', ['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']);
-            $table->enum('ubicacion_salida', ['Aeropuerto T1', 'Aeropuerto T2', 'Puerto']);
             $table->dateTime('fecha_entrada');
             $table->dateTime('fecha_salida');
             $table->string('firma_entrada', 75)->nullable();
@@ -32,6 +35,8 @@ return new class extends Migration {
 
             $table->foreign('id_trabajador')->references('id')->on('tbl_usuarios')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_plaza')->references('id')->on('tbl_plazas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('ubicacion_entrada')->references('id')->on('tbl_ubicaciones')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('ubicacion_salida')->references('id')->on('tbl_ubicaciones')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -44,4 +49,4 @@ return new class extends Migration {
     {
         Schema::dropIfExists('tbl_reservas');
     }
-};
+}

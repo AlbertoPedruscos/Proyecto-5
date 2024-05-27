@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(tbl_usuarios::class);
         $this->call(tbl_parkings::class);
         $this->call(tbl_plazas::class);
+        $this->call(tbl_ubicaciones::class);
         $this->call(tbl_reservas::class);
     }
 }

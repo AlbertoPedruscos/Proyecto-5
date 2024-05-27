@@ -15,10 +15,10 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nombre', 45);
             $table->string('apellidos', 45);
-            $table->string('email', 150);
+            $table->string('email', 45);
             $table->string('contrasena', 255);
             $table->unsignedBigInteger('id_rol');
-            $table->unsignedBigInteger('id_empresa')->nullable();
+            $table->unsignedBigInteger('id_empresa');
             $table->timestamps();
 
             $table->foreign('id_rol')->references('id')->on('tbl_roles')->onDelete('cascade')->onUpdate('cascade');

@@ -14,12 +14,12 @@ class tbl_roles extends Seeder
     public function run(): void
     {
         DB::table('tbl_roles')->insert([
-            'nombre' => 'Administrador total',
+            'nombre' => 'Admin',
             'created_at' => now(),
             'updated_at' => now()
         ]);
         DB::table('tbl_roles')->insert([
-            'nombre' => 'Gestor',
+            'nombre' => 'Empresa',
             'created_at' => now(),
             'updated_at' => now()
         ]);

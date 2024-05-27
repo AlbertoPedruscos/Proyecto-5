@@ -64,7 +64,12 @@ Route::get('/reservas', function () {
     return view('gestion.reservas');
 })->name('reservas');
 
+use App\Http\Controllers\DatoController;
+
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
+Route::post('/ReservasEditar', [ReservasGrudController::class, 'ReservasEditar'])->name('ReservasEditar');
+Route::get('/listarreservascsv', [ReservasGrudController::class, 'listarreservascsv'])->name('listarreservascsv');
+Route::get('/listarreservascsv', [ReservasGrudController::class, 'listarreservascsv']);
 
 
 
@@ -183,19 +188,6 @@ Route::post('/listarempresarios', [AdminGrudController::class, 'listarempresario
 Route::post('/adminregistrar', [AdminGrudController::class,  'adminregistrar'])->name('adminregistrar');
 Route::post('/admineditar', [AdminGrudController::class,  'admineditar'])->name('adminadmineditar');
 Route::post('/admineliminar', [AdminGrudController::class, 'admineliminar'])->name('admineliminar');
-
-
-
-// Reservas
-
-Route::get('/gestionreservas', function () {
-    return view('empresa.gestionreservas');
-})->name('gestionreservas');
-Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
-Route::post('/CancelarReserva', [ReservasGrudController::class,  'CancelarReserva'])->name('CancelarReserva');
-
-
-
 
 // Chat
 
