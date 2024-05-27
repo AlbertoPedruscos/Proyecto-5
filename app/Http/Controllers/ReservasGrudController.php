@@ -27,32 +27,13 @@ class ReservasGrudController extends Controller
             ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
             ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
             ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
-            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'e.nombre as empresa')
+            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
             ->orderby('tbl_reservas.fecha_entrada', 'asc')
             ->where('e.id', 2);
         $reservas = $reservas->get();
         // return response()->json(['reservas' => $reservas, 'usuarios' => $usuarios, 'parkings' => $parkings]);
 
         return response()->json(['reservas' => $reservas, 'usuarios' => $usuarios, 'parkings' => $parkings, 'plazas' => $plazas, 'ubicaciones' => $ubicaciones]);
-    }
-
-
-
-    public function estado(Request $request)
-    {
-        $id = $request->input('idp');
-        $nombre = $request->input('nombre');
-        $apellidos = $request->input('apellidos');
-        $email = $request->input('email');
-        $rol = $request->input('rol');
-
-        $resultado = tbl_reservas::find($id);
-        $resultado->nombre = $nombre;
-        $resultado->apellidos = $apellidos;
-        $resultado->email = $email;
-        $resultado->id_rol = $rol;
-        $resultado->save();
-        echo "ok";
     }
 
     public function CancelarReserva(Request $request)
@@ -144,7 +125,13 @@ class ReservasGrudController extends Controller
     public function listarreservascsv()
     {
         // Obtener todos los datos desde la base de datos
-        $datos = tbl_reservas::all();
+        $datos = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
+            ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
+            ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
+            ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
+            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
+            ->orderby('tbl_reservas.fecha_entrada', 'asc');
+        $datos = $datos->get();
         return response()->json($datos);
     }
 }

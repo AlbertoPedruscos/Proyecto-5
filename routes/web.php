@@ -64,11 +64,8 @@ Route::get('/reservas', function () {
     return view('gestion.reservas');
 })->name('reservas');
 
-use App\Http\Controllers\DatoController;
-
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
 Route::post('/ReservasEditar', [ReservasGrudController::class, 'ReservasEditar'])->name('ReservasEditar');
-Route::get('/listarreservascsv', [ReservasGrudController::class, 'listarreservascsv'])->name('listarreservascsv');
 Route::get('/listarreservascsv', [ReservasGrudController::class, 'listarreservascsv']);
 
 

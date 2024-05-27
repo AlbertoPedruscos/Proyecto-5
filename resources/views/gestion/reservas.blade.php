@@ -45,12 +45,11 @@
             <input type="text" id="filtroNombre" placeholder="Filtrar por nombre">
             <button onclick="fetchData()">Cargar Datos</button>
             <button onclick="exportFilteredDataToCSV()">Exportar a CSV</button>
-        
             <table id="tablaDatos">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Edad</th>
+                        <th>Matricula</th>
                         <!-- Añade más encabezados según tus datos -->
                     </tr>
                 </thead>
