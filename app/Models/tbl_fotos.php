@@ -25,4 +25,5 @@ class tbl_fotos extends Model
         'id_reserva',
         'ruta',
     ];
+    public $timestamps = true;
 }

@@ -263,7 +263,6 @@
             // VALIDACIONES
 
             document.addEventListener("DOMContentLoaded", function() {
-                var val = 0;
 
                 var inputNombre = document.getElementById("nom_cliente");
                 var errornombre = document.getElementById("error-nombre");
