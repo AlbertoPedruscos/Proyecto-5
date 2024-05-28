@@ -11,7 +11,7 @@ use App\Models\tbl_ubicaciones;
 
 class ReservasGrudController extends Controller
 {
-    public function listarreservas()
+    public function listarreservas(Request $request)
     {
         $empresa = session('empresa');
         $usuarios = tbl_usuarios::where('id_empresa', $empresa)->get();
@@ -20,27 +20,39 @@ class ReservasGrudController extends Controller
         foreach ($parkings as $parking) {
             $plazas[$parking->id] = tbl_plazas::where('id_parking', $parking->id)->get();
         }
-
-        // $plazas = tbl_plazas::all();
-
-        $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
-            ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
-            ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
-            ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
-            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
-            ->orderby('tbl_reservas.fecha_entrada', 'asc')
-            ->where('e.id', 2);
-        $reservas = $reservas->get();
-        // return response()->json(['reservas' => $reservas, 'usuarios' => $usuarios, 'parkings' => $parkings]);
-
+        if ($request->input('nombre')) {
+            $nombre = $request->input('nombre');
+            $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
+                ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
+                ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
+                ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
+                ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
+                ->orderby('tbl_reservas.fecha_entrada', 'asc')
+                ->where('matricula', 'like', "%$nombre%")  
+                ->where('e.id',  $empresa);
+            $reservas = $reservas->get();
+        } else {
+            $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
+                ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
+                ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
+                ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
+                ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
+                ->orderby('tbl_reservas.fecha_entrada', 'asc')
+                ->where('e.id',  $empresa);
+            $reservas = $reservas->get();
+        }
         return response()->json(['reservas' => $reservas, 'usuarios' => $usuarios, 'parkings' => $parkings, 'plazas' => $plazas, 'ubicaciones' => $ubicaciones]);
     }
 
     public function CancelarReserva(Request $request)
     {
         $id = $request->input('id');
-        // echo $id;
         $resultado = tbl_reservas::find($id);
+
+        if (!$resultado) {
+            echo 'Reserva no encontrada';
+        }
+
         $resultado->delete();
         echo "ok";
     }
@@ -48,12 +60,10 @@ class ReservasGrudController extends Controller
     public function registrar(Request $request)
     {
         $empresa = session('id_empresa');
-
         $nombre = $request->input('nombreuser');
         $apellidos = $request->input('apellido');
         $email = $request->input('email');
-        $pwdencrip = bcrypt($request->input('email'));
-        // $pwd = $request->input('pwd');
+        $pwdencrip = bcrypt($request->input('pwd'));
         $SelecRoles = $request->input('SelecRoles');
 
         $resultado = new tbl_reservas();
@@ -64,47 +74,34 @@ class ReservasGrudController extends Controller
         $resultado->id_rol = $SelecRoles;
         $resultado->id_empresa = $empresa;
         $resultado->save();
+
         echo "ok";
     }
+
 
     public function ReservasEditar(Request $request)
     {
         $id = $request->input('idp');
         $nombre = $request->input('nombre');
-        if ($request->input('trabajador') == 0) {
-            $trabajador = NULL;
-        } else {
-            $trabajador = $request->input('trabajador');
-        }
-        if ($request->input('plaza') == 0) {
-            $plaza = NULL;
-        } else {
-            $plaza = $request->input('plaza');
-        }
+        $trabajador = $request->input('trabajador') ?: null;
+        $plaza = $request->input('plaza') ?: null;
         $matricula = $request->input('matricula');
-        if ($request->input('marca') == 0) {
-            $marca = NULL;
-        } else {
-            $marca = $request->input('marca');
-        }
+        $marca = $request->input('marca') ?: null;
         $modelo = $request->input('modelo');
         $color = $request->input('color');
         $telf = $request->input('telf');
         $email = $request->input('email');
-        if ($request->input('puntorecogida') == 0) {
-            $recogida = NULL;
-        } else {
-            $recogida = $request->input('puntorecogida');
-        }
-        if ($request->input('puntoentrega') == 0) {
-            $entrega = NULL;
-        } else {
-            $entrega = $request->input('puntoentrega');
-        }
+        $recogida = $request->input('puntorecogida') ?: null;
+        $entrega = $request->input('puntoentrega') ?: null;
         $fechaentrada = $request->input('fechaentrada');
         $fechasalida = $request->input('fechasalida');
 
         $resultado = tbl_reservas::find($id);
+
+        if (!$resultado) {
+            echo "no encontrado";
+        }
+
         $resultado->nom_cliente = $nombre;
         $resultado->id_trabajador = $trabajador;
         $resultado->id_plaza = $plaza;
@@ -119,19 +116,24 @@ class ReservasGrudController extends Controller
         $resultado->fecha_entrada = $fechaentrada;
         $resultado->fecha_salida = $fechasalida;
         $resultado->save();
+
         echo "ok";
     }
 
     public function listarreservascsv()
     {
-        // Obtener todos los datos desde la base de datos
-        $datos = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
+        $empresa = session('empresa');
+       $datos = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
             ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
             ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')
             ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
-            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
-            ->orderby('tbl_reservas.fecha_entrada', 'asc');
-        $datos = $datos->get();
+            ->leftJoin('tbl_ubicaciones as ubis', 'tbl_reservas.ubicacion_entrada', '=', 'ubis.id')
+            ->leftJoin('tbl_ubicaciones as ubisali', 'tbl_reservas.ubicacion_salida', '=', 'ubisali.id')
+            ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa', 'ubis.nombre_sitio as ubicacion entrada', 'ubisali.nombre_sitio as ubicacion salida')
+            ->orderBy('tbl_reservas.fecha_entrada', 'asc')
+            ->where('e.id',  $empresa)
+            ->get();
+        // $datos = $datos->get();
         return response()->json($datos);
     }
 }

@@ -41,22 +41,9 @@
         </header>
 
 
-        <div>
-            <input type="text" id="filtroNombre" placeholder="Filtrar por nombre">
-            <button onclick="fetchData()">Cargar Datos</button>
-            <button onclick="exportFilteredDataToCSV()">Exportar a CSV</button>
-            <table id="tablaDatos">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Matricula</th>
-                        <!-- Añade más encabezados según tus datos -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Las filas de datos se insertarán aquí -->
-                </tbody>
-            </table>
+        <div class="container">
+            <input type="text" name="filtroNombre" id="filtroNombre" placeholder="Filtrar por matrícula">
+            <button onclick="fetchData()">Exportar a CSV</button>
         </div>
 
 

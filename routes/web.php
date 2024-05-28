@@ -66,6 +66,7 @@ Route::get('/reservas', function () {
 
 Route::post('/listarreservas', [ReservasGrudController::class, 'listarreservas'])->name('listarreservas');
 Route::post('/ReservasEditar', [ReservasGrudController::class, 'ReservasEditar'])->name('ReservasEditar');
+Route::post('/CancelarReserva', [ReservasGrudController::class, 'CancelarReserva'])->name('CancelarReserva');
 Route::get('/listarreservascsv', [ReservasGrudController::class, 'listarreservascsv']);
 
 
