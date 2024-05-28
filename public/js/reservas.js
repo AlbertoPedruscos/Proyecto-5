@@ -297,14 +297,6 @@ function ListarEmpresas(nombre) {
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
                 else if (fechaEntrada > fechaActualFin && fechaSalida >= fechaActualIni) {
                     
                     strnuevos += '<div style="border: 1px solid #ccc; padding: 3%; margin-bottom: 20px; background-color: #003459;">';
