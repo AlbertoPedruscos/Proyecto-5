@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+}
+
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh; /* 1% de la altura de la ventana */
+}
+
+#map {
+    height: calc(100vh); /* Altura del mapa restando 10% de la altura de la ventana */
+    width: 100%;
+}
+
+input[type="search"] {
+    padding: 0.8vh; /* 0.8% de la altura de la ventana */
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    width: 30vh;
+    height: 4vh;
+    margin-right: 1vh; /* 1% de la altura de la ventana */
+    font-size: 4vh; /* Cambiado a medida relativa */
+}
+
+input[type="search"]:focus {
+    outline: none;
+    border-color: #333;
+}
+
+.hamburguesa {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding-top: 0.7vh; /* 1% de la altura de la ventana */
+    padding-bottom: 0.7vh; /* 1% de la altura de la ventana */
+    padding-left: 1.4vh; /* 1% de la altura de la ventana */
+    padding-right: 1.4vh; /* 1% de la altura de la ventana */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* Efecto smooth para el color de fondo */
+    color: black;
+}
+
+.hamburguesa:hover {
+    background-color: #f0f0f0;
+}
+
+.ubicaciones {
+    display: none;
+    position: absolute;
+    top: 6vh; /* 5% de la altura de la ventana */
+    right: 1vh; /* 1% de la altura de la ventana */
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1vh; /* 1% de la altura de la ventana */
+    transition: opacity 0.3s ease-in-out; /* Efecto smooth para la opacidad */
+    font-size: 2.5vh;
+}
+
+.ubicaciones ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ubicaciones li {
+    margin-bottom: 0.5vh; /* 0.5% de la altura de la ventana */
+    cursor: pointer;
+}
+
+.mostrar {
+    color: black;
+}

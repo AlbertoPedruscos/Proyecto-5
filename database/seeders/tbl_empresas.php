@@ -14,29 +14,17 @@ class tbl_empresas extends Seeder
     public function run(): void
     {
         DB::table('tbl_empresas')->insert([
-            'nombre' => 'Nnparkings',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_empresas')->insert([
-            'nombre' => 'Interparking Hispania',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_empresas')->insert([
-            'nombre' => 'Saba Sede',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_empresas')->insert([
-            'nombre' => 'Continental Parking SL',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('tbl_empresas')->insert([
-            'nombre' => 'Pàrking PRATSA Self Storage',
-            'created_at' => now(),
-            'updated_at' => now()
+            ['nombre' => 'Parkings S.A.'],
+            ['nombre' => 'Gestión de Aparcamientos SL'],
+            ['nombre' => 'ParkingTech Solutions'],
+            ['nombre' => 'Estacionamientos Urbanos'],
+            ['nombre' => 'AparcaBien'],
+            ['nombre' => 'ParkingExpress'],
+            ['nombre' => 'ParkItNow'],
+            ['nombre' => 'Aparcamientos Innovadores'],
+            ['nombre' => 'Park&Go'],
+            ['nombre' => 'Smart Parking'],
+            ['nombre' => 'MyControlPark'],
         ]);
 
     }

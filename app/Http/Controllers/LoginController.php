@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\tbl_usuarios;
 use App\Models\tbl_empresas; // Asegúrate de tener este modelo
-
+use App\Models\tbl_pagos_empresa; // Asegúrate de tener este modelo
 class LoginController extends Controller
 {
     public function index()
@@ -44,7 +44,35 @@ class LoginController extends Controller
             $request->session()->put('empresa', $user->id_empresa);
             $request->session()->put('nombre_empresa', $empresa->nombre); 
 
-            return redirect()->route('mapa');
+            $inicio_mes = date('Y-m-01 00:00:00'); // Primer día del mes actual a las 00:00:00 horas
+            $fin_mes = date('Y-m-t 23:59:59'); // Último día del mes actual a las 23:59:59 horas
+            
+            $inicio_mes = date('Y-m-01 00:00:00'); // Primer día del mes actual a las 00:00:00 horas
+            $fin_mes = date('Y-m-t 23:59:59'); // Último día del mes actual a las 23:59:59 horas
+            
+            $pagos = tbl_pagos_empresa::where('empresa', $user->id_empresa)
+                ->where('fecha_pago', '>=', $inicio_mes)
+                ->where('fecha_pago', '<=', $fin_mes)
+                ->get();
+                if ($pagos->count() > 0) {
+                    $request->session()->put('pago', 'si');
+                }   
+                         
+            if ($user->id_rol == 1) {
+                return view('admin.admin');
+            }
+            elseif ($user->id_rol == 2 && $pagos->count() > 0) {
+                return redirect()->route('mapa');
+            }
+            elseif ($user->id_rol == 3/*  && $pagos->count() > 0 */){
+                return view('vistas.trabajador');
+            }
+            elseif ($user->id_rol==3 && $pagos->count() == 0){
+                return redirect()->route('login')->with('success', 'La suscripcion mensual ha caducado. Tu gestor tiene que renovarla.');
+            }
+            elseif ($user->id_rol == 2 && $pagos->count() == 0){
+                return view('vistas.pagos');
+            }
 
         } else {
             // Si las credenciales son incorrectas, redirigir con mensaje de error

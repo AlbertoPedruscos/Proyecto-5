@@ -18,21 +18,22 @@ class EmpresaController extends Controller
             ->join('tbl_roles as r', 'tbl_usuarios.id_rol', '=', 'r.id')
             ->select('tbl_usuarios.*', 'e.nombre as nom_empresa', 'r.nombre as nom_rol')
             ->where('tbl_usuarios.id_empresa', $empresa);
-        if ($request->input('nombre')) {
+    
+        // Aplicar filtro por nombre
+        if ($request->filled('nombre')) {
             $nombre = $request->input('nombre');
             $usuarios->where('tbl_usuarios.nombre', 'like', "%$nombre%");
         }
-
-        if ($request->input('rol')) {
-            if ($request->input('rol') != "[object KeyboardEvent]") {
-                $rol = $request->input('rol');
-                $usuarios->where('tbl_usuarios.id_rol', $rol);
-            }
+    
+        // Aplicar filtro por rol
+        if ($request->filled('rol')) {
+            $rol = $request->input('rol');
+            $usuarios->where('tbl_usuarios.id_rol', $rol);
         }
+    
         $usuarios = $usuarios->get();
         return response()->json(['usuarios' => $usuarios, 'empresas' => $empresas, 'roles' => $roles]);
     }
-
 
 
     public function estado(Request $request)

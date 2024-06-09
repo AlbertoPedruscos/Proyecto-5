@@ -1,5 +1,4 @@
 
-
 // Mostrar formulatio oculto
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -90,8 +89,6 @@ function ListarEmpresas(nombre, filtroRol, filtro = 1) {
             var json = JSON.parse(ajax.responseText);
             var usuarios = json.usuarios;
             var roles = json.roles;
-            console.log(roles);
-            console.log(usuarios);
 
             // roles alta
 
