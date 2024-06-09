@@ -57,6 +57,10 @@ header nav li a:hover {
     color: gold;
 }
 
+.gold-hover:hover {
+    color: gold;
+}
+
 header nav img {
     max-height: 70px; 
     object-fit: contain; 

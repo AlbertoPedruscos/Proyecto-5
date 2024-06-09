@@ -18,11 +18,11 @@
             <nav>
                 <ul class="nav-left">
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
-                    <li><a href="{{ route('gestEmpleados') }}">Empleados</a></li>
+                    <li><a href="{{ route('gestEmpleados') }}" class="gold-hover">Empleados</a></li>
                     <li class="active">Reservas</li>
-                    <li><a href="{{ 'mapa' }}">Mapa</a></li>
-                    <li><a href="{{ 'historial' }}">Historial de actividad de los aparcacoches</a></li>
-                    <li><a href="{{ 'ubicaciones' }}">Crear ubicaciones</a></li>
+                    <li><a href="{{ 'mapa' }}" class="gold-hover">Mapa</a></li>
+                    <li><a href="{{ 'historial' }}" class="gold-hover">Historial de actividad de los aparcacoches</a></li>
+                    <li><a href="{{ 'ubicaciones' }}" class="gold-hover">Crear ubicaciones</a></li>                
                 </ul>
 
                 <ul class="nav-right">

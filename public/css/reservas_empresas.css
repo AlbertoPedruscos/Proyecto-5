@@ -18,6 +18,10 @@ header {
     /* Color de fondo */
 }
 
+.gold-hover:hover {
+    color: gold;
+}
+
 #cont_botones {
     display: flex;
     justify-content: center;
@@ -60,7 +64,7 @@ nav li a {
 }
 
 nav li a:hover {
-    color: rgb(184, 184, 184);
+    color: gold;
 }
 
 nav img {

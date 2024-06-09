@@ -20,7 +20,7 @@
                 <ul class="nav-left">
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
                     <li class="active">Empleados</li>
-                    <li><a href="{{ 'reservas' }}">Reservas</a></li>
+                    <li><a href="{{ 'reservas' }}" style="">Reservas</a></li>
                     <li><a href="{{ 'mapa' }}">Mapa</a></li>
                     <li><a href="{{ 'historial' }}">Historial de actividad de los aparcacoches</a></li>
                     <li><a href="{{ 'ubicaciones' }}">Crear ubicaciones</a></li>
