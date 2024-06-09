@@ -13,6 +13,7 @@ class ReservasGrudController extends Controller
 {
     public function listarreservas(Request $request)
     {
+
         $empresa = session('empresa');
         $usuarios = tbl_usuarios::where('id_empresa', $empresa)->get();
         $parkings = tbl_parking::where('id_empresa', $empresa)->get();
@@ -26,10 +27,22 @@ class ReservasGrudController extends Controller
             ->leftJoin('tbl_empresas as e', 'pakg.id_empresa', '=', 'e.id')
             ->select('tbl_reservas.*', 'u.nombre as trabajador', 'p.nombre as plaza', 'pakg.nombre as parking', 'pakg.id as parking_id', 'e.nombre as empresa')
             ->orderby('tbl_reservas.fecha_entrada', 'asc');
-        if ($request->input('nombre')) {
-            $nombre = $request->input('nombre');
-            $reservas = $reservas->where('matricula', 'like', "%$nombre%");
+            
+        if ($request->input('matrica')) {
+            $matrica = $request->input('matrica');
+            $reservas = $reservas->where('matricula', 'like', "%$matrica%");
         }
+
+        if ($request->input('fachaini')) {
+            $fachaini = $request->input('fachaini');
+            $reservas = $reservas->where('fecha_entrada', 'like', "%$fachaini%");
+        }
+
+        if ($request->input('fachafin')) {
+            $fachafin = $request->input('fachafin');
+            $reservas = $reservas->where('fecha_salida', 'like', "%$fachafin%");
+        }
+
         $reservas = $reservas->where('e.id', $empresa)->get();
 
 
@@ -84,7 +97,7 @@ class ReservasGrudController extends Controller
         $telf = $request->input('telf');
         $email = $request->input('email');
         $recogida = $request->input('puntorecogida') ?: null;
-        $entrega = $request->input('puntoentrega') ?: null;
+        $entrega = $request->input('puntosalida') ?: null;
         $fechaentrada = $request->input('fechaentrada');
         $fechasalida = $request->input('fechasalida');
 

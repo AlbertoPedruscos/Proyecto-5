@@ -8,7 +8,7 @@
     @endsection
 
     @section('css')
-        <link rel="stylesheet" href="{{ asset('css/reservas_empresas.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/empleados.css') }}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @endsection
@@ -22,7 +22,7 @@
                     <li class="active">Reservas</li>
                     <li><a href="{{ 'mapa' }}" class="gold-hover">Mapa</a></li>
                     <li><a href="{{ 'historial' }}" class="gold-hover">Historial de actividad de los aparcacoches</a></li>
-                    <li><a href="{{ 'ubicaciones' }}" class="gold-hover">Crear ubicaciones</a></li>                
+                    <li><a href="{{ 'ubicaciones' }}" class="gold-hover">Crear ubicaciones</a></li>
                 </ul>
 
                 <ul class="nav-right">
@@ -43,33 +43,60 @@
         </header>
 
         <div id="cont_botones">
-            <button onclick="fetchData()" class="btn btn-secondary">Exportar a CSV</button>
+
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="row mb-3 w-50">
+                    <div>
+                        <form action="" method="post" id="frmbusqueda" class="d-flex align-items-center">
+                            <label for="nombre" class="form-label me-2">Matricula:</label>
+                            <input type="text" name="filtroNombre" id="filtroNombre" placeholder="Filtrar por matrícula"
+                                class="form-control">
+                        </form>
+                    </div>
+                    <div>
+                        <form action="" method="post" id="frmbusqueda" class="d-flex align-items-center">
+                            <label for="Fecha" class="form-label me-2">Fecha inicio:</label>
+                            <input type="date" name="fechaini" id="fechaini" class="form-control">
+                        </form>
+                    </div>
+                    <div>
+                        <form action="" method="post" id="frmbusqueda" class="d-flex align-items-center">
+                            <label for="nombre" class="form-label me-2">Fecha fin:</label>
+                            <input type="date" name="fechafin" id="fechafin" class="form-control">
+                        </form>
+                    </div>
+                </div>
+            </div> <button onclick="fetchData()" class="btn btn-secondary">Exportar a CSV</button>
         </div>
 
-        <div class="container d-flex justify-content-center align-items-center">
-            <div class="row mb-3 w-100">
-                <div class="col-md-6 mx-auto">
-                    <input type="text" name="filtroNombre" id="filtroNombre" placeholder="Filtrar por matrícula"  class="form-control">
-                </div>
-            </div>
-        </div>
 
-        <div class="column-container">
-            <div>
-                <p>Pasadas</p>
-                <div id="expirados">
-                </div>
-            </div>
-            <div>
-                <p>Hoy</p>
-                <div id="activos">
-                </div>
-            </div>
-            <div>
-                <p>Posteriores</p>
-                <div id="nuevos">
-                </div>
-            </div>
+
+
+        <div id="tabla">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>trabajador</th>
+                        <th>parking</th>
+                        <th>plaza</th>
+                        <th>matricula</th>
+                        <th>marca</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Contacto</th>
+                        <th>Email</th>
+                        <th>Punto recogida</th>
+                        <th>Punto entrega</th>
+                        <th>Fecha entrada</th>
+                        <th>Firma entrada</th>
+                        <th>Fecha salida</th>
+                        <th>Firma salida</th>
+                        <th>accion</th>
+                    </tr>
+                </thead>
+                <tbody id="resultado"></tbody>
+            </table>
         </div>
 
     @endsection
