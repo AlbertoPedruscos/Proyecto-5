@@ -23,7 +23,7 @@
                         <li><a href="{{ url('gestEmpleados') }}">Empleados</a></li>
                         <li><a href="{{ url('reservas') }}">Reservas</a></li>
                         <li><a href="{{ url('mapa') }}">Mapa</a></li>
-                        <li class="active">Historial de reservas</li>
+                        <li class="active">Historial de actividad de los aparcacoches</li>
                         <li><a href="{{ 'ubicaciones' }}">Crear ubicaciones</a></li>
                     </ul>
     

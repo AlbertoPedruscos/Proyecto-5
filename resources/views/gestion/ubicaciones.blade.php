@@ -23,7 +23,7 @@
                     <li><a href="{{ route('gestEmpleados') }}" style="text-decoration: none;">Empleados</a></li>
                     <li><a href="{{ 'reservas' }}" style="text-decoration: none;">Reservas</a></li>
                     <li><a href="{{ 'mapa' }}" style="text-decoration: none;">Mapa</a></li>
-                    <li><a href="{{ 'historial' }}" style="text-decoration: none;">Historial de reservas</a></li>
+                    <li><a href="{{ 'historial' }}" style="text-decoration: none;">Historial de actividad de los aparcacoches</a></li>
                     <li class="active">Crear ubicaciones</li>
                 </ul>
 
@@ -40,6 +40,7 @@
                 </ul>
             </nav>
         </header>
+        
         {{-- BOTONES --}}
         <div id="cont_botones">
             {{-- REGISTRAR USUARIO --}}

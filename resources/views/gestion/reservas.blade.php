@@ -21,7 +21,7 @@
                     <li><a href="{{ route('gestEmpleados') }}">Empleados</a></li>
                     <li class="active">Reservas</li>
                     <li><a href="{{ 'mapa' }}">Mapa</a></li>
-                    <li><a href="{{ 'historial' }}">Historial de reservas</a></li>
+                    <li><a href="{{ 'historial' }}">Historial de actividad de los aparcacoches</a></li>
                     <li><a href="{{ 'ubicaciones' }}">Crear ubicaciones</a></li>
                 </ul>
 

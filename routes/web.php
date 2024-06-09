@@ -86,6 +86,7 @@ Route::get('/listarreservascsv', [ReservasGrudController::class, 'listarreservas
 
 // Formulario reserva
 Route::post('/reservaO', [ReservaController::class, 'reservaO'])->name('reservaO');
+
 // Formulario Contactacnos
 Route::post('/Contactanos', [ReservaController::class, 'Contactanos'])->name('Contactanos');
 
