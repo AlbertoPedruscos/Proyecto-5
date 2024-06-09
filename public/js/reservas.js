@@ -201,7 +201,7 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
 
                 // Select trabajador 
 
-                str += '<td><select style="background: #007EA7; border-radius: 8px; margin-boton: 8px;color: #f5f6fa;border: none;font-size: 14px;height: 30px;padding: 5px;" id="SelectTrabajador_' + reserva.id + '" onchange="checkChanges(' + reserva.id + ', ' + reserva.id_trabajador + ', this.value)">';
+                str += '<td><select style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 30px;" id="SelectTrabajador_' + reserva.id + '" onchange="checkChanges(' + reserva.id + ', ' + reserva.id_trabajador + ', this.value)">';
                 str += "<option value='0'>Sin asignar</option>";
                 usuarios.forEach(function (usuario) {
                     str += "<option value='" + usuario.id + "'";
@@ -214,7 +214,7 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
 
                 // parking
 
-                str += '<td><select style="background: #007EA7; border-radius: 8px; margin-boton: 8px;color: #f5f6fa;border: none;font-size: 14px;height: 30px;padding: 5px;" id="IDParking_' + reserva.id + '" class="funciona" onchange="CambiosParkinPlaza(' + reserva.id + ', ' + reserva.parking_id + ', this.value,JSON.parse(this.getAttribute(\'data-object\')),this,' + reserva.id_plaza + ')" > ';
+                str += '<td><select style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 30px;"id="IDParking_' + reserva.id + '" class="funciona" onchange="CambiosParkinPlaza(' + reserva.id + ', ' + reserva.parking_id + ', this.value,JSON.parse(this.getAttribute(\'data-object\')),this,' + reserva.id_plaza + ')" > ';
                 str += "<option value='0'>Sin asignar</option>";
 
                 parkings.forEach(function (parking) {
@@ -229,7 +229,7 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
 
                 // PLAZA
 
-                str += '<td><select style="background: #007EA7; border-radius: 8px; margin-boton: 8px;color: #f5f6fa;border: none;font-size: 14px;height: 30px;padding: 5px;" id="mostrarplaza_' + reserva.id + '" onchange="checkChanges(' + reserva.id + ', ' + reserva.id_plaza + ', this.value)" >';
+                str += '<td><select style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 30px;"id="mostrarplaza_' + reserva.id + '" onchange="checkChanges(' + reserva.id + ', ' + reserva.id_plaza + ', this.value)" >';
                 str += "<option value='0'>ninguno</option>";
                 for (let [key, value] of Object.entries(plazas)) {
                     value.forEach(function (plaza) {
@@ -248,7 +248,7 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
 
                 // Marca
 
-                str += '<td><select class="cochesSelect" style="background: #007EA7; border-radius: 8px; margin-boton: 8px;color: #f5f6fa;border: none;font-size: 14px;height: 30px;padding: 5px;" id="marca_' + reserva.id + '"  onchange="checkChanges(' + reserva.id + ', \'' + reserva.marca + '\', this.value)">';
+                str += '<td><select class="cochesSelect" style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 30px;"" id="marca_' + reserva.id + '"  onchange="checkChanges(' + reserva.id + ', \'' + reserva.marca + '\', this.value)">';
 
                 marcas.forEach(function (marca) {
                     str += '<option value="' + marca + '"';
@@ -270,11 +270,12 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
                 // str += '</select></td>';
 
                 str += "<td><input style='border:none; text-align:center; background-color: transparent' type='text' name='num_telf' id='num_telf_" + reserva.id + "' value='" + reserva.num_telf + "' readonly ondblclick='quitarReadOnly(this, \"" + reserva.num_telf + "\")' onchange='activarEdicion(this, \"" + reserva.id + "\")'></td>";
+                
                 str += "<td><input style='border:none; text-align:center; background-color: transparent' type='text' name='email' id='email_" + reserva.id + "' value='" + reserva.email + "' readonly ondblclick='quitarReadOnly(this, \"" + reserva.email + "\")' onchange='activarEdicion(this, \"" + reserva.id + "\")'></td>";
 
                 // Punto recogida 
                 // str += "<td><strong style='border:none;'>Punto recogida: </strong> </td>";
-                str += '<td><select style="background: #007EA7; border-radius: 8px; margin-boton: 8px;color: #f5f6fa;border: none;font-size: 14px;height: 30px;padding: 5px;" id="puntorecogida_' + reserva.id + '" class="puntorecogida" onchange="checkChanges(' + reserva.id + ', ' + ubicacion_entrada + ', this.value)">';
+                str += '<td><select style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 30px;"id="puntorecogida_' + reserva.id + '" class="puntorecogida" onchange="checkChanges(' + reserva.id + ', ' + ubicacion_entrada + ', this.value)">';
                 str += "<option value='0'>Sin asignar</option>";
                 ubicaciones.forEach(function (ubicacion) {
                     str += "<option value='" + ubicacion.id + "'";
@@ -288,7 +289,7 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
                 // Punto entrega
 
                 // str += "<td><strong style='border:none;'>Punto entrega: </strong> </td>";
-                str += '<td><select style="background: #007EA7; border-radius: 8px; margin-boton: 8px;color: #f5f6fa;border: none;font-size: 14px;height: 30px;padding: ;" id="puntoentrega_' + reserva.id + '" class="puntoentrega" onchange="checkChanges(' + reserva.id + ', ' + ubicacion_salida + ', this.value)">';
+                str += '<td><select style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 30px;" id="puntoentrega_' + reserva.id + '" class="puntoentrega" onchange="checkChanges(' + reserva.id + ', ' + ubicacion_salida + ', this.value)">';
                 str += "<option value='0'>Sin asignar</option>";
                 ubicaciones.forEach(function (ubicacion) {
                     str += "<option value='" + ubicacion.id + "'";
@@ -298,13 +299,13 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
                     str += ">" + ubicacion.nombre_sitio + "</option>";
                 });
                 str += "</select></td>";
-                str += '<td style="margin:0;"><input type="datetime-local" name="" id="fechaentrada_' + reserva.id + '" value="' + reserva.fecha_entrada + '" onchange="checkDate(' + reserva.id + ', \'' + reserva.fecha_entrada + '\', this.value)"></td>';
+                str += '<td><input type="datetime-local" name="" id="fechaentrada_' + reserva.id + '" value="' + reserva.fecha_entrada + '" onchange="checkDate(' + reserva.id + ', \'' + reserva.fecha_entrada + '\', this.value)" class="form-control" style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 50px;"></td>';
                 // str += "<input type='text' id='fechaentrada_" + reserva.id + "' value='" + reserva.fecha_entrada + "' readonly '>";
 
                 str += '<td style="margin: 0;">' + firma_entrada + '</td>';
 
                 // str += '<p style="margin: 0;"><strong>Fecha entrega: </strong> <input type="text" id="fechasalida_' + reserva.id + '" value="' + reserva.fecha_salida + '"></p>';
-                str += '<td style="margin:0;"><input type="datetime-local" name="" id="fechasalida_' + reserva.id + '" value="' + reserva.fecha_salida + '" onchange="checkDate(' + reserva.id + ', \'' + reserva.fecha_salida + '\', this.value)"></td>';
+                str += '<td><input type="datetime-local" name="" id="fechasalida_' + reserva.id + '" value="' + reserva.fecha_salida + '" onchange="checkDate(' + reserva.id + ', \'' + reserva.fecha_salida + '\', this.value)" class="form-control"  style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 50px;"></td>';
 
                 str += '<td style="margin: 0; ">' + firma_salida + '</td>';
                 str += '<td><input type="button" id="registrar_' + reserva.id + '" class="btn btn-danger" onclick="CancelarReserva(' + reserva.id + ')" value="Cancelar"></td>';
@@ -330,8 +331,6 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
     ajax.send(formdata);
 }
 
-
-
 function prefijo() {
     // Crear una nueva solicitud XMLHttpRequest
     var xhr2 = new XMLHttpRequest();
@@ -352,26 +351,6 @@ function prefijo() {
     xhr2.open("GET", "https://644158e3fadc69b8e081cd34.mockapi.io/api/mycontrolpark/prefijo", true);
     xhr2.send();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function CargaPLaza() {
     var IDParking = document.querySelector("#IDParking");
@@ -527,29 +506,7 @@ function confirmarEdicion(id) {
     })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Exportar
-
 
 // Variable para almacenar los datos de la petición AJAX
 var dataFromAjax = null;

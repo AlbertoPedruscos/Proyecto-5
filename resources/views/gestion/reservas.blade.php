@@ -43,60 +43,71 @@
         </header>
 
         <div id="cont_botones">
+            <button type="button" class="btn btn-dark" style="border-radius: 5px;">
+                <a href="{{ 'reservas' }}" style="text-decoration: none; color: white;">Quitar filtros</a>
+            </button>
+            
+            <button onclick="fetchData()" class="btn btn-secondary">Exportar a CSV</button>
+        </div>
+        
+        <div style="background-image: url('{{ asset('img/fondo_crud.jpg') }}'); background-size: cover; background-position: center; ">
 
-            <div class="container d-flex justify-content-center align-items-center">
-                <div class="row mb-3 w-50">
-                    <div>
-                        <form action="" method="post" id="frmbusqueda" class="d-flex align-items-center">
-                            <label for="nombre" class="form-label me-2">Matricula:</label>
+        </div>
+        
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="row mb-3 w-100">
+                <div class="d-flex justify-content-between p-3 border border-dark rounded">
+                    <form action="" method="post" id="frmbusqueda1" class="d-flex align-items-center form-inline">
+                        <div class="form-group me-3">
+                            <label for="nombre" class="form-label me-2">Matrícula:</label>
                             <input type="text" name="filtroNombre" id="filtroNombre" placeholder="Filtrar por matrícula"
                                 class="form-control">
-                        </form>
-                    </div>
-                    <div>
-                        <form action="" method="post" id="frmbusqueda" class="d-flex align-items-center">
+                        </div>
+                    </form>
+                    <form action="" method="post" id="frmbusqueda2" class="d-flex align-items-center form-inline">
+                        <div class="form-group me-3">
                             <label for="Fecha" class="form-label me-2">Fecha inicio:</label>
                             <input type="date" name="fechaini" id="fechaini" class="form-control">
-                        </form>
-                    </div>
-                    <div>
-                        <form action="" method="post" id="frmbusqueda" class="d-flex align-items-center">
+                        </div>
+                    </form>
+                    <form action="" method="post" id="frmbusqueda3" class="d-flex align-items-center form-inline">
+                        <div class="form-group">
                             <label for="nombre" class="form-label me-2">Fecha fin:</label>
                             <input type="date" name="fechafin" id="fechafin" class="form-control">
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-            </div> <button onclick="fetchData()" class="btn btn-secondary">Exportar a CSV</button>
+            </div>
         </div>
-
-
-
-
-        <div id="tabla">
-            <table style="zoom: 0.75">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>trabajador</th>
-                        <th>parking</th>
-                        <th>plaza</th>
-                        <th>matricula</th>
-                        <th>marca</th>
-                        <th>Modelo</th>
-                        <th>Color</th>
-                        <th>Contacto</th>
-                        <th>Email</th>
-                        <th>Punto recogida</th>
-                        <th>Punto entrega</th>
-                        <th>Fecha entrada</th>
-                        <th>Firma entrada</th>
-                        <th>Fecha salida</th>
-                        <th>Firma salida</th>
-                        <th>accion</th>
-                    </tr>
-                </thead>
-                <tbody id="resultado"></tbody>
-            </table>
+                
+        <div>
+            <div id="tabla" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Trabajador</th>
+                            <th style="width: 100px;">Parking</th>
+                            <th>Plaza</th>
+                            <th style="width: 55px">Matricula</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Color</th>
+                            <th>Contacto</th>
+                            <th>Email</th>
+                            <th>Punto recogida</th>
+                            <th>Punto entrega</th>
+                            <th>Fecha entrada</th>
+                            <th>Firma entrada</th>
+                            <th>Fecha salida</th>
+                            <th>Firma salida</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody id="resultado"></tbody>
+                </table>
+            </div>
         </div>
 
     @endsection

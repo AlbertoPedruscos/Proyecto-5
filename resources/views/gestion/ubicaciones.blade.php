@@ -23,7 +23,8 @@
                     <li><a href="{{ route('gestEmpleados') }}" style="text-decoration: none;">Empleados</a></li>
                     <li><a href="{{ 'reservas' }}" style="text-decoration: none;">Reservas</a></li>
                     <li><a href="{{ 'mapa' }}" style="text-decoration: none;">Mapa</a></li>
-                    <li><a href="{{ 'historial' }}" style="text-decoration: none;">Historial de actividad de los aparcacoches</a></li>
+                    <li><a href="{{ 'historial' }}" style="text-decoration: none;">Historial de actividad de los
+                            aparcacoches</a></li>
                     <li class="active">Crear ubicaciones</li>
                 </ul>
 
@@ -40,7 +41,7 @@
                 </ul>
             </nav>
         </header>
-        
+
         {{-- BOTONES --}}
         <div id="cont_botones">
             {{-- REGISTRAR USUARIO --}}
@@ -54,7 +55,8 @@
             </button>
 
             <button type="button" class="btn btn-secondary" style="border-radius: 5px;">
-                <a href="{{ route('ubicaciones.exportar.csv') }}" style="text-decoration: none; color: white;">Exportar CSV</a>
+                <a href="{{ route('ubicaciones.exportar.csv') }}" style="text-decoration: none; color: white;">Exportar
+                    CSV</a>
             </button>
         </div>
 
@@ -74,47 +76,57 @@
             @include('tablas.tbl_ubicaciones')
         </div>
 
-{{-- MODAL AÑADIR UBICACIÓN --}}
-<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content modal-lg-custom">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registerModal">Añadir Ubicación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('ubicaciones.store') }}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <label for="nombre_sitio">Nombre del sitio:</label>
-                        <input type="text" id="nombre_sitio" name="nombre_sitio" class="form-control" placeholder="Introduce el nombre">
+        {{-- MODAL AÑADIR UBICACIÓN --}}
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content modal-lg-custom">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModal">Añadir Ubicación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="form-group">
-                        <label for="calle">Calle:</label>
-                        <input type="text" id="calle" name="calle" class="form-control" readonly placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa" readonly>
+                    <div class="modal-body">
+                        <form action="{{ route('ubicaciones.store') }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="nombre_sitio">Nombre del sitio:</label>
+                                <input type="text" id="nombre_sitio" name="nombre_sitio" class="form-control"
+                                    placeholder="Introduce el nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="calle">Calle:</label>
+                                <input type="text" id="calle" name="calle" class="form-control" readonly
+                                    placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad:</label>
+                                <input type="text" id="ciudad" name="ciudad" class="form-control" readonly
+                                    placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="latitud">Latitud:</label>
+                                <input type="text" id="latitud" name="latitud" class="form-control" readonly
+                                    placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="longitud">Longitud:</label>
+                                <input type="text" id="longitud" name="longitud" class="form-control" readonly
+                                    placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa"
+                                    readonly>
+                            </div>
+                            <input type="hidden" name="fecha_creacion" id="fecha_creacion">
+                            <button type="button" class="btn btn-outline-success" onclick="abrirMapa()"><i
+                                    class="fa-solid fa-location-dot"></i></button>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-primary mt-2">Guardar cambios</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="ciudad">Ciudad:</label>
-                        <input type="text" id="ciudad" name="ciudad" class="form-control" readonly placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="latitud">Latitud:</label>
-                        <input type="text" id="latitud" name="latitud" class="form-control" readonly placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="longitud">Longitud:</label>
-                        <input type="text" id="longitud" name="longitud" class="form-control" readonly placeholder="Este campo se rellenará automáticamente cuando cliques en el mapa" readonly>
-                    </div>
-                    <input type="hidden" name="fecha_creacion" id="fecha_creacion">
-                    <button type="button" class="btn btn-outline-success" onclick="abrirMapa()"><i class="fa-solid fa-location-dot"></i></button>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-outline-primary mt-2">Guardar cambios</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
         {{-- MODAL MAPA --}}
         <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel"

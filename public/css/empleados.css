@@ -124,6 +124,10 @@ h3 {
 
     
 /* ESTILOS TABLA */
+.table-responsive {
+    overflow-x: auto;
+}
+
 #tabla {
     width: 90%;
     margin: 0 auto;
@@ -132,7 +136,6 @@ h3 {
     background-color: #ffffff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    overflow: hidden;
 }
 
 #tabla table {
