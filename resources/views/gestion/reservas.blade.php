@@ -8,7 +8,7 @@
     @endsection
 
     @section('css')
-        <link rel="stylesheet" href="{{ asset('css/reservas_empresas.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/empleados.css') }}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @endsection
@@ -18,11 +18,11 @@
             <nav>
                 <ul class="nav-left">
                     <li><img src="{{ asset('img/logo.png') }}" alt="Logo"></li>
-                    <li><a href="{{ route('gestEmpleados') }}">Empleados</a></li>
+                    <li><a href="{{ route('gestEmpleados') }}" class="gold-hover">Empleados</a></li>
                     <li class="active">Reservas</li>
-                    <li><a href="{{ 'mapa' }}">Mapa</a></li>
-                    <li><a href="{{ 'historial' }}">Historial de reservas</a></li>
-                    <li><a href="{{ 'ubicaciones' }}">Crear ubicaciones</a></li>
+                    <li><a href="{{ 'mapa' }}" class="gold-hover">Mapa</a></li>
+                    <li><a href="{{ 'historial' }}" class="gold-hover">Historial de actividad de los aparcacoches</a></li>
+                    <li><a href="{{ 'ubicaciones' }}" class="gold-hover">Crear ubicaciones</a></li>
                 </ul>
 
                 <ul class="nav-right">
@@ -43,32 +43,70 @@
         </header>
 
         <div id="cont_botones">
+            <button type="button" class="btn btn-dark" style="border-radius: 5px;">
+                <a href="{{ 'reservas' }}" style="text-decoration: none; color: white;">Quitar filtros</a>
+            </button>
+            
             <button onclick="fetchData()" class="btn btn-secondary">Exportar a CSV</button>
         </div>
+        
+        <div style="background-image: url('{{ asset('img/fondo_crud.jpg') }}'); background-size: cover; background-position: center; ">
 
+        </div>
+        
         <div class="container d-flex justify-content-center align-items-center">
             <div class="row mb-3 w-100">
-                <div class="col-md-6 mx-auto">
-                    <input type="text" name="filtroNombre" id="filtroNombre" placeholder="Filtrar por matrícula"  class="form-control">
+                <div class="d-flex justify-content-between p-3 border border-dark rounded">
+                    <form action="" method="post" id="frmbusqueda1" class="d-flex align-items-center form-inline">
+                        <div class="form-group me-3">
+                            <label for="nombre" class="form-label me-2">Matrícula:</label>
+                            <input type="text" name="filtroNombre" id="filtroNombre" placeholder="Filtrar por matrícula"
+                                class="form-control">
+                        </div>
+                    </form>
+                    <form action="" method="post" id="frmbusqueda2" class="d-flex align-items-center form-inline">
+                        <div class="form-group me-3">
+                            <label for="Fecha" class="form-label me-2">Fecha inicio:</label>
+                            <input type="date" name="fechaini" id="fechaini" class="form-control">
+                        </div>
+                    </form>
+                    <form action="" method="post" id="frmbusqueda3" class="d-flex align-items-center form-inline">
+                        <div class="form-group">
+                            <label for="nombre" class="form-label me-2">Fecha fin:</label>
+                            <input type="date" name="fechafin" id="fechafin" class="form-control">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="column-container">
-            <div>
-                <p>Pasadas</p>
-                <div id="expirados">
-                </div>
-            </div>
-            <div>
-                <p>Hoy</p>
-                <div id="activos">
-                </div>
-            </div>
-            <div>
-                <p>Posteriores</p>
-                <div id="nuevos">
-                </div>
+                
+        <div>
+            <div id="tabla" class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Trabajador</th>
+                            <th style="width: 100px;">Parking</th>
+                            <th>Plaza</th>
+                            <th style="width: 55px">Matricula</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Color</th>
+                            <th>Contacto</th>
+                            <th>Email</th>
+                            <th>Punto recogida</th>
+                            <th>Punto entrega</th>
+                            <th>Fecha entrada</th>
+                            <th>Firma entrada</th>
+                            <th>Fecha salida</th>
+                            <th>Firma salida</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody id="resultado"></tbody>
+                </table>
             </div>
         </div>
 
