@@ -73,7 +73,7 @@
 
 
         <div id="tabla">
-            <table>
+            <table style="zoom: 0.75">
                 <thead>
                     <tr>
                         <th>Nombre</th>
