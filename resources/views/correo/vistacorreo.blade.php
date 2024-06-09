@@ -14,7 +14,12 @@
 
 <body>
     <h1>MyControlPark</h1>
-    <p>Hola: {{ $nombre_cliente }}, su codigo de reserva es: {{ $codigo_reserva }}.</p>
+    <p>Hola {{ $nombre_cliente }} Gracias por confiar consotros para hacer tu reserva.</p>
+    <p>Su codigo de reserva es: {{ $codigo_reserva }}.</p>
+    <p>Nos vemos para la recogida en: {{ $ubicacion_entrada }} el dia: {{ $fechaEntradaFecha }} a las:
+        {{ $fechaEntradaHora }}</p>
+    <p>Le devolvemos el coche en: {{ $ubicacion_salida }} el dia: {{ $fechaSalidaFecha }} a las:
+        {{ $fechaSalidaHora }}</p>
 </body>
 
 </html>

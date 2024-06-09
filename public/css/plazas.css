@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para el nav y su contenido */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que el encabezado esté por encima de otros elementos */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Sombras sutiles */
+    background-color: #001A2C; /* Color de fondo */
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+header nav li {
+    list-style: none;
+    padding: 0 15px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+header nav li a {
+    text-decoration: none;
+    color: white;
+}
+
+header nav li a:hover {
+    color: gold;
+}
+
+header nav img {
+    max-height: 70px; 
+    object-fit: contain; 
+}
+
+header nav .nav-left {
+    display: flex;
+    align-items: center;
+}
+
+header nav .nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Estilos para la info del parking */
+.parking-info {
+    text-align: center; /* Eliminar esta línea */
+    margin-bottom: 20px; /* Eliminar esta línea */
+    border: 1px solid #ccc;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.parking-info h1,
+.parking-info h2 {
+    display: inline-block; /* Agregar esta línea */
+    margin: 0; /* Agregar esta línea */
+    font-size: 20px;
+}
+
+.parking-info 
+{
+    margin-left: 15px;
+}
+
+
+.parking-info button a
+{
+    color: black;
+}
+
+.parking-info button a:hover    
+{
+    color: white;
+}
+
+
+
+/* Estilos para el contenedor de las plazas */
+
+#gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0px 15px;
+}
+
+.cuadro {
+    position: relative;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.imagen {
+    width: 100%;
+    display: block;
+}
+
+.cuadrado-negro {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+}
+
+.texto {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Estilos para el botón de regreso */
+.back-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.back-button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}

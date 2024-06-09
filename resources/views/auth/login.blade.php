@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <!-- Botón de enviar -->
-                    <button id="btn-enviar">Iniciar sesión</button>
+                    <button class="btn btn-dark">Iniciar sesión</button>
                 </div>
             </form>
         </div>

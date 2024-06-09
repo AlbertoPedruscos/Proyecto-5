@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 2vh;
+    background-color: #003459;
+    color: white;
+}
+.canvas {
+    margin-left: 2vh;
+    transform: scale(1.11);
+    border: solid black 2px;
+    background-color: white
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+button, a {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Hace los botones menos redondos */
+    margin-right: 10px; /* Añade espacio entre los botones */
+    text-decoration: none;
+}
+button.rojo {
+    background-color: #ff0000; /* Cambia el color a rojo */
+    color: #fff;
+}
+a.rojo{
+    background-color: #ff0000; /* Cambia el color a rojo */
+    color: #fff;
+}
+button.naranja {
+    background-color: #ffa500; /* Cambia el color a naranja */
+    color: #fff;
+}
+button.azul {
+    background-color: #0000ff; /* Cambia el color a azul */
+    color: #fff;
+}
+button:hover {
+    filter: brightness(90%); /* Reduce el brillo al pasar el cursor */
+}
+#datosReserva {
+    display: none;
+}
+.inputs {
+    padding: 1vh;
+    border: none;
+    margin-bottom: 2vh;
+    width: 93%;
+    border-radius: 5px; /* Ajusta el ancho del input */
+
+}

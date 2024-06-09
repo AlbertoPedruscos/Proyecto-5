@@ -1,1 +1,0 @@
-<?php /**PATH C:\xampp\htdocs\www\MyControlPark\resources\views/vistas/admin.blade.php ENDPATH**/ ?>
