@@ -112,9 +112,9 @@
                                 <select class="form-select" name="ubicacion_entrada" id="ubicacion_entrada"
                                     aria-label="Floating label select example">
                                     <option selected disabled>Seleccione el punto de entrega...</option>
-                                    <option value="Aeropuerto T1" selected>Aeropuerto T1</option>
-                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
-                                    <option value="Puerto">Puerto</option>
+                                    <option value="1">Aeropuerto T1</option>
+                                    <option value="2"selected>Aeropuerto T2</option>
+                                    <option value="3">Puerto</option>
                                 </select>
                                 <label for="floatingSelect">Punto de entrega</label>
                             </div>
@@ -124,9 +124,9 @@
                                 <select class="form-select" name="ubicacion_salida" id="ubicacion_salida"
                                     aria-label="Floating label select example">
                                     <option selected disabled>Seleccione el punto de recogida...</option>
-                                    <option value="Aeropuerto T1" selected>Aeropuerto T1</option>
-                                    <option value="Aeropuerto T2">Aeropuerto T2</option>
-                                    <option value="Puerto">Puerto</option>
+                                    <option value="1">Aeropuerto T1</option>
+                                    <option value="2">Aeropuerto T2</option>
+                                    <option value="3"selected>Puerto</option>
                                 </select>
                                 <label for="floatingSelect">Punto de recogida</label>
                             </div>
@@ -653,14 +653,20 @@
             var formbtn = document.getElementById('form-btn');
 
             function reservarNuevo() {
+
+                var ubicacion_entrada = document.getElementById('ubicacion_entrada').options[document.getElementById(
+                    'ubicacion_entrada').selectedIndex].text;
+                var ubicacion_salida = document.getElementById('ubicacion_salida').options[document.getElementById(
+                    'ubicacion_salida').selectedIndex].text;
+
                 var form = document.getElementById('FrmReserva');
                 var formdata = new FormData(form);
 
                 var csrfToken = document.querySelector('meta[name="csrf_token"]').getAttribute('content');
                 formdata.append('_token', csrfToken);
-                formdata.forEach(function(value, key) {
-                    console.log(key + ': ' + value);
-                });
+                formdata.append('textoubicacion_entrada', ubicacion_entrada);
+                formdata.append('textoubicacion_salida', ubicacion_salida);
+
                 var ajax = new XMLHttpRequest();
                 ajax.open('POST', '/reservaO');
 
@@ -673,7 +679,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            form.reset();
+                            // form.reset();
                         } else {
                             Swal.fire({
                                 icon: 'error',

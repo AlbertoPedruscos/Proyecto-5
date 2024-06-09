@@ -23,11 +23,7 @@
                     <!-- Mostrar el nombre del usuario -->
                     <li>{{ session('nombre') }}</li>
                     <!-- Mostrar el nombre de la empresa, si está disponible -->
-                    @if (session('nombre_empresa'))
-                        <li>{{ session('nombre_empresa') }}</li>
-                    @else
-                        <li>Empresa no asignada</li> <!-- Mensaje alternativo si no hay empresa -->
-                    @endif
+                    <li>{{ session('nombre_empresa') }}</li>
                     <!-- Enlace para cerrar sesión -->
                     <li><a href="{{ route('logout') }}">Cerrar sesión</a></li>
                 </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\tbl_reservas;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
@@ -41,12 +42,26 @@ class ReservaController extends Controller
         // $nombreRemitente = $request->nombre;
         // $mensaje = $request->mensaje;
         $correoDestinatario = $request->email;
+        $fechaEntrada = Carbon::parse($request->fecha_entrada);
+        $fechaSalida = Carbon::parse($request->fecha_salida);
+
+        // Separar fecha y hora para fecha_entrada
+        $fechaEntradaFecha = $fechaEntrada->format('d-m-Y');
+        $fechaEntradaHora = $fechaEntrada->format('H:i:s');
+
+        // Separar fecha y hora para fecha_salida
+        $fechaSalidaFecha = $fechaSalida->format('d-m-Y');
+        $fechaSalidaHora = $fechaSalida->format('H:i:s');
 
         Mail::send('correo.vistacorreo', [
-            // 'nombre' => $nombreRemitente,
-            // 'correo' => $request->email,
             'nombre_cliente' => $request->nom_cliente,
-            'codigo_reserva' => $id
+            'codigo_reserva' => $id,
+            'ubicacion_entrada' => $request->textoubicacion_entrada,
+            'ubicacion_salida' => $request->textoubicacion_salida,
+            'fechaEntradaFecha' => $fechaEntradaFecha,
+            'fechaEntradaHora' => $fechaEntradaHora,
+            'fechaSalidaFecha' => $fechaSalidaFecha,
+            'fechaSalidaHora' => $fechaSalidaHora
         ], function ($message) use ($correoDestinatario, $sujeto) {
             $message->to($correoDestinatario)
                 ->subject($sujeto);
@@ -54,6 +69,8 @@ class ReservaController extends Controller
 
         echo "ok";
     }
+
+
     public function Contactanos(Request $request)
     {
         // Envio de correo
