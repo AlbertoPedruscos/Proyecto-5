@@ -62,7 +62,7 @@ class LoginController extends Controller
                 return view('admin.admin');
             }
             elseif ($user->id_rol == 2 && $pagos->count() > 0) {
-                return redirect()->route('mapa');
+                return redirect()->route('gestEmpleados');
             }
             elseif ($user->id_rol == 3/*  && $pagos->count() > 0 */){
                 return view('vistas.trabajador');

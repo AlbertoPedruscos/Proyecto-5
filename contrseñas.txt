@@ -2,4 +2,12 @@ admin.admin@mycontrolpark.com
 
 julio.cesar.carrillo@gestiondeaparcamientossl.com
 
-oscar@gmail.com
+pedro.blanco@gestiondeaparcamientossl.com
+sergio.velasco@gestiondeaparcamientossl.com	
+sergio.jimenez@gestiondeaparcamientossl.com	
+
+
+codigos: 
+reserva -> 1
+reserva -> 2
+

@@ -80,7 +80,7 @@
             </div>
         </div>
                 
-        <div>
+        <div style="zoom: 0.7">
             <div id="tabla" class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>

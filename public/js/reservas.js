@@ -13,18 +13,20 @@ function activarEdicion(input, id) {
     var boton = document.getElementById('registrar_' + id);
     if (input.value !== textooriginal) {
         boton.setAttribute('onclick', 'confirmarEdicion(' + id + ')');
-        boton.classList.remove('btn-danger');
-        boton.classList.add('btn', 'btn-success');
-        boton.value = 'Confirmar';
+        boton.classList.remove('btn-outline-danger');
+        boton.classList.add('btn', 'btn-outline-success');
+        // boton.value = 'Confirmar';
+        boton.innerHTML = '<i class="fa-solid fa-check"></i>';
         input.style.border = "1px solid black";
         input.style.backgroundColor = "white";
     } else {
         boton.setAttribute('onclick', 'eliminarUsuario(' + id + ')');
-        boton.classList.remove('btn-success');
-        boton.classList.add('btn', 'btn-danger');
-        boton.value = 'Eliminar';
+        boton.classList.remove('btn-outline-success');
+        boton.classList.add('btn', 'btn-outline-danger');
+        // boton.value = 'Eliminar';
         input.style.border = "none";
         input.style.backgroundColor = "transparent";
+        boton.innerHTML = '<i class="fa-solid fa-x"></i>';
     }
 }
 
@@ -32,14 +34,18 @@ function checkChanges(reservaId, currentValue, newValue) {
     var boton = document.getElementById('registrar_' + reservaId);
     if (currentValue != newValue) {
         boton.setAttribute('onclick', 'confirmarEdicion(' + reservaId + ')');
-        boton.classList.remove('btn-danger');
-        boton.classList.add('btn', 'btn-success');
-        boton.value = 'Confirmar';
+        boton.classList.remove('btn-outline-danger');
+        boton.classList.add('btn', 'btn-outline-success');
+        // boton.value = 'Confirmar';
+        boton.innerHTML = '<i class="fa-solid fa-check"></i>';
+        input.style.border = "1px solid black";
+        input.style.backgroundColor = "white";
     } else {
         boton.setAttribute('onclick', 'eliminarUsuario(' + reservaId + ')');
-        boton.classList.remove('btn-success');
-        boton.classList.add('btn', 'btn-danger');
-        boton.value = 'Eliminar';
+        boton.classList.remove('btn-outline-success');
+        boton.classList.add('btn', 'btn-outline-danger');
+        // boton.value = 'Eliminar';
+        boton.innerHTML = '<i class="fa-solid fa-x"></i>';
     }
 }
 
@@ -52,15 +58,18 @@ function checkDate(reservaId, currentValue, newValue) {
     var boton = document.getElementById('registrar_' + reservaId);
     if (currentValue != formattedNewValue) {
         boton.setAttribute('onclick', 'confirmarEdicion(' + reservaId + ')');
-        boton.classList.remove('btn-danger');
-        boton.classList.add('btn', 'btn-success');
-        boton.value = 'Confirmar';
+        boton.classList.remove('btn-outline-danger');
+        boton.classList.add('btn', 'btn-outline-success');
+        // boton.value = 'Confirmar';
+        boton.innerHTML = '<i class="fa-solid fa-check"></i>';
     } else {
         boton.setAttribute('onclick', 'eliminarUsuario(' + reservaId + ')');
-        boton.classList.remove('btn-success');
-        boton.classList.add('btn', 'btn-danger');
-        boton.value = 'Eliminar';
+        boton.classList.remove('btn-outline-success');
+        boton.classList.add('btn', 'btn-outline-danger');
+        // boton.value = 'Eliminar';
+        boton.innerHTML = '<i class="fa-solid fa-x"></i>';
     }
+    
 }
 
 // 
@@ -308,7 +317,7 @@ function ListarEmpresas(matrica, fachaini, fachafin) {
                 str += '<td><input type="datetime-local" name="" id="fechasalida_' + reserva.id + '" value="' + reserva.fecha_salida + '" onchange="checkDate(' + reserva.id + ', \'' + reserva.fecha_salida + '\', this.value)" class="form-control"  style="border-radius: 8px; margin-boton: 8px;color: #000; border: 1px solid black; font-size: 14px; height: 50px;"></td>';
 
                 str += '<td style="margin: 0; ">' + firma_salida + '</td>';
-                str += '<td><input type="button" id="registrar_' + reserva.id + '" class="btn btn-danger" onclick="CancelarReserva(' + reserva.id + ')" value="Cancelar"></td>';
+                str += '<td><button id="registrar_' + reserva.id + '" class="btn btn-outline-danger" onclick="CancelarReserva(' + reserva.id + ')"><i class="fa-solid fa-x"></i></button></td>';
                 str += '</tr>';
 
 
@@ -411,7 +420,7 @@ function CancelarReserva(id) {
                         ListarEmpresas('');
                         Swal.fire({
                             icon: 'success',
-                            title: 'Eliminado',
+                            title: 'Reserva cancelada.',
                             showConfirmButton: false,
                             position: 'top-end',
                             timer: 1500

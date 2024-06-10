@@ -17,10 +17,11 @@ class ReservasGrudController extends Controller
         $empresa = session('empresa');
         $usuarios = tbl_usuarios::where('id_empresa', $empresa)->get();
         $parkings = tbl_parking::where('id_empresa', $empresa)->get();
-        $ubicaciones = tbl_ubicaciones::all();
+        $ubicaciones = tbl_ubicaciones::where('empresa', $empresa)->get();
         foreach ($parkings as $parking) {
             $plazas[$parking->id] = tbl_plazas::where('id_parking', $parking->id)->get();
         }
+        
         $reservas = tbl_reservas::leftJoin('tbl_usuarios as u', 'tbl_reservas.id_trabajador', '=', 'u.id')
             ->leftJoin('tbl_plazas as p', 'tbl_reservas.id_plaza', '=', 'p.id')
             ->leftJoin('tbl_parkings as pakg', 'p.id_parking', '=', 'pakg.id')

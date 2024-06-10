@@ -155,7 +155,7 @@ function ListarPersonalEmpresas(nombre, filtroRol, filtro = 1) {
                     let str = "<tr>";
                     str += "<td><input type='text' style='border:none;  background-color: transparent'value='" + usuario.nombre + "' readonly></td>";
                     str += "<td><input type='text' style='border:none; background-color: transparent'value='" + usuario.apellidos + "' readonly></td>";
-                    str += "<td><input type='text' style='border:none; background-color: transparent'value='" + usuario.email + "' readonly ></td>";
+                    str += "<td><input type='text' style='border:none; width: 450px; background-color: transparent'value='" + usuario.email + "' readonly ></td>";
                     str += "<td><input type='text' style='border:none;  background-color: transparent'value='" + usuario.nom_rol + "' readonly ></td>";
                     str += "<td><input type='text' style='border:none;  background-color: transparent' value='" + usuario.nom_empresa + "' readonly ></td>";
                     str += "<td></td>";
